@@ -3,3 +3,5 @@ Ahoj toto je prvni soubor na vyzkouseni prace s verzovnacim softem.
 Plati zde svoboda slova takze se nebojte vyjadrit!!!!
 
 bleeeee
+
+zkouska revertu zmen
