@@ -5,3 +5,4 @@ Plati zde svoboda slova takze se nebojte vyjadrit!!!!
 bleeeee
 
 zkouska revertu zmen
+vytvoreni patche
