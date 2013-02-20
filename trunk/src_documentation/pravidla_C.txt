@@ -1,0 +1,53 @@
+dovolím si na zaèátku specifikovat pár jednoduchých pravidel kterými by jsme se všichni mìli øídit pøi psaní kódu.
+klidnì se vyjádøete s návrhy co pøidat nebo udìlat jinak, ale myslím že tìch pár vìcí co zmíním je akceptovatelný základ.
+èasem budou pøibývat detaily, eventuelnì rozšíøení  (je pùl jedný ráno a moc mi to už nepøemýšlí)
+
+
+struktura souborù 
+	- zde ještì nemohu publikovat ucelenou vizi, ale projekt bude obsahovat pár ryze formálních souborù jako napø "params.c", bude-li nutno mít v projektu nìjaké parametry tak je bude struktura v tomto souboru obsahovat a bude pøístupná z kterékoliv èásti aplikace.
+
+	- tím se dostávám k dalšímu bodu  - globální promìnné:  každá globální promìnná bude v souboru "globals.c" (globals.h) a bude zaèínat prefixem "g"  napø  gParams, gConstants atd...
+
+	-další ze souborù by mìl obsahovat možnosti aplikace nebo knihovních rutin  (libset,appset) //presnou podobu jeste upresnim az zhodnotim co vse bude treba
+		- tyto soubory by obsahovaly #include na všechny použité knihovny, tj. v aplikaci by staèilo umístit include na tento soubor
+
+
+
+jednotlivé soubory
+	-header file obsahuje pouze exportované funkèní prototypy, vytvoøené datové typy, žádné zbyteènosti
+
+	- xx.C includuje svùj xx.h, v headerfilu na prvním místì include na libsets   (ještì upøesním)
+
+	- obsahuje-li soubor funkci inicializace, bude pokud možno úplnì dole (dobøe se to pak hledá)
+
+
+
+psaní kódu
+	- typedef - názvy datových typù, struktur, definic : psané CAPSLOCKEM, oddìlení slov možno podtržítkem ( "MSG_READ_CTX" )
+
+	- z názvu by se mìlo dát relativnì jednoduchou logikou odhadnout co jsou zaè (promìnná s názvem "èíslo1" datatypu "pokus" mi nic nenapoví)
+
+	- názvy funkcí zaèínají malým písmenem, navazování slov bez mezer a s velkým písmenem (sendShortMessage), výjimku tvoøí "Tick" a funkce nìèím specifické (sendShortMessage_Lock, COMM_Tick, init_Comm a pod..)  (pøi pojmenování Ticku je prakticky na Vás jestli bude mít prefix nebo ne, protože se v inicializaci stejnì pøedává jako pointer a zvenèí není pod názvem vidìt)
+
+	- pøedávání parametru funkcím: pøedané parametry jsou uvnitø funkce s prefixem "_" , dá se tak jednoduše rozlišit co je zvenèí a co je definované samotnou funkcí.  ( void init_Comm(struct COMM_DESC * _desc)  )
+
+	- enumerátory obsahují prefix, který napoví co je konstanta zaè (a zamezí se násobným definicím v pøípadì podobných struktur)
+
+
+
+
+komentování kódu
+	- opøel bych se o program DoxyGen http://www.stack.nl/~dimitri/doxygen/manual/docblocks.html#cppblock
+
+	pár ukázek které bych zvolil:
+
+	/*! \brief Brief description.
+	 *         Brief description continued.
+	 *
+	 *  Detailed description starts here.
+	 */
+
+
+	int var; //!< Detailed description after the member
+
+	posléze doplním o ucelenìjší pøehled vèetnì hlavièky souboru a podoby \brief pro funkce a snad i pro komentování struktur
