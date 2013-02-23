@@ -2,9 +2,9 @@
 #define _COMM_H
 
 #include "misc.h"
-#include "globals.h"
+#include "typedef.h"
 
-#define BUFFER_SIZE 	1024	  // <type u16
+#define BUFFER_SIZE 	512	  // <type u16
 
 /* User defined values */
 struct COMM_DESC;
@@ -28,7 +28,8 @@ enum BUFFER_STATUS{
 enum COMM_ERROR{
 	CM_NO_ERROR = 0,
 	CM_RCV_OVERFLOW,
-	CM_SND_LOCKED
+	CM_SND_LOCKED,
+	CM_NOT_ENOUGH_SPACE
 };
 
 enum MSG_READ_STATE{
@@ -73,7 +74,7 @@ typedef struct COMM_DESC{
 
 	struct MSG_READ_CTX 	msgRd_ctx;
 
-	BUFFER_KEY		bLock;		//<! Uzamceni vysilaciho bufferu (0=volny)
+	BUFFER_KEY		bLock;		//<! Uzamceni vysilaciho bufferu (0=volny)		
 
 } COMM_DESC;
 
@@ -88,6 +89,7 @@ BUFFER_KEY buffer_Lock(struct COMM_DESC * _desc);	   				//zakaze pridelovani sn
 void buffer_unLock(struct COMM_DESC * _desc, BUFFER_KEY _key);		//povoli pridelovani snd bufferu
 
 void sendMessage(struct COMM_DESC * _desc, char * _msg, u16 _size , CALLBACK * _cb, void* _cbData);
+u16 getFreeSpace(struct BUFFER * _buff);
 
 MSG_READ_ERROR readMessage(struct COMM_DESC * _desc, char * _msg , char _separator , CALLBACK _cb , void* _cbData);
 MSG_READ_ERROR readBinaryMessage(struct COMM_DESC * _desc, char * _msg , u16 _size , CALLBACK _cb, void* _cbData);
@@ -97,5 +99,5 @@ COMM_ERROR sendShortMessage_Lock(struct COMM_DESC * _desc, char * _msg, u16 _siz
 
 void init_Comm(struct COMM_DESC * _desc);
 
-
+	
 #endif

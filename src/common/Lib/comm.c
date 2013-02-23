@@ -23,7 +23,7 @@ while(1){
 			if(_ctx->size == 0){
 				//cteni dokonceno
 				_ctx->State = MSG_RD_IDLE;
-				_ctx->cb(NULL);
+				_ctx->cb(_ctx->cbData);
 				return;
 			}
 			break;
@@ -34,13 +34,13 @@ while(1){
 				return;
 			}
 			*_ctx->sink = bufferRead(_ctx->source);
-			_ctx->sink++;
 			if(*_ctx->sink == _ctx->separator){
 				//cteni dokonceno
 				_ctx->State = MSG_RD_IDLE;
 				_ctx->cb(_ctx->cbData);
 				return;
 			}
+			_ctx->sink++;
 			break;
 
 		case MSG_RD_IDLE:
@@ -58,6 +58,8 @@ void COMM_Tick(struct COMM_DESC * _desc){
 	if(_desc->sndBuff.Status != BUFF_FREE){
 		_desc->isSend = TRUE;
 	}
+
+	_desc->Tick(_desc);
 
  	msgReadTick(&_desc->msgRd_ctx);	
 }
@@ -117,6 +119,7 @@ MSG_READ_ERROR readMessage(struct COMM_DESC * _desc, char * _msg , char _separat
 	ctx->cb = _cb;
 	ctx->cbData = _cbData;
 
+	_desc->Tick(_desc);
 	return MSG_NO_ERROR;
 }
 
@@ -132,6 +135,8 @@ MSG_READ_ERROR readBinaryMessage(struct COMM_DESC * _desc, char * _msg , u16 _si
 	ctx->State = MSG_CNT_READ;
 	ctx->cb = _cb;
 	ctx->cbData = _cbData;
+	
+	_desc->Tick(_desc);
 	return MSG_NO_ERROR;
 }
 
@@ -142,6 +147,13 @@ char readChar(struct COMM_DESC * _desc){
 	return bufferRead(&_desc->rcvBuff);
 }
 
+u16 getFreeSpace(struct BUFFER * _buff){
+	if(_buff->ptr_read > _buff->ptr_write){
+		return (u16)(_buff->ptr_read - _buff->ptr_write - 1); 
+	}else{
+		return (u16)(BUFFER_SIZE + _buff->ptr_read - _buff->ptr_write);	
+	}
+}
 
 void sendMessage(struct COMM_DESC * _desc, char * _msg, u16 _size , CALLBACK * _cb, void* _cbData){
 //priprava na zasilani dlouhych zprav
@@ -150,14 +162,28 @@ void sendMessage(struct COMM_DESC * _desc, char * _msg, u16 _size , CALLBACK * _
 COMM_ERROR sendShortMessage(struct COMM_DESC * _desc, char * _msg, u16 _size){
 //zprava se ulozi do mistniho bufferu (neni-li zamcen)
 	u16 cnt = 0;
-	if(_desc->bLock){
+	static bool busy = FALSE;		//priznak probihajiciho kopirovani zpravy
+
+	if(busy){		//osetreni reentrance
 		return CM_SND_LOCKED;
+	}
+	busy = TRUE;
+
+	if(_desc->bLock){
+		busy = FALSE;
+		return CM_SND_LOCKED;
+	}
+	if(_size > getFreeSpace(&_desc->sndBuff)){
+		return CM_NOT_ENOUGH_SPACE;
 	}
 	while (cnt < _size){
 		bufferStore(&_desc->sndBuff, *_msg);
 		cnt++;
 		_msg++;
 	}
+
+	COMM_Tick(_desc);
+	busy = FALSE;
 	return CM_NO_ERROR;
 }
 
@@ -169,11 +195,15 @@ COMM_ERROR sendShortMessage_Lock(struct COMM_DESC * _desc, char * _msg, u16 _siz
 			return CM_SND_LOCKED;		 
 		}
 	}
+	if(_size > getFreeSpace(&_desc->sndBuff)){
+		return CM_NOT_ENOUGH_SPACE;
+	}
 	while (cnt < _size){
 		bufferStore(&_desc->sndBuff, *_msg);
 		cnt++;
 		_msg++;
 	}
+	_desc->Tick(_desc);
 	return CM_NO_ERROR;
 }
 
@@ -233,7 +263,8 @@ char bufferRead(struct BUFFER * _buff){
 void init_buffer(struct BUFFER * _buff){
 	_buff->ptr_write = _buff->buffer;
 	_buff->ptr_read = _buff->buffer;
-	_buff->ptr_end = &_buff->buffer[BUFFER_SIZE-1];	
+	_buff->ptr_end = &_buff->buffer[BUFFER_SIZE-1];
+	_buff->Status = BUFF_FREE;	
 }
 
 void init_Comm(struct COMM_DESC * _desc){
