@@ -32,7 +32,9 @@ enum GPIO_EXT_STATE{
 
 /* GPIO_out_Exported_Functions */
 void GPIO_EXT_init(*GPIO_IN_InitTypeDef); /* Inicializace pomoci deskriptoru */
-GPIO_EXT_STATE GPIO_EXT_get_state();       /* Vrati stav prevodniku */
+void GPIO_EXT_start_counting();           /* Zacne pocitat pulzy pomoci preruseni */  
+void GPIO_EXT_stop_counting();            /* Zastavi citani */
+GPIO_EXT_STATE GPIO_EXT_get_state();      /* Vrati stav prevodniku */
 //void GPIO_COUNT_IRQ_handler();              
 
 

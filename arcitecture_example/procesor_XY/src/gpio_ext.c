@@ -36,6 +36,26 @@ void GPIO_EXT_init(*GPIO_IN_InitTypeDef)
 }
 
 /**
+  * @brief  Zacne pocitat pulzy pomoci preruseni
+  * @param  None
+  * @retval None
+  */  
+void GPIO_EXT_start_counting()
+{
+  //TODO
+}      
+
+/**
+  * @brief  Zastavi citani
+  * @param  None
+  * @retval None
+  */  
+void GPIO_EXT_stop_counting()
+{
+  //TODO
+}           
+
+/**
   * @brief  Vrati stav gpio_ext knihovny
   * @param  None
   * @retval GPIO_IN_STATE
