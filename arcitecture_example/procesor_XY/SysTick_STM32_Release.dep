@@ -1,5 +1,0 @@
-Dependencies for Project 'SysTick', Target 'STM32_Release': (DO NOT MODIFY !)
-F (.\STM32F10x.s)(0x4EA7026C)(--cpu Cortex-M3 -g --apcs=interwork -I "C:\Program Files\Keil\ARM\RV31\Inc" -I "C:\Program Files\Keil\ARM\CMSIS\Include" -I "C:\Program Files\Keil\ARM\Inc\ST\STM32F10x" --list "STM32F10x.lst" --xref -o "STM32F10x.o" --depend "STM32F10x.d")
-F (.\src\main.c)(0x512A0F2A)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I.\inc -I "C:\Program Files\Keil\ARM\RV31\Inc" -I "C:\Program Files\Keil\ARM\CMSIS\Include" -I "C:\Program Files\Keil\ARM\Inc\ST\STM32F10x" -o "main.o" --depend "main.d")
-F (.\src\uart.c)(0x512A0F29)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I.\inc -I "C:\Program Files\Keil\ARM\RV31\Inc" -I "C:\Program Files\Keil\ARM\CMSIS\Include" -I "C:\Program Files\Keil\ARM\Inc\ST\STM32F10x" -o "uart.o" --depend "uart.d")
-F (.\src\nmi_irq.c)(0x512A0F03)(-c --cpu Cortex-M3 -g -O0 --apcs=interwork -I.\inc -I "C:\Program Files\Keil\ARM\RV31\Inc" -I "C:\Program Files\Keil\ARM\CMSIS\Include" -I "C:\Program Files\Keil\ARM\Inc\ST\STM32F10x" -o "nmi_irq.o" --depend "nmi_irq.d")
