@@ -13,7 +13,9 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "<procesor>.h"
+#include "comm.h"
 #include "uart.h"
+
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/ 
@@ -32,7 +34,9 @@ struct COMM_CMD commCommand;
  * @param  None
  * @retval None
  */ 
-void COMM_init(struct COMM_InitTypeDef * p_COMM_desc);        
+void COMM_init(struct COMM_InitTypeDef * p_COMM_desc){
+  //TODO
+}        
 
 /**
  * @brief  Vrati stav prichoziho bufferu 
