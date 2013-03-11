@@ -1,93 +1,59 @@
+/**
+  ******************************************************************************
+  * @file    uart.c
+  * @author  PTO Team
+  * @version V1.0.0
+  * @date    11/3/2013
+  * @brief   Zajistuje plneni prichoziho bufferu a odesilani odchoziho bufferu.
+  *          UART_tick() - podpurna fce pro COMM, ktera tim rika uartu, 
+  *          ze ma data k odeslani a uz je na uartu jak je odesle (DMA/IRQ)          
+  *       
+  ******************************************************************************  
+  */ 
+
 /* Includes ------------------------------------------------------------------*/
-#include "stm32f10x.h"
+#include "<procesor>.h"
 #include "uart.h"
 
-
-
-/* Privete variables definitions ---------------------------------------------*/
-
-uint16_t	RxInPointer = 0;
-uint16_t	RxOutPointer = 0;
-uint8_t		RxBuffer[UART_BUFF_SIZE];
-BUFFER_STATUS RxBufferState;
-
-uint16_t	TxInPointer = 0;
-uint16_t	TxOutPointer = 0;
-uint8_t		TxBuffer[UART_BUFF_SIZE];
-BUFFER_STATUS TxBufferState;
-
-
-
+/* Private typedef -----------------------------------------------------------*/
+/* Private define ------------------------------------------------------------*/ 
+/* Private macro -------------------------------------------------------------*/
+/* Private variables ---------------------------------------------------------*/
 
 /* Private function prototypes -----------------------------------------------*/
+/* Private functions ---------------------------------------------------------*/
 
 
 
-/* Functions declarations ----------------------------------------------------*/
 /**
-  * @brief  This function stores char to TxBuffer.
+  * @brief  Inicializace pomoci decsriptoru
+  * @param  Descriptor obsahujici parametry pro nastaveni UART
   * @retval None
-  */
-void UART_send(char c)
+  */  
+void UART_init(struct UART_InitTypeDef * p_UART_desc)
 {
-}
+  //TODO
+};
 
 /**
-  * @brief  This function stores n chars from memory to TxBuffer.
+  * @brief  Fce viditelna z COMM urcena k odstartovani prenosu pokud jsou data v bufferu
+  * @param  None
   * @retval None
-  */
-void UART_send_strinf(uint32_t *p_memory, uint32_t nBytes)
+  */ 
+void UART_tick()
 {
-}
+  //TODO
+};  
 
 /**
-  * @brief  This function returns char from RxBuffer.
-  * @retval None
-  */
-char UART_get_char(void)
-{
-	return 0;
-}
-
-/**
-  * @brief  This function returns TxBuffer state.
-  * @retval BUFFER_STATUS
-  */
-BUFFER_STATUS UART_get_TxBuff_state()
-{
-	return BUFF_ERR;
-}
-
-/**
-  * @brief  This function returns TxBuffer state.
-  * @retval BUFFER_STATUS
-  */
-BUFFER_STATUS UART_get_RxBuff_state()
-{
-	return BUFF_ERR;
-}
-
-/**
-  * @brief  Initialization of UART.
-  * @retval None
-  */
-void UART_init(BAUDRATE baudRate, STOPBIT stopBits, PARITY parity)
-{
-}
-
-/**
-  * @brief  Initialization of UART.
-  * @retval None
-  */
-void UART_init_struct(UART_TypeDef *p_uartHandler_s)
-{
-}
-
-
-/**
-  * @brief  This function handles UART Handler.
-  * @retval None
-  */
+ * @brief  Obsluha preruseni UART
+ * @param  None
+ * @retval None
+ */                     
 void UART_IRQ_handler()
 {
-}
+  //TODO
+};
+
+
+/************************ END OF FILE *****************************************/

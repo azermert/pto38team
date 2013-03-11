@@ -35,7 +35,7 @@ uint16_t bufferPointer = 0;  // Ukazuje do bufferu na vzorek, ktery byl naposled
   * @param  DAC deskriptor
   * @retval None
   */
-void DAC_init(*DAC_InitTypeDef p_DAC_desc)
+void DAC_init(struct DAC_InitTypeDef * p_DAC_desc)
 {
   //TODO
 }
@@ -45,7 +45,7 @@ void DAC_init(*DAC_InitTypeDef p_DAC_desc)
   * @param  uint16_t - hodnota, ktera se ma nastavit (v bitech)
   * @retval None
   */
-void DAC_set_sample(uint16_t output)
+void DAC_set_sample(uint16_t sample)
 {
   //TODO
 }        

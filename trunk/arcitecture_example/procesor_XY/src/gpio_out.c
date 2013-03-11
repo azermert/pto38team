@@ -51,6 +51,7 @@ void GPIO_set_word(uint8_t word)
 uint8_t GPIO_get_setted_val()
 {
   //TODO
+  return 0;
 }      
 
 

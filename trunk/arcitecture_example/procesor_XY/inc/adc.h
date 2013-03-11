@@ -23,21 +23,22 @@ typedef struct
   uint32_t ADC_samplingFrequency;        
   uint32_t * p_ADC_memory;                /* Pointer na pamet kam muze ADC zapisovat */ 
   uint32_t ADC_memorySize;                /* Velikost pameti pro ADC */ 
-  tick_adc p_ADC_tick                     /* Pointer na funkci OSC_ADC_Request() */
+  tick_adc p_ADC_tick;                    /* Pointer na funkci OSC_ADC_Request() */
 }ADC_InitTypeDef;
 
 
-enum ADC_STATE{
+typedef enum
+{
 	ADC_IDLE = 0,
 	ADC_RUN_INF,
 	ADC_DMA_RUN,
 	ADC_DMA_DONE,
 	ADC_ERR
-};
+}ADC_STATE;
 
 
 /* ADC_Exported_Functions */
-void ADC_init(*ADC_InitTypeDef);          /* Inicializace pomoci decsriptoru */
+void ADC_init(struct ADC_InitTypeDef * p_ADC_desc);          /* Inicializace pomoci decsriptoru */
 uint16_t ADC_meas_sample();               /* Zmeri jeden vzorek a vrati vysledek */
 void ADC_circle_meas_start();             /* Odstartuje nepretrzite mereni */
 void ADC_circle_meas_stop();              /* Zastavi nepretrzite mereni */
