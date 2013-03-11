@@ -19,8 +19,8 @@
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 bool unInitialized = true;
-GPIO_IN_STATE gpioInState = GPIO_ERR;
-GPIO_IN_InitTypeDef GPIO_IN_desc;
+GPIO_EXT_STATE gpioExtState = GPIO_ERR;
+GPIO_EXT_InitTypeDef GPIO_EXT_desc;
 
 /* Private function prototypes -----------------------------------------------*/
 /* Private functions ---------------------------------------------------------*/
@@ -30,7 +30,7 @@ GPIO_IN_InitTypeDef GPIO_IN_desc;
   * @param  GPIO_EXT_InitTypeDef
   * @retval None
   */    
-void GPIO_EXT_init(*GPIO_IN_InitTypeDef)
+void GPIO_EXT_init(struct GPIO_IN_InitTypeDef *p_GPIO_IN_desc)
 {
   //TODO
 }
@@ -63,6 +63,7 @@ void GPIO_EXT_stop_counting()
 GPIO_EXT_STATE GPIO_EXT_get_state()
 {
   //TODO
+  return gpioExtState;
 }
 
 /**

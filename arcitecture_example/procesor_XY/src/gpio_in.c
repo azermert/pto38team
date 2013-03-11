@@ -33,7 +33,7 @@ uint16_t bufferPointer = 0;
   * @param  GPIO_IN_InitTypeDef
   * @retval None
   */    
-void GPIO_IN_init(*GPIO_IN_InitTypeDef p_GPIO_IN_desc)
+void GPIO_IN_init(struct GPIO_IN_InitTypeDef * p_GPIO_IN_desc)
 {
   //TODO
 }     
@@ -56,6 +56,7 @@ GPIO_IN_STATE GPIO_IN_get_state()
 uint8_t GPIO_get_word()
 {
   //TODO
+  return 0;
 }                   
 
 /**
@@ -65,7 +66,7 @@ uint8_t GPIO_get_word()
   */
 uint16_t GPIO_get_pointer()
 {
-  return bufferPointer
+  return bufferPointer;
 }                  
 
 /**

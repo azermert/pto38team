@@ -20,18 +20,19 @@ typedef void (*tick_gpio_ext)(void);
 
 typedef struct
 {  
-  tick_gpio_ext p_GPIO_EXT_tick                 /* Pointer na funkci COUNT_GPIO_Request() */
+  tick_gpio_ext p_GPIO_EXT_tick;                 /* Pointer na funkci COUNT_GPIO_Request() */
 }GPIO_EXT_InitTypeDef;
 
 
-enum GPIO_EXT_STATE{
+typedef enum
+{
 	GPIO_IDLE = 0,
 	GPIO_RUN,
 	GPIO_ERR
-};
+}GPIO_EXT_STATE;
 
 /* GPIO_out_Exported_Functions */
-void GPIO_EXT_init(*GPIO_IN_InitTypeDef); /* Inicializace pomoci deskriptoru */
+void GPIO_EXT_init(struct GPIO_IN_InitTypeDef *p_GPIO_IN_desc); /* Inicializace pomoci deskriptoru */
 void GPIO_EXT_start_counting();           /* Zacne pocitat pulzy pomoci preruseni */  
 void GPIO_EXT_stop_counting();            /* Zastavi citani */
 GPIO_EXT_STATE GPIO_EXT_get_state();      /* Vrati stav prevodniku */

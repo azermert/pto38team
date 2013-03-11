@@ -40,7 +40,7 @@ uint16_t bufferLastRead = 0;
   * @param  Descriptor obsahujici parametry pro nastaveni ADC
   * @retval None
   */
-void ADC_init(*ADC_InitTypeDef p_ADC_desc)
+void ADC_init(struct ADC_InitTypeDef * p_ADC_desc)
 {
   //TODO
 } 
@@ -53,6 +53,7 @@ void ADC_init(*ADC_InitTypeDef p_ADC_desc)
 uint16_t ADC_meas_sample()
 {
   //TODO
+  return 0;
 }           
 
 /**
