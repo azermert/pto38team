@@ -4,7 +4,7 @@
   * @author  PTO Team
   * @version V1.0.0
   * @date    3/3/2013
-  * @brief   This file contains all the functions prototypes for the UART firmware 
+  * @brief   This file contains all the functions prototypes for the COMM firmware 
   *          library.   
   ******************************************************************************
 */ 
@@ -14,34 +14,12 @@
 #define __COMM_H
 
 /* Includes ------------------------------------------------------------------*/
-//#include "scpi.h" 
-//#include "uart.h"
+#include "scpi.h" /* jedina vyjimka includu v headru, protoze scpi.h nebude nikde jinde potreba */
 /* Zadne includy zde nebudou!!!*/
 
+//pokus moje;
+
 typedef void (*tick_comm)(void);
-
-typedef struct
-{
-  uint16_t bufferSize;        
-  COMM_SPEED speed;
-}COMM_InitTypeDef;
-
-typedef struct
-{
-  uint32_t * memory;
-  uint16_t size;
-  uint16_t inPointer;
-  uint16_t outPointer;
-  BUFF_STATE state;
-}COMM_Buffer;
-
-
-typedef enum
-{
-	BUFF_FREE = 0,
-	BUFF_ALMOST_FULL,
-	BUFF_FULL
-}BUFF_STATE;
 
 /**
  * Kvuli ruznemu HW u studentu. Nekdo ma USB prevodnik, 
@@ -56,10 +34,31 @@ typedef enum
 
 typedef enum
 {
+	BUFF_FREE = 0,
+	BUFF_ALMOST_FULL,
+	BUFF_FULL
+}BUFF_STATE;
+
+typedef enum
+{
 	COMM_IDLE = 0,
 	COMM_RUN,
 	COMM_ERR
 }COMM_STATE;
+
+typedef struct
+{     
+  COMM_SPEED speed;
+}COMM_InitTypeDef;
+
+typedef struct
+{
+  uint8_t * memory;
+  uint16_t size;
+  uint16_t writePointer;
+  uint16_t readPointer;
+  BUFF_STATE state;
+} COMM_Buffer;
 
 typedef struct
 {
@@ -70,27 +69,27 @@ typedef struct
   int32_t data2;
   SCPI_PARAM param3;
   int32_t data3;
-  bool answer
-}COMM_CMD;
+  bool answer;
+} COMM_CMD;
 
 
 /* COMM_Exported_Functions */
-void COMM_init(struct COMM_InitTypeDef * p_COMM_desc);         /* Inicializace pomoci decsriptoru */
-BUFF_STATE COMM_get_in_buff_state();      /* Vrati stav prichoziho bufferu */
-BUFF_STATE COMM_get_out_buff_state();     /* Vrati stav odchoziho bufferu */
-uint16_t COMM_get_in_free_space();        /* Vrati pocet volnych byte v prichozim bufferu */
-uint16_t COMM_get_out_free_space();       /* Vrati pocet volnych byte v odchozim bufferu */
-COMM_STATE COMM_get_state();              /* Vrati stav knihovny */
+void COMM_init(COMM_InitTypeDef * p_COMM_desc);         /* Inicializace pomoci decsriptoru */
+BUFF_STATE COMM_get_in_buff_state(void);      /* Vrati stav prichoziho bufferu */
+BUFF_STATE COMM_get_out_buff_state(void);     /* Vrati stav odchoziho bufferu */
+uint16_t COMM_get_in_free_space(void);        /* Vrati pocet volnych byte v prichozim bufferu */
+uint16_t COMM_get_out_free_space(void);       /* Vrati pocet volnych byte v odchozim bufferu */
+COMM_STATE COMM_get_state(void);              /* Vrati stav knihovny */
 
-void COMM_put_char(char c);               /* Ulozi char na vystupni buffer */
-void COMM_put_char(uint8_t c);            /* Ulozi znak na vystupni buffer */
-void COMM_send(uint32_t * memory, uint16_t size);      /* Prekopiruje zadanou pamet na vystupni buffer */
+BUFF_STATE COMM_put_char(char chr);               /* Ulozi char na vystupni buffer */
+BUFF_STATE COMM_put_uchar(uint8_t chr);            /* Ulozi znak na vystupni buffer */
+int8_t COMM_send(uint32_t * memory, uint16_t size);      /* Prekopiruje zadanou pamet na vystupni buffer */
 
-uint16_t COMM_read(uint32_t * memory, uint16_t size);  /* Prekopiruje vstupni buffer na pridelenou pamet a vrati kolik skutence bylo prekopirovano */
-uint8_t COMM_read_char();                 /* Precte znak z prichoziho bufferu*/
+int16_t COMM_read(uint32_t * memory, uint16_t size);  /* Prekopiruje vstupni buffer na pridelenou pamet a vrati kolik skutence bylo prekopirovano */
+int16_t COMM_read_char(void);                 /* Precte znak z prichoziho bufferu*/
 
-struct COMM_CMD * COMM_get_command();     /* Zavola scpi/nasi knihovnu na rozpoznani prikazu a vrati prikaz z vstupniho bufferu*/
-void COMM_tick();                         /* Uart zada o obsluhu (plny buffer/chyba atd) */   
+COMM_CMD* COMM_get_command(void);     /* Zavola scpi/nasi knihovnu na rozpoznani prikazu a vrati prikaz z vstupniho bufferu*/
+void COMM_tick(void);                         /* Uart zada o obsluhu (plny buffer/chyba atd) */   
 
 #endif /*__COMM_H */
 

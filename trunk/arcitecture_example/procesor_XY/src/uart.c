@@ -12,7 +12,9 @@
   */ 
 
 /* Includes ------------------------------------------------------------------*/
-#include "<procesor>.h"
+//#include "<procesor>.h"
+#include "stm32f10x.h"
+#include "comm.h"
 #include "uart.h"
 
 /* Private typedef -----------------------------------------------------------*/
@@ -30,7 +32,7 @@
   * @param  Descriptor obsahujici parametry pro nastaveni UART
   * @retval None
   */  
-void UART_init(struct UART_InitTypeDef * p_UART_desc)
+void UART_init(UART_InitTypeDef * p_UART_desc)
 {
   //TODO
 };
