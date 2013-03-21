@@ -92,29 +92,49 @@ BUFF_STATE COMM_get_in_buff_state()
  */ 
 BUFF_STATE COMM_get_out_buff_state()
 {
+	if(outBuffer.writePointer == outBuffer.readPointer)
+	{
+		outBuffer.state = BUFF_FREE;
+	}
+	else
+	{
+		outBuffer.state = BUFF_DATA;
+	}
+	
+	if(BUFF_FULL!=outBuffer.state && (UART_BUFF_SIZE-UART_BUFF_ALMOST_FULL)>=COMM_get_out_free_space()){
+		outBuffer.state = BUFF_ALMOST_FULL;
+	}
   return outBuffer.state;
 };     
 
 /**
- * @brief  Vrati pocet volnych byte v prichozim bufferu 
+ * @brief  Vrati pocet byte v prichozim bufferu 
  * @param  None
  * @retval uint16_t - free space
  */ 
-uint16_t COMM_get_in_free_space()
+uint16_t COMM_get_bytes_available() 
 {
+  return UART_BUFF_SIZE-COMM_get_in_free_space();
+};      
 
+/**
+ * @brief  Vrati pocet byte v prichozim bufferu 
+ * @param  None
+ * @retval uint16_t - free space
+ */ 
+uint16_t COMM_get_in_free_space() 
+{
 	uint16_t result;
-	if (inBuffer.readPointer>=inBuffer.writePointer)
+	if (inBuffer.readPointer>inBuffer.writePointer)
 	{
-		result = inBuffer.writePointer-inBuffer.readPointer;
+		result = inBuffer.readPointer-inBuffer.writePointer;
 	}
 	else
 	{
 		result = inBuffer.size-inBuffer.writePointer+inBuffer.readPointer;
 	}
   return result;
-
-};      
+};
 
 /**
  * @brief  Vrati pocet volnych byte v odchozim bufferu 
@@ -125,9 +145,9 @@ uint16_t COMM_get_out_free_space()
 {
 
 	uint16_t result;
-	if (outBuffer.readPointer>=outBuffer.writePointer)
+	if (outBuffer.readPointer>outBuffer.writePointer)
 	{
-		result = outBuffer.writePointer-outBuffer.readPointer;
+		result = outBuffer.readPointer-outBuffer.writePointer;
 	}
 	else
 	{
@@ -149,7 +169,7 @@ COMM_STATE COMM_get_state()
 
 /**
  * @brief  Ulozi char na vystupni buffer 
- * @param  None
+ * @param  char
  * @retval Buffer state
  */ 
 BUFF_STATE COMM_put_char(char chr)
@@ -173,6 +193,11 @@ BUFF_STATE COMM_put_char(char chr)
 	else
 	{
 		outBuffer.writePointer=tmpPointer;
+		outBuffer.state = BUFF_DATA;
+	}
+	
+	if(BUFF_FULL!=outBuffer.state && (UART_BUFF_SIZE-UART_BUFF_ALMOST_FULL)>=COMM_get_out_free_space()){
+		outBuffer.state = BUFF_ALMOST_FULL;
 	}
 	return outBuffer.state;
 
@@ -180,20 +205,36 @@ BUFF_STATE COMM_put_char(char chr)
 
 /**
  * @brief  Ulozi znak na vystupni buffer
- * @param  None
+ * @param  uchar
  * @retval Buffer state
  */ 
 BUFF_STATE COMM_put_uchar(uint8_t chr)
 {
   return COMM_put_char(chr);
-};          
+};   
+
+/**
+ * @brief  Ulozi string na vystupni buffer
+ * @param  string
+ * @retval Buffer state
+ */ 
+BUFF_STATE COMM_print(char *chr)
+{
+	BUFF_STATE stat;
+	while(*chr){
+		stat=COMM_put_char(*chr);
+		chr++;
+	}
+	UART_tick();
+	return stat;
+}; 
 
 /**
  * @brief  Prekopiruje zadanou pamet na vystupni buffer 
  * @param  None
  * @retval ok = 0; error = -1
  */ 
-int8_t COMM_send(uint32_t * memory, uint16_t size)
+int8_t COMM_send(uint8_t * memory, uint16_t size)
 {
 	uint16_t i;
   if(COMM_get_out_free_space()>=size)
@@ -202,6 +243,7 @@ int8_t COMM_send(uint32_t * memory, uint16_t size)
 			COMM_put_char(*memory);
 			memory++;
 		}
+		UART_tick();
 		return 0;
 	}
 	else
@@ -215,10 +257,10 @@ int8_t COMM_send(uint32_t * memory, uint16_t size)
  * @param  None
  * @retval None
  */ 
-int16_t COMM_read(uint32_t * memory, uint16_t size)
+int16_t COMM_read(uint8_t * memory, uint16_t size)
 {
-	uint16_t i=0;;
-	uint8_t chr;
+	uint16_t i=0;
+	int16_t chr;
 	while (-1!=chr && i<size)
 	{
 		chr = COMM_read_char();
@@ -228,7 +270,6 @@ int16_t COMM_read(uint32_t * memory, uint16_t size)
 			i++;
 		}
 	}
-	
 	return i;
 };
 

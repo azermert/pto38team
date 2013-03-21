@@ -35,6 +35,7 @@ typedef enum
 typedef enum
 {
 	BUFF_FREE = 0,
+	BUFF_DATA,
 	BUFF_ALMOST_FULL,
 	BUFF_FULL
 }BUFF_STATE;
@@ -77,15 +78,17 @@ typedef struct
 void COMM_init(COMM_InitTypeDef * p_COMM_desc);         /* Inicializace pomoci decsriptoru */
 BUFF_STATE COMM_get_in_buff_state(void);      /* Vrati stav prichoziho bufferu */
 BUFF_STATE COMM_get_out_buff_state(void);     /* Vrati stav odchoziho bufferu */
+uint16_t COMM_get_bytes_available(void);      /* Vrati pocet byte v prichozim bufferu */
 uint16_t COMM_get_in_free_space(void);        /* Vrati pocet volnych byte v prichozim bufferu */
 uint16_t COMM_get_out_free_space(void);       /* Vrati pocet volnych byte v odchozim bufferu */
 COMM_STATE COMM_get_state(void);              /* Vrati stav knihovny */
 
-BUFF_STATE COMM_put_char(char chr);               /* Ulozi char na vystupni buffer */
-BUFF_STATE COMM_put_uchar(uint8_t chr);            /* Ulozi znak na vystupni buffer */
-int8_t COMM_send(uint32_t * memory, uint16_t size);      /* Prekopiruje zadanou pamet na vystupni buffer */
+BUFF_STATE COMM_put_char(char chr);           /* Ulozi char na vystupni buffer */
+BUFF_STATE COMM_put_uchar(uint8_t chr);       /* Ulozi znak na vystupni buffer */
+BUFF_STATE COMM_print(char *chr);            	/* Ulozi string na vystupni buffer */
+int8_t COMM_send(uint8_t * memory, uint16_t size);      /* Prekopiruje zadanou pamet na vystupni buffer */
 
-int16_t COMM_read(uint32_t * memory, uint16_t size);  /* Prekopiruje vstupni buffer na pridelenou pamet a vrati kolik skutence bylo prekopirovano */
+int16_t COMM_read(uint8_t * memory, uint16_t size);  /* Prekopiruje vstupni buffer na pridelenou pamet a vrati kolik skutence bylo prekopirovano */
 int16_t COMM_read_char(void);                 /* Precte znak z prichoziho bufferu*/
 
 COMM_CMD* COMM_get_command(void);     /* Zavola scpi/nasi knihovnu na rozpoznani prikazu a vrati prikaz z vstupniho bufferu*/
