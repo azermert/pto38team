@@ -18,7 +18,8 @@
 //#include "comm.h"
 /* Zadne includy zde nebudou!!!*/
 
-#define UART_BUFF_SIZE 256
+#define UART_BUFF_SIZE 64
+#define UART_BUFF_ALMOST_FULL (3*UART_BUFF_SIZE)/4
 
 typedef void (*tick_comm)(void);
 
@@ -48,7 +49,7 @@ typedef struct
 /* UART_Exported_Functions */
 void UART_init(UART_InitTypeDef * p_UART_desc);        /* Inicializace pomoci decsriptoru */
 void UART_tick(void);                         /* Fce viditelna z COMM urcena k odstartovani prenosu pokud jsou data v bufferu*/
-//void UART_IRQ_handler();
+void USART1_IRQHandler(void);
 
 
 #endif /*__<procesor>_UART_H */
