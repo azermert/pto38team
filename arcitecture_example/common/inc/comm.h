@@ -14,7 +14,6 @@
 #define __COMM_H
 
 /* Includes ------------------------------------------------------------------*/
-#include "scpi.h" /* jedina vyjimka includu v headru, protoze scpi.h nebude nikde jinde potreba */
 /* Zadne includy zde nebudou!!!*/
 
 //pokus moje;
@@ -63,13 +62,15 @@ typedef struct
 
 typedef struct
 {
-  SCPI_CMD command;
-  SCPI_PARAM param1;
+  uint32_t COMMAND_type;
+  uint32_t PARAM1_hash;
   int32_t data1;
-  SCPI_PARAM param2;
+  uint32_t PARAM2_hash;
   int32_t data2;
-  SCPI_PARAM param3;
+  uint32_t PARAM3_hash;
   int32_t data3;
+	uint32_t PARAM4_hash;
+  int32_t data4;
   bool answer;
 } COMM_CMD;
 
@@ -91,7 +92,7 @@ int8_t COMM_send(uint8_t * memory, uint16_t size);      /* Prekopiruje zadanou p
 int16_t COMM_read(uint8_t * memory, uint16_t size);  /* Prekopiruje vstupni buffer na pridelenou pamet a vrati kolik skutence bylo prekopirovano */
 int16_t COMM_read_char(void);                 /* Precte znak z prichoziho bufferu*/
 
-COMM_CMD* COMM_get_command(void);     /* Zavola scpi/nasi knihovnu na rozpoznani prikazu a vrati prikaz z vstupniho bufferu*/
+COMM_CMD* COMM_get_command(void);     				/* Zavola scpi/nasi knihovnu na rozpoznani prikazu a vrati prikaz z vstupniho bufferu*/
 void COMM_tick(void);                         /* Uart zada o obsluhu (plny buffer/chyba atd) */   
 
 #endif /*__COMM_H */

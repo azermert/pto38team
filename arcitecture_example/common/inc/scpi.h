@@ -16,20 +16,31 @@
 /* Includes ------------------------------------------------------------------*/
 /* Zadne includy zde nebudou!!!*/
 
-typedef enum                              
-{
-  SCPI_MEAS = 0,
-  SPCI_SET,
-  SCPI_LOAD
-} SCPI_CMD;
 
-typedef enum
-{
-	SCPI_FREQ = 0,
-	SCPI_VOLT,
-	SCPI_DUTY,
-	SCPI_BYTES
-} SCPI_PARAM;
+
+/** @defgroup COMMAND_type
+  * @{
+  */ 
+#define GEN_        0x1234
+#define LOGA				0x0001
+//atd
+
+
+/** @defgroup GEN_params
+  * @{
+  */
+#define AMPL				0x7895
+#define OFFS				0x5644
+#define FREQ				0x2165
+//atd
+
+/** @defgroup LOGA_params
+  * @{
+  */
+#define EDGE				0x2165
+#define CHAN				0x0351
+//atd
+
 
 
 /* COMM_Exported_Functions */
