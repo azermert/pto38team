@@ -33,7 +33,7 @@ typedef enum
 
 
 /* COMM_Exported_Functions */
-//COMM_CMD SCPI_try_parse_cmd(uint32_t * memory, uint16_t size); /* Pokusi se v bufferu najit prikaz, rozpoznat ho a vratit*/
+COMM_CMD SCPI_try_parse_cmd(uint32_t * memory, uint16_t size); /* Pokusi se v bufferu najit prikaz, rozpoznat ho a vratit*/
 
 #endif /*__SCPI_H */
 

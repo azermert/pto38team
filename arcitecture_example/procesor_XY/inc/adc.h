@@ -10,8 +10,8 @@
 */ 
 
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __<procesor>_ADC_H
-#define __<procesor>_ADC_H
+#ifndef __procesor_ADC_H
+#define __procesor_ADC_H
 
 /* Includes ------------------------------------------------------------------*/
 /* Zadne includy zde nebudou!!!*/
@@ -38,15 +38,15 @@ typedef enum
 
 
 /* ADC_Exported_Functions */
-void ADC_init(struct ADC_InitTypeDef * p_ADC_desc);          /* Inicializace pomoci decsriptoru */
-uint16_t ADC_meas_sample();               /* Zmeri jeden vzorek a vrati vysledek */
-void ADC_circle_meas_start();             /* Odstartuje nepretrzite mereni */
-void ADC_circle_meas_stop();              /* Zastavi nepretrzite mereni */
-void ADC_DMA_meas_start();                /* Odstartuje jednorazove mereni pomoci DMA */
-ADC_STATE ADC_get_state();                /* Vrati stav prevodniku */
-uint16_t ADC_get_pointer();               /* Vrati pozici posledniho nacteneho vzorku */
-int8_t ADC_set_last_read();               /* Nastavi index pole, ktery byl naposled precten/zpracovan */
-bool ADC_is_buffer_overflowed();          /* Vrati zda-li buffer pri neustalem plneni pretekl nebo ne */
+void ADC_init(ADC_InitTypeDef * p_ADC_desc);          /* Inicializace pomoci decsriptoru */
+uint16_t ADC_meas_sample(void);               /* Zmeri jeden vzorek a vrati vysledek */
+void ADC_circle_meas_start(void);             /* Odstartuje nepretrzite mereni */
+void ADC_circle_meas_stop(void);              /* Zastavi nepretrzite mereni */
+void ADC_DMA_meas_start(void);                /* Odstartuje jednorazove mereni pomoci DMA */
+ADC_STATE ADC_get_state(void);                /* Vrati stav prevodniku */
+uint16_t ADC_get_pointer(void);               /* Vrati pozici posledniho nacteneho vzorku */
+int8_t ADC_set_last_read(uint16_t pointer);               /* Nastavi index pole, ktery byl naposled precten/zpracovan */
+bool ADC_is_buffer_overflowed(void);          /* Vrati zda-li buffer pri neustalem plneni pretekl nebo ne */
 //void ADC_IRQ_handler();
 
 

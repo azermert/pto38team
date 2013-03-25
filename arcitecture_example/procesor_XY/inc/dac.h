@@ -10,8 +10,8 @@
 */ 
 
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __<procesor>_DAC_H
-#define __<procesor>_DAC_H
+#ifndef __procesor_DAC_H
+#define __procesor_DAC_H
 
 /* Includes ------------------------------------------------------------------*/
 /* Zadne includy zde nebudou!!!*/
@@ -36,11 +36,11 @@ typedef enum
 
 
 /* ADC_Exported_Functions */
-void DAC_init(struct DAC_InitTypeDef * p_DAC_desc);          /* Inicializace pomoci decsriptoru */
+void DAC_init(DAC_InitTypeDef * p_DAC_desc);          /* Inicializace pomoci decsriptoru */
 void DAC_set_sample(uint16_t sample);     /* Nastavi hodnotu na vystup */
-void DAC_DMA_start();                     /* Odstartuje generovani vystupu pomoci DMA */
-DAC_STATE DAC_get_state();                /* Vrati stav prevodniku */
-uint16_t DAC_get_pointer();               /* Vrati pozici posledniho nastaveneho vzorku */
+void DAC_DMA_start(void);                     /* Odstartuje generovani vystupu pomoci DMA */
+DAC_STATE DAC_get_state(void);                /* Vrati stav prevodniku */
+uint16_t DAC_get_pointer(void);               /* Vrati pozici posledniho nastaveneho vzorku */
 int8_t DAC_set_pointer(uint16_t pointer); /* Nastavi odkud se ma zacit generovat */
 //void ADC_IRQ_handler();                 /* Obsluha preruseni */
 
