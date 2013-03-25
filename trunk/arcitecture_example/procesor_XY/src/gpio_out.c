@@ -10,14 +10,14 @@
   */ 
 
 /* Includes ------------------------------------------------------------------*/
-#include "<procesor>.h"
+#include "stm32f10x.h"
 #include "gpio_out.h"
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/ 
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
-bool unInitialized = true;
+bool GPIOOUTunInitialized = TRUE;
 uint8_t settedValue = 0;
 
 /* Private function prototypes -----------------------------------------------*/

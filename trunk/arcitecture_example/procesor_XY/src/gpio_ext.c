@@ -11,14 +11,14 @@
   */ 
 
 /* Includes ------------------------------------------------------------------*/
-#include "<procesor>.h"
+#include "stm32f10x.h"
 #include "gpio_ext.h"
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/ 
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
-bool unInitialized = true;
+bool GPIOEXTunInitialized = TRUE;
 GPIO_EXT_STATE gpioExtState = GPIO_ERR;
 GPIO_EXT_InitTypeDef GPIO_EXT_desc;
 
@@ -30,7 +30,7 @@ GPIO_EXT_InitTypeDef GPIO_EXT_desc;
   * @param  GPIO_EXT_InitTypeDef
   * @retval None
   */    
-void GPIO_EXT_init(struct GPIO_IN_InitTypeDef *p_GPIO_IN_desc)
+void GPIO_EXT_init(GPIO_EXT_InitTypeDef *p_GPIO_EXT_desc)
 {
   //TODO
 }

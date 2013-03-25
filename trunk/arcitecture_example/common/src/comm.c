@@ -39,7 +39,7 @@ uint8_t inBuffField[UART_BUFF_SIZE];
 
 /**
  * @brief  Inicializace pomoci decsriptoru
- * @param  None
+ * @param  desc
  * @retval None
  */ 
 void COMM_init(COMM_InitTypeDef * p_COMM_desc)

@@ -10,8 +10,8 @@
 */ 
 
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __<procesor>_GPIO_EXT_H
-#define __<procesor>_GPIO_EXT_H
+#ifndef __procesor_GPIO_EXT_H
+#define __procesor_GPIO_EXT_H
 
 /* Includes ------------------------------------------------------------------*/
 /* Zadne includy zde nebudou!!!*/
@@ -31,11 +31,11 @@ typedef enum
 	GPIO_ERR
 }GPIO_EXT_STATE;
 
-/* GPIO_out_Exported_Functions */
-void GPIO_EXT_init(struct GPIO_IN_InitTypeDef *p_GPIO_IN_desc); /* Inicializace pomoci deskriptoru */
-void GPIO_EXT_start_counting();           /* Zacne pocitat pulzy pomoci preruseni */  
-void GPIO_EXT_stop_counting();            /* Zastavi citani */
-GPIO_EXT_STATE GPIO_EXT_get_state();      /* Vrati stav prevodniku */
+/* GPIO_ext_Exported_Functions */
+void GPIO_EXT_init(GPIO_EXT_InitTypeDef *p_GPIO_EXT_desc); /* Inicializace pomoci deskriptoru */
+void GPIO_EXT_start_counting(void);           /* Zacne pocitat pulzy pomoci preruseni */  
+void GPIO_EXT_stop_counting(void);            /* Zastavi citani */
+GPIO_EXT_STATE GPIO_EXT_get_state(void);      /* Vrati stav prevodniku */
 //void GPIO_COUNT_IRQ_handler();              
 
 

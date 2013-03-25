@@ -15,20 +15,20 @@
   */ 
 
 /* Includes ------------------------------------------------------------------*/
-#include "<procesor>.h"
+#include "stm32f10x.h"
 #include "adc.h"
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/ 
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
-bool unInitialized = true;
-bool overflowed = false;
+bool unInitialized = TRUE;
+bool ADCoverflowed = FALSE;
 ADC_STATE adcState = ADC_ERR;
 ADC_InitTypeDef ADC_desc;
 
-uint16_t bufferPointer = 0;  // Ukazuje do bufferu na vzorek, ktery byl naposled precten
-uint16_t bufferLastRead = 0;
+uint16_t ADCbufferPointer = 0;  // Ukazuje do bufferu na vzorek, ktery byl naposled precten
+uint16_t ADCbufferLastRead = 0;
 /* Private function prototypes -----------------------------------------------*/
 /* Private functions ---------------------------------------------------------*/
 
@@ -40,7 +40,7 @@ uint16_t bufferLastRead = 0;
   * @param  Descriptor obsahujici parametry pro nastaveni ADC
   * @retval None
   */
-void ADC_init(struct ADC_InitTypeDef * p_ADC_desc)
+void ADC_init(ADC_InitTypeDef * p_ADC_desc)
 {
   //TODO
 } 
@@ -105,7 +105,7 @@ ADC_STATE ADC_get_state()
   */
 uint16_t ADC_get_pointer()
 {
-  return bufferPointer;
+  return ADCbufferPointer;
 }               
 
 /**
@@ -117,7 +117,7 @@ int8_t ADC_set_last_read(uint16_t pointer)
 {
   int8_t result = -1;
   if (pointer < ADC_desc.ADC_memorySize){ /* Kontrola jestli index ukazuje do pole */ 
-    bufferLastRead = pointer;
+    ADCbufferLastRead = pointer;
     result = 0;
   }
   return result;
@@ -130,7 +130,7 @@ int8_t ADC_set_last_read(uint16_t pointer)
   */
 bool ADC_is_buffer_overflowed()
 {
-  return overflowed;
+  return ADCoverflowed;
 }          
 
 /**

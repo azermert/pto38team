@@ -14,18 +14,18 @@
   */ 
 
 /* Includes ------------------------------------------------------------------*/
-#include "<procesor>.h"
+#include "stm32f10x.h"
 #include "dac.h"
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/ 
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
-bool unInitialized = true;
+bool DACunInitialized = TRUE;
 DAC_STATE dacState = DAC_ERR;
 DAC_InitTypeDef DAC_desc;
 
-uint16_t bufferPointer = 0;  // Ukazuje do bufferu na vzorek, ktery byl naposled nastaven
+uint16_t DACbufferPointer = 0;  // Ukazuje do bufferu na vzorek, ktery byl naposled nastaven
 /* Private function prototypes -----------------------------------------------*/
 /* Private functions ---------------------------------------------------------*/
 
@@ -35,7 +35,7 @@ uint16_t bufferPointer = 0;  // Ukazuje do bufferu na vzorek, ktery byl naposled
   * @param  DAC deskriptor
   * @retval None
   */
-void DAC_init(struct DAC_InitTypeDef * p_DAC_desc)
+void DAC_init(DAC_InitTypeDef * p_DAC_desc)
 {
   //TODO
 }
@@ -67,7 +67,7 @@ void DAC_DMA_start()
   */
 DAC_STATE DAC_get_state()
 {
-  return DAC_STATE;
+  return DAC_ERR;
 }            
 
 /**
@@ -77,7 +77,7 @@ DAC_STATE DAC_get_state()
   */
 uint16_t DAC_get_pointer()
 {
-  return bufferPointer;
+  return DACbufferPointer;
 }              
 
 /**
@@ -88,8 +88,8 @@ uint16_t DAC_get_pointer()
 int8_t DAC_set_pointer(uint16_t pointer)
 {
   int8_t result = -1;
-  if (pointer < p_DAC_desc.DAC_memorySize){ /* Kontrola jestli index ukazuje do pole */ 
-    bufferPointer = pointer;
+  if (pointer < DAC_desc.DAC_memorySize){ /* Kontrola jestli index ukazuje do pole */ 
+    DACbufferPointer = pointer;
     result = 0;
   }
   return result;
@@ -101,7 +101,7 @@ int8_t DAC_set_pointer(uint16_t pointer)
   * @param  None
   * @retval None
   */
-void ADC_IRQ_handler()
+void DAC_IRQ_handler()
 {
   //zavolani fce v pointeru
 }                
