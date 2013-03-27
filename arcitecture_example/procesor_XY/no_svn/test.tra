@@ -1,0 +1,33 @@
+*** Creating Trace Output File 'test.tra' Ok.
+### Preparing for ADS-LD.
+### Creating ADS-LD Command Line
+### List of Objects: adding '"startup_stm32f10x_md.o"'
+### List of Objects: adding '"uart.o"'
+### List of Objects: adding '"comm.o"'
+### List of Objects: adding '"debug_main.o"'
+### List of Objects: adding '"scope.o"'
+### List of Objects: adding '"generator.o"'
+### List of Objects: adding '"adc.o"'
+### List of Objects: adding '"dac.o"'
+### List of Objects: adding '"gpio_ext.o"'
+### List of Objects: adding '"gpio_in.o"'
+### List of Objects: adding '"gpio_out.o"'
+### List of Objects: adding '"nmi_irq.o"'
+### List of Objects: adding '"log_analyser.o"'
+### List of Objects: adding '"counter.o"'
+### List of Objects: adding '"scpi.o"'
+### ADS-LD Command completed:
+--cpu Cortex-M3 "startup_stm32f10x_md.o" "uart.o" "comm.o" "debug_main.o" "scope.o" "generator.o" "adc.o" "dac.o" "gpio_ext.o" "gpio_in.o" "gpio_out.o" "nmi_irq.o" "log_analyser.o" "counter.o" "scpi.o" --strict --scatter "test.sct" 
+--summary_stderr --info summarysizes --map --xref --callgraph --symbols 
+--info sizes --info totals --info unused --info veneers 
+ --list ".\test.map" -o test.axf### Preparing Environment (PrepEnvAds)
+### ADS-LD Output File: 'test.axf'
+### ADS-LD Command File: 'test.lnp'
+### Checking for dirty Components...
+### Creating CmdFile 'test.lnp', Handle=0x00000428
+### Writing '.lnp' file
+### ADS-LD Command file 'test.lnp' is ready.
+### ADS-LD: About to start ADS-LD Thread.
+### ADS-LD: executed with 0 errors
+### Updating obj list
+### LDADS_file() completed.

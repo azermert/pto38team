@@ -1,0 +1,4 @@
+--cpu Cortex-M3 "startup_stm32f10x_md.o" "uart.o" "comm.o" "debug_main.o" "scope.o" "generator.o" "adc.o" "dac.o" "gpio_ext.o" "gpio_in.o" "gpio_out.o" "nmi_irq.o" "log_analyser.o" "counter.o" "scpi.o" --strict --scatter "test.sct" 
+--summary_stderr --info summarysizes --map --xref --callgraph --symbols 
+--info sizes --info totals --info unused --info veneers 
+ --list ".\test.map" -o test.axf
