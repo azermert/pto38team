@@ -11,14 +11,14 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f0xx.h"
-#include "gpio_out.h"
 #include "stm32f0xx_conf.h"
+#include "gpio_out.h"
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/ 
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
-// bool unInitialized = true;
+bool unInitialized = TRUE;
 uint8_t settedValue = 0;
 
 /* Private function prototypes -----------------------------------------------*/
