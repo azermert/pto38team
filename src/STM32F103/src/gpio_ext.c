@@ -18,9 +18,9 @@
 /* Private define ------------------------------------------------------------*/ 
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
-bool GPIOEXTunInitialized = TRUE;
-GPIO_EXT_STATE gpioExtState = GPIO_ERR;
-GPIO_EXT_InitTypeDef GPIO_EXT_desc;
+bool lGpioExtUnInitialized = TRUE;
+GPIO_EXT_STATE lGpioExtState = GPIO_ERR;
+GPIO_EXT_InitTypeDef lGpio_EXT_desc;
 
 /* Private function prototypes -----------------------------------------------*/
 /* Private functions ---------------------------------------------------------*/
@@ -30,7 +30,7 @@ GPIO_EXT_InitTypeDef GPIO_EXT_desc;
   * @param  GPIO_EXT_InitTypeDef
   * @retval None
   */    
-void GPIO_EXT_init(GPIO_EXT_InitTypeDef *p_GPIO_EXT_desc)
+void GPIO_EXT_init(GPIO_EXT_InitTypeDef *_desc)
 {
   //TODO
 }
@@ -50,7 +50,7 @@ void GPIO_EXT_start_counting()
   * @param  None
   * @retval None
   */  
-void GPIO_EXT_stop_counting()
+void GPIO_EXT_stop_counting(void)
 {
   //TODO
 }           
@@ -60,10 +60,10 @@ void GPIO_EXT_stop_counting()
   * @param  None
   * @retval GPIO_IN_STATE
   */
-GPIO_EXT_STATE GPIO_EXT_get_state()
+GPIO_EXT_STATE GPIO_EXT_get_state(void)
 {
   //TODO
-  return gpioExtState;
+  return lGpioExtState;
 }
 
 /**
@@ -71,7 +71,7 @@ GPIO_EXT_STATE GPIO_EXT_get_state()
   * @param  None
   * @retval None
   */
-void GPIO_COUNT_IRQ_handler()
+void GPIO_COUNT_IRQ_handler(void)
 {
   //zavolani fce v pointeru
 }

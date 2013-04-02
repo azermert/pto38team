@@ -35,7 +35,7 @@ typedef enum
 }GPIO_IN_STATE;
 
 /* GPIO_in_Exported_Functions */
-void GPIO_IN_init(GPIO_IN_InitTypeDef * p_GPIO_IN_desc);  /* Inicializace pomoci deskriptoru */
+void GPIO_IN_init(GPIO_IN_InitTypeDef * _desc);  /* Inicializace pomoci deskriptoru */
 GPIO_IN_STATE GPIO_IN_get_state(void);        /* Vrati stav prevodniku */
 uint8_t GPIO_get_word(void);                  /* Precteni slova na vstupu */
 uint16_t GPIO_get_pointer(void);              /* Vrati index do pole */

@@ -32,7 +32,7 @@ typedef enum
 }GPIO_EXT_STATE;
 
 /* GPIO_ext_Exported_Functions */
-void GPIO_EXT_init(GPIO_EXT_InitTypeDef *p_GPIO_EXT_desc); /* Inicializace pomoci deskriptoru */
+void GPIO_EXT_init(GPIO_EXT_InitTypeDef *_desc); /* Inicializace pomoci deskriptoru */
 void GPIO_EXT_start_counting(void);           /* Zacne pocitat pulzy pomoci preruseni */  
 void GPIO_EXT_stop_counting(void);            /* Zastavi citani */
 GPIO_EXT_STATE GPIO_EXT_get_state(void);      /* Vrati stav prevodniku */

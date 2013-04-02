@@ -15,7 +15,7 @@
 
 
 /* Includes ------------------------------------------------------------------*/
-//#include "comm.h"
+#include "comm.h"
 /* Zadne includy zde nebudou!!!*/
 
 #define UART_BUFF_SIZE 64
@@ -49,7 +49,7 @@ typedef struct
 /* UART_Exported_Functions */
 void UART_init(UART_InitTypeDef * p_UART_desc);        /* Inicializace pomoci decsriptoru */
 void UART_tick(void);                         /* Fce viditelna z COMM urcena k odstartovani prenosu pokud jsou data v bufferu*/
-void USART1_IRQHandler(void);
+//void USART1_IRQHandler(void);
 
 
 #endif /*__<procesor>_UART_H */
