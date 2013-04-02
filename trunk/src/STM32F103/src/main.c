@@ -108,7 +108,7 @@ int main(void) {
 
 
 void init_Discovery(void){
-#include "stm32f10x_gpio.h"
+
 	GPIO_InitTypeDef GPIO_InitStructure;
 
 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOC|RCC_APB2Periph_GPIOA, ENABLE);
