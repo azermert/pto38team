@@ -24,16 +24,23 @@
 #define ADC_TRIGGER		ADC_ExternalTrigConv_T4_CC4		//timer4
 
 #define ADC_CLOCKS 			RCC_APB2Periph_GPIOC|RCC_APB2Periph_ADC1
-#define IRC_TIMERS_CLOCKS 	RCC_APB1Periph_TIM4	
+#define TIMER_CLOCKS 		RCC_APB1Periph_TIM4	
 
-	
+//export
+#include "stm32f10x.h"
+#define ADC_MEM_SIZE 400
+
+extern volatile bool 	gAdcMeasureDone;	
+extern uint16_t	gAdcConvValues[ADC_MEM_SIZE];
+
+
 
 typedef void (*tick_adc)(void);
 
 typedef struct
 {
   uint32_t ADC_samplingFrequency;        
-  uint32_t * p_ADC_memory;                /* Pointer na pamet kam muze ADC zapisovat */ 
+  uint16_t * p_ADC_memory;                /* Pointer na pamet kam muze ADC zapisovat */ 
   uint32_t ADC_memorySize;                /* Velikost pameti pro ADC */ 
   tick_adc p_ADC_tick;                    /* Pointer na funkci OSC_ADC_Request() */
 }PTO_ADC_InitTypeDef;

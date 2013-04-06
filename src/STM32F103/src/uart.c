@@ -16,6 +16,11 @@
 #include "stm32f10x.h"
 #include "uart.h"
 
+#include "NVIC_Basic.h"
+#include "stm32f10x_rcc.h"
+#include "stm32f10x_gpio.h"
+#include "stm32f10x_usart.h"
+
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/ 
@@ -68,28 +73,41 @@ BUFF_STATE store_byte(char chr)
   * @param  Descriptor obsahujici parametry pro nastaveni UART
   * @retval None
   */  
-void UART_init(UART_InitTypeDef * p_UART_desc)
+ void initHW_UART(void){
+	GPIO_InitTypeDef	GPIO_InitStructure;
+
+	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, ENABLE);
+	
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_2;
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;
+	GPIO_Init(GPIOA, &GPIO_InitStructure);
+
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_3;
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
+	GPIO_Init(GPIOA, &GPIO_InitStructure);
+}
+
+void UART_init(UART_InitTypeDef * _desc)
 {
-	urt=*p_UART_desc;
-	
-	RCC->APB2ENR |= (RCC_APB2ENR_IOPAEN|RCC_APB2ENR_AFIOEN);		   /* APB2ENR = APB2 peripheral clock enable register*/
-	
-	GPIOA->CRH = 0x444444B4;//UART 9,10
+	USART_InitTypeDef USART_InitStruct;
 
-	
- 	RCC->APB2ENR |=  RCC_APB2ENR_USART1EN;
+	urt=*_desc;
 
-	USART1->CR1 |= 	USART_CR1_UE 		// UART Enable
-					|USART_CR1_RE		// Recieve enable
-					|USART_CR1_TE		// Transmit enable
-					|USART_CR1_RXNEIE
-					//|USART_CR1_IDLEIE
-					//|USART_CR1_TXEIE
-					;	
-	USART1->BRR = 0x0D0;	
-	// 24MHz/16 = 1500kHz >>> 1500kHz/115200Bd = 13,02 >>> matisa = D; fraction = 0 => 0x0D0
-	
-		NVIC->ISER[1] |= (1 << (USART1_IRQn & 0x1F));   // enable interrupt
+	USART_StructInit(&USART_InitStruct);	 	//8bit, parity_none, stopbit_1 ..
+
+	USART_InitStruct.USART_BaudRate = _desc->baudrate;
+	RCC_APB1PeriphClockCmd(RCC_APB1Periph_USART2, ENABLE);
+
+
+	USART_DeInit(USART2);
+	USART_Init(USART2, &USART_InitStruct);
+
+	USART_ITConfig(USART2, USART_IT_RXNE, ENABLE);
+	NVIC_IntEnable(USART2_IRQn,0x02);
+
+	initHW_UART();
+	USART_Cmd(USART2, ENABLE);
 };
 
 /**
@@ -107,21 +125,21 @@ void UART_tick()
  * @param  None
  * @retval None
  */                     
-void USART1_IRQHandler()
+void USART2_IRQHandler(void)
 {
 	volatile unsigned int StatusValue;
 
-  StatusValue = USART1->SR;
+  	StatusValue = USART2->SR;
 	  
 	if (StatusValue & USART_SR_RXNE)
 	{                  
-		store_byte(USART1->DR);
-  }
+		store_byte(USART2->DR);
+  	}
 
-  if (0 != (StatusValue & USART_SR_TXE))
+  	if (0 != (StatusValue & USART_SR_TXE))
 	{
 		send_next();
-  }
+  	}
 };
 
 
@@ -131,27 +149,30 @@ void send_next(void)
 {
 	if((*urt.p_outBuffer).writePointer == (*urt.p_outBuffer).readPointer){		// buffer is empty
 		//USART1->CR1 &= ~USART_CR1_TE;		
-		USART1->CR1 &= ~USART_CR1_TXEIE;	// disable "TxEmpty register" interrupt		
+		USART2->CR1 &= ~USART_CR1_TXEIE;	// disable "TxEmpty register" interrupt		
 		(*urt.p_outBuffer).state=BUFF_FREE;
 		return;
 	}	
 
-	USART1->DR = *(((*urt.p_outBuffer).memory)+((*urt.p_outBuffer).readPointer));
+	if(USART2->SR & USART_SR_TXE){
 
-	(*urt.p_outBuffer).readPointer += 1;
-
-	if((*urt.p_outBuffer).readPointer > (UART_BUFF_SIZE-1))
-	{
-		(*urt.p_outBuffer).readPointer= 0;
-	}
-
-	if((*urt.p_outBuffer).readPointer == (*urt.p_outBuffer).writePointer)			// buffer is empty
-	{
-		//USART1->CR1 &= ~USART_CR1_TE;		
-		USART1->CR1 &= ~USART_CR1_TXEIE;	// disable "TxEmpty register" interrupt		
-		(*urt.p_outBuffer).state=BUFF_FREE;		
-	}else{
-	   USART1->CR1 |= USART_CR1_TXEIE;
+		USART2->DR = *(((*urt.p_outBuffer).memory)+((*urt.p_outBuffer).readPointer));
+	
+		(*urt.p_outBuffer).readPointer += 1;
+	
+		if((*urt.p_outBuffer).readPointer > (UART_BUFF_SIZE-1))
+		{
+			(*urt.p_outBuffer).readPointer= 0;
+		}
+	
+		if((*urt.p_outBuffer).readPointer == (*urt.p_outBuffer).writePointer)			// buffer is empty
+		{
+			//USART1->CR1 &= ~USART_CR1_TE;		
+			USART2->CR1 &= ~USART_CR1_TXEIE;	// disable "TxEmpty register" interrupt		
+			(*urt.p_outBuffer).state=BUFF_FREE;		
+		}else{
+		   USART2->CR1 |= USART_CR1_TXEIE;
+		}
 	}
 }
 

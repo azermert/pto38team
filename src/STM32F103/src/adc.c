@@ -22,6 +22,11 @@
 #include "stm32f10x_tim.h"
 #include "adc.h"
 #include "NVIC_Basic.h"
+#include "timeBase.h"
+
+#include "comm.h"
+#include <string.h>
+#include <stdio.h>
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/ 
@@ -34,6 +39,13 @@ PTO_ADC_InitTypeDef lAdc_desc;
 
 uint16_t lAdcBufferPointer = 0;  // Ukazuje do bufferu na vzorek, ktery byl naposled precten
 uint16_t lAdcBufferLastRead = 0;
+
+uint16_t * lBuffPtr;
+uint32_t lBuffSize;
+
+volatile bool gAdcMeasureDone;	
+uint16_t	gAdcConvValues[ADC_MEM_SIZE];
+
 /* Private function prototypes -----------------------------------------------*/
 /* Private functions ---------------------------------------------------------*/
 
@@ -135,8 +147,19 @@ bool ADC_is_buffer_overflowed()
   */
 void ADC_IRQHandler(void)
 {
-		   //TODO
+	static u32 time = 0;
+	static u32 index = 0;
 
+	if((!gAdcMeasureDone) && timeElapsed(time)){
+		u16 tmpVal = ADC_GetConversionValue(ADC);
+		lBuffPtr[index++] = tmpVal;
+		
+		if(index == lBuffSize){
+			index = 0;
+			gAdcMeasureDone = TRUE;
+			time = actualTime() + 500000;
+		}
+	}
 
 	ADC_ClearITPendingBit(ADC, ADC_IT_EOC);
 	NVIC_ClearPending(ADC_IRQn);
@@ -157,9 +180,12 @@ u32 TIM_APB1_GetClockFrequency(void){
 
 void Trigger_init(PTO_ADC_InitTypeDef * _desc){
 	TIM_TimeBaseInitTypeDef 	TIM_TimeBaseInitStruct;
+	TIM_OCInitTypeDef	TIM_OCInitStructure;
 	s32 clk_div;
 	u16 prescaler;
 	u16 arr_reg;
+
+	RCC_APB1PeriphClockCmd(TIMER_CLOCKS, ENABLE);
 	
 	TIM_DeInit(TRIGGER_TIMER);
 	TIM_TimeBaseStructInit(&TIM_TimeBaseInitStruct);
@@ -212,9 +238,18 @@ void Trigger_init(PTO_ADC_InitTypeDef * _desc){
 	TIM_TimeBaseInitStruct.TIM_Period = arr_reg;			
 	TIM_TimeBaseInit(TRIGGER_TIMER, &TIM_TimeBaseInitStruct);
 
-	TIM_UpdateRequestConfig(TRIGGER_TIMER, TIM_UpdateSource_Regular);	//IRC_TIMER->CR1 = TIM_CR1_URS;
+	//TIM_UpdateRequestConfig(TRIGGER_TIMER, TIM_UpdateSource_Regular);	//IRC_TIMER->CR1 = TIM_CR1_URS;
 	TIM_ARRPreloadConfig(TRIGGER_TIMER, ENABLE);						//IRC_TIMER->CR1 |= TIM_CR1_ARPE;
-	TIM_SetCompare4(TRIGGER_TIMER, 1);					//CC4 for event generation
+
+	TIM_OCStructInit(&TIM_OCInitStructure);
+
+	TIM_OCInitStructure.TIM_OCMode = TIM_OCMode_PWM1;
+  	TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable;
+  	TIM_OCInitStructure.TIM_Pulse = 0x01;
+  	TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_Low;
+  	TIM_OC4Init(TRIGGER_TIMER, &TIM_OCInitStructure);
+
+	//TIM_SetCompare4(TRIGGER_TIMER, 1);					//CC4 for event generation
 	
 	TIM_Cmd(TRIGGER_TIMER, ENABLE);
 
@@ -248,6 +283,9 @@ void ADC_init(PTO_ADC_InitTypeDef * _desc)
 	RCC_ClocksTypeDef		RCC_Clocks;
  	s32 					clocksPerSample;
 
+	lBuffPtr = _desc->p_ADC_memory;
+	lBuffSize = _desc->ADC_memorySize;
+
 	RCC_APB2PeriphClockCmd(ADC_CLOCKS, ENABLE);
 
 	RCC_GetClocksFreq(&RCC_Clocks);
@@ -259,6 +297,8 @@ void ADC_init(PTO_ADC_InitTypeDef * _desc)
 	ADC_InitStruct.ADC_ExternalTrigConv = ADC_TRIGGER;
 	ADC_InitStruct.ADC_NbrOfChannel = 1;
 	ADC_Init(ADC, &ADC_InitStruct);
+
+	ADC_ExternalTrigConvCmd(ADC, ENABLE);
 
 	ADC_Cmd(ADC, ENABLE);	//wake up
 
