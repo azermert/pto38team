@@ -18,7 +18,7 @@
 #include "comm.h"
 /* Zadne includy zde nebudou!!!*/
 
-#define UART_BUFF_SIZE 64
+#define UART_BUFF_SIZE 3000
 #define UART_BUFF_ALMOST_FULL (3*UART_BUFF_SIZE)/4
 
 typedef void (*tick_comm)(void);
@@ -31,9 +31,9 @@ typedef enum
 
 typedef enum                              
 {
-	UART_SAFE_MODE = 0,                 
-	UART_NORMAL,                         
-	UART_HIGH                           
+	UART_SAFE_MODE = 9600,                 
+	UART_NORMAL	= 115200,
+	UART_HIGH                                                 
 }UART_SPEED;
 
 typedef struct
