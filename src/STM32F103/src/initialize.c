@@ -7,6 +7,7 @@
 #include "systemClock.h"
 #include "uart.h"
 #include "adc.h"
+#include "scope.h"
 
 
 
@@ -55,11 +56,15 @@ void initialize(void){
 
 	serialCommInit();		//uart2 init
 
-	{
-		PTO_ADC_InitTypeDef ADC_i;
-		ADC_i.ADC_samplingFrequency = 200;
-		ADC_i.p_ADC_memory = gAdcConvValues;                /* Pointer na pamet kam muze ADC zapisovat */ 
-		ADC_i.ADC_memorySize = ADC_MEM_SIZE;                /* Velikost pameti pro ADC */ 
-		ADC_init(&ADC_i);
-	}
+	
+	
+	gSCOPE.SCOPE_samplingFrequency = 1000;      
+	gSCOPE.SCOPE_triggerEdge = SCOPE_RISING;
+	gSCOPE.SCOPE_triggerMode = SCOPE_NORMAL;
+	gSCOPE.SCOPE_triggerLevel = 0x07FF;
+
+	SCOPE_init(&gSCOPE);
+	
+
+
 }

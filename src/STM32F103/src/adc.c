@@ -32,19 +32,19 @@
 /* Private define ------------------------------------------------------------*/ 
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
-bool lUnInitialized = TRUE;
+//bool lUnInitialized = TRUE;
 bool lAdcOverflowed = FALSE;
+uint16_t lAdcBufferPointer = 0;  
+uint16_t lAdcBufferLastRead = 0;	// Ukazuje do bufferu na vzorek, ktery byl naposled precten					
+
+
+tick_adc lScopeTick = NULL;
 ADC_STATE lAdcState = ADC_ERR;
-PTO_ADC_InitTypeDef lAdc_desc;
+	
+uint16_t	lAdcConvValues[ADC_MEM_SIZE];
+uint16_t 	lBuffIndex;
+uint16_t 	lBuffSize;
 
-uint16_t lAdcBufferPointer = 0;  // Ukazuje do bufferu na vzorek, ktery byl naposled precten
-uint16_t lAdcBufferLastRead = 0;
-
-uint16_t * lBuffPtr;
-uint32_t lBuffSize;
-
-volatile bool gAdcMeasureDone;	
-uint16_t	gAdcConvValues[ADC_MEM_SIZE];
 
 /* Private function prototypes -----------------------------------------------*/
 /* Private functions ---------------------------------------------------------*/
@@ -59,8 +59,13 @@ uint16_t	gAdcConvValues[ADC_MEM_SIZE];
   */         
 uint16_t ADC_meas_sample(void)
 {
-  //TODO
-  return 0;
+  u16 i = 0;
+  u32 sum = 0;
+  while(i < lBuffSize){
+  	sum += lAdcConvValues[i];
+	i++;
+  }
+  return sum/lBuffSize;		//vrati prumer z celeho pole
 }           
 
 /**
@@ -70,6 +75,7 @@ uint16_t ADC_meas_sample(void)
   */
 void ADC_circle_meas_start(void)
 {
+  lAdcState = ADC_RUN_INF;
   //TODO
 }
 
@@ -80,6 +86,7 @@ void ADC_circle_meas_start(void)
   */
 void ADC_circle_meas_stop(void)
 {
+  lAdcState = ADC_IDLE;
   //TODO
 }             
 
@@ -123,7 +130,7 @@ uint16_t ADC_get_pointer()
 int8_t ADC_set_last_read(uint16_t _index)
 {
   int8_t result = -1;
-  if (_index < lAdc_desc.ADC_memorySize){ /* Kontrola jestli index ukazuje do pole */ 
+  if (_index < lBuffSize){ /* Kontrola jestli index ukazuje do pole */ 
     lAdcBufferLastRead = _index;
     result = 0;
   }
@@ -147,19 +154,30 @@ bool ADC_is_buffer_overflowed()
   */
 void ADC_IRQHandler(void)
 {
-	static u32 time = 0;
-	static u32 index = 0;
+	uint16_t tmp;
+	switch(lAdcState){
+		case ADC_RUN_INF:
 
-	if((!gAdcMeasureDone) && timeElapsed(time)){
-		u16 tmpVal = ADC_GetConversionValue(ADC);
-		lBuffPtr[index++] = tmpVal;
-		
-		if(index == lBuffSize){
-			index = 0;
-			gAdcMeasureDone = TRUE;
-			time = actualTime() + 500000;
-		}
-	}
+			tmp = ADC_GetConversionValue(ADC);
+
+			if(lBuffIndex == lBuffSize){
+				lBuffIndex = 0;
+			}
+
+			lAdcConvValues[lBuffIndex++] = tmp;
+
+			if(lScopeTick != NULL){
+				lScopeTick(tmp);
+			}
+			break;
+
+		case ADC_DMA_RUN:
+		case ADC_DMA_DONE:
+	   	case ADC_IDLE:
+	   	case ADC_ERR:
+	   	default:
+	   		break;
+	}//switch
 
 	ADC_ClearITPendingBit(ADC, ADC_IT_EOC);
 	NVIC_ClearPending(ADC_IRQn);
@@ -272,19 +290,14 @@ void gpio_init(void){
   */
 void ADC_init(PTO_ADC_InitTypeDef * _desc)
 {
-  //TODO
-  /* 
-  uint32_t ADC_samplingFrequency;        
-  uint32_t * p_ADC_memory;                Pointer na pamet kam muze ADC zapisovat 
-  uint32_t ADC_memorySize;                Velikost pameti pro ADC  
-  tick_adc p_ADC_tick;
-  */
+
   	ADC_InitTypeDef 		ADC_InitStruct;
 	RCC_ClocksTypeDef		RCC_Clocks;
  	s32 					clocksPerSample;
 
-	lBuffPtr = _desc->p_ADC_memory;
-	lBuffSize = _desc->ADC_memorySize;
+	lBuffIndex = 0;
+	lBuffSize = ADC_MEM_SIZE;
+	lScopeTick = _desc->p_ADC_tick;
 
 	RCC_APB2PeriphClockCmd(ADC_CLOCKS, ENABLE);
 
@@ -334,7 +347,6 @@ void ADC_init(PTO_ADC_InitTypeDef * _desc)
 	gpio_init();
 
 	NVIC_IntEnable(ADC_IRQn, 2);
-
 
 } 
 /************************ END OF FILE *****************************************/
