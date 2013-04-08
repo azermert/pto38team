@@ -28,20 +28,15 @@
 
 //export
 #include "stm32f10x.h"
-#define ADC_MEM_SIZE 400
-
-extern volatile bool 	gAdcMeasureDone;	
-extern uint16_t	gAdcConvValues[ADC_MEM_SIZE];
+#define ADC_MEM_SIZE 8		//buffer pro prumerovani voltmetru
 
 
 
-typedef void (*tick_adc)(void);
+typedef void (*tick_adc)(uint16_t _value);
 
 typedef struct
 {
   uint32_t ADC_samplingFrequency;        
-  uint16_t * p_ADC_memory;                /* Pointer na pamet kam muze ADC zapisovat */ 
-  uint32_t ADC_memorySize;                /* Velikost pameti pro ADC */ 
   tick_adc p_ADC_tick;                    /* Pointer na funkci OSC_ADC_Request() */
 }PTO_ADC_InitTypeDef;
 

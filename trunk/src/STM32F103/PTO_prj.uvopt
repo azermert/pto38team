@@ -197,7 +197,7 @@
         <aSer4>0</aSer4>
         <StkLoc>0</StkLoc>
         <TrcWin>0</TrcWin>
-        <newCpu>3</newCpu>
+        <newCpu>0</newCpu>
         <uProt>0</uProt>
       </DebugFlag>
       <LintExecutable></LintExecutable>
@@ -433,10 +433,10 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>10</ColumnNumber>
+      <ColumnNumber>28</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>142</TopLine>
-      <CurrentLine>142</CurrentLine>
+      <TopLine>152</TopLine>
+      <CurrentLine>157</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\src\adc.c</PathWithFileName>
       <FilenameWithoutPath>adc.c</FilenameWithoutPath>
@@ -545,10 +545,10 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>0</ColumnNumber>
+      <ColumnNumber>47</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>0</TopLine>
-      <CurrentLine>0</CurrentLine>
+      <TopLine>55</TopLine>
+      <CurrentLine>55</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\src\nmi_irq.c</PathWithFileName>
       <FilenameWithoutPath>nmi_irq.c</FilenameWithoutPath>
@@ -587,9 +587,9 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>0</ColumnNumber>
+      <ColumnNumber>35</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>27</TopLine>
+      <TopLine>40</TopLine>
       <CurrentLine>53</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\src\main.c</PathWithFileName>
@@ -643,10 +643,10 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>24</ColumnNumber>
+      <ColumnNumber>38</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>52</TopLine>
-      <CurrentLine>61</CurrentLine>
+      <TopLine>1</TopLine>
+      <CurrentLine>1</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\src\initialize.c</PathWithFileName>
       <FilenameWithoutPath>initialize.c</FilenameWithoutPath>
@@ -1105,10 +1105,10 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>0</ColumnNumber>
+      <ColumnNumber>28</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>20</TopLine>
-      <CurrentLine>33</CurrentLine>
+      <TopLine>112</TopLine>
+      <CurrentLine>132</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\common\src\scope.c</PathWithFileName>
       <FilenameWithoutPath>scope.c</FilenameWithoutPath>
@@ -1174,7 +1174,7 @@
     <ActiveMDIGroup>0</ActiveMDIGroup>
     <MDIGroup>
       <Size>100</Size>
-      <ActiveTab>3</ActiveTab>
+      <ActiveTab>2</ActiveTab>
       <Documents>
         <Doc>
           <Name>..\common\src\comm.c</Name>
@@ -1190,21 +1190,21 @@
         </Doc>
         <Doc>
           <Name>.\src\adc.c</Name>
-          <ColumnNumber>10</ColumnNumber>
-          <TopLine>142</TopLine>
-          <CurrentLine>142</CurrentLine>
+          <ColumnNumber>28</ColumnNumber>
+          <TopLine>152</TopLine>
+          <CurrentLine>157</CurrentLine>
         </Doc>
         <Doc>
           <Name>.\src\main.c</Name>
-          <ColumnNumber>0</ColumnNumber>
-          <TopLine>27</TopLine>
+          <ColumnNumber>35</ColumnNumber>
+          <TopLine>40</TopLine>
           <CurrentLine>53</CurrentLine>
         </Doc>
         <Doc>
           <Name>.\src\initialize.c</Name>
-          <ColumnNumber>24</ColumnNumber>
-          <TopLine>52</TopLine>
-          <CurrentLine>61</CurrentLine>
+          <ColumnNumber>38</ColumnNumber>
+          <TopLine>1</TopLine>
+          <CurrentLine>1</CurrentLine>
         </Doc>
         <Doc>
           <Name>.\lib\STM32F10x_StdPeriph_Driver\inc\stm32f10x_adc.h</Name>
@@ -1220,9 +1220,9 @@
         </Doc>
         <Doc>
           <Name>.\inc\adc.h</Name>
-          <ColumnNumber>24</ColumnNumber>
-          <TopLine>18</TopLine>
-          <CurrentLine>31</CurrentLine>
+          <ColumnNumber>93</ColumnNumber>
+          <TopLine>48</TopLine>
+          <CurrentLine>66</CurrentLine>
         </Doc>
         <Doc>
           <Name>.\lib\STM32F10x_StdPeriph_Driver\src\stm32f10x_tim.c</Name>
@@ -1232,9 +1232,9 @@
         </Doc>
         <Doc>
           <Name>..\common\src\scope.c</Name>
-          <ColumnNumber>0</ColumnNumber>
-          <TopLine>20</TopLine>
-          <CurrentLine>33</CurrentLine>
+          <ColumnNumber>28</ColumnNumber>
+          <TopLine>112</TopLine>
+          <CurrentLine>132</CurrentLine>
         </Doc>
       </Documents>
     </MDIGroup>

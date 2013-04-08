@@ -18,7 +18,7 @@
 #include "comm.h"
 /* Zadne includy zde nebudou!!!*/
 
-#define UART_BUFF_SIZE 3000
+#define UART_BUFF_SIZE 1024
 #define UART_BUFF_ALMOST_FULL (3*UART_BUFF_SIZE)/4
 
 typedef void (*tick_comm)(void);

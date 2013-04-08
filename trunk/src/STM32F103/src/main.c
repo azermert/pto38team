@@ -65,18 +65,7 @@ int main(void) {
 	  	UART_tick();
 	}
 
-	if(gAdcMeasureDone){
-	 	char msg[8] = {0,0,0,0,0,0,0,0};
-		if(i < ADC_MEM_SIZE){
-			sprintf(msg,"%d;\r\n",gAdcConvValues[i]);
-			COMM_print(msg);
-			i++;	
-		}else{	
-			gAdcMeasureDone = FALSE;
-			COMM_print("DONE");
-			i = 0;
-		}
-	}
+	
 
 	}  //end while
 }  //end main()
