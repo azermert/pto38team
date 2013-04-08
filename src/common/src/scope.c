@@ -14,23 +14,22 @@
 #include "stm32f10x.h"
 #include "scope.h"
 
+#include "adc.h"
+
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/ 
 /* Private macro -------------------------------------------------------------*/
-/* Private variables ---------------------------------------------------------*/
+/* Variables ---------------------------------------------------------*/
+SCOPE_TypeDef gSCOPE;
+SCOPE_Buffer lSCOPE_buff;
+
+#define DATA_SIZE 2048
+uint16_t lData[DATA_SIZE];
 
 /* Private function prototypes -----------------------------------------------*/
 /* Private functions ---------------------------------------------------------*/
 
-/**
- * @brief  Inicializace pomoci decsriptoru
- * @param  desc
- * @retval None
- */ 
-void SCOPE_init(SCOPE_InitTypeDef * p_SCOPE_desc)
-{
-	//TODO
-}; 
+void SCOPE_ADC_request(uint16_t _value);
 
 /**
  * @brief  Nastaveni rychlosi vzorkovani*
@@ -39,7 +38,13 @@ void SCOPE_init(SCOPE_InitTypeDef * p_SCOPE_desc)
  */ 
 void SCOPE_set_sample_rate(uint32_t smpRate)
 {
-	//TODO
+	PTO_ADC_InitTypeDef ADC_i;
+
+	gSCOPE.SCOPE_samplingFrequency = smpRate;
+	   
+	ADC_i.ADC_samplingFrequency = smpRate;
+	ADC_i.p_ADC_tick = &SCOPE_ADC_request; 
+	ADC_init(&ADC_i);
 };
 
 /**
@@ -49,8 +54,7 @@ void SCOPE_set_sample_rate(uint32_t smpRate)
  */ 
 uint16_t SCOPE_get_voltage (uint8_t samples)
 {
-	//TODO (udelat par odberu a mozna zahrnout i prumerovani)
-	return 0;
+	return ADC_meas_sample();
 };
 
 /**
@@ -60,8 +64,13 @@ uint16_t SCOPE_get_voltage (uint8_t samples)
  */ 
 void SCOPE_start_meas(void)
 {
-	//TODO
+	ADC_circle_meas_start();
 };
+
+
+void SCOPE_setPreTrigger(float _value){
+	gSCOPE.p_SCOPE_buffer->preTrigger = (_value * DATA_SIZE);	
+}
 
 /**
  * @brief  zastaveni mereni
@@ -70,7 +79,7 @@ void SCOPE_start_meas(void)
  */ 
 void SCOPE_stop_meas(void)
 {
-	//TODO
+	ADC_circle_meas_stop();
 };
 
 /**
@@ -90,7 +99,7 @@ void SCOPE_DMA_meas(void)
  */ 
 void SCOPE_set_trigger_level(uint16_t trigLevel)
 {
-	//TODO
+	gSCOPE.SCOPE_triggerLevel = trigLevel;
 };
 
 /**
@@ -100,7 +109,7 @@ void SCOPE_set_trigger_level(uint16_t trigLevel)
  */ 
 void SCOPE_set_trigger_mode(SCOPE_TRIGGER_MODE trigMode)
 {
-	//TODO
+	gSCOPE.SCOPE_triggerMode = trigMode;
 };
 
 /**
@@ -110,7 +119,7 @@ void SCOPE_set_trigger_mode(SCOPE_TRIGGER_MODE trigMode)
  */ 
 void SCOPE_set_trigger_edge(SCOPE_TRIGGER_EDGE trigEdge)
 {
-	//TODO
+	gSCOPE.SCOPE_triggerEdge = trigEdge;
 };
 
 /**
@@ -120,18 +129,123 @@ void SCOPE_set_trigger_edge(SCOPE_TRIGGER_EDGE trigEdge)
  */ 
 SCOPE_STATE SCOPE_get_state(void)
 {
-	//TODO
-	return SCOPE_ERR;
+	return gSCOPE.SCOPE_state;
 };
+
+
+SCOPE_BUFF_STATE storeVal(SCOPE_Buffer * _buff, uint16_t _val){
+
+
+
+	return 	SCOPE_BUFF_FULL;
+}
+
+
+
+uint16_t set_trig(SCOPE_Buffer * _buff){
+
+	return 	0;
+}
 
 /**
  * @brief  Kontrola triggeru a konce mereni pri kazdem odmerenem vzorku (volano z ADC)
  * @param  None
  * @retval None
  */ 
-void SCOPE_ADC_request(void)
+void SCOPE_ADC_request(uint16_t _value)
 {
-	//TODO
+	//get value from adc , save value to buffer
+	static uint16_t dataRemain;
+	bool triggerEvent = FALSE;
+	static bool trigEnable = FALSE;
+
+	switch (gSCOPE.SCOPE_state){
+	   	case SCOPE_TRIGGER_WAIT:			//getting data before trigger
+
+			switch (gSCOPE.SCOPE_triggerEdge){
+				case SCOPE_RISING:
+					if(_value > gSCOPE.SCOPE_triggerLevel){
+						if(trigEnable){
+							triggerEvent = TRUE;
+						}
+					}
+					if(_value < gSCOPE.SCOPE_triggerLevel){
+						trigEnable = TRUE;
+					}
+					break;
+				case SCOPE_FALLING:
+					if(_value < gSCOPE.SCOPE_triggerLevel){
+						if(trigEnable){
+							triggerEvent = TRUE;
+						}
+					}
+					if(_value > gSCOPE.SCOPE_triggerLevel){
+						trigEnable = TRUE;
+					}
+					break;
+			}
+
+			if( triggerEvent ){
+				gSCOPE.SCOPE_state = SCOPE_SAMPLING;
+				trigEnable = FALSE;
+				set_trig(gSCOPE.p_SCOPE_buffer);
+				dataRemain = gSCOPE.p_SCOPE_buffer->size - gSCOPE.p_SCOPE_buffer->preTrigger;
+			}
+			if( storeVal(gSCOPE.p_SCOPE_buffer,_value) == SCOPE_BUFF_FULL){
+				gSCOPE.SCOPE_state = SCOPE_ERR;
+			}	
+			dataRemain--;	   	
+
+			break;
+		case SCOPE_SAMPLING:		//getting data after trigger
+
+			if( storeVal(gSCOPE.p_SCOPE_buffer,_value) == SCOPE_BUFF_FULL){
+				gSCOPE.SCOPE_state = SCOPE_ERR;
+			}	
+			dataRemain--;
+			if(dataRemain == 0){
+				gSCOPE.SCOPE_state = SCOPE_DONE;
+			}
+			break;
+			
+		case SCOPE_IDLE:				//NOP
+		case SCOPE_DONE:
+		case SCOPE_ERR:
+		default:
+			break;
+	}//switch
+
+
+
+
+};
+
+/**
+ * @brief  Inicializace pomoci decsriptoru
+ * @param  desc
+ * @retval None
+ */ 
+void SCOPE_buf_init(SCOPE_Buffer * _buff){
+	_buff->memory = lData;
+	_buff->size = DATA_SIZE;
+	_buff->writeIndex = 0;
+	_buff->readIndex = 0;
+	_buff->state = SCOPE_BUFF_FREE;
+}
+
+
+void SCOPE_init(SCOPE_TypeDef * _desc)
+{
+	PTO_ADC_InitTypeDef ADC_i;
+   
+	ADC_i.ADC_samplingFrequency = _desc->SCOPE_samplingFrequency;
+	ADC_i.p_ADC_tick = &SCOPE_ADC_request; 
+	ADC_init(&ADC_i);
+	
+	_desc->p_SCOPE_buffer = &lSCOPE_buff;
+	_desc->SCOPE_state = SCOPE_IDLE;
+	
+	SCOPE_buf_init(_desc->p_SCOPE_buffer);		
 };
 
 /************************ END OF FILE *****************************************/
