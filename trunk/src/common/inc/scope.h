@@ -17,6 +17,8 @@
 /* Zadne includy zde nebudou!!!*/
 
 
+
+
 typedef enum
 {
 	SCOPE_RISING = 0,
@@ -32,9 +34,9 @@ typedef enum
 
 typedef enum
 {
-	SCOPE_IDLE = 0,
-	SCOPE_SAMPLING,
-	SCOPE_TRIGGER_WAIT,
+	SCOPE_IDLE = 0,			//NOP
+	SCOPE_SAMPLING,			//getting data after trigger
+	SCOPE_TRIGGER_WAIT,		//getting data before trigger
 	SCOPE_DONE,
 	SCOPE_ERR
 }SCOPE_STATE;
@@ -50,29 +52,30 @@ typedef enum
 
 typedef struct
 {
-  uint16_t * memory;												/* Pointer na pamet kam muze Osciloskop zapisovat */
-  uint16_t size;														/* Velikost pameti pro osciloskop */														
-  uint16_t triggerPointer;									/* Pointer vzorku na kterem nastel triger */
-	uint16_t writePointer;
-  uint16_t readPointer;
-	uint16_t preTrigger;											/* Kolik vzorku se ma nechat pred trigger udalosti */
-  SCOPE_BUFF_STATE state;
+  	uint16_t * memory;												/* Pointer na pamet kam muze Osciloskop zapisovat */
+  	uint16_t size;														/* Velikost pameti pro osciloskop */														
+	uint16_t triggerIndex;									/* Pointer vzorku na kterem nastel triger */
+	uint16_t writeIndex;		//last write
+  	uint16_t readIndex;
+	uint16_t preTrigger;
+	SCOPE_BUFF_STATE state;
 } SCOPE_Buffer;
 
 
 typedef struct
 {
-  uint32_t SCOPE_samplingFrequency;      
-	SCOPE_Buffer* p_SCOPE_buffer;  						/* Pointer na scope buffer */
-  SCOPE_TRIGGER_EDGE SCOPE_triggerEdge;			/* Hrana triggetu */
-	SCOPE_TRIGGER_MODE SCOPE_triggerMode;			/* Typ triggeru */
-	uint16_t SCOPE_triggerLevel;							/* komparovaci uroven triggeru */
-	SCOPE_STATE SCOPE_state;	
-} SCOPE_InitTypeDef;
+  	uint32_t 			SCOPE_samplingFrequency;      
+	SCOPE_Buffer* 		p_SCOPE_buffer;  						/* Pointer na scope buffer */
+  	SCOPE_TRIGGER_EDGE 	SCOPE_triggerEdge;			/* Hrana triggetu */
+	SCOPE_TRIGGER_MODE 	SCOPE_triggerMode;			/* Typ triggeru */
+	uint16_t 			SCOPE_triggerLevel;							/* komparovaci uroven triggeru */
+	SCOPE_STATE 		SCOPE_state;	
+} SCOPE_TypeDef;
 
+extern SCOPE_TypeDef gSCOPE;
 
 /* SCOPE_Exported_Functions */
-void SCOPE_init(SCOPE_InitTypeDef * p_SCOPE_desc); /* Inicializace pomoci decsriptoru */
+void SCOPE_init(SCOPE_TypeDef * p_SCOPE_desc); /* Inicializace pomoci decsriptoru */
 void SCOPE_set_sample_rate(uint32_t smpRate); /* Nastaveni rychlosi vzorkovani*/
 uint16_t SCOPE_get_voltage (uint8_t samples);				/* Hodnota pro voltmeter */
 void SCOPE_start_meas(void);
@@ -84,7 +87,7 @@ void SCOPE_set_trigger_mode(SCOPE_TRIGGER_MODE trigMode);
 void SCOPE_set_trigger_edge(SCOPE_TRIGGER_EDGE trigEdge);
 
 SCOPE_STATE SCOPE_get_state(void);					/* Vrati stav knihovny osciloskopu */
-void SCOPE_ADC_request(void);								/* Kontrola triggeru a konce mereni pri kazdem odmerenem vzorku (volano z ADC)*/
+//void SCOPE_ADC_request(void);								/* Kontrola triggeru a konce mereni pri kazdem odmerenem vzorku (volano z ADC)*/
 
 
 #endif /*__SCOPE_H */
