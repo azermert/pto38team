@@ -21,3 +21,26 @@ C:\Users\Kubba\AppData\Local\Temporary Projects\MCUmechanic\bin\Debug\sv\ZedGrap
 C:\Users\Kubba\AppData\Local\Temporary Projects\MCUmechanic\bin\Debug\tr\ZedGraph.resources.dll
 C:\Users\Kubba\AppData\Local\Temporary Projects\MCUmechanic\bin\Debug\zh-cn\ZedGraph.resources.dll
 C:\Users\Kubba\AppData\Local\Temporary Projects\MCUmechanic\bin\Debug\zh-tw\ZedGraph.resources.dll
+D:\Skola\!!!02-SEMESTR\PTO\svn\src\PCapp\obj\Debug\MCUmechanic.exe
+D:\Skola\!!!02-SEMESTR\PTO\svn\src\PCapp\obj\Debug\MCUmechanic.pdb
+D:\Skola\!!!02-SEMESTR\PTO\svn\src\PCapp\bin\Debug\MCUmechanic.exe
+D:\Skola\!!!02-SEMESTR\PTO\svn\src\PCapp\bin\Debug\MCUmechanic.pdb
+D:\Skola\!!!02-SEMESTR\PTO\svn\src\PCapp\bin\Debug\ZedGraph.dll
+D:\Skola\!!!02-SEMESTR\PTO\svn\src\PCapp\bin\Debug\ZedGraph.xml
+D:\Skola\!!!02-SEMESTR\PTO\svn\src\PCapp\bin\Debug\de\ZedGraph.resources.dll
+D:\Skola\!!!02-SEMESTR\PTO\svn\src\PCapp\bin\Debug\es\ZedGraph.resources.dll
+D:\Skola\!!!02-SEMESTR\PTO\svn\src\PCapp\bin\Debug\fr\ZedGraph.resources.dll
+D:\Skola\!!!02-SEMESTR\PTO\svn\src\PCapp\bin\Debug\hu\ZedGraph.resources.dll
+D:\Skola\!!!02-SEMESTR\PTO\svn\src\PCapp\bin\Debug\it\ZedGraph.resources.dll
+D:\Skola\!!!02-SEMESTR\PTO\svn\src\PCapp\bin\Debug\ja\ZedGraph.resources.dll
+D:\Skola\!!!02-SEMESTR\PTO\svn\src\PCapp\bin\Debug\pt\ZedGraph.resources.dll
+D:\Skola\!!!02-SEMESTR\PTO\svn\src\PCapp\bin\Debug\ru\ZedGraph.resources.dll
+D:\Skola\!!!02-SEMESTR\PTO\svn\src\PCapp\bin\Debug\sk\ZedGraph.resources.dll
+D:\Skola\!!!02-SEMESTR\PTO\svn\src\PCapp\bin\Debug\sv\ZedGraph.resources.dll
+D:\Skola\!!!02-SEMESTR\PTO\svn\src\PCapp\bin\Debug\tr\ZedGraph.resources.dll
+D:\Skola\!!!02-SEMESTR\PTO\svn\src\PCapp\bin\Debug\zh-cn\ZedGraph.resources.dll
+D:\Skola\!!!02-SEMESTR\PTO\svn\src\PCapp\bin\Debug\zh-tw\ZedGraph.resources.dll
+D:\Skola\!!!02-SEMESTR\PTO\svn\src\PCapp\obj\Debug\ResolveAssemblyReference.cache
+D:\Skola\!!!02-SEMESTR\PTO\svn\src\PCapp\obj\Debug\MCUmechanic.Properties.Resources.resources
+D:\Skola\!!!02-SEMESTR\PTO\svn\src\PCapp\obj\Debug\MCUmechanic.csproj.GenerateResource.Cache
+D:\Skola\!!!02-SEMESTR\PTO\svn\src\PCapp\obj\Debug\MCUmechanic.Form1.resources
