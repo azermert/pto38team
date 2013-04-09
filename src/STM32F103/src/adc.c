@@ -39,7 +39,7 @@ uint16_t lAdcBufferLastRead = 0;	// Ukazuje do bufferu na vzorek, ktery byl napo
 
 
 tick_adc lScopeTick = NULL;
-ADC_STATE lAdcState = ADC_ERR;
+ADC_STATE lAdcState = ADC_IDLE;
 	
 uint16_t	lAdcConvValues[ADC_MEM_SIZE];
 uint16_t 	lBuffIndex;
@@ -155,10 +155,12 @@ bool ADC_is_buffer_overflowed()
 void ADC_IRQHandler(void)
 {
 	uint16_t tmp;
+	u8	ISx;
+
 	switch(lAdcState){
 		case ADC_RUN_INF:
 
-			tmp = ADC_GetConversionValue(ADC);
+			tmp = ADC->DR;//ADC_GetConversionValue(ADC);	  //snaha o rychlost .. =D
 
 			if(lBuffIndex == lBuffSize){
 				lBuffIndex = 0;
@@ -179,8 +181,12 @@ void ADC_IRQHandler(void)
 	   		break;
 	}//switch
 
-	ADC_ClearITPendingBit(ADC, ADC_IT_EOC);
-	NVIC_ClearPending(ADC_IRQn);
+	//ADC_ClearITPendingBit(ADC, ADC_IT_EOC);
+	  	/* Clear the selected ADC interrupt pending bits */
+  		ADC->SR = ~(uint32_t)(uint8_t)(ADC_IT_EOC >> 8);
+	//NVIC_ClearPending(ADC_IRQn);
+		ISx = ADC_IRQn/32;
+		NVIC->ICPR[ISx] |= (0x01 << (ADC_IRQn - (32*ISx)));
 }
 
 
