@@ -30,6 +30,7 @@ uint16_t lData[DATA_SIZE];
 /* Private functions ---------------------------------------------------------*/
 
 void SCOPE_ADC_request(uint16_t _value);
+void SCOPE_buf_init(SCOPE_Buffer * _buff);
 
 /**
  * @brief  Nastaveni rychlosi vzorkovani*
@@ -58,12 +59,14 @@ uint16_t SCOPE_get_voltage (uint8_t samples)
 };
 
 /**
- * @brief  odstartovani mereni
+ * @brief  odstartovani & reset mereni
  * @param  None
  * @retval None
  */ 
 void SCOPE_start_meas(void)
 {
+	SCOPE_buf_init(gSCOPE.p_SCOPE_buffer);
+	gSCOPE.SCOPE_state = SCOPE_TRIGGER_WAIT;
 	ADC_circle_meas_start();
 };
 
@@ -80,6 +83,7 @@ void SCOPE_setPreTrigger(float _value){
 void SCOPE_stop_meas(void)
 {
 	ADC_circle_meas_stop();
+	gSCOPE.SCOPE_state = SCOPE_IDLE;
 };
 
 /**
@@ -130,23 +134,58 @@ void SCOPE_set_trigger_edge(SCOPE_TRIGGER_EDGE trigEdge)
 SCOPE_STATE SCOPE_get_state(void)
 {
 	return gSCOPE.SCOPE_state;
-};
-
-
-SCOPE_BUFF_STATE storeVal(SCOPE_Buffer * _buff, uint16_t _val){
-
-
-
-	return 	SCOPE_BUFF_FULL;
 }
 
 
+void storeVal(SCOPE_Buffer * _buff, uint16_t _val){		//zapis do kruhu, neresi se preteceni
+	switch(_buff->state){
+		case SCOPE_BUFF_FREE:
+		case SCOPE_BUFF_DATA:
 
-uint16_t set_trig(SCOPE_Buffer * _buff){
+			_buff->writeIndex++;
+			if(_buff->writeIndex == _buff->size){
+				_buff->writeIndex = 0;
+			}
 
-	return 	0;
+			_buff->memory[_buff->writeIndex] = _val;
+			_buff->state = SCOPE_BUFF_DATA;
+
+			break;
+		case SCOPE_BUFF_FULL:
+			break;
+	
+	}
 }
 
+SCOPE_BUFF_STATE storeVal_at(SCOPE_Buffer * _buff, uint16_t _val){
+
+	if( _buff->dataRemain == 0 ){
+		_buff->state = SCOPE_BUFF_FULL;
+		_buff->indexStart = _buff->writeIndex + 1;	 	//first data to read
+		if(_buff->indexStart >= _buff->size){
+			_buff->indexStart = 0;
+		}
+
+	}else{
+		storeVal(_buff, _val);
+		_buff->dataRemain--;
+	}
+
+	return _buff->state;
+	
+}
+
+void set_trig(SCOPE_Buffer * _buff){
+
+	_buff->triggerIndex = _buff->writeIndex;
+	_buff->dataRemain = _buff->size - _buff->preTrigger;
+
+}
+
+void SCOPE_SW_trigger(void){
+	gSCOPE.SCOPE_state = SCOPE_SAMPLING;
+	set_trig(gSCOPE.p_SCOPE_buffer);		
+}
 /**
  * @brief  Kontrola triggeru a konce mereni pri kazdem odmerenem vzorku (volano z ADC)
  * @param  None
@@ -155,7 +194,6 @@ uint16_t set_trig(SCOPE_Buffer * _buff){
 void SCOPE_ADC_request(uint16_t _value)
 {
 	//get value from adc , save value to buffer
-	static uint16_t dataRemain;
 	bool triggerEvent = FALSE;
 	static bool trigEnable = FALSE;
 
@@ -167,6 +205,7 @@ void SCOPE_ADC_request(uint16_t _value)
 					if(_value > gSCOPE.SCOPE_triggerLevel){
 						if(trigEnable){
 							triggerEvent = TRUE;
+							trigEnable = FALSE;
 						}
 					}
 					if(_value < gSCOPE.SCOPE_triggerLevel){
@@ -177,6 +216,7 @@ void SCOPE_ADC_request(uint16_t _value)
 					if(_value < gSCOPE.SCOPE_triggerLevel){
 						if(trigEnable){
 							triggerEvent = TRUE;
+							trigEnable = FALSE;
 						}
 					}
 					if(_value > gSCOPE.SCOPE_triggerLevel){
@@ -185,31 +225,29 @@ void SCOPE_ADC_request(uint16_t _value)
 					break;
 			}
 
-			if( triggerEvent ){
+			storeVal(gSCOPE.p_SCOPE_buffer,_value);		//zapisujeme do kruhu, nezajima nas overflow
+
+			if( triggerEvent && (gSCOPE.SCOPE_triggerMode != TRIG_SW_AUTO)){	  //SCOPE_AUTO se ridi SW triggerem podle casovace
 				gSCOPE.SCOPE_state = SCOPE_SAMPLING;
 				trigEnable = FALSE;
 				set_trig(gSCOPE.p_SCOPE_buffer);
-				dataRemain = gSCOPE.p_SCOPE_buffer->size - gSCOPE.p_SCOPE_buffer->preTrigger;
-			}
-			if( storeVal(gSCOPE.p_SCOPE_buffer,_value) == SCOPE_BUFF_FULL){
-				gSCOPE.SCOPE_state = SCOPE_ERR;
-			}	
-			dataRemain--;	   	
+			}  	
 
 			break;
 		case SCOPE_SAMPLING:		//getting data after trigger
 
-			if( storeVal(gSCOPE.p_SCOPE_buffer,_value) == SCOPE_BUFF_FULL){
-				gSCOPE.SCOPE_state = SCOPE_ERR;
-			}	
-			dataRemain--;
-			if(dataRemain == 0){
+			if( storeVal_at(gSCOPE.p_SCOPE_buffer,_value) == SCOPE_BUFF_FULL){
 				gSCOPE.SCOPE_state = SCOPE_DONE;
-			}
+			}	
+
 			break;
 			
-		case SCOPE_IDLE:				//NOP
 		case SCOPE_DONE:
+
+			//todo
+			
+			break;
+		case SCOPE_IDLE:
 		case SCOPE_ERR:
 		default:
 			break;
@@ -230,6 +268,9 @@ void SCOPE_buf_init(SCOPE_Buffer * _buff){
 	_buff->size = DATA_SIZE;
 	_buff->writeIndex = 0;
 	_buff->readIndex = 0;
+	_buff->dataRemain = 0;
+	_buff->triggerIndex = 0;
+	_buff->indexStart = 0;
 	_buff->state = SCOPE_BUFF_FREE;
 }
 
@@ -245,7 +286,8 @@ void SCOPE_init(SCOPE_TypeDef * _desc)
 	_desc->p_SCOPE_buffer = &lSCOPE_buff;
 	_desc->SCOPE_state = SCOPE_IDLE;
 	
-	SCOPE_buf_init(_desc->p_SCOPE_buffer);		
+	SCOPE_buf_init(_desc->p_SCOPE_buffer);
+	SCOPE_setPreTrigger(0.5);		
 };
 
 /************************ END OF FILE *****************************************/

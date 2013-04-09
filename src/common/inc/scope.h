@@ -27,9 +27,8 @@ typedef enum
 
 typedef enum
 {
-	SCOPE_NORMAL = 0,
-	SCOPE_AUTO,
-	SCOPE_SINGLE
+	TRIG_SIGNAL = 0,
+	TRIG_SW_AUTO
 } SCOPE_TRIGGER_MODE;
 
 typedef enum
@@ -45,7 +44,7 @@ typedef enum
 {
 	SCOPE_BUFF_FREE = 0,
 	SCOPE_BUFF_DATA,
-	SCOPE_BUFF_ALMOST_FULL,
+	//SCOPE_BUFF_ALMOST_FULL,
 	SCOPE_BUFF_FULL
 }SCOPE_BUFF_STATE;
 
@@ -58,7 +57,9 @@ typedef struct
 	uint16_t writeIndex;		//last write
   	uint16_t readIndex;
 	uint16_t preTrigger;
-	SCOPE_BUFF_STATE state;
+	uint16_t dataRemain;	  	//post-trigger data counter	| 0 = done
+	uint16_t indexStart;
+	volatile SCOPE_BUFF_STATE state;
 } SCOPE_Buffer;
 
 
@@ -85,8 +86,9 @@ void SCOPE_DMA_meas(void);									/* Single mereni nejvyssi rychlosti */
 void SCOPE_set_trigger_level(uint16_t trigLevel);
 void SCOPE_set_trigger_mode(SCOPE_TRIGGER_MODE trigMode);
 void SCOPE_set_trigger_edge(SCOPE_TRIGGER_EDGE trigEdge);
-
-SCOPE_STATE SCOPE_get_state(void);					/* Vrati stav knihovny osciloskopu */
+void SCOPE_SW_trigger(void);
+SCOPE_STATE SCOPE_get_state(void);
+void SCOPE_setPreTrigger(float _value);					/* Vrati stav knihovny osciloskopu */
 //void SCOPE_ADC_request(void);								/* Kontrola triggeru a konce mereni pri kazdem odmerenem vzorku (volano z ADC)*/
 
 
