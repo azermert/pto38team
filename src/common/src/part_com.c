@@ -1,6 +1,6 @@
 /**
   ******************************************************************************
-  * @file    scpi.c
+  * @file    part_com.c
   * @author  PTO Team
   * @version V1.0.0
   * @date    25/3/2013
@@ -12,7 +12,7 @@
 //#include "<procesor>.h"
 #include "stm32f10x.h"
 #include "comm.h"
-#include "scpi.h"
+#include "part_com.h"
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/ 
