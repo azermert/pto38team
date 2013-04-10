@@ -111,7 +111,7 @@
         <tRfunc>0</tRfunc>
         <tRbox>1</tRbox>
         <sRunDeb>0</sRunDeb>
-        <sLrtime>0</sLrtime>
+        <sLrtime>1</sLrtime>
         <nTsel>8</nTsel>
         <sDll></sDll>
         <sDllPa></sDllPa>
@@ -128,13 +128,18 @@
       <TargetDriverDllRegistry>
         <SetRegEntry>
           <Number>0</Number>
+          <Key>DLGDARM</Key>
+          <Name>(1010=-1,-1,-1,-1,0)(1007=-1,-1,-1,-1,0)(1008=-1,-1,-1,-1,0)(1009=-1,-1,-1,-1,0)</Name>
+        </SetRegEntry>
+        <SetRegEntry>
+          <Number>0</Number>
           <Key>DLGTARM</Key>
-          <Name>(1010=-1,-1,-1,-1,0)(1007=-1,-1,-1,-1,0)(1008=901,55,1267,284,0)(1009=-1,-1,-1,-1,0)</Name>
+          <Name>(1010=914,69,1280,619,0)(1007=105,140,282,408,0)(1008=910,164,1276,393,0)(1009=120,156,354,697,0)</Name>
         </SetRegEntry>
         <SetRegEntry>
           <Number>0</Number>
           <Key>ARMDBGFLAGS</Key>
-          <Name></Name>
+          <Name>-T0</Name>
         </SetRegEntry>
         <SetRegEntry>
           <Number>0</Number>
@@ -188,7 +193,38 @@
           <WinNumber>1</WinNumber>
           <ItemText>lAdcState</ItemText>
         </Ww>
+        <Ww>
+          <count>9</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>StmState</ItemText>
+        </Ww>
+        <Ww>
+          <count>10</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>word</ItemText>
+        </Ww>
       </WatchWindow1>
+      <MemoryWindow1>
+        <Mm>
+          <WinNumber>1</WinNumber>
+          <SubType>0</SubType>
+          <ItemText>0x8000 E010</ItemText>
+        </Mm>
+      </MemoryWindow1>
+      <MemoryWindow2>
+        <Mm>
+          <WinNumber>2</WinNumber>
+          <SubType>0</SubType>
+          <ItemText>0x8000 E010</ItemText>
+        </Mm>
+      </MemoryWindow2>
+      <MemoryWindow4>
+        <Mm>
+          <WinNumber>4</WinNumber>
+          <SubType>256</SubType>
+          <ItemText>0xE000E018</ItemText>
+        </Mm>
+      </MemoryWindow4>
       <DebugFlag>
         <trace>0</trace>
         <periodic>0</periodic>
@@ -222,7 +258,7 @@
 
   <Group>
     <GroupName>inc</GroupName>
-    <tvExp>0</tvExp>
+    <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <File>
@@ -231,10 +267,10 @@
       <FileType>5</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>33</ColumnNumber>
+      <ColumnNumber>42</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>0</TopLine>
-      <CurrentLine>0</CurrentLine>
+      <TopLine>18</TopLine>
+      <CurrentLine>31</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\inc\adc.h</PathWithFileName>
       <FilenameWithoutPath>adc.h</FilenameWithoutPath>
@@ -435,6 +471,20 @@
       <PathWithFileName>.\inc\initialize.h</PathWithFileName>
       <FilenameWithoutPath>initialize.h</FilenameWithoutPath>
     </File>
+    <File>
+      <GroupNumber>1</GroupNumber>
+      <FileNumber>0</FileNumber>
+      <FileType>5</FileType>
+      <tvExp>0</tvExp>
+      <Focus>0</Focus>
+      <ColumnNumber>14</ColumnNumber>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <TopLine>7</TopLine>
+      <CurrentLine>7</CurrentLine>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\common\inc\abc.h</PathWithFileName>
+      <FilenameWithoutPath>abc.h</FilenameWithoutPath>
+    </File>
   </Group>
 
   <Group>
@@ -450,8 +500,8 @@
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>151</TopLine>
-      <CurrentLine>174</CurrentLine>
+      <TopLine>148</TopLine>
+      <CurrentLine>160</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\src\adc.c</PathWithFileName>
       <FilenameWithoutPath>adc.c</FilenameWithoutPath>
@@ -588,7 +638,7 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>0</ColumnNumber>
+      <ColumnNumber>1</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
       <TopLine>0</TopLine>
       <CurrentLine>0</CurrentLine>
@@ -602,10 +652,10 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>0</ColumnNumber>
+      <ColumnNumber>21</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>56</TopLine>
-      <CurrentLine>65</CurrentLine>
+      <TopLine>139</TopLine>
+      <CurrentLine>139</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\src\main.c</PathWithFileName>
       <FilenameWithoutPath>main.c</FilenameWithoutPath>
@@ -618,8 +668,8 @@
       <Focus>0</Focus>
       <ColumnNumber>35</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>1</TopLine>
-      <CurrentLine>1</CurrentLine>
+      <TopLine>0</TopLine>
+      <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\src\NVIC_Basic.c</PathWithFileName>
       <FilenameWithoutPath>NVIC_Basic.c</FilenameWithoutPath>
@@ -630,10 +680,10 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>28</ColumnNumber>
+      <ColumnNumber>51</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>29</TopLine>
-      <CurrentLine>41</CurrentLine>
+      <TopLine>31</TopLine>
+      <CurrentLine>39</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\src\timeBase.c</PathWithFileName>
       <FilenameWithoutPath>timeBase.c</FilenameWithoutPath>
@@ -658,10 +708,10 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>35</ColumnNumber>
+      <ColumnNumber>18</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>43</TopLine>
-      <CurrentLine>61</CurrentLine>
+      <TopLine>45</TopLine>
+      <CurrentLine>59</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\src\initialize.c</PathWithFileName>
       <FilenameWithoutPath>initialize.c</FilenameWithoutPath>
@@ -691,7 +741,7 @@
 
   <Group>
     <GroupName>CMSIS</GroupName>
-    <tvExp>0</tvExp>
+    <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <File>
@@ -751,8 +801,8 @@
       <Focus>0</Focus>
       <ColumnNumber>35</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>1268</TopLine>
-      <CurrentLine>1291</CurrentLine>
+      <TopLine>0</TopLine>
+      <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\lib\STM32F10x_StdPeriph_Driver\src\stm32f10x_adc.c</PathWithFileName>
       <FilenameWithoutPath>stm32f10x_adc.c</FilenameWithoutPath>
@@ -1064,10 +1114,10 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>37</ColumnNumber>
+      <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>85</TopLine>
-      <CurrentLine>93</CurrentLine>
+      <TopLine>230</TopLine>
+      <CurrentLine>238</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\common\src\comm.c</PathWithFileName>
       <FilenameWithoutPath>comm.c</FilenameWithoutPath>
@@ -1120,10 +1170,10 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>29</ColumnNumber>
+      <ColumnNumber>23</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>183</TopLine>
-      <CurrentLine>194</CurrentLine>
+      <TopLine>0</TopLine>
+      <CurrentLine>0</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\common\src\scope.c</PathWithFileName>
       <FilenameWithoutPath>scope.c</FilenameWithoutPath>
@@ -1159,9 +1209,9 @@
   </Group>
 
   <AlienFiles>
-    <PathWithFilename>C:\_USER\CVUT-FEL\Ing_Etapa\PTO\src\common\inc\scope.h</PathWithFilename>
-    <TopLine>19</TopLine>
-    <CurrentLine>31</CurrentLine>
+    <PathWithFilename>C:\_USER\CVUT-FEL\Ing_Etapa\PTO\src\common\inc\comm.h</PathWithFilename>
+    <TopLine>75</TopLine>
+    <CurrentLine>82</CurrentLine>
     <Constant>0</Constant>
     <WindowPosition>
       <length>0</length>
@@ -1185,47 +1235,23 @@
   </AlienFiles>
 
   <MDIGroups>
-    <Orientation>1</Orientation>
+    <Orientation>3</Orientation>
     <ActiveMDIGroup>0</ActiveMDIGroup>
     <MDIGroup>
-      <Size>100</Size>
-      <ActiveTab>4</ActiveTab>
+      <Size>78</Size>
+      <ActiveTab>0</ActiveTab>
       <Documents>
         <Doc>
-          <Name>.\src\initialize.c</Name>
-          <ColumnNumber>35</ColumnNumber>
-          <TopLine>43</TopLine>
-          <CurrentLine>61</CurrentLine>
-        </Doc>
-        <Doc>
-          <Name>.\src\adc.c</Name>
-          <ColumnNumber>0</ColumnNumber>
-          <TopLine>151</TopLine>
-          <CurrentLine>174</CurrentLine>
-        </Doc>
-        <Doc>
-          <Name>.\src\timeBase.c</Name>
-          <ColumnNumber>28</ColumnNumber>
-          <TopLine>29</TopLine>
-          <CurrentLine>41</CurrentLine>
-        </Doc>
-        <Doc>
-          <Name>..\common\src\scope.c</Name>
-          <ColumnNumber>29</ColumnNumber>
-          <TopLine>183</TopLine>
-          <CurrentLine>194</CurrentLine>
-        </Doc>
-        <Doc>
           <Name>.\src\main.c</Name>
-          <ColumnNumber>0</ColumnNumber>
-          <TopLine>56</TopLine>
-          <CurrentLine>65</CurrentLine>
+          <ColumnNumber>21</ColumnNumber>
+          <TopLine>139</TopLine>
+          <CurrentLine>139</CurrentLine>
         </Doc>
         <Doc>
-          <Name>.\src\NVIC_Basic.c</Name>
-          <ColumnNumber>35</ColumnNumber>
-          <TopLine>1</TopLine>
-          <CurrentLine>1</CurrentLine>
+          <Name>.\src\initialize.c</Name>
+          <ColumnNumber>18</ColumnNumber>
+          <TopLine>45</TopLine>
+          <CurrentLine>59</CurrentLine>
         </Doc>
         <Doc>
           <Name>.\lib\CMSIS\CM3\DeviceSupport\ST\STM32F10x\startup\arm\startup_stm32f10x_md_vl.s</Name>
@@ -1234,22 +1260,46 @@
           <CurrentLine>117</CurrentLine>
         </Doc>
         <Doc>
-          <Name>.\lib\STM32F10x_StdPeriph_Driver\src\stm32f10x_adc.c</Name>
-          <ColumnNumber>35</ColumnNumber>
-          <TopLine>1268</TopLine>
-          <CurrentLine>1291</CurrentLine>
+          <Name>.\src\timeBase.c</Name>
+          <ColumnNumber>51</ColumnNumber>
+          <TopLine>31</TopLine>
+          <CurrentLine>39</CurrentLine>
         </Doc>
         <Doc>
-          <Name>..\common\inc\scope.h</Name>
-          <ColumnNumber>9</ColumnNumber>
-          <TopLine>19</TopLine>
+          <Name>.\inc\adc.h</Name>
+          <ColumnNumber>42</ColumnNumber>
+          <TopLine>18</TopLine>
           <CurrentLine>31</CurrentLine>
         </Doc>
         <Doc>
+          <Name>..\common\inc\comm.h</Name>
+          <ColumnNumber>42</ColumnNumber>
+          <TopLine>75</TopLine>
+          <CurrentLine>82</CurrentLine>
+        </Doc>
+        <Doc>
           <Name>..\common\src\comm.c</Name>
-          <ColumnNumber>37</ColumnNumber>
-          <TopLine>85</TopLine>
-          <CurrentLine>93</CurrentLine>
+          <ColumnNumber>0</ColumnNumber>
+          <TopLine>230</TopLine>
+          <CurrentLine>238</CurrentLine>
+        </Doc>
+        <Doc>
+          <Name>.\src\adc.c</Name>
+          <ColumnNumber>0</ColumnNumber>
+          <TopLine>148</TopLine>
+          <CurrentLine>160</CurrentLine>
+        </Doc>
+      </Documents>
+    </MDIGroup>
+    <MDIGroup>
+      <Size>22</Size>
+      <ActiveTab>0</ActiveTab>
+      <Documents>
+        <Doc>
+          <Name>..\common\inc\abc.h</Name>
+          <ColumnNumber>14</ColumnNumber>
+          <TopLine>7</TopLine>
+          <CurrentLine>7</CurrentLine>
         </Doc>
       </Documents>
     </MDIGroup>

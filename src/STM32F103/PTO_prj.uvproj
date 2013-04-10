@@ -123,7 +123,7 @@
             <RestoreMemoryDisplay>1</RestoreMemoryDisplay>
             <RestoreFunctions>1</RestoreFunctions>
             <RestoreToolbox>1</RestoreToolbox>
-            <LimitSpeedToRealTime>0</LimitSpeedToRealTime>
+            <LimitSpeedToRealTime>1</LimitSpeedToRealTime>
           </Simulator>
           <Target>
             <UseTarget>1</UseTarget>
@@ -193,8 +193,8 @@
             <AdsLsun>1</AdsLsun>
             <AdsLven>1</AdsLven>
             <AdsLsxf>1</AdsLsxf>
-            <RvctClst>0</RvctClst>
-            <GenPPlst>0</GenPPlst>
+            <RvctClst>1</RvctClst>
+            <GenPPlst>1</GenPPlst>
             <AdsCpuType>"Cortex-M3"</AdsCpuType>
             <RvctDeviceName></RvctDeviceName>
             <mOS>0</mOS>
@@ -460,6 +460,11 @@
               <FileName>initialize.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\inc\initialize.h</FilePath>
+            </File>
+            <File>
+              <FileName>abc.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\inc\abc.h</FilePath>
             </File>
           </Files>
         </Group>

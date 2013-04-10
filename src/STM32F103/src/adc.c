@@ -154,8 +154,8 @@ bool ADC_is_buffer_overflowed()
   */
 void ADC_IRQHandler(void)
 {
-	uint16_t tmp;
-	u8	ISx;
+	static uint16_t tmp;
+	//u8	ISx;
 
 	switch(lAdcState){
 		case ADC_RUN_INF:
@@ -168,9 +168,9 @@ void ADC_IRQHandler(void)
 
 			lAdcConvValues[lBuffIndex++] = tmp;
 
-			if(lScopeTick != NULL){
+		//	if(lScopeTick != NULL){
 				lScopeTick(tmp);
-			}
+		//	}
 			break;
 
 		case ADC_DMA_RUN:
@@ -185,8 +185,8 @@ void ADC_IRQHandler(void)
 	  	/* Clear the selected ADC interrupt pending bits */
   		ADC->SR = ~(uint32_t)(uint8_t)(ADC_IT_EOC >> 8);
 	//NVIC_ClearPending(ADC_IRQn);
-		ISx = ADC_IRQn/32;
-		NVIC->ICPR[ISx] |= (0x01 << (ADC_IRQn - (32*ISx)));
+	//	ISx = ADC_IRQn/32;	//=0	  ADC_Irqn = 18
+		NVIC->ICPR[0] |= (0x01 << (ADC_IRQn));
 }
 
 
@@ -352,7 +352,7 @@ void ADC_init(PTO_ADC_InitTypeDef * _desc)
 	Trigger_init(_desc);
 	gpio_init();
 
-	NVIC_IntEnable(ADC_IRQn, 2);
+	NVIC_IntEnable(ADC_IRQn, 4);
 
 } 
 /************************ END OF FILE *****************************************/
