@@ -10,7 +10,7 @@
 
 /* Includes ------------------------------------------------------------------*/
 //#include "<procesor>.h"
-#include "stm32f10x.h"
+#include "stm32f0xx.h"
 #include "comm.h"
 #include "part_com.h"
 
@@ -80,7 +80,7 @@ COMM_CMD SCPI_try_parse_cmd(uint32_t * memory, uint16_t size)
             break;
 				 
          default:	// spatny prikaz
-					 result = 0xffff // bude zalezet na strukture 
+								
 				 break;
       }
 	
