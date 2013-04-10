@@ -23,7 +23,7 @@
 SCOPE_TypeDef gSCOPE;
 SCOPE_Buffer lSCOPE_buff;
 
-#define DATA_SIZE 2048
+#define DATA_SIZE 512//2048
 uint16_t lData[DATA_SIZE];
 
 /* Private function prototypes -----------------------------------------------*/
