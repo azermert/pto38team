@@ -302,6 +302,21 @@ int16_t COMM_read_char()
   return result;
 };            
 
+int16_t COMM_view_char(void)
+{
+	int16_t result;
+	
+	if(inBuffer.writePointer == inBuffer.readPointer)
+	{
+		result = -1;
+	}
+	else
+	{
+		result = inBuffField[inBuffer.readPointer];
+	}
+	return result;
+};
+
 /**
  * @brief  Zavola scpi/nasi knihovnu na rozpoznani prikazu a vrati prikaz z vstupniho bufferu
  * @param  None

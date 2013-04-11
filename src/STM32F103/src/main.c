@@ -27,40 +27,74 @@
 #include "abc.h"
 
 #define FASTINTERVAL	1000	//1ms
-#define SLOWINTERVAL  200000	//200ms
+#define SLOWINTERVAL  100000	//100ms
 
-typedef enum uint32_t{		  //QM = question mark (?) ;  US = underscore	(_)
-	REGISTER_ENUM(I,D,N,QM),	//IDN?
-	REGISTER_ENUM(G,E,N,US),	//GEN_
-	REGISTER_ENUM(G,P,I,O),
-	REGISTER_ENUM(O,S,C,P),
-	REGISTER_ENUM(L,O,G,US),
-	REGISTER_ENUM(C,O,N,T),
-	REGISTER_ENUM(M,E,A,S),
-	REGISTER_ENUM(V,O,L,T),
-	REGISTER_ENUM(S,E,T,V),
-	REGISTER_ENUM(G,E,T,QM),
-	REGISTER_ENUM(T,R,I,G),
-	REGISTER_ENUM(L,E,V,L),
-	REGISTER_ENUM(E,D,G,E),
-	REGISTER_ENUM(F,R,E,Q),
-	REGISTER_ENUM(D,E,P,T),
-	REGISTER_ENUM(S,T,R,T),
-	REGISTER_ENUM(S,T,O,P),
-	REGISTER_ENUM(T,Y,P,E),
-	REGISTER_ENUM(A,M,P,L),
-	REGISTER_ENUM(O,F,F,S),
-	REGISTER_ENUM(D,U,T,Y),
-	REGISTER_ENUM(D,A,T,A),
-	REGISTER_ENUM(C,H,A,N),
-	REGISTER_ENUM(F,R,Q,QM),
-	REGISTER_ENUM(P,L,S,QM),
-	REGISTER_ENUM(V,A,L,QM)	
-}UART_WORD;
+#define ID_STRING "STM32F100 based multipurpose device, K38FEL\r\n"
+
+typedef enum uint32_t{		  	//QM = question mark (?) ;  US = underscore	(_)
+	REGISTER_WID(I,D,N,QM),		//WID_IDNQM=('?' << 24)|('N' << 16)|('D' << 8)|('I'),
+	REGISTER_WID(G,E,N,US),
+	REGISTER_WID(G,P,I,O),
+	REGISTER_WID(O,S,C,P),
+	REGISTER_WID(L,O,G,US),
+	REGISTER_WID(C,O,N,T),
+	REGISTER_WID(M,E,A,S),
+	REGISTER_WID(V,O,L,T),
+
+	REGISTER_WID(S,E,T,V),
+	REGISTER_WID(G,E,T,QM),
+
+	REGISTER_WID(T,R,I,G),
+	REGISTER_WID(L,E,V,L),
+	REGISTER_WID(E,D,G,E),
+	REGISTER_WID(F,R,E,Q),
+	REGISTER_WID(D,E,P,T),
+	REGISTER_WID(S,T,R,T),
+	REGISTER_WID(S,T,O,P),
+
+	REGISTER_WID(T,Y,P,E),
+	REGISTER_WID(A,M,P,L),
+	REGISTER_WID(O,F,F,S),
+	REGISTER_WID(D,U,T,Y),
+	REGISTER_WID(D,A,T,A),
+
+	REGISTER_WID(C,H,A,N),
+
+	REGISTER_WID(F,R,Q,QM),
+	REGISTER_WID(P,L,S,QM),
+
+	REGISTER_WID(V,A,L,QM),
+
+	REGISTER_WID(N,O,R,M),
+	REGISTER_WID(A,U,T,O),
+	REGISTER_WID(S,I,N,G),
+
+	REGISTER_WID(R,I,S,E),
+	REGISTER_WID(F,A,L,L),
+
+	REGISTER_WID(1,K,US,US),
+	REGISTER_WID(1,0,K,US),
+	REGISTER_WID(1,0,0,K),
+	REGISTER_WID(1,M,US,US),
+
+	REGISTER_WID(0,8,B,US),
+	REGISTER_WID(1,6,B,US),
+
+	REGISTER_WID(S,I,N,E),
+	REGISTER_WID(S,Q,R,E),
+	REGISTER_WID(T,R,I,A),
+	REGISTER_WID(A,R,B,T),
+
+	REGISTER_WID(A,N,D,US),
+	REGISTER_WID(O,R,US,US)
+}WORD_ID;
 
 //BUILD_WORD(A,B,C,D);
 
 /* Main variables ---------------------------------------------------------*/
+typedef void (*readTick)(void);
+
+readTick messageParser;
 
 typedef u32 time_t;
 
@@ -87,6 +121,7 @@ typedef enum
 
 /* Function prototypes */
 void measure_Tick(void);
+void messageReadTick(void);
 
 void singleShotStart(void){
 	singleShotEnable = TRUE;
@@ -99,6 +134,8 @@ int main(void) {
 
 	initialize();
 
+	messageParser = &messageReadTick;	//default
+
 	slowTick = actualTime();
 	fastTick = actualTime();
 
@@ -110,116 +147,29 @@ int main(void) {
 
 	if(timeElapsed(slowTick)){
 		slowTick += SLOWINTERVAL;
-		//COMM_send("test komunikace\n\r", 17 );
-		//COMM_put_char('_');
-		//COMM_put_char('X');
-		//COMM_send("TEST KOMUNIKACE\n\r", 17 );
-	/*	SCOPE_set_trigger_mode(TRIG_SW_AUTO);
-		SCOPE_set_sample_rate(20000);
-		SCOPE_start_meas();
-		delay(20000);
-		SCOPE_set_trigger_mode(TRIG_SIGNAL); */
+		messageParser();
+
 	}
 
 	if(timeElapsed(fastTick)){
-					u32 word;
-					uint16_t status;
 		fastTick += FASTINTERVAL;
+
 	  	UART_tick();
 		measure_Tick();
- 
-		/*switch (COMM_read_char()){
-			case 3:		//nrm display start
-				singleShotStart();
-				break;
-			case -1:
-				break;
-			case 0xAA:
-					word = 0;
-					status = COMM_read((uint8_t*)&word, 4);
-					status += 0;
-					COMM_send("parsed\n",7);
-				break;
-			default:
-				break;
-		}*/
-		if( COMM_get_bytes_available() > 3){		
-			status = COMM_read((uint8_t*)&word, 4);
-			status += 0;
-			COMM_send("parsed\n",7);
-			switch(word){
-				case IDNQM:
-					COMM_send("Device\n",7);
-					break;
-				case GENUS:
-					COMM_send("Generator\n",10);
-					break;
-				case GPIO:
-					COMM_send("gpio\n",5);
-					break;
-				case OSCP:
-					COMM_send("oscp\n",5);
-					break;
-				case CONT:
-					COMM_send("cont\n",5);
-					break;
-				case MEAS:
-					COMM_send("meas\n",5);
-					break;
-				case VOLT:
-					COMM_send("volt\n",5);
-					break;
-				case LOGUS:
-					COMM_send("Logic\n",5);
-					break;
-				default:
-					break;	
-			}		
-		}
-		 /*
-		if(SCOPE_get_state() == SCOPE_DONE){
-			u16 tmp;
-			char val[4] = {0,0,0,0};
-			COMM_send("new\n\r", 5);
-			gSCOPE.p_SCOPE_buffer->readIndex = gSCOPE.p_SCOPE_buffer->indexStart;
-			while(1){
-				tmp = gSCOPE.p_SCOPE_buffer->memory[gSCOPE.p_SCOPE_buffer->readIndex];
-				gSCOPE.p_SCOPE_buffer->readIndex++;
-				if(gSCOPE.p_SCOPE_buffer->readIndex == gSCOPE.p_SCOPE_buffer->size){
-					gSCOPE.p_SCOPE_buffer->readIndex = 0;
-				}
-				val[0] = 0;
-				val[1] = 0;
-				val[2] = 0;
-				val[3] = 0;
-				sprintf(val,"%d",tmp);
-				COMM_send(val,4);
-				COMM_put_char('\r');
-				COMM_put_char('\n');
-				if(gSCOPE.p_SCOPE_buffer->readIndex == gSCOPE.p_SCOPE_buffer->indexStart){
-					//readDone
-					break;
-				}
-			}
-			SCOPE_stop_meas();
-		}	 */
-
 	}
-
 	
+
+
 
 	}  //end while
 }  //end main()
 
 void measure_Tick(void){
 
-
 static STATE StmState = IDLE;
 static time_t timeout;
 static bool firstPass = TRUE;
 u16 tmp;
-//char val[4];
-
 
 switch (StmState){
 
@@ -266,26 +216,16 @@ switch (StmState){
 			if(gSCOPE.p_SCOPE_buffer->readIndex == gSCOPE.p_SCOPE_buffer->size){
 				gSCOPE.p_SCOPE_buffer->readIndex = 0;
 			}
-	/*		val[0] = 0;
-			val[1] = 0;
-			val[2] = 0;
-			val[3] = 0;
-			sprintf(val,"%d",tmp);
-			COMM_send(val,4);
-			COMM_put_char('\r');
-			COMM_put_char('\n');		 */
 
 			tmp = (tmp >> 4);	//12 bit -> 8 bit
 			tmp = (tmp & 0x0FF);
-			COMM_put_char((uint8_t)tmp);
-			
+			COMM_put_char((uint8_t)tmp);			
 
 			if(gSCOPE.p_SCOPE_buffer->readIndex == gSCOPE.p_SCOPE_buffer->indexStart){
 				//readDone
 				StmState = IDLE;
 			}
 		break;
-
 
 	case IDLE:
 	default:
@@ -300,9 +240,96 @@ switch (StmState){
 			firstPass = TRUE;	
 		}
 		break;
+}//switch
+}//measure tick
+
+void discardMessage(void){
+	static bool msgEnd = FALSE;
+	char ch = COMM_view_char();
+
+	switch (ch){
+		case '\r':
+		case '\n':
+			COMM_read_char();
+			msgEnd = TRUE;
+			break;
+		case -1:
+			break;
+		default:
+			if(msgEnd){
+				messageParser = &messageReadTick;
+				msgEnd = FALSE;
+			}else{
+				COMM_read_char();
+			}
+	}
 }
+
+void oscpMsgParser(void){
+	WORD_ID cmd;
+	if( COMM_get_bytes_available() > 4){
+		if(COMM_read_char() != ':'){
+			messageParser = &discardMessage;
+			return;
+		}		
+		COMM_read((uint8_t*)&cmd, 4);
+
+		switch(cmd){
+			case WID_TRIG:				
+				break;
+			case WID_LEVL:
+				break;
+			case WID_EDGE:
+				break;
+			case WID_FREQ:
+				break;
+			case WID_DEPT:
+				break;
+			case WID_STRT:
+				break;
+			case WID_STOP:
+				break;
+
+			default:
+				break;	
+		}		
+	}
 }
 
+void messageReadTick(void){
+	WORD_ID word;
+	if( COMM_get_bytes_available() > 3){		
+		COMM_read((uint8_t*)&word, 4);
+
+		switch(word){
+			case WID_IDNQM:
+				COMM_print(ID_STRING);
+				break;
+			case WID_GENUS:
+				COMM_print("Generator unimplemented\n");
+				break;
+			case WID_GPIO:
+				COMM_print("Gpio unimplemented\n");
+				break;
+			case WID_OSCP:
+					messageParser = &oscpMsgParser;
+				break;
+			case WID_CONT:
+				COMM_send("cont\n",5);
+				break;
+			case WID_MEAS:
+				COMM_send("meas\n",5);
+				break;
+			case WID_VOLT:
+				COMM_send("volt\n",5);
+				break;
+			case WID_LOGUS:
+				COMM_send("Logic\n",5);
+				break;
+			default:
+				break;	
+		}		
+	}
 
 
 
@@ -315,4 +342,5 @@ switch (StmState){
 
 
 
+}
 
