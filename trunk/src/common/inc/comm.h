@@ -91,6 +91,7 @@ int8_t COMM_send(uint8_t * memory, uint16_t size);      /* Prekopiruje zadanou p
 
 int16_t COMM_read(uint8_t * memory, uint16_t size);  /* Prekopiruje vstupni buffer na pridelenou pamet a vrati kolik skutence bylo prekopirovano */
 int16_t COMM_read_char(void);                 /* Precte znak z prichoziho bufferu*/
+int16_t COMM_view_char(void);				  /* Vrati prvni znak v prichozim bufferu, neposouva pointer*/
 
 COMM_CMD* COMM_get_command(void);     				/* Zavola scpi/nasi knihovnu na rozpoznani prikazu a vrati prikaz z vstupniho bufferu*/
 void COMM_tick(void);                         /* Uart zada o obsluhu (plny buffer/chyba atd) */   
