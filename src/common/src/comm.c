@@ -12,10 +12,11 @@
   */ 
 
 /* Includes ------------------------------------------------------------------*/
-//#include "<procesor>.h"
-#include "stm32f10x.h"
+
+#include "typedefs.h"
 #include "comm.h"
 #include "uart.h"
+#include "parse_cmd.h"
 
 
 /* Private typedef -----------------------------------------------------------*/
@@ -325,6 +326,7 @@ int16_t COMM_view_char(void)
 COMM_CMD* COMM_get_command()
 {
   //TODO
+	commCommand = SCPI_try_parse_cmd();
   return &commCommand;
 }; 
 
