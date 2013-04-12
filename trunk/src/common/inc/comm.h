@@ -15,6 +15,7 @@
 
 /* Includes ------------------------------------------------------------------*/
 /* Zadne includy zde nebudou!!!*/
+#include "typedefs.h"
 
 //pokus moje;
 
@@ -63,15 +64,8 @@ typedef struct
 typedef struct
 {
   uint32_t COMMAND_type;
-  uint32_t PARAM1_hash;
-  int32_t data1;
-  uint32_t PARAM2_hash;
-  int32_t data2;
-  uint32_t PARAM3_hash;
-  int32_t data3;
-	uint32_t PARAM4_hash;
-  int32_t data4;
-  bool answer;
+  uint32_t PARAM_hash[3];
+  int32_t data[3];
 } COMM_CMD;
 
 
