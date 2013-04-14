@@ -40,23 +40,27 @@ void clearCMD(void);
 COMM_CMD SCPI_try_parse_cmd()
 {
 		error=FALSE;
-	
+		clearCMD();
 		if( COMM_get_bytes_available() > 3){		
 		hash=read_COMM_hash();
-		clearCMD();
+		
 		switch(hash){
+			
 			case IDN:
-				COMM_print(IDN_STRING);
+				result.COMMAND_type=IDN;
 			break;
+			
 			case OSC:
 				parse_OSC_cmd();
 				result.COMMAND_type=OSC;
 			break;
+			
 			default:
 				break;	
 		}		
 	}
 	if(error==TRUE){
+		result.COMMAND_type=ERRR;
 		error=FALSE;
 }
 		return result;
@@ -77,6 +81,18 @@ void parse_OSC_cmd(){
 					result.PARAM_hash[params]=TRIG;
 					hash=read_COMM_hash();
 					if(IS_OSC_TRIG(hash)){
+						result.data[params]=hash;
+					}else{
+						error=TRUE;
+					}
+				}
+			break;
+			case PRET:
+				while(COMM_get_bytes_available() < 6){};
+				if(COMM_read_char() == ' '){
+					result.PARAM_hash[params]=PRET;
+					hash=read_COMM_hash();
+					if(hash<65536){
 						result.data[params]=hash;
 					}else{
 						error=TRUE;

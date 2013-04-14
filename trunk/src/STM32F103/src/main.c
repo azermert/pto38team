@@ -18,17 +18,20 @@
 
 //#include "globals.h"
 
+#include "stm32f10x.h"
+
 #include "initialize.h"
 #include "timeBase.h"
 #include "comm.h"
 #include "uart.h"
 #include "adc.h"
 #include "scope.h"
-#include "abc.h"
+//#include "abc.h"
+#include "state_automat.h"
 
 #define FASTINTERVAL	1000	//1ms
 #define SLOWINTERVAL  100000	//100ms
-
+/*
 #define ID_STRING "STM32F100 based multipurpose device, K38FEL\r\n"
 
 typedef enum uint32_t{		  	//QM = question mark (?) ;  US = underscore	(_)
@@ -90,7 +93,7 @@ typedef enum uint32_t{		  	//QM = question mark (?) ;  US = underscore	(_)
 }WORD_ID;
 
 //BUILD_WORD(A,B,C,D);
-
+*/
 /* Main variables ---------------------------------------------------------*/
 typedef void (*readTick)(void);
 
@@ -121,7 +124,7 @@ typedef enum
 
 /* Function prototypes */
 void measure_Tick(void);
-void messageReadTick(void);
+//void messageReadTick(void);
 
 void singleShotStart(void){
 	singleShotEnable = TRUE;
@@ -134,7 +137,7 @@ int main(void) {
 
 	initialize();
 
-	messageParser = &messageReadTick;	//default
+//	messageParser = &messageReadTick;	//default
 
 	slowTick = actualTime();
 	fastTick = actualTime();
@@ -142,19 +145,18 @@ int main(void) {
     /* program loop */		  //******************************************* main loop
 	while (1) {
 
-
-
-
 	if(timeElapsed(slowTick)){
 		slowTick += SLOWINTERVAL;
-		messageParser();
+		//messageParser();
+		STATE_tick_slow();
 
 	}
 
 	if(timeElapsed(fastTick)){
 		fastTick += FASTINTERVAL;
 
-	  	UART_tick();
+		STATE_tick_fast();
+	  UART_tick();
 		measure_Tick();
 	}
 	
@@ -166,7 +168,7 @@ int main(void) {
 
 void measure_Tick(void){
 
-static STATE StmState = IDLE;
+static STATE StmState;
 static time_t timeout;
 static bool firstPass = TRUE;
 u16 tmp;
@@ -175,7 +177,7 @@ switch (StmState){
 
 	case MEAS_AUTO:
 		if(firstPass){
-			SCOPE_set_trigger_mode(TRIG_SW_AUTO);
+			SCOPE_set_trigger_mode(TRIG_AUTO);
 			SCOPE_start_meas();
 			timeout = actualTime() + 1000000;  //1000ms timeDelay
 			firstPass = FALSE;
@@ -243,6 +245,7 @@ switch (StmState){
 }//switch
 }//measure tick
 
+/*
 void discardMessage(void){
 	static bool msgEnd = FALSE;
 	char ch = COMM_view_char();
@@ -264,7 +267,8 @@ void discardMessage(void){
 			}
 	}
 }
-
+*/
+/*
 void oscpMsgParser(void){
 	WORD_ID cmd;
 	if( COMM_get_bytes_available() > 4){
@@ -295,7 +299,9 @@ void oscpMsgParser(void){
 		}		
 	}
 }
+*/
 
+/*
 void messageReadTick(void){
 	WORD_ID word;
 	if( COMM_get_bytes_available() > 3){		
@@ -330,17 +336,5 @@ void messageReadTick(void){
 				break;	
 		}		
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-}
+}*/
 

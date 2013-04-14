@@ -71,8 +71,8 @@ void SCOPE_start_meas(void)
 };
 
 
-void SCOPE_setPreTrigger(float _value){
-	gSCOPE.p_SCOPE_buffer->preTrigger = (_value * DATA_SIZE);	
+void SCOPE_setPreTrigger(uint16_t _value){
+	gSCOPE.p_SCOPE_buffer->preTrigger = (_value % DATA_SIZE);	
 }
 
 /**
@@ -227,7 +227,7 @@ void SCOPE_ADC_request(uint16_t _value)
 
 			storeVal(gSCOPE.p_SCOPE_buffer,_value);		//zapisujeme do kruhu, nezajima nas overflow
 
-			if( triggerEvent && (gSCOPE.SCOPE_triggerMode != TRIG_SW_AUTO)){	  //SCOPE_AUTO se ridi SW triggerem podle casovace
+			if( triggerEvent && (gSCOPE.SCOPE_triggerMode != TRIG_AUTO)){	  //SCOPE_AUTO se ridi SW triggerem podle casovace
 				gSCOPE.SCOPE_state = SCOPE_SAMPLING;
 				trigEnable = FALSE;
 				set_trig(gSCOPE.p_SCOPE_buffer);
@@ -286,8 +286,7 @@ void SCOPE_init(SCOPE_TypeDef * _desc)
 	_desc->p_SCOPE_buffer = &lSCOPE_buff;
 	_desc->SCOPE_state = SCOPE_IDLE;
 	
-	SCOPE_buf_init(_desc->p_SCOPE_buffer);
-	SCOPE_setPreTrigger(0.5);		
+	SCOPE_buf_init(_desc->p_SCOPE_buffer);	
 };
 
 /************************ END OF FILE *****************************************/
