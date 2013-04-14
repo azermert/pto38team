@@ -22,6 +22,7 @@
   * @{
   */ 
 #define IDN				0x49444e3f	// 49 44 4e 3f
+#define ERRR			0x45525252
 #define GPIO			0x4750494f	// 47 50 49 4f
 #define CONT			0x434f4e54	// 43 4f 4e 54
 #define GEN       0x47454e5f	// 47 45 4e 5f
@@ -76,6 +77,7 @@
 														((TRG) == SING))
 
 #define LEVL				0x4c45564c // 4c 45 56 4c
+#define PRET				0x50524554
 
 #define EDGE				0x45444745 // 45 44 47 45
 	#define RISE				0x52495345 

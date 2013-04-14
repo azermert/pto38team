@@ -28,7 +28,8 @@ typedef enum
 typedef enum
 {
 	TRIG_SIGNAL = 0,
-	TRIG_SW_AUTO
+	TRIG_AUTO,
+	TRIG_SINGLE
 } SCOPE_TRIGGER_MODE;
 
 typedef enum
@@ -65,9 +66,9 @@ typedef struct
 
 typedef struct
 {
-  	uint32_t 			SCOPE_samplingFrequency;      
-	SCOPE_Buffer* 		p_SCOPE_buffer;  						/* Pointer na scope buffer */
-  	SCOPE_TRIGGER_EDGE 	SCOPE_triggerEdge;			/* Hrana triggetu */
+  uint32_t	SCOPE_samplingFrequency;      
+	SCOPE_Buffer*	p_SCOPE_buffer;  						/* Pointer na scope buffer */
+  SCOPE_TRIGGER_EDGE 	SCOPE_triggerEdge;			/* Hrana triggetu */
 	SCOPE_TRIGGER_MODE 	SCOPE_triggerMode;			/* Typ triggeru */
 	uint16_t 			SCOPE_triggerLevel;							/* komparovaci uroven triggeru */
 	SCOPE_STATE 		SCOPE_state;	
@@ -76,19 +77,19 @@ typedef struct
 extern SCOPE_TypeDef gSCOPE;
 
 /* SCOPE_Exported_Functions */
-void SCOPE_init(SCOPE_TypeDef * p_SCOPE_desc); /* Inicializace pomoci decsriptoru */
-void SCOPE_set_sample_rate(uint32_t smpRate); /* Nastaveni rychlosi vzorkovani*/
-uint16_t SCOPE_get_voltage (uint8_t samples);				/* Hodnota pro voltmeter */
+void SCOPE_init(SCOPE_TypeDef * p_SCOPE_desc); 	/* Inicializace pomoci decsriptoru */
+void SCOPE_set_sample_rate(uint32_t smpRate); 	/* Nastaveni rychlosi vzorkovani*/
+uint16_t SCOPE_get_voltage (uint8_t samples);		/* Hodnota pro voltmeter */
 void SCOPE_start_meas(void);
 void SCOPE_stop_meas(void);
-void SCOPE_DMA_meas(void);									/* Single mereni nejvyssi rychlosti */
+void SCOPE_DMA_meas(void);										/* Single mereni nejvyssi rychlosti */
 
 void SCOPE_set_trigger_level(uint16_t trigLevel);
 void SCOPE_set_trigger_mode(SCOPE_TRIGGER_MODE trigMode);
 void SCOPE_set_trigger_edge(SCOPE_TRIGGER_EDGE trigEdge);
 void SCOPE_SW_trigger(void);
-SCOPE_STATE SCOPE_get_state(void);
-void SCOPE_setPreTrigger(float _value);					/* Vrati stav knihovny osciloskopu */
+SCOPE_STATE SCOPE_get_state(void);						/* Vrati stav knihovny osciloskopu */
+void SCOPE_setPreTrigger(uint16_t _value);					
 //void SCOPE_ADC_request(void);								/* Kontrola triggeru a konce mereni pri kazdem odmerenem vzorku (volano z ADC)*/
 
 
