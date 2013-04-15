@@ -1,6 +1,6 @@
 /**
   ******************************************************************************
-  * @file    part_com.h
+  * @file    parse_cmd.h
   * @author  PTO Team
   * @version V1.0.0
   * @date    11/3/2013
@@ -10,120 +10,118 @@
 */ 
 
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __PART_COM_H
-#define __PART_COM_H
+#ifndef __PARSE_CMD_H
+#define __PARSE_CMD_H
 
 /* Includes ------------------------------------------------------------------*/
 /* Zadne includy zde nebudou!!!*/
+#include "abc.h"
 
-
-
-/** @defgroup COMMAND_type
-  * @{
-  */ 
-#define IDN				0x49444e3f	// 49 44 4e 3f
-#define ERRR			0x45525252
-#define GPIO			0x4750494f	// 47 50 49 4f
-#define CONT			0x434f4e54	// 43 4f 4e 54
-#define GEN       0x47454e5f	// 47 45 4e 5f
-#define LOG				0x4c4f475f	// 4c 4f 47 5f
-#define OSC	  		0x4f534350	// 4f 53 43 50
-
-#define STRT			0x53545254 // 53 54 52 54
-#define STOP			0x53544f50 // 53 54 4f 50
-
-/** @defgroup GPIO_params
-  * @{
-  */
-#define SETV			0x98AA	// 53 45 54 56
-#define GET				0x8C93	// 47 45 54 3f
-
-/** @defgroup CONT_params
-  * @{
-  */
-#define FRQ				0x9890 // 46 52 51 3f
-
-/** @defgroup GEN_params
-  * @{
-  */
-#define TYPE				0xAD95 // 54 59 50 45
-#define AMPL				0x8E9C // 41 4d 50 4c 
-#define OFFS				0x9599 // 4f 46 46 53
-#define DUTY				0x99AD // 44 55 54 59
-#define FREQ				0x46524551 // 46 52 45 51
-
-#define SINE				0x9C93 // 53 49 4e 45
-#define SQRE				0xA497 // 53 51 52 45
-#define TRIA				0xA6A8 // 54 52 49 41
-#define ARBT				0x9396 // 41 52 42 54
-
-/** @defgroup LOG__params
-  * @{
-  */
-#define EDGE				0x45444745 // 45 44 47 45
-//#define TYPE				0xAD95 // 54 59 50 45
-#define CHAN				0x8B8F // 43 48 41 4e
-//#define FREQ				0x9896 // 46 52 45 51
-
-/** @defgroup OSC8_params
-  * @{
-  */
-#define TRIG				0x54524947 // 54 52 49 47
-	#define NORM				0x4e4f524d // 4e 4f 52 4d
-	#define AUTO				0x4155544f // 41 55 54 4f
-	#define SING				0x53494e47 // 53 49 4e 47
-	#define IS_OSC_TRIG(TRG) (((TRG) == NORM) || \
-                            ((TRG) == AUTO) || \
-														((TRG) == SING))
-
-#define LEVL				0x4c45564c // 4c 45 56 4c
-#define PRET				0x50524554
-
-#define EDGE				0x45444745 // 45 44 47 45
-	#define RISE				0x52495345 
-	#define FALL				0x46414c4c
-	#define IS_EDGE(ED) (((ED) == RISE) || \
-											((ED) == FALL))
+typedef enum uint32_t{		  	//QM = question mark (?) ;  US = underscore	(_)
+															//WID_IDNQM=('?' << 24)|('N' << 16)|('D' << 8)|('I'),
+	REGISTER_WID(I,D,N,QM),	//
+	REGISTER_WID(E,R,R,R),	//
+	REGISTER_WID(G,E,N,US),	//
+	REGISTER_WID(G,P,I,O),	//
+	REGISTER_WID(O,S,C,P),	//
+	REGISTER_WID(L,O,G,US),	//
+	REGISTER_WID(C,O,N,T),	//
 	
-#define FREQ				0x46524551 // 46 52 45 51
-	#define F_1K				0x314b5f5f
-	#define F_2K				0x324b5f5f
-	#define F_5K				0x354b5f5f
-	#define F_10K				0x31304b5f
-	#define F_20K				0x32304b5f
-	#define F_50K				0x35304b5f
-	#define F_100K			0x3130304b
-	#define F_200K			0x3230304b
-	#define F_500K			0x3530304b
-	#define F_1M				0x314d5f5f
-	#define F_2M				0x324d5f5f
-	#define F_5M				0x354d5f5f
-	#define F_10M				0x31304d5f
-	#define IS_OSC_FREQ(FRQ) (((FRQ) == F_1K) || \
-                            ((FRQ) == F_2K) || \
-														((FRQ) == F_5K) || \
-														((FRQ) == F_10K) || \
-														((FRQ) == F_20K) || \
-														((FRQ) == F_50K) || \
-														((FRQ) == F_100K) || \
-														((FRQ) == F_200K) || \
-														((FRQ) == F_500K) || \
-														((FRQ) == F_1M) || \
-														((FRQ) == F_2M) || \
-														((FRQ) == F_5M) || \
-														((FRQ) == F_10M))
+	REGISTER_WID(M,E,A,S),	//
+	REGISTER_WID(V,O,L,T),	//
 
+	REGISTER_WID(S,E,T,V),
+	REGISTER_WID(G,E,T,QM),
 	
+	REGISTER_WID(T,R,I,G),
+	REGISTER_WID(L,E,V,L),
+	REGISTER_WID(E,D,G,E),
+	REGISTER_WID(F,R,E,Q),
+	REGISTER_WID(P,R,E,T),
+	REGISTER_WID(D,A,T,A),
+	REGISTER_WID(S,T,R,T),
+	REGISTER_WID(S,T,O,P),
 	
-#define DEPT 				0x44455054
-#define BIT_8				0x3038425f
-#define BIT_16			0x3136425f
-#define IS_OSC_DEPT(DEP) (((DEP) == BIT_8) || \
-													((DEP) == BIT_16))
+	REGISTER_WID(T,Y,P,E),
+	REGISTER_WID(A,M,P,L),
+	REGISTER_WID(O,F,F,S),
+	REGISTER_WID(D,U,T,Y),
+	REGISTER_WID(D,E,P,T),
+
+	REGISTER_WID(C,H,A,N),
+
+	REGISTER_WID(F,R,Q,QM),
+	REGISTER_WID(P,L,S,QM),
+
+	REGISTER_WID(V,A,L,QM),
+
+	REGISTER_WID(N,O,R,M),
+	REGISTER_WID(A,U,T,O),
+	REGISTER_WID(S,I,N,G),
+
+	REGISTER_WID(R,I,S,E),
+	REGISTER_WID(F,A,L,L),
+
+	REGISTER_WID(1,K,US,US),
+	REGISTER_WID(2,K,US,US),
+	REGISTER_WID(5,K,US,US),
+	REGISTER_WID(1,0,K,US),
+	REGISTER_WID(2,0,K,US),
+	REGISTER_WID(5,0,K,US),
+	REGISTER_WID(1,0,0,K),
+	REGISTER_WID(2,0,0,K),
+	REGISTER_WID(5,0,0,K),
+	REGISTER_WID(1,M,US,US),
+	REGISTER_WID(2,M,US,US),
+	REGISTER_WID(5,M,US,US),
+	REGISTER_WID(1,0,M,US),
+
+	REGISTER_WID(0,8,B,US),
+	REGISTER_WID(1,6,B,US),
+
+	REGISTER_WID(S,I,N,E),
+	REGISTER_WID(S,Q,R,E),
+	REGISTER_WID(T,R,I,A),
+	REGISTER_WID(A,R,B,T),
+
+	REGISTER_WID(A,N,D,US),
+	REGISTER_WID(O,R,US,US),
+	
+	REGISTER_WID(C,N,T,F),
+	REGISTER_WID(C,N,T,P)
+}WORD_ID;
+
+
+#define IS_OSCP_TRIG(WID_TRIG) (((WID_TRIG) == WID_NORM) || \
+                            ((WID_TRIG) == WID_AUTO) || \
+														((WID_TRIG) == WID_SING))
+
+#define IS_OSCP_EDGE(WID_EDGE) (((WID_EDGE) == WID_RISE) || \
+															 ((WID_EDGE) == WID_FALL))
+
+#define IS_OSCP_FREQ(WID_FREQ) (((WID_FREQ) == WID_1KUSUS) || \
+                            ((WID_FREQ) == WID_2KUSUS) || \
+														((WID_FREQ) == WID_5KUSUS) || \
+														((WID_FREQ) == WID_10KUS) || \
+														((WID_FREQ) == WID_20KUS) || \
+														((WID_FREQ) == WID_50KUS) || \
+														((WID_FREQ) == WID_100K) || \
+														((WID_FREQ) == WID_200K) || \
+														((WID_FREQ) == WID_500K) || \
+														((WID_FREQ) == WID_1MUSUS) || \
+														((WID_FREQ) == WID_2MUSUS) || \
+														((WID_FREQ) == WID_5MUSUS) || \
+														((WID_FREQ) == WID_10MUS))
+
+#define IS_OSCP_DEPT(WID_DEPT) (((WID_DEPT) == WID_08BUS) || \
+													((WID_DEPT) == WID_16BUS))
+													
+										
+													
 	
 /* COMM_Exported_Functions */
 COMM_CMD SCPI_try_parse_cmd(void); /* Pokusi se v bufferu najit prikaz, rozpoznat ho a vratit*/
 
-#endif /*__PART_COM_H */
+#endif /*__PARSE_CMD_H */
 
 /************************ END OF FILE *****************************************/
