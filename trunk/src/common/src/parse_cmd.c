@@ -9,23 +9,24 @@
   */ 
 
 /* Includes ------------------------------------------------------------------*/
-
 #include "comm.h"
 #include "parse_cmd.h"
+
+
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/ 
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 
-uint32_t hash;
+WORD_ID hash;
 
 COMM_CMD result;
 bool error = FALSE;
 
 /* Private function prototypes -----------------------------------------------*/
-void parse_OSC_cmd(void);
-uint32_t read_COMM_hash(void);
+void parse_OSCP_cmd(void);
+WORD_ID read_COMM_hash(void);
 void clearCMD(void);
 
 /* Private functions ---------------------------------------------------------*/
@@ -37,22 +38,57 @@ void clearCMD(void);
  * @param  Memory range
  * @retval Command
  */    
-COMM_CMD SCPI_try_parse_cmd()
+COMM_CMD SCPI_try_parse_cmd(void)
 {
 		error=FALSE;
 		clearCMD();
 		if( COMM_get_bytes_available() > 3){		
 		hash=read_COMM_hash();
-		
+
 		switch(hash){
 			
-			case IDN:
-				result.COMMAND_type=IDN;
+			case WID_IDNQM:
+				result.COMMAND_type=hash;
 			break;
 			
-			case OSC:
-				parse_OSC_cmd();
-				result.COMMAND_type=OSC;
+			case WID_ERRR:   
+				//parse_E_cmd();
+				result.COMMAND_type=hash;
+			break;
+			
+			case WID_OSCP:   
+				parse_OSCP_cmd();
+				result.COMMAND_type=hash;
+			break;
+			
+			case WID_GENUS:   
+				//parse_OSC_cmd();
+				result.COMMAND_type=hash;
+			break;
+			
+			case WID_GPIO:   
+				//parse_OSC_cmd();
+				result.COMMAND_type=hash;
+			break;
+			
+			case WID_LOGUS:   
+				//parse_OSC_cmd();
+				result.COMMAND_type=hash;
+			break;
+			
+			case WID_CONT:   
+				//parse_OSC_cmd();
+				result.COMMAND_type=hash;
+			break;
+			
+			case WID_MEAS:   
+				//parse_OSC_cmd();
+				result.COMMAND_type=hash;
+			break;
+			
+			case WID_VOLT:   
+				//parse_OSC_cmd();
+				result.COMMAND_type=hash;
 			break;
 			
 			default:
@@ -60,7 +96,7 @@ COMM_CMD SCPI_try_parse_cmd()
 		}		
 	}
 	if(error==TRUE){
-		result.COMMAND_type=ERRR;
+		result.COMMAND_type=WID_ERRR;
 		error=FALSE;
 }
 		return result;
@@ -68,41 +104,29 @@ COMM_CMD SCPI_try_parse_cmd()
 
 
 
-void parse_OSC_cmd(){
+void parse_OSCP_cmd(){
 	uint8_t params=0;
 	while(COMM_read_char() == ':' && params<3){
 		while(COMM_get_bytes_available() < 4){};
 		hash=read_COMM_hash();
 		
 		switch(hash){
-			case TRIG:
+			case WID_TRIG:
 				while(COMM_get_bytes_available() < 6){};
 				if(COMM_read_char() == ' '){
-					result.PARAM_hash[params]=TRIG;
+					result.PARAM_hash[params]=hash;
 					hash=read_COMM_hash();
-					if(IS_OSC_TRIG(hash)){
+					if(IS_OSCP_TRIG(hash)){
 						result.data[params]=hash;
 					}else{
 						error=TRUE;
 					}
 				}
 			break;
-			case PRET:
+			case WID_PRET:
 				while(COMM_get_bytes_available() < 6){};
 				if(COMM_read_char() == ' '){
-					result.PARAM_hash[params]=PRET;
-					hash=read_COMM_hash();
-					if(hash<65536){
-						result.data[params]=hash;
-					}else{
-						error=TRUE;
-					}
-				}
-			break;
-			case LEVL:
-				while(COMM_get_bytes_available() < 6){};
-				if(COMM_read_char() == ' '){
-					result.PARAM_hash[params]=LEVL;
+					result.PARAM_hash[params]=hash;
 					hash=read_COMM_hash();
 					if(hash<65536){
 						result.data[params]=hash;
@@ -111,47 +135,59 @@ void parse_OSC_cmd(){
 					}
 				}
 			break;
-			case EDGE:
+			case WID_LEVL:
 				while(COMM_get_bytes_available() < 6){};
 				if(COMM_read_char() == ' '){
-					result.PARAM_hash[params]=EDGE;
+					result.PARAM_hash[params]=hash;
 					hash=read_COMM_hash();
-					if(IS_EDGE(hash)){
+					if(hash<65536){
 						result.data[params]=hash;
 					}else{
 						error=TRUE;
 					}
 				}
 			break;
-			case FREQ:
+			case WID_EDGE:
 				while(COMM_get_bytes_available() < 6){};
 				if(COMM_read_char() == ' '){
-					result.PARAM_hash[params]=FREQ;
+					result.PARAM_hash[params]=hash;
 					hash=read_COMM_hash();
-					if(IS_OSC_FREQ(hash)){
+					if(IS_OSCP_EDGE(hash)){
+					result.data[params]=hash;
+					}else{
+						error=TRUE;
+					}
+				}
+			break;
+			case WID_FREQ:
+				while(COMM_get_bytes_available() < 6){};
+				if(COMM_read_char() == ' '){	
+					result.PARAM_hash[params]=hash;
+					hash=read_COMM_hash();
+					if(IS_OSCP_FREQ(hash)){
 						result.data[params]=hash;
 					}else{
 						error=TRUE;
 					}
 				}
 			break;
-			case DEPT:
+			case WID_DEPT:
 				while(COMM_get_bytes_available() < 6){};
 				if(COMM_read_char() == ' '){
-					result.PARAM_hash[params]=DEPT;
+					result.PARAM_hash[params]=hash;
 					hash=read_COMM_hash();
-					if(IS_OSC_DEPT(hash)){
+					if(IS_OSCP_DEPT(hash)){
 						result.data[params]=hash;
 					}else{
 						error=TRUE;
 					}
 				}
 			break;
-			case STRT:
-					result.PARAM_hash[params]=STRT;
+			case WID_STRT:
+					result.PARAM_hash[params]=hash;
 			break;
-			case STOP:
-					result.PARAM_hash[params]=STOP;
+			case WID_STOP:
+					result.PARAM_hash[params]=hash;
 			break;	
 			default:
 				error=TRUE;
@@ -162,14 +198,11 @@ void parse_OSC_cmd(){
 	COMM_read_char();
 }
 
-
-
-
-uint32_t read_COMM_hash(void){
+WORD_ID read_COMM_hash(void){
 	uint8_t inField[4];
 	COMM_read((uint8_t*)&inField, 4);
-	return inField[3]+256*inField[2]+256*256*inField[1]+256*256*256*inField[0];
-
+//  	return inField[3]+256*inField[2]+256*256*inField[1]+256*256*256*inField[0];	//?????
+	return (inField[0] << 24)|(inField[1] << 16)|(inField[2] << 8)|(inField[3]);	//?????
 }
 
 void clearCMD(void){
