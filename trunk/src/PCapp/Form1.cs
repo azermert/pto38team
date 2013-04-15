@@ -17,13 +17,18 @@ namespace MCUmechanic
 
     public partial class Form1 : Form
     {
-         SerialClient serialClient1;
+        
+        SerialClient serialClient1;
         byte[] buf2;
         static bool openPort = false;
+        static bool bufsaved = false;
+
+        static string pamet;
         SerialError spErr;
         private Thread trd;
         delegate void serialDelegate(object sglton);
-        
+        private delegate void SetTextDeleg(string data);
+        SerialPort mySerialPort;
         
         
         public Form1()
@@ -41,9 +46,69 @@ namespace MCUmechanic
             listBox2.SelectedIndex = 0;}
             listBox3.SelectedIndex = 0;
 
+
+            /*konfigurace serial portu*/
+            SettingRS232();
+        }
+        public void SettingRS232()
+        {
+            try
+            {
+                mySerialPort = new SerialPort("COM11");
+
+                mySerialPort.BaudRate = 115200;
+                mySerialPort.Parity = Parity.None;
+                mySerialPort.StopBits = StopBits.One;
+                mySerialPort.DataBits = 8;
+                mySerialPort.Handshake = Handshake.None;
+                mySerialPort.ReadTimeout = 8000;
+                mySerialPort.WriteTimeout = 500;
+
+                mySerialPort.DtrEnable = true;
+                mySerialPort.RtsEnable = true;
+
+                
+                //mySerialPort.DataReceived += new SerialDataReceivedEventHandler(DataReceivedHandler);
+                
+
+                //listBox1.Items.Add("Serial Port pøipraven.");
+
+            }
+            catch (Exception ex)
+            {
+                listBox1.Items.Add(ex.Message);
+            }
+
+        }
+        // obsluha serioveho portu
+        public void DataReceivedHandler(object sender, SerialDataReceivedEventArgs e)
+        {
+            SerialPort sp = (SerialPort)sender;
+            System.Threading.Thread.Sleep(5000);
+            string indata = sp.ReadExisting();
+            this.BeginInvoke(new SetTextDeleg(DisplayToUI), new object[] { indata });
+            //textBox1.Text += indata;
         }
         
+        private void DisplayToUI(string displayData)
+        {
+             listBox1.Items.Add(displayData.Trim());
+            //textBox1.Text += displayData.Trim();
+            // textBox1.Text += displayData;
+
+        }
+
+
+
+        static object zamek = new object();
+        static string buffer;
+        static void updateListBox(string buffer) { 
+            lock(zamek) {
+                // textBox1.Text = buffer;
+                    
+            }
         
+        }
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -76,13 +141,14 @@ namespace MCUmechanic
         {
             int mode = 0;
             TimeSpan interval = TimeSpan.Parse("1000");
-            byte[] buffer = new byte[25];
+            byte[] buffer = new byte[5];
             if (mode == 0)
             {// ASCII rezim
                 read(serialClient1, buffer, 1, interval);
                 
                 buf2 = buffer; //prepis do globalni promenne
-                timer1.Start();
+                
+               
             }
             else { 
             //binarni rezim
@@ -154,36 +220,122 @@ namespace MCUmechanic
 
         }
 
+        
+        
+        private string protocolParser(byte[] inputBuffer) {
+
+            string lastcmd, buff ="", retbuff; //lastcmd pozdeji bude static
+            
+            for (int i = 0; i < 4; i++) {
+                buff += inputBuffer[i];
+            }
+
+            switch(buff){
+                case "IDN": return "neimplemenotvano";
+                case "GPIO": return "neimplemenotvano";
+                case "OSC8": return "neimplemenotvano";
+                case "OSCF": return "neimplemenotvano";
+                case "LOG_": return "neimplemenotvano";
+                case "CNTF": return "neimplemenotvano";
+                case "CNTP": return "neimplemenotvano";
+                case "MEAS": return "neimplemenotvano";
+                case "VOLT": return "neimplemenotvano";
+
+
+                default: retbuff = "neznámý vstup"; break;
+            }
+            return "neznámý vstup";
+        }
+
+        private string separeVaue(byte[] inputbuffer, uint type){ //!!! predelat na object
+            
+            string retbuff = "";
+            string dataLenbuff = "";
+
+            switch (type) {
+                /*char[] to string*/
+                case 0: for (int i = 0; i < int.MaxValue; i++) { 
+                            if (inputbuffer[i] == 13 || inputbuffer[i] == 10 ){return retbuff;}
+                            retbuff = retbuff+inputbuffer[i];
+                        }   return "prilis dlouhy retezec";
+                /*uint8 to string*/
+                case 1:
+                    int dataLen = 0;
+                    int cntCData = Convert.ToInt16((char)inputbuffer[0]);
+                    if (cntCData > 0){
+                        
+                        for (int i = 0; i < cntCData; i++ )
+                        {
+                            dataLenbuff = dataLenbuff+inputbuffer[1 + i];
+                        }
+                        dataLen = Convert.ToInt32(dataLenbuff);
+
+                        for (int i=0; i< int.MaxValue; i++){
+                            if (i == dataLen) {return retbuff;}
+                            retbuff = retbuff+Convert.ToString(Convert.ToUInt16(inputbuffer[cntCData + 1 + i]));
+                        }
+                    } return "Neplatný formát dat";
+                /*uint8bininput to intArray16*/
+                case 2:
+                    
+                    dataLen = 0;
+                    cntCData = Convert.ToInt16((char)(inputbuffer[0]));
+                    if (cntCData > 0)
+                    {
+                        
+                        for (int i = 0; i < cntCData; i++)
+                        {
+                            dataLenbuff = dataLenbuff+inputbuffer[1 + i];
+                        }
+                        dataLen = Convert.ToInt32(dataLenbuff);
+
+                        for (int i = 0; i < int.MaxValue; i++)
+                        {
+                            if (i == dataLen || inputbuffer[i] == 13 || inputbuffer[i] == 10) { return retbuff; }
+                            retbuff = retbuff + (Convert.ToUInt16(inputbuffer[cntCData + 1 + i])); // vraci pole uint16
+                        }
+                    } return "Neplatný formát dat";
+                /*uint^16*/
+
+                default: return "neznámá hodnota"; break;
+            }
+        
+        
+        }
+
+
 
         private void button2_Click(object sender, EventArgs e)
         {
 
             if (button2.Text == "Pøipojit")
             {
-                serialClient1 = new SerialClient(listBox2.SelectedItem.ToString(), Convert.ToInt32(listBox3.SelectedItem.ToString()));
-                serialClient1.OnReceiving += new EventHandler<DataStreamEventArgs>(receiveHandler);
-                if (serialClient1.OpenConn())
+                try
                 {
+                    mySerialPort.PortName = listBox2.SelectedItem.ToString();
+                    mySerialPort.BaudRate = Convert.ToInt32(listBox3.SelectedItem.ToString());
+                    mySerialPort.Open();
+                 }
+                catch (IOException ioex)
+                {
+                  listBox1.Items.Add(ioex.Message);
+                }
+                
+                if (mySerialPort.IsOpen)
+                {
+                    mySerialPort.DataReceived += DataReceivedHandler;
+                    listBox1.Items.Add("Port otevøen");
                     button2.Text = "Odpojit";
                 }
-               // try
-             ///   {
-                    
-                    
-              //  }
-                //catch (IOException ioex)
-                //{
-                //    MessageBox.Show("Error opening device:" + ioex.Message, "Warning");
-                //}
+                
                 //catch (Exception ex)
                 //{
                 //    MessageBox.Show("Error initializing device:" + ex.Message, "Warning");
                 //}
             }
             else {
-                serialClient1.CloseConn();
-                serialClient1.OnReceiving -= new EventHandler<DataStreamEventArgs>(receiveHandler);
-                serialClient1.Dispose();
+                mySerialPort.Close();
+                mySerialPort.Dispose();
                 button2.Text = "Pøipojit";
             }
             
@@ -195,17 +347,25 @@ namespace MCUmechanic
         private void button1_Click(object sender, EventArgs e)
         {
          //  if (serialPort1.IsOpen)
-            listBox1.Items.Add(textBox1.Text);
-            byte[] cmd = Encoding.ASCII.GetBytes(textBox1.Text);
-            
-                serialClient1.Transmit(cmd); 
-                textBox1.Clear();
+            string scmd = textBox1.Text.ToString().ToUpper();
+            //byte[] cmd = Encoding.ASCII.GetBytes(scmd);
+            try
+            {
+                mySerialPort.WriteLine(scmd);
+            }
+            catch (IOException ioex)
+                {
+                  listBox1.Items.Add(ioex.Message);
+                }
+            listBox1.Items.Add(scmd);
+            textBox1.Clear();
             
             
         }
         private void sp_DataReceived(object sender, SerialDataReceivedEventArgs e)
-        { 
-            listBox1.Items.Add(serialPort1.ReadLine());
+        {
+            updateListBox(serialPort1.ReadLine());
+            //listBox1.Items.Add(serialPort1.ReadLine());
             //TO DO zpracovani prijatych dat, DOPLNIT TIME-outem
             
            // hint: http://www.fryan0911.com/2009/04/c-serial-port-communication.html
@@ -218,7 +378,9 @@ namespace MCUmechanic
 
         private void button42_Click(object sender, EventArgs e)
         {
-            listBox1.Items.Add(System.Text.Encoding.ASCII.GetString(buf2));
+
+            timer1.Start();
+            //listBox1.Items.Add(System.Text.Encoding.ASCII.GetString(buf2));
         }
 
         private void button29_Click(object sender, EventArgs e)
@@ -228,14 +390,121 @@ namespace MCUmechanic
 
         private void timer1_Tick(object sender, EventArgs e)
         {
+            lock (zamek)
+            {
+                listBox1.Items.Add((buf2.ToString()));
+                timer1.Stop();
+            }
+        }
+
+        
+
+
+        /* Vse prislusici k osciloskopu */
+        bool scopeRun = false;
+        char[] scopeBuffer;
+        int maxscopeBuffer = Int32.MaxValue;
+        static int cntAddSamples = 0; // !!! static sdilene s rs232 vlaknem
+        object scopeBufferLock;
+        object cntSamplesLock;
+        int lastPosinBuf = 0;
+
+
+        private void button16_Click(object sender, EventArgs e)
+        {
+            if (button16.Text == "RUN")
+            {
+                scopeRun = true;
+                button16.Text = "STOP";
+            }
+            else { scopeRun = false; button16.Text = "RUN"; }
+        }
+
+
+        private string getVolt() { 
+        // posli VOLT? vrat hodnotu
+            return "neimplementováno";
+        }
+
+        private string getIDN()
+        {
+            // posli VOLT? vrat hodnotu
+            return "neimplementováno";
+        }
+
+        private void refreshPrehled() {
             
-            this.listBox2.Items.Add(buf2.ToString());
-            timer1.Stop();
+            scopeRun = false;
+            //nastav mode panel = prehled
+            getIDN();
+            getVolt();
+            
+        
+        }
+
+        private void scopeTimer_Tick(object sender, EventArgs e)
+        {
+            int readToBuf = 0;
+            // pohyb v bufferu
+            lock (cntSamplesLock)
+            {
+            readToBuf = lastPosinBuf+cntAddSamples;
+            
+            }
+
+            lock (cntSamplesLock)
+            {
+                for (int i = lastPosinBuf; i < readToBuf; i++) { 
+                
+                }
+
+            }
+
+        }
+
+        private void label15_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label17_Click(object sender, EventArgs e)
+        {
+            Generator myGener = new Generator();
+            myGener.isEnabled = true;
+
         }
 
         
     }
 
+    public class Generator
+    {
+
+        static bool _isEnabled;
+        int _type ;
+         uint _amplituda ;
+         uint _offset ;
+        uint _freq;
+
+        public Generator()
+        {
+            _type = 0;
+            _amplituda= 0;
+            _isEnabled = false;
+            _offset= 0;
+            _freq = 1000;
+         }
+
+        public bool isEnabled {
+            get { return _isEnabled; }
+            set { _isEnabled = value; }
+        }
+
+        
+        
+
+    }
+    
     /*after form classes*/
     public class DataStreamEventArgs : EventArgs
     {
