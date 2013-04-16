@@ -48,15 +48,15 @@ void STATE_tick_slow(){
 	p_cmd = COMM_get_command();
 	
 	switch (p_cmd->COMMAND_type){
-		case IDN:
+		case WID_IDNQM:
 			COMM_print(IDN_STRING);	
 		break;
 		
-		case ERRR:
+		case WID_ERRR:
 			COMM_print(ERR_STRING);	
 		break;
 		
-		case OSC:
+		case WID_OSCP:
 			set_scope_param();
 			COMM_print(OK_STRING);	
 		break;
@@ -75,61 +75,71 @@ void set_scope_param(){
 			
 			switch(p_cmd->PARAM_hash[prm]){
 				
-			case FREQ:
-				if(p_cmd->data[prm]==F_1K){
+			case WID_FREQ:
+				if(p_cmd->data[prm]==WID_1KUSUS){
 					SCOPE_set_sample_rate(1000);
-				}else if(p_cmd->data[prm]==F_2K){
+				}else if(p_cmd->data[prm]==WID_2KUSUS){
 					SCOPE_set_sample_rate(2000);
-				}else if(p_cmd->data[prm]==F_5K){
+				}else if(p_cmd->data[prm]==WID_5KUSUS){
 					SCOPE_set_sample_rate(5000);
-				}else if(p_cmd->data[prm]==F_10K){
+				}else if(p_cmd->data[prm]==WID_10KUS){
 					SCOPE_set_sample_rate(10000);
-				}else if(p_cmd->data[prm]==F_20K){
+				}else if(p_cmd->data[prm]==WID_20KUS){
 					SCOPE_set_sample_rate(20000);
-				}else if(p_cmd->data[prm]==F_50K){
+				}else if(p_cmd->data[prm]==WID_50KUS){
 					SCOPE_set_sample_rate(50000);
-				}else if(p_cmd->data[prm]==F_100K){
+				}else if(p_cmd->data[prm]==WID_100K){
 					SCOPE_set_sample_rate(100000);
-				}else if(p_cmd->data[prm]==F_200K){
+				}else if(p_cmd->data[prm]==WID_200K){
 					SCOPE_set_sample_rate(200000);
+				}else if(p_cmd->data[prm]==WID_500K){
+					SCOPE_set_sample_rate(500000);
+				}else if(p_cmd->data[prm]==WID_1MUSUS){
+					SCOPE_set_sample_rate(1000000);
+				}else if(p_cmd->data[prm]==WID_2MUSUS){
+					SCOPE_set_sample_rate(2000000);
+				}else if(p_cmd->data[prm]==WID_5MUSUS){
+					SCOPE_set_sample_rate(5000000);
+				}else if(p_cmd->data[prm]==WID_10MUS){
+					SCOPE_set_sample_rate(10000000);
 				}
 			break;
 			
-			case TRIG:
-				if(p_cmd->data[prm]==NORM){
+			case WID_TRIG:
+				if(p_cmd->data[prm]==WID_NORM){
 					SCOPE_set_trigger_mode(TRIG_SIGNAL);
-				}else if(p_cmd->data[prm]==AUTO){
+				}else if(p_cmd->data[prm]==WID_AUTO){
 					SCOPE_set_trigger_mode(TRIG_AUTO);
-				}else if(p_cmd->data[prm]==SING){
+				}else if(p_cmd->data[prm]==WID_SING){
 					SCOPE_set_trigger_mode(TRIG_SINGLE);
 				}
 			break;
 				
-			case PRET:
+			case WID_PRET:
 				SCOPE_setPreTrigger(p_cmd->data[prm]);
 			break;	
 			
-			case LEVL:
+			case WID_LEVL:
 				SCOPE_set_trigger_level(p_cmd->data[prm]);
 			break;
 			
-			case EDGE:
-				if(p_cmd->data[prm]==RISE){
+			case WID_EDGE:
+				if(p_cmd->data[prm]==WID_RISE){
 					SCOPE_set_trigger_edge(SCOPE_RISING);
-				}else if(p_cmd->data[prm]==FALL){
+				}else if(p_cmd->data[prm]==WID_FALL){
 					SCOPE_set_trigger_edge(SCOPE_FALLING);
 				}
 			break;
 				
-			case DEPT:
+			case WID_DEPT:
 				//TODO zmena bitoveho rozsahu vzorku
 			break;
 			
-			case STRT:
+			case WID_STRT:
 				SCOPE_start_meas();
 			break;
 			
-			case STOP:
+			case WID_STOP:
 				SCOPE_stop_meas();
 			break;
 				
