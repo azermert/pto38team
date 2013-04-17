@@ -40,10 +40,14 @@ void clearCMD(void);
  */    
 COMM_CMD SCPI_try_parse_cmd(void)
 {
+	uint32_t xxx=WID_IDNQM;
+	uint32_t yyy=WID_OSCP;
+	
 		error=FALSE;
 		clearCMD();
 		if( COMM_get_bytes_available() > 3){		
 		hash=read_COMM_hash();
+			
 
 		switch(hash){
 			
@@ -52,43 +56,43 @@ COMM_CMD SCPI_try_parse_cmd(void)
 			break;
 			
 			case WID_ERRR:   
-				//parse_E_cmd();
 				result.COMMAND_type=hash;
+				//parse_E_cmd();
 			break;
 			
-			case WID_OSCP:   
+			case WID_OSCP:  
+				result.COMMAND_type=hash;				
 				parse_OSCP_cmd();
-				result.COMMAND_type=hash;
 			break;
 			
 			case WID_GENUS:   
-				//parse_OSC_cmd();
-				result.COMMAND_type=hash;
+				result.COMMAND_type=hash;				
+				//parse_OSCP_cmd();
 			break;
 			
 			case WID_GPIO:   
-				//parse_OSC_cmd();
-				result.COMMAND_type=hash;
+				result.COMMAND_type=hash;				
+				//parse_OSCP_cmd();
 			break;
 			
 			case WID_LOGUS:   
-				//parse_OSC_cmd();
-				result.COMMAND_type=hash;
+				result.COMMAND_type=hash;				
+				//parse_OSCP_cmd();
 			break;
 			
 			case WID_CONT:   
-				//parse_OSC_cmd();
-				result.COMMAND_type=hash;
+				result.COMMAND_type=hash;				
+				//parse_OSCP_cmd();
 			break;
 			
 			case WID_MEAS:   
-				//parse_OSC_cmd();
-				result.COMMAND_type=hash;
+				result.COMMAND_type=hash;				
+				//parse_OSCP_cmd();
 			break;
 			
 			case WID_VOLT:   
-				//parse_OSC_cmd();
-				result.COMMAND_type=hash;
+				result.COMMAND_type=hash;				
+				//parse_OSCP_cmd();
 			break;
 			
 			default:
@@ -112,7 +116,7 @@ void parse_OSCP_cmd(){
 		
 		switch(hash){
 			case WID_TRIG:
-				while(COMM_get_bytes_available() < 6){};
+				while(COMM_get_bytes_available() < 4){};
 				if(COMM_read_char() == ' '){
 					result.PARAM_hash[params]=hash;
 					hash=read_COMM_hash();
@@ -124,7 +128,7 @@ void parse_OSCP_cmd(){
 				}
 			break;
 			case WID_PRET:
-				while(COMM_get_bytes_available() < 6){};
+				while(COMM_get_bytes_available() < 4){};
 				if(COMM_read_char() == ' '){
 					result.PARAM_hash[params]=hash;
 					hash=read_COMM_hash();
@@ -136,7 +140,7 @@ void parse_OSCP_cmd(){
 				}
 			break;
 			case WID_LEVL:
-				while(COMM_get_bytes_available() < 6){};
+				while(COMM_get_bytes_available() < 4){};
 				if(COMM_read_char() == ' '){
 					result.PARAM_hash[params]=hash;
 					hash=read_COMM_hash();
@@ -148,7 +152,7 @@ void parse_OSCP_cmd(){
 				}
 			break;
 			case WID_EDGE:
-				while(COMM_get_bytes_available() < 6){};
+				while(COMM_get_bytes_available() < 4){};
 				if(COMM_read_char() == ' '){
 					result.PARAM_hash[params]=hash;
 					hash=read_COMM_hash();
@@ -160,7 +164,7 @@ void parse_OSCP_cmd(){
 				}
 			break;
 			case WID_FREQ:
-				while(COMM_get_bytes_available() < 6){};
+				while(COMM_get_bytes_available() < 4){};
 				if(COMM_read_char() == ' '){	
 					result.PARAM_hash[params]=hash;
 					hash=read_COMM_hash();
@@ -172,7 +176,7 @@ void parse_OSCP_cmd(){
 				}
 			break;
 			case WID_DEPT:
-				while(COMM_get_bytes_available() < 6){};
+				while(COMM_get_bytes_available() < 4){};
 				if(COMM_read_char() == ' '){
 					result.PARAM_hash[params]=hash;
 					hash=read_COMM_hash();
@@ -202,7 +206,7 @@ WORD_ID read_COMM_hash(void){
 	uint8_t inField[4];
 	COMM_read((uint8_t*)&inField, 4);
 //  	return inField[3]+256*inField[2]+256*256*inField[1]+256*256*256*inField[0];	//?????
-	return (inField[0] << 24)|(inField[1] << 16)|(inField[2] << 8)|(inField[3]);	//?????
+	return (inField[3] << 24)|(inField[2] << 16)|(inField[1] << 8)|(inField[0]);	//?????
 }
 
 void clearCMD(void){
