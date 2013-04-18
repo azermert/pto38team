@@ -365,10 +365,12 @@ namespace MCUmechanic
             // trackBar8
             // 
             this.trackBar8.Location = new System.Drawing.Point(127, 59);
+            this.trackBar8.Maximum = 40;
             this.trackBar8.Name = "trackBar8";
             this.trackBar8.Size = new System.Drawing.Size(113, 45);
             this.trackBar8.TabIndex = 27;
             this.trackBar8.Value = 5;
+            this.trackBar8.Scroll += new System.EventHandler(this.trackBar8_Scroll);
             // 
             // textBox7
             // 
@@ -399,10 +401,12 @@ namespace MCUmechanic
             // trackBar7
             // 
             this.trackBar7.Location = new System.Drawing.Point(527, 61);
+            this.trackBar7.Maximum = 32;
             this.trackBar7.Name = "trackBar7";
             this.trackBar7.Size = new System.Drawing.Size(113, 45);
             this.trackBar7.TabIndex = 24;
             this.trackBar7.Value = 5;
+            this.trackBar7.Scroll += new System.EventHandler(this.trackBar7_Scroll);
             // 
             // textBox3
             // 
@@ -426,17 +430,19 @@ namespace MCUmechanic
             this.label18.AutoSize = true;
             this.label18.Location = new System.Drawing.Point(524, 19);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(80, 13);
+            this.label18.Size = new System.Drawing.Size(53, 13);
             this.label18.TabIndex = 22;
-            this.label18.Text = "Vzorkù/periodu";
+            this.label18.Text = "Amplituda";
             // 
             // trackBar6
             // 
             this.trackBar6.Location = new System.Drawing.Point(394, 61);
+            this.trackBar6.Maximum = 32;
             this.trackBar6.Name = "trackBar6";
             this.trackBar6.Size = new System.Drawing.Size(113, 45);
             this.trackBar6.TabIndex = 21;
             this.trackBar6.Value = 5;
+            this.trackBar6.Scroll += new System.EventHandler(this.trackBar6_Scroll);
             // 
             // textBox2
             // 
@@ -458,10 +464,12 @@ namespace MCUmechanic
             // trackBar5
             // 
             this.trackBar5.Location = new System.Drawing.Point(262, 61);
+            this.trackBar5.Maximum = 32;
             this.trackBar5.Name = "trackBar5";
             this.trackBar5.Size = new System.Drawing.Size(113, 45);
             this.trackBar5.TabIndex = 18;
             this.trackBar5.Value = 5;
+            this.trackBar5.Scroll += new System.EventHandler(this.trackBar5_Scroll);
             // 
             // textBox4
             // 
@@ -925,6 +933,7 @@ namespace MCUmechanic
             this.button48.TabIndex = 17;
             this.button48.Text = "10us";
             this.button48.UseVisualStyleBackColor = true;
+            this.button48.Click += new System.EventHandler(this.button48_Click);
             // 
             // button49
             // 
@@ -934,6 +943,7 @@ namespace MCUmechanic
             this.button49.TabIndex = 16;
             this.button49.Text = "20us";
             this.button49.UseVisualStyleBackColor = true;
+            this.button49.Click += new System.EventHandler(this.button49_Click);
             // 
             // button50
             // 
@@ -943,6 +953,7 @@ namespace MCUmechanic
             this.button50.TabIndex = 15;
             this.button50.Text = "50us";
             this.button50.UseVisualStyleBackColor = true;
+            this.button50.Click += new System.EventHandler(this.button50_Click);
             // 
             // trackBar4
             // 
@@ -979,6 +990,7 @@ namespace MCUmechanic
             this.button15.TabIndex = 11;
             this.button15.Text = "100us";
             this.button15.UseVisualStyleBackColor = true;
+            this.button15.Click += new System.EventHandler(this.button15_Click);
             // 
             // button14
             // 
@@ -988,6 +1000,7 @@ namespace MCUmechanic
             this.button14.TabIndex = 10;
             this.button14.Text = "200us";
             this.button14.UseVisualStyleBackColor = true;
+            this.button14.Click += new System.EventHandler(this.button14_Click);
             // 
             // button13
             // 
@@ -997,6 +1010,7 @@ namespace MCUmechanic
             this.button13.TabIndex = 9;
             this.button13.Text = "500us";
             this.button13.UseVisualStyleBackColor = true;
+            this.button13.Click += new System.EventHandler(this.button13_Click);
             // 
             // button12
             // 
@@ -1006,6 +1020,7 @@ namespace MCUmechanic
             this.button12.TabIndex = 8;
             this.button12.Text = "1ms";
             this.button12.UseVisualStyleBackColor = true;
+            this.button12.Click += new System.EventHandler(this.button12_Click);
             // 
             // button11
             // 
@@ -1015,6 +1030,7 @@ namespace MCUmechanic
             this.button11.TabIndex = 7;
             this.button11.Text = "2ms";
             this.button11.UseVisualStyleBackColor = true;
+            this.button11.Click += new System.EventHandler(this.button11_Click);
             // 
             // button10
             // 
@@ -1024,6 +1040,7 @@ namespace MCUmechanic
             this.button10.TabIndex = 6;
             this.button10.Text = "5ms";
             this.button10.UseVisualStyleBackColor = true;
+            this.button10.Click += new System.EventHandler(this.button10_Click);
             // 
             // button9
             // 
@@ -1033,6 +1050,7 @@ namespace MCUmechanic
             this.button9.TabIndex = 5;
             this.button9.Text = "10ms";
             this.button9.UseVisualStyleBackColor = true;
+            this.button9.Click += new System.EventHandler(this.button9_Click);
             // 
             // button8
             // 
@@ -1042,6 +1060,7 @@ namespace MCUmechanic
             this.button8.TabIndex = 4;
             this.button8.Text = "20ms";
             this.button8.UseVisualStyleBackColor = true;
+            this.button8.Click += new System.EventHandler(this.button8_Click);
             // 
             // button7
             // 
@@ -1051,6 +1070,7 @@ namespace MCUmechanic
             this.button7.TabIndex = 3;
             this.button7.Text = "50ms";
             this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
             // button6
             // 
@@ -1060,6 +1080,7 @@ namespace MCUmechanic
             this.button6.TabIndex = 2;
             this.button6.Text = "100ms";
             this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
             // button5
             // 
@@ -1069,6 +1090,7 @@ namespace MCUmechanic
             this.button5.TabIndex = 1;
             this.button5.Text = "200ms";
             this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // button4
             // 
@@ -1078,6 +1100,7 @@ namespace MCUmechanic
             this.button4.TabIndex = 0;
             this.button4.Text = "500ms";
             this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // groupBox1
             // 
@@ -1223,7 +1246,7 @@ namespace MCUmechanic
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 77.8043F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 22.1957F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 96F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 113F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 134F));
             this.tableLayoutPanel1.Controls.Add(this.label2, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.listBox2, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.listBox1, 0, 1);
@@ -1248,7 +1271,7 @@ namespace MCUmechanic
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(350, 0);
+            this.label2.Location = new System.Drawing.Point(333, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(84, 13);
             this.label2.TabIndex = 5;
@@ -1257,9 +1280,9 @@ namespace MCUmechanic
             // listBox2
             // 
             this.listBox2.FormattingEnabled = true;
-            this.listBox2.Location = new System.Drawing.Point(350, 23);
+            this.listBox2.Location = new System.Drawing.Point(333, 23);
             this.listBox2.Name = "listBox2";
-            this.listBox2.Size = new System.Drawing.Size(92, 173);
+            this.listBox2.Size = new System.Drawing.Size(88, 173);
             this.listBox2.TabIndex = 3;
             // 
             // listBox1
@@ -1296,14 +1319,14 @@ namespace MCUmechanic
             "38400",
             "19200",
             "9600"});
-            this.listBox3.Location = new System.Drawing.Point(448, 23);
+            this.listBox3.Location = new System.Drawing.Point(427, 23);
             this.listBox3.Name = "listBox3";
             this.listBox3.Size = new System.Drawing.Size(90, 173);
             this.listBox3.TabIndex = 6;
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(350, 203);
+            this.button2.Location = new System.Drawing.Point(333, 203);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 7;
@@ -1313,7 +1336,7 @@ namespace MCUmechanic
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(448, 203);
+            this.button3.Location = new System.Drawing.Point(427, 203);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(75, 23);
             this.button3.TabIndex = 9;
