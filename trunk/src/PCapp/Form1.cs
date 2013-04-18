@@ -7,6 +7,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.IO;
 using System.IO.Ports;
+
 using MCUmechanic.Properties;
 using System.Threading;
 
@@ -18,7 +19,7 @@ namespace MCUmechanic
     public partial class Form1 : Form
     {
         
-        SerialClient serialClient1;
+        
         byte[] buf2;
         static bool openPort = false;
         static bool bufsaved = false;
@@ -29,7 +30,7 @@ namespace MCUmechanic
         delegate void serialDelegate(object sglton);
         private delegate void SetTextDeleg(string data);
         SerialPort mySerialPort;
-        
+        Generator myGenerator;
         
         public Form1()
         {
@@ -49,7 +50,12 @@ namespace MCUmechanic
 
             /*konfigurace serial portu*/
             SettingRS232();
+            SettingGenerator();
         }
+        public void SettingGenerator() {
+            myGenerator = new Generator();
+        }
+
         public void SettingRS232()
         {
             try
@@ -84,7 +90,7 @@ namespace MCUmechanic
         public void DataReceivedHandler(object sender, SerialDataReceivedEventArgs e)
         {
             SerialPort sp = (SerialPort)sender;
-            System.Threading.Thread.Sleep(5000);
+            System.Threading.Thread.Sleep(200);
             string indata = sp.ReadExisting();
             this.BeginInvoke(new SetTextDeleg(DisplayToUI), new object[] { indata });
             //textBox1.Text += indata;
@@ -139,24 +145,7 @@ namespace MCUmechanic
         }
         private void receiveHandler(object sender, DataStreamEventArgs e)
         {
-            int mode = 0;
-            TimeSpan interval = TimeSpan.Parse("1000");
-            byte[] buffer = new byte[5];
-            if (mode == 0)
-            {// ASCII rezim
-                read(serialClient1, buffer, 1, interval);
-                
-                buf2 = buffer; //prepis do globalni promenne
-                
-               
-            }
-            else { 
-            //binarni rezim
-                //rozhodni o dat. typu prijimanych dat
-                read(serialClient1, buffer, sizeof(Int32), interval);
-
-
-            }
+            
             
 
         }
@@ -302,6 +291,34 @@ namespace MCUmechanic
         
         
         }
+
+        //Thread readThread = new Thread(readRS232);
+        List<byte> bBuffer = new List<byte>();
+
+        private bool sendCmd(string cmd) {
+            string sBuffer = "";
+            if (mySerialPort.IsOpen) {
+                mySerialPort.WriteLine(cmd);
+                try
+                {
+                    while (mySerialPort.BytesToRead > 0) bBuffer.Add((byte)mySerialPort.ReadByte());
+                    sBuffer += mySerialPort.ReadExisting();
+                    
+                    if (sBuffer.Contains("OK"))
+                    {
+                        return true;
+                    }
+                }
+                catch (TimeoutException) { 
+                
+                }
+
+            }
+            return false;
+        }
+
+        
+
 
 
 
@@ -474,9 +491,105 @@ namespace MCUmechanic
 
         }
 
-        
+        private void trackBar7_Scroll(object sender, EventArgs e)
+        {
+            textBox3.Text = Convert.ToString(trackBar7.Value*2000);
+        }
+
+        private void trackBar8_Scroll(object sender, EventArgs e)
+        {
+            textBox7.Text = Convert.ToString(trackBar8.Value * 2000);
+        }
+
+        private void trackBar5_Scroll(object sender, EventArgs e)
+        {
+            textBox4.Text = Convert.ToString(trackBar5.Value * 2000);
+        }
+
+        private void trackBar6_Scroll(object sender, EventArgs e)
+        {
+            textBox2.Text = Convert.ToString(Convert.ToDouble(trackBar6.Value) /5)+":1";
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            if (!(sendCmd("OSCP:FREQ 1K__"))) warnmessage(); 
+        }
+
+        private void warnmessage() { }
+
+        private void button48_Click(object sender, EventArgs e)
+        {
+            if (!(sendCmd("OSCP:FREQ 1M__"))) warnmessage();
+        }
+
+        private void button49_Click(object sender, EventArgs e)
+        {
+            if (!(sendCmd("OSCP:FREQ 1M__"))) warnmessage();
+        }
+
+        private void button50_Click(object sender, EventArgs e)
+        {
+            if (!(sendCmd("OSCP:FREQ 1M__"))) warnmessage();
+        }
+
+        private void button15_Click(object sender, EventArgs e)
+        {
+            if (!(sendCmd("OSCP:FREQ 1M__"))) warnmessage();
+        }
+
+        private void button14_Click(object sender, EventArgs e)
+        {
+            if (!(sendCmd("OSCP:FREQ 1M__"))) warnmessage();
+        }
+
+        private void button13_Click(object sender, EventArgs e)
+        {
+            if (!(sendCmd("OSCP:FREQ 1M__"))) warnmessage();
+        }
+
+        private void button12_Click(object sender, EventArgs e)
+        {
+            if (!(sendCmd("OSCP:FREQ 100K"))) warnmessage();
+        }
+
+        private void button11_Click(object sender, EventArgs e)
+        {
+            if (!(sendCmd("OSCP:FREQ 100K"))) warnmessage();
+        }
+
+        private void button10_Click(object sender, EventArgs e)
+        {
+            if (!(sendCmd("OSCP:FREQ 100K"))) warnmessage();
+        }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            if (!(sendCmd("OSCP:FREQ 10K_"))) warnmessage();
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            if (!(sendCmd("OSCP:FREQ 10K_"))) warnmessage();
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            if (!(sendCmd("OSCP:FREQ 10K_"))) warnmessage();
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            if (!(sendCmd("OSCP:FREQ 10K_"))) warnmessage();
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            if (!(sendCmd("OSCP:FREQ 1K__"))) warnmessage();
+        }    
     }
 
+    
     public class Generator
     {
 
