@@ -61,6 +61,36 @@ void STATE_tick_slow(){
 			COMM_print(OK_STRING);	
 		break;
 		
+		case WID_GENUS:
+			//set_GENUS_param();
+			COMM_print(OK_STRING);	
+		break;
+		
+		case WID_LOGUS:
+			//set_LOGUS_param();
+			COMM_print(OK_STRING);	
+		break;
+		
+		case WID_CONT:
+			//set_CONT_param();
+			COMM_print(OK_STRING);	
+		break;
+		
+		case WID_VOLT:
+			//set_VOLT_param();
+			COMM_print(OK_STRING);	
+		break;
+		
+		case WID_MEAS:
+			//set_MEAS_param();
+			COMM_print(OK_STRING);	
+		break;
+		
+		case WID_GPIO:
+			//set_GPIO_param();
+			COMM_print(OK_STRING);	
+		break;
+		
 		default:
 		break;
 	}

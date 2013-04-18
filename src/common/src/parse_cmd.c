@@ -26,6 +26,12 @@ bool error = FALSE;
 
 /* Private function prototypes -----------------------------------------------*/
 void parse_OSCP_cmd(void);
+void parse_GENUS_cmd(void);
+void parse_LOGUS_cmd(void);
+void parse_CONT_cmd(void);
+void parse_VOLT_cmd(void);
+void parse_MEAS_cmd(void);
+void parse_GPIO_cmd(void);
 WORD_ID read_COMM_hash(void);
 void clearCMD(void);
 
@@ -40,9 +46,6 @@ void clearCMD(void);
  */    
 COMM_CMD SCPI_try_parse_cmd(void)
 {
-	uint32_t xxx=WID_IDNQM;
-	uint32_t yyy=WID_OSCP;
-	
 		error=FALSE;
 		clearCMD();
 		if( COMM_get_bytes_available() > 3){		
@@ -55,9 +58,8 @@ COMM_CMD SCPI_try_parse_cmd(void)
 				result.COMMAND_type=hash;
 			break;
 			
-			case WID_ERRR:   
+			case WID_ERRR:
 				result.COMMAND_type=hash;
-				//parse_E_cmd();
 			break;
 			
 			case WID_OSCP:  
@@ -67,34 +69,33 @@ COMM_CMD SCPI_try_parse_cmd(void)
 			
 			case WID_GENUS:   
 				result.COMMAND_type=hash;				
-				//parse_OSCP_cmd();
+				parse_GENUS_cmd();
 			break;
 			
 			case WID_GPIO:   
 				result.COMMAND_type=hash;				
-				//parse_OSCP_cmd();
+				parse_GPIO_cmd();
 			break;
 			
 			case WID_LOGUS:   
 				result.COMMAND_type=hash;				
-				//parse_OSCP_cmd();
+				parse_LOGUS_cmd();
 			break;
 			
 			case WID_CONT:   
 				result.COMMAND_type=hash;				
-				//parse_OSCP_cmd();
+				parse_CONT_cmd();
 			break;
 			
 			case WID_MEAS:   
 				result.COMMAND_type=hash;				
-				//parse_OSCP_cmd();
+				parse_MEAS_cmd();
 			break;
-			
+						
 			case WID_VOLT:   
 				result.COMMAND_type=hash;				
-				//parse_OSCP_cmd();
+				parse_VOLT_cmd();
 			break;
-			
 			default:
 				break;	
 		}		
@@ -106,7 +107,7 @@ COMM_CMD SCPI_try_parse_cmd(void)
 		return result;
 }
 
-
+//--------------------------------------- OSCILOSKOP
 
 void parse_OSCP_cmd(){
 	uint8_t params=0;
@@ -144,6 +145,7 @@ void parse_OSCP_cmd(){
 				if(COMM_read_char() == ' '){
 					result.PARAM_hash[params]=hash;
 					hash=read_COMM_hash();
+					
 					if(hash<65536){
 						result.data[params]=hash;
 					}else{
@@ -202,11 +204,276 @@ void parse_OSCP_cmd(){
 	COMM_read_char();
 }
 
+//--------------------------------------- GENERATOR
+
+void parse_GENUS_cmd(){
+	uint8_t params=0;
+	while(COMM_read_char() == ':' && params<3){
+		while(COMM_get_bytes_available() < 4){};
+		hash=read_COMM_hash();
+		
+		switch(hash){
+			case WID_TYPE:
+				while(COMM_get_bytes_available() < 4){};
+				if(COMM_read_char() == ' '){
+					result.PARAM_hash[params]=hash;
+					hash=read_COMM_hash();
+					if(IS_GENUS_TYPE(hash)){
+						result.data[params]=hash;
+					}else{
+						error=TRUE;
+					}
+				}
+			break;
+			case WID_AMPL:
+				while(COMM_get_bytes_available() < 4){};
+				if(COMM_read_char() == ' '){
+					result.PARAM_hash[params]=hash;
+					hash=read_COMM_hash();
+					if(hash<65536){
+						result.data[params]=hash;
+					}else{
+						error=TRUE;
+					}
+				}
+			break;
+			case WID_OFFS:
+				while(COMM_get_bytes_available() < 4){};
+				if(COMM_read_char() == ' '){
+					result.PARAM_hash[params]=hash;
+					hash=read_COMM_hash();
+					if(hash<65536){
+						result.data[params]=hash;
+					}else{
+						error=TRUE;
+					}
+				}
+			break;
+			case WID_DUTY:
+				while(COMM_get_bytes_available() < 4){};
+				if(COMM_read_char() == ' '){
+					result.PARAM_hash[params]=hash;
+					hash=read_COMM_hash();
+					if(hash<65536){
+						result.data[params]=hash;
+					}else{
+						error=TRUE;
+					}
+				}
+			break;
+			case WID_FREQ:
+				while(COMM_get_bytes_available() < 4){};
+				if(COMM_read_char() == ' '){
+					result.PARAM_hash[params]=hash;
+					hash=read_COMM_hash();
+					if(hash<65536){//Zvyseni hodnoty (0-4) G
+						result.data[params]=hash;
+					}else{
+						error=TRUE;
+					}
+				}
+			break;
+			case WID_STRT:
+					result.PARAM_hash[params]=hash;
+			break;
+			case WID_STOP:
+					result.PARAM_hash[params]=hash;
+			break;
+			case WID_FRQQM:
+					result.PARAM_hash[params]=hash;
+			break;
+			case WID_PLSQM:
+					result.PARAM_hash[params]=hash;
+			break;
+			default:
+				error=TRUE;
+				break;	
+		}	
+	params++;
+	}
+	COMM_read_char();
+}
+//--------------------------------------- LOGICKZ ANALYZATOR
+void parse_LOGUS_cmd(){
+	uint8_t params=0;
+	while(COMM_read_char() == ':' && params<3){
+		while(COMM_get_bytes_available() < 4){};
+		hash=read_COMM_hash();
+		
+		switch(hash){
+			case WID_EDGE:
+				while(COMM_get_bytes_available() < 4){};
+				if(COMM_read_char() == ' '){
+					result.PARAM_hash[params]=hash;
+					hash=read_COMM_hash();
+					if(IS_LOGUS_EDGE(hash)){
+					result.data[params]=hash;
+					}else{
+						error=TRUE;
+					}
+				}
+			break;
+			
+			case WID_TYPE:
+				while(COMM_get_bytes_available() < 4){};
+				if(COMM_read_char() == ' '){
+					result.PARAM_hash[params]=hash;
+					hash=read_COMM_hash();
+					if(IS_LOGUS_TYPE(hash)){
+						result.data[params]=hash;
+					}else{
+						error=TRUE;
+					}
+				}
+			break;
+
+			case WID_CHAN:
+				while(COMM_get_bytes_available() < 4){};
+				if(COMM_read_char() == ' '){
+					result.PARAM_hash[params]=hash;
+					hash=read_COMM_hash();
+					if(hash == 1 || hash == 0){//Zvyseni hodnoty (0-4) G
+						result.data[params]=hash;
+					}else{
+						error=TRUE;
+					}
+				}
+			break;		
+
+			case WID_FREQ:
+				while(COMM_get_bytes_available() < 4){};
+				if(COMM_read_char() == ' '){	
+					result.PARAM_hash[params]=hash;
+					hash=read_COMM_hash();
+					if(IS_LOGUS_FREQ(hash)){
+						result.data[params]=hash;
+					}else{
+						error=TRUE;
+					}
+				}
+			break;	
+			
+			case WID_STRT:
+					result.PARAM_hash[params]=hash;
+			break;
+			
+			case WID_STOP:
+					result.PARAM_hash[params]=hash;
+			break;
+			
+			default:
+				error=TRUE;
+				break;	
+		}	
+	params++;
+	}
+	COMM_read_char();
+}
+
+//--------------------------------------- CITAC
+
+void parse_CONT_cmd(){
+	uint8_t params=0;
+	while(COMM_read_char() == ':' && params<3){
+		while(COMM_get_bytes_available() < 4){};
+		hash=read_COMM_hash();
+		
+		switch(hash){
+			case WID_STRT:
+					result.PARAM_hash[params]=hash;
+			break;
+			
+			case WID_STOP:
+					result.PARAM_hash[params]=hash;
+			break;
+			
+			case WID_FRQQM:
+				while(COMM_get_bytes_available() < 4){};
+				if(COMM_read_char() == ' '){
+					result.PARAM_hash[params]=hash;
+					hash=read_COMM_hash();
+					if(IS_LOGUS_EDGE(hash)){
+					result.data[params]=hash;
+					}else{
+						error=TRUE;
+					}
+				}
+			break;
+			
+			default:
+				error=TRUE;
+				break;	
+		}	
+	params++;
+	}
+	COMM_read_char();
+}
+//--------------------------------------- VOLTMETR - VOLT
+void parse_VOLT_cmd(){
+	uint8_t params=0;
+	while(COMM_read_char() == ':' && params<3){
+		while(COMM_get_bytes_available() < 4){};
+		hash=read_COMM_hash();
+		
+		switch(hash){
+			case WID_VALQM:
+					result.PARAM_hash[params]=hash;
+			break;	
+			default:
+				error=TRUE;
+				break;	
+		}	
+	params++;
+	}
+	COMM_read_char();
+}
+//--------------------------------------- VOLTMETR - MEAS
+void parse_MEAS_cmd(){
+	uint8_t params=0;
+	while(COMM_read_char() == ':' && params<3){
+		while(COMM_get_bytes_available() < 4){};
+		hash=read_COMM_hash();
+		
+		switch(hash){
+			case WID_VALQM:
+					result.PARAM_hash[params]=hash;
+			break;	
+			default:
+				error=TRUE;
+				break;	
+		}	
+	params++;
+	}
+	COMM_read_char();
+}
+//--------------------------------------- GPIO
+void parse_GPIO_cmd(){
+	uint8_t params=0;
+	while(COMM_read_char() == ':' && params<3){
+		while(COMM_get_bytes_available() < 4){};
+		hash=read_COMM_hash();
+		
+		switch(hash){
+			case WID_SETV:
+					result.PARAM_hash[params]=hash;
+			break;	
+			case WID_GETQM:
+					result.PARAM_hash[params]=hash;
+			break;
+			default:
+				error=TRUE;
+				break;	
+		}	
+	params++;
+	}
+	COMM_read_char();
+}
+//---------------------------------------
+
 WORD_ID read_COMM_hash(void){
 	uint8_t inField[4];
 	COMM_read((uint8_t*)&inField, 4);
-//  	return inField[3]+256*inField[2]+256*256*inField[1]+256*256*256*inField[0];	//?????
-	return (inField[3] << 24)|(inField[2] << 16)|(inField[1] << 8)|(inField[0]);	//?????
+	return (inField[3] << 24)|(inField[2] << 16)|(inField[1] << 8)|(inField[0]);
 }
 
 void clearCMD(void){
