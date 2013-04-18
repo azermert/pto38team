@@ -116,9 +116,31 @@ typedef enum uint32_t{		  	//QM = question mark (?) ;  US = underscore	(_)
 #define IS_OSCP_DEPT(WID_DEPT) (((WID_DEPT) == WID_08BUS) || \
 													((WID_DEPT) == WID_16BUS))
 													
-										
-													
-	
+#define IS_GENUS_TYPE(WID_TYPE) (((WID_TYPE) == WID_SINE) || \
+                            ((WID_TYPE) == WID_SQRE) || \
+														((WID_TYPE) == WID_TRIA) || \
+														((WID_TYPE) == WID_ARBT))										
+
+#define IS_LOGUS_EDGE(WID_EDGE) (((WID_EDGE) == WID_RISE) || \
+															 ((WID_EDGE) == WID_FALL))	
+
+#define IS_LOGUS_TYPE(WID_TYPE) (((WID_TYPE) == WID_ANDUS) || \
+															 ((WID_TYPE) == WID_ORUSUS))
+															 
+#define IS_LOGUS_FREQ(WID_FREQ) (((WID_FREQ) == WID_1KUSUS) || \
+                            ((WID_FREQ) == WID_2KUSUS) || \
+														((WID_FREQ) == WID_5KUSUS) || \
+														((WID_FREQ) == WID_10KUS) || \
+														((WID_FREQ) == WID_20KUS) || \
+														((WID_FREQ) == WID_50KUS) || \
+														((WID_FREQ) == WID_100K) || \
+														((WID_FREQ) == WID_200K) || \
+														((WID_FREQ) == WID_500K) || \
+														((WID_FREQ) == WID_1MUSUS) || \
+														((WID_FREQ) == WID_2MUSUS) || \
+														((WID_FREQ) == WID_5MUSUS) || \
+														((WID_FREQ) == WID_10MUS))
+															 
 /* COMM_Exported_Functions */
 COMM_CMD SCPI_try_parse_cmd(void); /* Pokusi se v bufferu najit prikaz, rozpoznat ho a vratit*/
 
