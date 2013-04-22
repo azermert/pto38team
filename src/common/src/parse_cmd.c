@@ -22,7 +22,6 @@
 /* Private variables ---------------------------------------------------------*/
 
 WORD_ID hash;
-
 COMM_CMD result;
 bool error = FALSE;
 
@@ -126,7 +125,7 @@ void parse_OSCP_cmd(){
 	while(COMM_read_char() == ':' && params<3){
 		testTimeout(4);
 		hash=read_COMM_hash();
-				switch(hash){
+			switch(hash){
 			case WID_TRIG:
 				testTimeout(4);
 				if(COMM_read_char() == ' '){
@@ -142,10 +141,14 @@ void parse_OSCP_cmd(){
 			case WID_PRET:
 				testTimeout(4);
 				if(COMM_read_char() == ' '){
+					uint16_t res_over;
+					uint32_t value;
 					result.PARAM_hash[params]=hash;
 					hash=read_COMM_hash();
-					if(hash<65536){
-						result.data[params]=hash;
+					res_over = hash & 0x0FFFF;
+					value = (hash >> 16) & 0x0FFFF;
+					if(res_over == 0){
+						result.data[params]=value;
 					}else{
 						error=TRUE;
 					}
@@ -154,11 +157,14 @@ void parse_OSCP_cmd(){
 			case WID_LEVL:
 				testTimeout(4);
 				if(COMM_read_char() == ' '){
+					uint16_t res_over;
+					uint32_t value;
 					result.PARAM_hash[params]=hash;
 					hash=read_COMM_hash();
-					
-					if(hash<65536){
-						result.data[params]=hash;
+					res_over = hash & 0x0FFFF;
+					value = (hash >> 16) & 0x0FFFF;
+					if(res_over == 0){
+						result.data[params]=value;
 					}else{
 						error=TRUE;
 					}
@@ -239,10 +245,14 @@ void parse_GENUS_cmd(){
 			case WID_AMPL:
 				testTimeout(4);
 				if(COMM_read_char() == ' '){
+					uint16_t res_over;
+					uint32_t value;
 					result.PARAM_hash[params]=hash;
 					hash=read_COMM_hash();
-					if(hash<65536){
-						result.data[params]=hash;
+					res_over = hash & 0x0FFFF;
+					value = (hash >> 16) & 0x0FFFF;
+					if(res_over == 0){
+						result.data[params]=value;
 					}else{
 						error=TRUE;
 					}
@@ -267,10 +277,14 @@ void parse_GENUS_cmd(){
 			case WID_DUTY:
 				testTimeout(4);
 				if(COMM_read_char() == ' '){
+					uint16_t res_over;
+					uint32_t value;
 					result.PARAM_hash[params]=hash;
 					hash=read_COMM_hash();
-					if(hash<65536){
-						result.data[params]=hash;
+					res_over = hash & 0x0FFFF;
+					value = (hash >> 16) & 0x0FFFF;
+					if(res_over == 0){
+						result.data[params]=value;
 					}else{
 						error=TRUE;
 					}
@@ -281,7 +295,7 @@ void parse_GENUS_cmd(){
 				if(COMM_read_char() == ' '){
 					result.PARAM_hash[params]=hash;
 					hash=read_COMM_hash();
-					if(hash<65536){//Zvyseni hodnoty (0-4) G
+					if(hash<=4294967295){
 						result.data[params]=hash;
 					}else{
 						error=TRUE;
