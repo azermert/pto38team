@@ -10,7 +10,10 @@ using System.IO.Ports;
 
 using MCUmechanic.Properties;
 using System.Threading;
-
+/*
+ TODO - detekce pri odpojenem seriaku v za behu programu
+ * po stisku ENTER v terminalu odeslat cmd
+ */
 
 
 namespace MCUmechanic
@@ -31,9 +34,13 @@ namespace MCUmechanic
         private delegate void SetTextDeleg(string data);
         SerialPort mySerialPort;
         Generator myGenerator;
+        string lastIDN = "Pøipojte kit s MCU";   
+
         
         public Form1()
         {
+
+            
             InitializeComponent();
             /*
              Zjisteni moznosti vyplyvajicich z konfigurace pc
@@ -67,8 +74,8 @@ namespace MCUmechanic
                 mySerialPort.StopBits = StopBits.One;
                 mySerialPort.DataBits = 8;
                 mySerialPort.Handshake = Handshake.None;
-                mySerialPort.ReadTimeout = 8000;
-                mySerialPort.WriteTimeout = 500;
+                mySerialPort.ReadTimeout = 500;
+                mySerialPort.WriteTimeout = 200;
 
                 mySerialPort.DtrEnable = true;
                 mySerialPort.RtsEnable = true;
@@ -95,13 +102,50 @@ namespace MCUmechanic
             this.BeginInvoke(new SetTextDeleg(DisplayToUI), new object[] { indata });
             //textBox1.Text += indata;
         }
-        
-        private void DisplayToUI(string displayData)
+        public static byte[] StrToByteArray(string str)
         {
-             listBox1.Items.Add(displayData.Trim());
+            System.Text.UTF8Encoding encoding = new System.Text.UTF8Encoding();
+            return encoding.GetBytes(str);
+        }
+        private void DisplayToUI(object displayData)
+        {
+            switch (tabControl1.SelectedIndex) {
+                // uvodni panel
+                case 0: object pokus1 = displayData;
+                    protocolParser(StrToByteArray(pokus1.ToString())); 
+                    label6.Text = lastIDN; return;
+                //panel Scope
+                case 1:
+                    protocolParser(StrToByteArray(displayData.ToString())); return;
+                // panel Log
+                case 2: return;
+                // panel terminal
+                case 3: listBox1.Items.Add((displayData.ToString()).Trim()); return; 
+                
+                default: return;
+            }
+               
             //textBox1.Text += displayData.Trim();
             // textBox1.Text += displayData;
 
+        }
+
+        public byte[] ObjectToByteArray(object _Object)
+        {
+            try
+            {
+
+                System.IO.MemoryStream _MemoryStream = new System.IO.MemoryStream();
+                System.Runtime.Serialization.Formatters.Binary.BinaryFormatter _BinaryFormatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
+                _BinaryFormatter.Serialize(_MemoryStream, _Object);
+                return _MemoryStream.ToArray();
+
+            }
+            catch (Exception _Exception)
+            {
+                warnmessage();
+            }
+            return null;
         }
 
 
@@ -150,79 +194,45 @@ namespace MCUmechanic
 
         }
 
-        private int read(SerialClient p, byte[] buf, int count, TimeSpan timeout)
-        {
+       
 
-            int len = 0;
-
-            DateTime start = DateTime.Now;
-            
-            while (len < count && DateTime.Now < start + timeout)
-            {
-
-                try
-                {
-
-                    len += p.Receive(buf, len, count - len);
-
-                }
-
-                catch (TimeoutException)
-                {
-
-                    //ignore this, it is broken in the system libraries.
-
-                }
-
+       
+        public string byteArrToStr(byte[] arr) {
+            string outstr = "";
+            for (int i = 0; i < arr.Length; i++) {
+                outstr += (char)arr[i];
             }
+            return outstr;
 
-            return len;
 
         }
 
-        /* read ASCII !!! TO DO*/
-        private int readASC(SerialClient p, byte[] buf, int count, TimeSpan timeout)
-        {
-
-            int len = 0;
-            DateTime start = DateTime.Now;
-            while (len < count && DateTime.Now < start + timeout )
-            {
-
-                try
-                {
-
-                    len += p.Receive(buf, len, count - len);
-
-                }
-
-                catch (TimeoutException)
-                {
-
-                    //ignore this, it is broken in the system libraries.
-
-                }
-
+        public byte[] remCmd(byte[] pole) {
+            byte[] outArr = new byte[60];
+            for (int i = 0; i < pole.Length-4; i++) {
+                outArr[i] = pole[i+3];
             }
-
-            return len;
-
+            return outArr;
         }
 
-        
-        
-        private string protocolParser(byte[] inputBuffer) {
+        private string protocolParser(byte[] inputBuffer)
+        {
 
             string lastcmd, buff ="", retbuff; //lastcmd pozdeji bude static
             
             for (int i = 0; i < 4; i++) {
-                buff += inputBuffer[i];
+                buff += (char)inputBuffer[i];
             }
 
             switch(buff){
-                case "IDN": return "neimplemenotvano";
+                case "IDN_":
+                    string str = byteArrToStr(inputBuffer);
+                    return lastIDN = str.Substring(str.IndexOf(" "));
+
+
                 case "GPIO": return "neimplemenotvano";
-                case "OSC8": return "neimplemenotvano";
+                case "OSC8": separeVaue(remCmd(inputBuffer),2);
+                    return "neimplemenotvano";  
                 case "OSCF": return "neimplemenotvano";
                 case "LOG_": return "neimplemenotvano";
                 case "CNTF": return "neimplemenotvano";
@@ -266,12 +276,10 @@ namespace MCUmechanic
                     } return "Neplatný formát dat";
                 /*uint8bininput to intArray16*/
                 case 2:
-                    
                     dataLen = 0;
-                    cntCData = Convert.ToInt16((char)(inputbuffer[0]));
+                    cntCData = Convert.ToInt16(inputbuffer[0].ToString());
                     if (cntCData > 0)
                     {
-                        
                         for (int i = 0; i < cntCData; i++)
                         {
                             dataLenbuff = dataLenbuff+inputbuffer[1 + i];
@@ -431,10 +439,23 @@ namespace MCUmechanic
         {
             if (button16.Text == "RUN")
             {
-                scopeRun = true;
-                button16.Text = "STOP";
+                if (!(sendCmd("OSCP:STRT"))) warnmessage();
+                else
+                {
+                    scopeRun = true;
+                    scopeTimer.Start();
+                    button16.Text = "STOP";
+                }
+
             }
-            else { scopeRun = false; button16.Text = "RUN"; }
+            else
+            {
+                if (!(sendCmd("OSCP:STOP"))) warnmessage();
+                else
+                {
+                    scopeRun = false; button16.Text = "RUN";
+                }
+            }
         }
 
 
@@ -476,6 +497,9 @@ namespace MCUmechanic
                 }
 
             }
+            
+            
+            if (scopeRun == false) { scopeTimer.Stop(); }
 
         }
 
@@ -586,6 +610,15 @@ namespace MCUmechanic
         private void button5_Click(object sender, EventArgs e)
         {
             if (!(sendCmd("OSCP:FREQ 1K__"))) warnmessage();
+        }
+
+        private void tabPage3_Click(object sender, EventArgs e)
+        {
+            if (!(sendCmd("IDN?"))) warnmessage();
+            else { 
+            
+            
+            }
         }    
     }
 
@@ -640,212 +673,6 @@ namespace MCUmechanic
         #endregion
     }
 
-
-    public class SerialClient : IDisposable
-    {
-        #region Defines
-        private string _port;
-        private int _baudRate;
-        private SerialPort _serialPort;
-        private Thread serThread;
-        private double _PacketsRate;
-        private DateTime _lastReceive;
-        /*The Critical Frequency of Communication to Avoid Any Lag*/
-        private const int freqCriticalLimit = 20;
-        #endregion
-
-        #region Constructors
-        public SerialClient(string Port)
-        {
-            _port = Port;
-            _baudRate = 115200;
-            _lastReceive = DateTime.MinValue;
-
-            serThread = new Thread(new ThreadStart(SerialReceiving));
-            serThread.Priority = ThreadPriority.Normal;
-            serThread.Name = "SerialHandle" + serThread.ManagedThreadId;
-        }
-        public SerialClient(string Port, int baudRate)
-            : this(Port)
-        {
-            _baudRate = baudRate;
-        }
-        #endregion
-
-        
-
-
-        #region Custom Events
-        public event EventHandler<DataStreamEventArgs> OnReceiving;
-        #endregion
-
-        #region Properties
-        public string Port
-        {
-            get { return _port; }
-        }
-        public int BaudRate
-        {
-            get { return _baudRate; }
-        }
-        public string ConnectionString
-        {
-            get
-            {
-                return String.Format("[Serial] Port: {0} | Baudrate: {1}",
-                    _serialPort.PortName, _serialPort.BaudRate.ToString());
-            }
-        }
-        #endregion
-
-        #region Methods
-        public void setPort(string name, int baudrate)
-        {
-            _port = name;
-            _baudRate = baudrate;
-            return;
-        }
-
-        public bool IsOpen()
-        {
-            if (_serialPort != null ){
-            return _serialPort.IsOpen;}
-            else return false;
-            
-        }
-
-        
-        #region Port Control
-        public bool OpenConn()
-        {
-            try
-            {
-                if (_serialPort == null)
-                    _serialPort = new SerialPort(_port, _baudRate, Parity.None);
-
-                if (!_serialPort.IsOpen)
-                {
-                    _serialPort.ReadTimeout = -1;
-                    _serialPort.WriteTimeout = -1;
-
-                    _serialPort.Open();
-
-                    if (_serialPort.IsOpen)
-                        serThread.Start(); /*Start The Communication Thread*/
-                }
-            }
-            catch (Exception ex)
-            {
-                return false;
-            }
-
-            return true;
-        }
-        public bool OpenConn(string port, int baudRate)
-        {
-            _port = port;
-            _baudRate = baudRate;
-
-            return OpenConn();
-        }
-        public void CloseConn()
-        {
-            if (_serialPort != null && _serialPort.IsOpen)
-            {
-                serThread.Abort();
-
-                if (serThread.ThreadState == ThreadState.Aborted)
-                    _serialPort.Close();
-            }
-        }
-        public bool ResetConn()
-        {
-            CloseConn();
-            return OpenConn();
-        }
-        #endregion
-        #region Transmit/Receive
-        public void Transmit(byte[] packet)
-        {
-            _serialPort.Write(packet, 0, packet.Length);
-        }
-        public int Receive(byte[] bytes, int offset, int count)
-        {
-            int readBytes = 0;
-
-            if (count > 0)
-            {
-                readBytes = _serialPort.Read(bytes, offset, count);
-            }
-
-            return readBytes;
-        }
-        #endregion
-        #region IDisposable Methods
-        public void Dispose()
-        {
-            CloseConn();
-
-            if (_serialPort != null)
-            {
-                _serialPort.Dispose();
-                _serialPort = null;
-            }
-        }
-        #endregion
-        #endregion
-
-        #region Threading Loops
-        private void SerialReceiving()
-        {
-            while (true)
-            {
-                int count = _serialPort.BytesToRead;
-
-                /*Get Sleep Inteval*/
-                TimeSpan tmpInterval = (DateTime.Now - _lastReceive);
-
-                /*Form The Packet in The Buffer*/
-                byte[] buf = new byte[count];
-                int readBytes = Receive(buf, 0, count);
-
-                if (readBytes > 0)
-                {
-                    OnSerialReceiving(buf);
-                }
-
-                #region Frequency Control
-                _PacketsRate = ((_PacketsRate + readBytes) / 2);
-
-                _lastReceive = DateTime.Now;
-
-                if ((double)(readBytes + _serialPort.BytesToRead) / 2 <= _PacketsRate)
-                {
-                    if (tmpInterval.Milliseconds > 0)
-                        Thread.Sleep(tmpInterval.Milliseconds > freqCriticalLimit ? freqCriticalLimit : tmpInterval.Milliseconds);
-
-                    /*Testing Threading Model*/
-                    // ; Diagnostics.Debug.Write(tmpInterval.Milliseconds.ToString());
-                    // ; Diagnostics.Debug.Write(" - ");
-                    //  ; Diagnostics.Debug.Write(readBytes.ToString());
-                    //  ; Diagnostics.Debug.Write("\r\n");
-                }
-                #endregion
-            }
-
-        }
-        #endregion
-
-        #region Custom Events Invoke Functions
-        private void OnSerialReceiving(byte[] res)
-        {
-            if (OnReceiving != null)
-            {
-                OnReceiving(this, new DataStreamEventArgs(res));
-            }
-        }
-        #endregion
-    }
 
 }
 

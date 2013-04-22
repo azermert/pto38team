@@ -215,6 +215,7 @@ namespace MCUmechanic
             this.tabPage3.TabIndex = 0;
             this.tabPage3.Text = "Pøehled";
             this.tabPage3.UseVisualStyleBackColor = true;
+            this.tabPage3.Click += new System.EventHandler(this.tabPage3_Click);
             // 
             // label11
             // 
@@ -1246,7 +1247,7 @@ namespace MCUmechanic
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 77.8043F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 22.1957F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 96F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 134F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 135F));
             this.tableLayoutPanel1.Controls.Add(this.label2, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.listBox2, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.listBox1, 0, 1);
@@ -1271,7 +1272,7 @@ namespace MCUmechanic
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(333, 0);
+            this.label2.Location = new System.Drawing.Point(332, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(84, 13);
             this.label2.TabIndex = 5;
@@ -1280,7 +1281,7 @@ namespace MCUmechanic
             // listBox2
             // 
             this.listBox2.FormattingEnabled = true;
-            this.listBox2.Location = new System.Drawing.Point(333, 23);
+            this.listBox2.Location = new System.Drawing.Point(332, 23);
             this.listBox2.Name = "listBox2";
             this.listBox2.Size = new System.Drawing.Size(88, 173);
             this.listBox2.TabIndex = 3;
@@ -1319,14 +1320,14 @@ namespace MCUmechanic
             "38400",
             "19200",
             "9600"});
-            this.listBox3.Location = new System.Drawing.Point(427, 23);
+            this.listBox3.Location = new System.Drawing.Point(426, 23);
             this.listBox3.Name = "listBox3";
             this.listBox3.Size = new System.Drawing.Size(90, 173);
             this.listBox3.TabIndex = 6;
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(333, 203);
+            this.button2.Location = new System.Drawing.Point(332, 203);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 7;
@@ -1336,7 +1337,7 @@ namespace MCUmechanic
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(427, 203);
+            this.button3.Location = new System.Drawing.Point(426, 203);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(75, 23);
             this.button3.TabIndex = 9;
