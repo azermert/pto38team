@@ -12,6 +12,8 @@
 #include "comm.h"
 #include "parse_cmd.h"
 
+#include "timeBase.h"
+
 
 
 /* Private typedef -----------------------------------------------------------*/
@@ -36,7 +38,15 @@ WORD_ID read_COMM_hash(void);
 void clearCMD(void);
 
 /* Private functions ---------------------------------------------------------*/
-
+void testTimeout(uint8_t _znak){
+		uint32_t timeout = actualTime() + 1000000;	// nastaveni timeout
+		while(COMM_get_bytes_available() < _znak)
+		{
+			if(timeElapsed(timeout)){
+				break;
+			}
+		};
+}
 
 
 /**
@@ -48,7 +58,8 @@ COMM_CMD SCPI_try_parse_cmd(void)
 {
 		error=FALSE;
 		clearCMD();
-		if( COMM_get_bytes_available() > 3){		
+		if( COMM_get_bytes_available() > 0){
+		testTimeout(4);
 		hash=read_COMM_hash();
 			
 
@@ -97,6 +108,7 @@ COMM_CMD SCPI_try_parse_cmd(void)
 				parse_VOLT_cmd();
 			break;
 			default:
+				error=TRUE;
 				break;	
 		}		
 	}
@@ -112,12 +124,11 @@ COMM_CMD SCPI_try_parse_cmd(void)
 void parse_OSCP_cmd(){
 	uint8_t params=0;
 	while(COMM_read_char() == ':' && params<3){
-		while(COMM_get_bytes_available() < 4){};
+		testTimeout(4);
 		hash=read_COMM_hash();
-		
-		switch(hash){
+				switch(hash){
 			case WID_TRIG:
-				while(COMM_get_bytes_available() < 4){};
+				testTimeout(4);
 				if(COMM_read_char() == ' '){
 					result.PARAM_hash[params]=hash;
 					hash=read_COMM_hash();
@@ -129,7 +140,7 @@ void parse_OSCP_cmd(){
 				}
 			break;
 			case WID_PRET:
-				while(COMM_get_bytes_available() < 4){};
+				testTimeout(4);
 				if(COMM_read_char() == ' '){
 					result.PARAM_hash[params]=hash;
 					hash=read_COMM_hash();
@@ -141,7 +152,7 @@ void parse_OSCP_cmd(){
 				}
 			break;
 			case WID_LEVL:
-				while(COMM_get_bytes_available() < 4){};
+				testTimeout(4);
 				if(COMM_read_char() == ' '){
 					result.PARAM_hash[params]=hash;
 					hash=read_COMM_hash();
@@ -154,7 +165,7 @@ void parse_OSCP_cmd(){
 				}
 			break;
 			case WID_EDGE:
-				while(COMM_get_bytes_available() < 4){};
+				testTimeout(4);
 				if(COMM_read_char() == ' '){
 					result.PARAM_hash[params]=hash;
 					hash=read_COMM_hash();
@@ -166,7 +177,7 @@ void parse_OSCP_cmd(){
 				}
 			break;
 			case WID_FREQ:
-				while(COMM_get_bytes_available() < 4){};
+				testTimeout(4);
 				if(COMM_read_char() == ' '){	
 					result.PARAM_hash[params]=hash;
 					hash=read_COMM_hash();
@@ -178,7 +189,7 @@ void parse_OSCP_cmd(){
 				}
 			break;
 			case WID_DEPT:
-				while(COMM_get_bytes_available() < 4){};
+				testTimeout(4);
 				if(COMM_read_char() == ' '){
 					result.PARAM_hash[params]=hash;
 					hash=read_COMM_hash();
@@ -209,12 +220,12 @@ void parse_OSCP_cmd(){
 void parse_GENUS_cmd(){
 	uint8_t params=0;
 	while(COMM_read_char() == ':' && params<3){
-		while(COMM_get_bytes_available() < 4){};
+		testTimeout(4);
 		hash=read_COMM_hash();
 		
 		switch(hash){
 			case WID_TYPE:
-				while(COMM_get_bytes_available() < 4){};
+				testTimeout(4);
 				if(COMM_read_char() == ' '){
 					result.PARAM_hash[params]=hash;
 					hash=read_COMM_hash();
@@ -226,7 +237,7 @@ void parse_GENUS_cmd(){
 				}
 			break;
 			case WID_AMPL:
-				while(COMM_get_bytes_available() < 4){};
+				testTimeout(4);
 				if(COMM_read_char() == ' '){
 					result.PARAM_hash[params]=hash;
 					hash=read_COMM_hash();
@@ -238,19 +249,23 @@ void parse_GENUS_cmd(){
 				}
 			break;
 			case WID_OFFS:
-				while(COMM_get_bytes_available() < 4){};
+				testTimeout(4);
 				if(COMM_read_char() == ' '){
+					uint16_t res_over;
+					uint32_t value;
 					result.PARAM_hash[params]=hash;
 					hash=read_COMM_hash();
-					if(hash<65536){
-						result.data[params]=hash;
+					res_over = hash & 0x0FFFF;
+					value = (hash >> 16) & 0x0FFFF;
+					if(res_over == 0){
+						result.data[params]=value;
 					}else{
 						error=TRUE;
 					}
 				}
 			break;
 			case WID_DUTY:
-				while(COMM_get_bytes_available() < 4){};
+				testTimeout(4);
 				if(COMM_read_char() == ' '){
 					result.PARAM_hash[params]=hash;
 					hash=read_COMM_hash();
@@ -262,7 +277,7 @@ void parse_GENUS_cmd(){
 				}
 			break;
 			case WID_FREQ:
-				while(COMM_get_bytes_available() < 4){};
+				testTimeout(4);
 				if(COMM_read_char() == ' '){
 					result.PARAM_hash[params]=hash;
 					hash=read_COMM_hash();
@@ -297,12 +312,12 @@ void parse_GENUS_cmd(){
 void parse_LOGUS_cmd(){
 	uint8_t params=0;
 	while(COMM_read_char() == ':' && params<3){
-		while(COMM_get_bytes_available() < 4){};
+		testTimeout(4);
 		hash=read_COMM_hash();
 		
 		switch(hash){
 			case WID_EDGE:
-				while(COMM_get_bytes_available() < 4){};
+				testTimeout(4);
 				if(COMM_read_char() == ' '){
 					result.PARAM_hash[params]=hash;
 					hash=read_COMM_hash();
@@ -315,7 +330,7 @@ void parse_LOGUS_cmd(){
 			break;
 			
 			case WID_TYPE:
-				while(COMM_get_bytes_available() < 4){};
+				testTimeout(4);
 				if(COMM_read_char() == ' '){
 					result.PARAM_hash[params]=hash;
 					hash=read_COMM_hash();
@@ -328,7 +343,7 @@ void parse_LOGUS_cmd(){
 			break;
 
 			case WID_CHAN:
-				while(COMM_get_bytes_available() < 4){};
+				testTimeout(4);
 				if(COMM_read_char() == ' '){
 					result.PARAM_hash[params]=hash;
 					hash=read_COMM_hash();
@@ -341,7 +356,7 @@ void parse_LOGUS_cmd(){
 			break;		
 
 			case WID_FREQ:
-				while(COMM_get_bytes_available() < 4){};
+				testTimeout(4);
 				if(COMM_read_char() == ' '){	
 					result.PARAM_hash[params]=hash;
 					hash=read_COMM_hash();
@@ -375,7 +390,7 @@ void parse_LOGUS_cmd(){
 void parse_CONT_cmd(){
 	uint8_t params=0;
 	while(COMM_read_char() == ':' && params<3){
-		while(COMM_get_bytes_available() < 4){};
+		testTimeout(4);
 		hash=read_COMM_hash();
 		
 		switch(hash){
@@ -388,7 +403,7 @@ void parse_CONT_cmd(){
 			break;
 			
 			case WID_FRQQM:
-				while(COMM_get_bytes_available() < 4){};
+				testTimeout(4);
 				if(COMM_read_char() == ' '){
 					result.PARAM_hash[params]=hash;
 					hash=read_COMM_hash();
@@ -412,7 +427,7 @@ void parse_CONT_cmd(){
 void parse_VOLT_cmd(){
 	uint8_t params=0;
 	while(COMM_read_char() == ':' && params<3){
-		while(COMM_get_bytes_available() < 4){};
+		testTimeout(4);
 		hash=read_COMM_hash();
 		
 		switch(hash){
@@ -431,7 +446,7 @@ void parse_VOLT_cmd(){
 void parse_MEAS_cmd(){
 	uint8_t params=0;
 	while(COMM_read_char() == ':' && params<3){
-		while(COMM_get_bytes_available() < 4){};
+		testTimeout(4);
 		hash=read_COMM_hash();
 		
 		switch(hash){
@@ -450,7 +465,7 @@ void parse_MEAS_cmd(){
 void parse_GPIO_cmd(){
 	uint8_t params=0;
 	while(COMM_read_char() == ':' && params<3){
-		while(COMM_get_bytes_available() < 4){};
+		testTimeout(4);
 		hash=read_COMM_hash();
 		
 		switch(hash){
@@ -485,5 +500,6 @@ void clearCMD(void){
 	result.data[1]=0;
 	result.data[2]=0;
 }
+
 
 /************************ END OF FILE *****************************************/
