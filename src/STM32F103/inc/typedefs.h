@@ -13,7 +13,7 @@
 #define __TYPES_H
 
 #include "stm32f10x.h"
-#define IDN_STRING "STM32F100 based multipurpose device V0.0, K38FEL\r\n"
+#define IDN_STRING "IDN_STM32F100 based multipurpose device V0.0, K38FEL\r\n"
 #define ERR_STRING "Some problem with command parsing (chceck syntax and values)" //60chars
 #define OK_STRING  "OK"
 

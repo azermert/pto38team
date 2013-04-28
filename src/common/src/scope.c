@@ -12,6 +12,8 @@
 /* Includes ------------------------------------------------------------------*/
 //#include "<procesor>.h"
 #include "stm32f10x.h"
+#include "timeBase.h"
+#include "comm.h"
 #include "scope.h"
 
 #include "adc.h"
@@ -23,17 +25,91 @@
 SCOPE_TypeDef gSCOPE;
 SCOPE_Buffer lSCOPE_buff;
 
-#define DATA_SIZE 512//2048
+#define DATA_SIZE 500//2048
 uint16_t lData[DATA_SIZE];
 
+bool singleShotEnable = FALSE;		//start single mereni osciloskopu
+
+	
+//static STATE StmState = IDLE;
+//static time_t timeout;
+static bool firstPass = TRUE;
+uint16_t tmp;
 /* Private function prototypes -----------------------------------------------*/
 /* Private functions ---------------------------------------------------------*/
 
 void SCOPE_ADC_request(uint16_t _value);
 void SCOPE_buf_init(SCOPE_Buffer * _buff);
+void measure_Tick(void);
+bool pre_trigger_passed(SCOPE_Buffer * _buff);
+
+
+void singleShotStart(void){
+	singleShotEnable = TRUE;
+}
+
+void measure_Tick(void){
+	switch (gSCOPE.SCOPE_state){
+
+  case SCOPE_DONE:
+
+			if(COMM_get_out_buff_state() == BUFF_ALMOST_FULL){
+				break;
+			}
+
+			if(firstPass){
+			//	COMM_send("new\n\r", 5);
+				COMM_print("OSC83500");
+				//COMM_put_char(0x03);	   //nrmdisplay start
+				gSCOPE.p_SCOPE_buffer->readIndex = gSCOPE.p_SCOPE_buffer->indexStart;
+				firstPass = FALSE;
+			}
+			
+			tmp = gSCOPE.p_SCOPE_buffer->memory[gSCOPE.p_SCOPE_buffer->readIndex];
+			gSCOPE.p_SCOPE_buffer->readIndex++;
+			if(gSCOPE.p_SCOPE_buffer->readIndex == gSCOPE.p_SCOPE_buffer->size){
+				gSCOPE.p_SCOPE_buffer->readIndex = 0;
+			}
+
+			tmp = (tmp >> 4);	//12 bit -> 8 bit
+			tmp = (tmp & 0x0FF);
+			COMM_put_char((uint8_t)tmp);			
+
+			if(gSCOPE.p_SCOPE_buffer->readIndex == gSCOPE.p_SCOPE_buffer->indexStart){
+				//readDone
+				switch (gSCOPE.SCOPE_triggerMode){
+					
+					case TRIG_SINGLE:
+						gSCOPE.SCOPE_state = SCOPE_IDLE;
+						ADC_circle_meas_stop();
+						break;
+					
+					case TRIG_NORMAL:
+						SCOPE_start_meas();
+						break;
+					case TRIG_AUTO:
+						SCOPE_start_meas();
+						break;
+					default:
+						break;
+
+				}
+
+//				StmState = IDLE;
+			}
+		break;
+
+	case SCOPE_IDLE:
+	default:
+		break;
+	}//switch
+}//measure tick
+
+
+
 
 /**
- * @brief  Nastaveni rychlosi vzorkovani*
+ * @brief  Nastaveni rychlosi vzorkovani
  * @param  sample rate
  * @retval None
  */ 
@@ -67,6 +143,7 @@ void SCOPE_start_meas(void)
 {
 	SCOPE_buf_init(gSCOPE.p_SCOPE_buffer);
 	gSCOPE.SCOPE_state = SCOPE_TRIGGER_WAIT;
+	firstPass=TRUE;
 	ADC_circle_meas_start();
 };
 
@@ -137,6 +214,11 @@ SCOPE_STATE SCOPE_get_state(void)
 }
 
 
+bool pre_trigger_passed(SCOPE_Buffer * _buff){
+	return (_buff->writeIndex >_buff->preTrigger || _buff->overFlew)?TRUE:FALSE;
+}
+
+
 void storeVal(SCOPE_Buffer * _buff, uint16_t _val){		//zapis do kruhu, neresi se preteceni
 	switch(_buff->state){
 		case SCOPE_BUFF_FREE:
@@ -145,6 +227,7 @@ void storeVal(SCOPE_Buffer * _buff, uint16_t _val){		//zapis do kruhu, neresi se
 			_buff->writeIndex++;
 			if(_buff->writeIndex == _buff->size){
 				_buff->writeIndex = 0;
+				_buff->overFlew=TRUE;
 			}
 
 			_buff->memory[_buff->writeIndex] = _val;
@@ -178,7 +261,11 @@ SCOPE_BUFF_STATE storeVal_at(SCOPE_Buffer * _buff, uint16_t _val){
 void set_trig(SCOPE_Buffer * _buff){
 
 	_buff->triggerIndex = _buff->writeIndex;
-	_buff->dataRemain = _buff->size - _buff->preTrigger;
+	if (_buff->overFlew || (_buff->size - _buff->preTrigger) > _buff->size - _buff->writeIndex){
+		_buff->dataRemain = _buff->size - _buff->preTrigger;
+	}else{
+		_buff->dataRemain = _buff->size - _buff->writeIndex-1;
+	}
 
 }
 
@@ -199,35 +286,38 @@ void SCOPE_ADC_request(uint16_t _value)
 
 	switch (gSCOPE.SCOPE_state){
 	   	case SCOPE_TRIGGER_WAIT:			//getting data before trigger
+				
+			if (pre_trigger_passed(gSCOPE.p_SCOPE_buffer)  && (gSCOPE.SCOPE_triggerMode != TRIG_AUTO)){
 
-			switch (gSCOPE.SCOPE_triggerEdge){
-				case SCOPE_RISING:
-					if(_value > gSCOPE.SCOPE_triggerLevel){
-						if(trigEnable){
-							triggerEvent = TRUE;
-							trigEnable = FALSE;
+				switch (gSCOPE.SCOPE_triggerEdge){
+					case SCOPE_RISING:
+						if(_value > gSCOPE.SCOPE_triggerLevel){
+							if(trigEnable){
+								triggerEvent = TRUE;
+								trigEnable = FALSE;
+							}
 						}
-					}
-					if(_value < gSCOPE.SCOPE_triggerLevel){
-						trigEnable = TRUE;
-					}
-					break;
-				case SCOPE_FALLING:
-					if(_value < gSCOPE.SCOPE_triggerLevel){
-						if(trigEnable){
-							triggerEvent = TRUE;
-							trigEnable = FALSE;
+						if(_value < gSCOPE.SCOPE_triggerLevel){
+							trigEnable = TRUE;
 						}
-					}
-					if(_value > gSCOPE.SCOPE_triggerLevel){
-						trigEnable = TRUE;
-					}
-					break;
+						break;
+					case SCOPE_FALLING:
+						if(_value < gSCOPE.SCOPE_triggerLevel){
+							if(trigEnable){
+								triggerEvent = TRUE;
+								trigEnable = FALSE;
+							}
+						}
+						if(_value > gSCOPE.SCOPE_triggerLevel){
+							trigEnable = TRUE;
+						}
+						break;
+				}
 			}
 
 			storeVal(gSCOPE.p_SCOPE_buffer,_value);		//zapisujeme do kruhu, nezajima nas overflow
 
-			if( triggerEvent && (gSCOPE.SCOPE_triggerMode != TRIG_AUTO)){	  //SCOPE_AUTO se ridi SW triggerem podle casovace
+			if( triggerEvent || (gSCOPE.SCOPE_triggerMode == TRIG_AUTO)){	  //SCOPE_AUTO se ridi SW triggerem podle casovace
 				gSCOPE.SCOPE_state = SCOPE_SAMPLING;
 				trigEnable = FALSE;
 				set_trig(gSCOPE.p_SCOPE_buffer);
@@ -272,6 +362,7 @@ void SCOPE_buf_init(SCOPE_Buffer * _buff){
 	_buff->triggerIndex = 0;
 	_buff->indexStart = 0;
 	_buff->state = SCOPE_BUFF_FREE;
+	_buff->overFlew=FALSE;
 }
 
 

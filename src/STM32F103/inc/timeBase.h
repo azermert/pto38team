@@ -5,6 +5,8 @@
 
 #define timeStep 40	//microseconds
 
+typedef uint32_t time_t;
+
 /* Accesible function prototypes */
 void init_TimeBase(void);
 

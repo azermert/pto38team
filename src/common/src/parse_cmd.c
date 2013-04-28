@@ -502,7 +502,7 @@ void parse_GPIO_cmd(){
 WORD_ID read_COMM_hash(void){
 	uint8_t inField[4];
 	COMM_read((uint8_t*)&inField, 4);
-	return (inField[3] << 24)|(inField[2] << 16)|(inField[1] << 8)|(inField[0]);
+	return (WORD_ID)((inField[3] << 24)|(inField[2] << 16)|(inField[1] << 8)|(inField[0]));
 }
 
 void clearCMD(void){
