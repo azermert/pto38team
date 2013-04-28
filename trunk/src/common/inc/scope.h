@@ -27,11 +27,25 @@ typedef enum
 
 typedef enum
 {
-	TRIG_SIGNAL = 0,
+	TRIG_NORMAL = 0,
 	TRIG_AUTO,
 	TRIG_SINGLE
 } SCOPE_TRIGGER_MODE;
+/*
+typedef enum {
+	MEAS_NORM,
+	MEAS_AUTO,
+	SEND_DATA,
+	IDLE
+}STATE;
 
+typedef enum
+{
+	RqNORMAL,
+	RqAUTO,
+	RqSINGLE
+}RQ_TRIGGER;
+*/
 typedef enum
 {
 	SCOPE_IDLE = 0,			//NOP
@@ -60,6 +74,7 @@ typedef struct
 	uint16_t preTrigger;
 	uint16_t dataRemain;	  	//post-trigger data counter	| 0 = done
 	uint16_t indexStart;
+	volatile bool overFlew;
 	volatile SCOPE_BUFF_STATE state;
 } SCOPE_Buffer;
 
@@ -77,6 +92,7 @@ typedef struct
 extern SCOPE_TypeDef gSCOPE;
 
 /* SCOPE_Exported_Functions */
+void measure_Tick(void);
 void SCOPE_init(SCOPE_TypeDef * p_SCOPE_desc); 	/* Inicializace pomoci decsriptoru */
 void SCOPE_set_sample_rate(uint32_t smpRate); 	/* Nastaveni rychlosi vzorkovani*/
 uint16_t SCOPE_get_voltage (uint8_t samples);		/* Hodnota pro voltmeter */

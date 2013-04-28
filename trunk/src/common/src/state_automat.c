@@ -34,6 +34,7 @@ void set_scope_param(void);
   * @retval None
   */    
 void STATE_tick_fast(){
+			measure_Tick();
 //TODO
 }
 
@@ -137,7 +138,7 @@ void set_scope_param(){
 			
 			case WID_TRIG:
 				if(p_cmd->data[prm]==WID_NORM){
-					SCOPE_set_trigger_mode(TRIG_SIGNAL);
+					SCOPE_set_trigger_mode(TRIG_NORMAL);
 				}else if(p_cmd->data[prm]==WID_AUTO){
 					SCOPE_set_trigger_mode(TRIG_AUTO);
 				}else if(p_cmd->data[prm]==WID_SING){

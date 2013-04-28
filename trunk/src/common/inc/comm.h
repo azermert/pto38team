@@ -17,10 +17,6 @@
 /* Zadne includy zde nebudou!!!*/
 #include "typedefs.h"
 
-//pokus moje;
-
-typedef void (*tick_comm)(void);
-
 /**
  * Kvuli ruznemu HW u studentu. Nekdo ma USB prevodnik, 
  * nekdo jen MAX323 na nepajivem poli, ktere 921600 baud/s nepøenese
