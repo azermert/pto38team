@@ -1,0 +1,64 @@
+*** Creating Trace Output File '.\output\processor_code.tra' Ok.
+### Preparing for ADS-LD.
+### Creating ADS-LD Command Line
+### List of Objects: adding '".\output\adc.o"'
+### List of Objects: adding '".\output\buttons.o"'
+### List of Objects: adding '".\output\dac.o"'
+### List of Objects: adding '".\output\gpio_ext.o"'
+### List of Objects: adding '".\output\gpio_in.o"'
+### List of Objects: adding '".\output\gpio_out.o"'
+### List of Objects: adding '".\output\lcd.o"'
+### List of Objects: adding '".\output\led.o"'
+### List of Objects: adding '".\output\nmi_irq.o"'
+### List of Objects: adding '".\output\sysctl.o"'
+### List of Objects: adding '".\output\uart.o"'
+### List of Objects: adding '".\output\main.o"'
+### List of Objects: adding '".\output\nvic_basic.o"'
+### List of Objects: adding '".\output\timebase.o"'
+### List of Objects: adding '".\output\systemclock.o"'
+### List of Objects: adding '".\output\initialize.o"'
+### List of Objects: adding '".\output\startup_stm32f30x.o"'
+### List of Objects: adding '".\output\stm32f30x_adc.o"'
+### List of Objects: adding '".\output\stm32f30x_can.o"'
+### List of Objects: adding '".\output\stm32f30x_comp.o"'
+### List of Objects: adding '".\output\stm32f30x_crc.o"'
+### List of Objects: adding '".\output\stm32f30x_dac.o"'
+### List of Objects: adding '".\output\stm32f30x_dbgmcu.o"'
+### List of Objects: adding '".\output\stm32f30x_dma.o"'
+### List of Objects: adding '".\output\stm32f30x_exti.o"'
+### List of Objects: adding '".\output\stm32f30x_flash.o"'
+### List of Objects: adding '".\output\stm32f30x_gpio.o"'
+### List of Objects: adding '".\output\stm32f30x_i2c.o"'
+### List of Objects: adding '".\output\stm32f30x_iwdg.o"'
+### List of Objects: adding '".\output\stm32f30x_misc.o"'
+### List of Objects: adding '".\output\stm32f30x_opamp.o"'
+### List of Objects: adding '".\output\stm32f30x_pwr.o"'
+### List of Objects: adding '".\output\stm32f30x_rcc.o"'
+### List of Objects: adding '".\output\stm32f30x_rtc.o"'
+### List of Objects: adding '".\output\stm32f30x_spi.o"'
+### List of Objects: adding '".\output\stm32f30x_syscfg.o"'
+### List of Objects: adding '".\output\stm32f30x_tim.o"'
+### List of Objects: adding '".\output\stm32f30x_usart.o"'
+### List of Objects: adding '".\output\stm32f30x_wwdg.o"'
+### List of Objects: adding '".\output\comm.o"'
+### List of Objects: adding '".\output\counter.o"'
+### List of Objects: adding '".\output\generator.o"'
+### List of Objects: adding '".\output\log_analyser.o"'
+### List of Objects: adding '".\output\scope.o"'
+### List of Objects: adding '".\output\state_automat.o"'
+### List of Objects: adding '".\output\parse_cmd.o"'
+### ADS-LD Command completed:
+--cpu Cortex-M4.fp ".\output\adc.o" ".\output\buttons.o" ".\output\dac.o" ".\output\gpio_ext.o" ".\output\gpio_in.o" ".\output\gpio_out.o" ".\output\lcd.o" ".\output\led.o" ".\output\nmi_irq.o" ".\output\sysctl.o" ".\output\uart.o" ".\output\main.o" ".\output\nvic_basic.o" ".\output\timebase.o" ".\output\systemclock.o" ".\output\initialize.o" ".\output\startup_stm32f30x.o" ".\output\stm32f30x_adc.o" ".\output\stm32f30x_can.o" ".\output\stm32f30x_comp.o" ".\output\stm32f30x_crc.o" ".\output\stm32f30x_dac.o" ".\output\stm32f30x_dbgmcu.o" ".\output\stm32f30x_dma.o" ".\output\stm32f30x_exti.o" ".\output\stm32f30x_flash.o" ".\output\stm32f30x_gpio.o" ".\output\stm32f30x_i2c.o" ".\output\stm32f30x_iwdg.o" ".\output\stm32f30x_misc.o" ".\output\stm32f30x_opamp.o" ".\output\stm32f30x_pwr.o" ".\output\stm32f30x_rcc.o" ".\output\stm32f30x_rtc.o" ".\output\stm32f30x_spi.o" ".\output\stm32f30x_syscfg.o" ".\output\stm32f30x_tim.o" ".\output\stm32f30x_usart.o" ".\output\stm32f30x_wwdg.o" ".\output\comm.o" ".\output\counter.o" ".\output\generator.o" ".\output\log_analyser.o" ".\output\scope.o" ".\output\state_automat.o" ".\output\parse_cmd.o" 
+--ro-base 0x08000000 --entry 0x08000000 --rw-base 0x20000000 --entry Reset_Handler --first __Vectors --strict --summary_stderr --info summarysizes --map --xref --callgraph --symbols 
+--info sizes --info totals --info unused --info veneers 
+ --list ".\lst\processor_code.map" -o .\output\processor_code.axf### Preparing Environment (PrepEnvAds)
+### ADS-LD Output File: '.\output\processor_code.axf'
+### ADS-LD Command File: '.\output\processor_code.lnp'
+### Checking for dirty Components...
+### Creating CmdFile '.\output\processor_code.lnp', Handle=0x00000128
+### Writing '.lnp' file
+### ADS-LD Command file '.\output\processor_code.lnp' is ready.
+### ADS-LD: About to start ADS-LD Thread.
+### ADS-LD: executed with 0 errors
+### Updating obj list
+### LDADS_file() completed.
