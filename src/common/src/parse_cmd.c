@@ -14,7 +14,7 @@
 
 #include "timeBase.h"
 
-
+sbit LED=P3^4;
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/ 
@@ -55,9 +55,11 @@ void testTimeout(uint8_t _znak){
  */    
 COMM_CMD SCPI_try_parse_cmd(void)
 {
+	uint16_t wait;
+	wait=COMM_get_bytes_available();
 		error=FALSE;
 		clearCMD();
-		if( COMM_get_bytes_available() > 0){
+		if(wait > 0){
 		testTimeout(4);
 		hash=read_COMM_hash();
 			
@@ -501,7 +503,11 @@ void parse_GPIO_cmd(){
 
 WORD_ID read_COMM_hash(void){
 	uint8_t inField[4];
-	COMM_read((uint8_t*)&inField, 4);
+	//workaround kvuli 8051 nelze pouzit //COMM_read((uint8_t*)&inField, 4);
+	inField[0]=COMM_read_char();
+	inField[1]=COMM_read_char();
+	inField[2]=COMM_read_char();
+	inField[3]=COMM_read_char();
 	return (WORD_ID)((inField[3] << 24)|(inField[2] << 16)|(inField[1] << 8)|(inField[0]));
 }
 
