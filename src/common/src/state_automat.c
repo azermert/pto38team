@@ -107,57 +107,57 @@ void set_scope_param(){
 			switch(p_cmd->PARAM_hash[prm]){
 				
 			case WID_FREQ:
-				if(p_cmd->data[prm]==WID_1KUSUS){
+				if(p_cmd->data_cmd[prm]==WID_1KUSUS){
 					SCOPE_set_sample_rate(1000);
-				}else if(p_cmd->data[prm]==WID_2KUSUS){
+				}else if(p_cmd->data_cmd[prm]==WID_2KUSUS){
 					SCOPE_set_sample_rate(2000);
-				}else if(p_cmd->data[prm]==WID_5KUSUS){
+				}else if(p_cmd->data_cmd[prm]==WID_5KUSUS){
 					SCOPE_set_sample_rate(5000);
-				}else if(p_cmd->data[prm]==WID_10KUS){
+				}else if(p_cmd->data_cmd[prm]==WID_10KUS){
 					SCOPE_set_sample_rate(10000);
-				}else if(p_cmd->data[prm]==WID_20KUS){
+				}else if(p_cmd->data_cmd[prm]==WID_20KUS){
 					SCOPE_set_sample_rate(20000);
-				}else if(p_cmd->data[prm]==WID_50KUS){
+				}else if(p_cmd->data_cmd[prm]==WID_50KUS){
 					SCOPE_set_sample_rate(50000);
-				}else if(p_cmd->data[prm]==WID_100K){
+				}else if(p_cmd->data_cmd[prm]==WID_100K){
 					SCOPE_set_sample_rate(100000);
-				}else if(p_cmd->data[prm]==WID_200K){
+				}else if(p_cmd->data_cmd[prm]==WID_200K){
 					SCOPE_set_sample_rate(200000);
-				}else if(p_cmd->data[prm]==WID_500K){
+				}else if(p_cmd->data_cmd[prm]==WID_500K){
 					SCOPE_set_sample_rate(500000);
-				}else if(p_cmd->data[prm]==WID_1MUSUS){
+				}else if(p_cmd->data_cmd[prm]==WID_1MUSUS){
 					SCOPE_set_sample_rate(1000000);
-				}else if(p_cmd->data[prm]==WID_2MUSUS){
+				}else if(p_cmd->data_cmd[prm]==WID_2MUSUS){
 					SCOPE_set_sample_rate(2000000);
-				}else if(p_cmd->data[prm]==WID_5MUSUS){
+				}else if(p_cmd->data_cmd[prm]==WID_5MUSUS){
 					SCOPE_set_sample_rate(5000000);
-				}else if(p_cmd->data[prm]==WID_10MUS){
+				}else if(p_cmd->data_cmd[prm]==WID_10MUS){
 					SCOPE_set_sample_rate(10000000);
 				}
 			break;
 			
 			case WID_TRIG:
-				if(p_cmd->data[prm]==WID_NORM){
+				if(p_cmd->data_cmd[prm]==WID_NORM){
 					SCOPE_set_trigger_mode(TRIG_NORMAL);
-				}else if(p_cmd->data[prm]==WID_AUTO){
+				}else if(p_cmd->data_cmd[prm]==WID_AUTO){
 					SCOPE_set_trigger_mode(TRIG_AUTO);
-				}else if(p_cmd->data[prm]==WID_SING){
+				}else if(p_cmd->data_cmd[prm]==WID_SING){
 					SCOPE_set_trigger_mode(TRIG_SINGLE);
 				}
 			break;
 				
 			case WID_PRET:
-				SCOPE_setPreTrigger(p_cmd->data[prm]);
+				SCOPE_setPreTrigger(p_cmd->data_cmd[prm]);
 			break;	
 			
 			case WID_LEVL:
-				SCOPE_set_trigger_level(p_cmd->data[prm]);
+				SCOPE_set_trigger_level(p_cmd->data_cmd[prm]);
 			break;
 			
 			case WID_EDGE:
-				if(p_cmd->data[prm]==WID_RISE){
+				if(p_cmd->data_cmd[prm]==WID_RISE){
 					SCOPE_set_trigger_edge(SCOPE_RISING);
-				}else if(p_cmd->data[prm]==WID_FALL){
+				}else if(p_cmd->data_cmd[prm]==WID_FALL){
 					SCOPE_set_trigger_edge(SCOPE_FALLING);
 				}
 			break;
