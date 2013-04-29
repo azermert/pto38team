@@ -114,6 +114,7 @@
   */
 
 /* Includes ------------------------------------------------------------------*/
+#include "stm32f0xx_conf.h"
 #include "stm32f0xx_tim.h"
 #include "stm32f0xx_rcc.h"
 

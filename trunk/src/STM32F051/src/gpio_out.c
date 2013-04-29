@@ -43,6 +43,7 @@ void GPIO_OUT_init()
   GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
   GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
   GPIO_Init(GPIOC, &GPIO_InitStructure);
+	unInitialized = FALSE;
 	} 
                         
 /**

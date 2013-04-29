@@ -83,6 +83,7 @@
   */
 
 /* Includes ------------------------------------------------------------------*/
+#include "stm32f0xx_conf.h"
 #include "stm32f0xx_wwdg.h"
 #include "stm32f0xx_rcc.h"
 
