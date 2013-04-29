@@ -297,7 +297,7 @@ void parse_GENUS_cmd(){
 				if(COMM_read_char() == ' '){
 					result.PARAM_hash[params]=hash;
 					hash=read_COMM_hash();
-					if(hash<=4294967295){
+					if(hash<=0x0FFFFFFFE){
 						result.data_cmd[params]=hash;
 					}else{
 						error=TRUE;
