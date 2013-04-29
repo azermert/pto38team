@@ -39,7 +39,7 @@ typedef enum uint32_t{		  	//QM = question mark (?) ;  US = underscore	(_)
 	REGISTER_WID(F,R,E,Q),
 	REGISTER_WID(P,R,E,T),
 	REGISTER_WID(D,A,T,A),
-	REGISTER_WID(S,T,R,T),
+	REGISTER_WID(S,R,A,T),   //prepis STRT kvuli 8051 je schopna brat pouze 2 prvni znaky 
 	REGISTER_WID(S,T,O,P),
 	
 	REGISTER_WID(T,Y,P,E),
@@ -50,7 +50,7 @@ typedef enum uint32_t{		  	//QM = question mark (?) ;  US = underscore	(_)
 
 	REGISTER_WID(C,H,A,N),
 
-	REGISTER_WID(F,R,Q,QM),
+	REGISTER_WID(F,E,Q,QM),   //Prepis FRQ? kvuli 8051
 	REGISTER_WID(P,L,S,QM),
 
 	REGISTER_WID(V,A,L,QM),
@@ -87,7 +87,7 @@ typedef enum uint32_t{		  	//QM = question mark (?) ;  US = underscore	(_)
 	REGISTER_WID(A,N,D,US),
 	REGISTER_WID(O,R,US,US),
 	
-	REGISTER_WID(C,N,T,F),
+	REGISTER_WID(C,O,T,F), //prepis CNTF kvuli 8051 
 	REGISTER_WID(C,N,T,P)
 }WORD_ID;
 
