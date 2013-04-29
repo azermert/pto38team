@@ -11,7 +11,7 @@
 
 /* Includes ------------------------------------------------------------------*/
 //#include "<procesor>.h"
-#include "stm32f10x.h"
+#include "typedefs.h"
 #include "counter.h"
 
 /* Private typedef -----------------------------------------------------------*/
@@ -35,7 +35,7 @@ uint32_t numOfCountOverflows=0;
 void COUNT_init()
 {
 	//TODO
-};
+}
 
 /**
  * @brief  Odstartuje mereni (timer)
@@ -45,7 +45,7 @@ void COUNT_init()
 void COUNT_start(void)
 {
 	//TODO
-};
+}
 
 /**
  * @brief  Zastavi mereni
@@ -55,7 +55,7 @@ void COUNT_start(void)
 void COUNT_stop(void)
 {
 	//TODO
-};
+}
 
 /**
  * @brief  Vrati stav citace
@@ -66,7 +66,7 @@ COUNT_STATE COUNT_get_state(void)
 {
 	//TODO
 	return COUNT_ERR;
-};
+}
 
 /**
  * @brief  Vrati (zmerenou frekvenci)*100 Hz
@@ -77,7 +77,7 @@ uint32_t COUNT_get_freq(void)
 {
 	//TODO
 	return frequency;
-};
+}
 
 /**
  * @brief  Vrati zmerenou a vyfiltrovanou frekvenci * 100 Hz
@@ -98,7 +98,7 @@ uint32_t COUNT_get_filtred_freq(void)
 void COUNT_GPIO_EXT_reguest()
 {
 	//TODO
-};
+}
 
 /**
  * @brief  Preruseni od preteceni citace
@@ -108,6 +108,6 @@ void COUNT_GPIO_EXT_reguest()
 void TIM_IRQ_handler()
 {
 	//TODO
-};
+}
 
 /************************ END OF FILE *****************************************/

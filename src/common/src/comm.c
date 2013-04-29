@@ -84,7 +84,7 @@ void COMM_init(COMM_InitTypeDef * p_COMM_desc)
 BUFF_STATE COMM_get_in_buff_state()
 {
   return inBuffer.state;
-};    
+}    
 
 /**
  * @brief  Vrati stav odchoziho bufferu
@@ -106,7 +106,7 @@ BUFF_STATE COMM_get_out_buff_state()
 		outBuffer.state = BUFF_ALMOST_FULL;
 	}
   return outBuffer.state;
-};     
+}     
 
 /**
  * @brief  Vrati pocet byte v prichozim bufferu 
@@ -116,7 +116,7 @@ BUFF_STATE COMM_get_out_buff_state()
 uint16_t COMM_get_bytes_available() 
 {
   return UART_BUFF_SIZE-COMM_get_in_free_space();
-};      
+}      
 
 /**
  * @brief  Vrati pocet byte v prichozim bufferu 
@@ -135,7 +135,7 @@ uint16_t COMM_get_in_free_space()
 		result = inBuffer.size_buff-inBuffer.writePointer+inBuffer.readPointer;
 	}
   return result;
-};
+}
 
 /**
  * @brief  Vrati pocet volnych byte v odchozim bufferu 
@@ -155,7 +155,7 @@ uint16_t COMM_get_out_free_space()
 		result = outBuffer.size_buff-outBuffer.writePointer+outBuffer.readPointer;
 	}
   return result;
-};      
+}      
 
 /**
  * @brief  Vrati stav knihovny
@@ -166,7 +166,7 @@ COMM_STATE COMM_get_state()
 {
   //TODO
   return commState;
-};             
+}             
 
 /**
  * @brief  Ulozi char na vystupni buffer 
@@ -202,7 +202,7 @@ BUFF_STATE COMM_put_char(char chr)
 	}
 	return outBuffer.state;
 
-};            
+}            
 
 /**
  * @brief  Ulozi znak na vystupni buffer
@@ -212,7 +212,7 @@ BUFF_STATE COMM_put_char(char chr)
 BUFF_STATE COMM_put_uchar(uint8_t chr)
 {
   return COMM_put_char(chr);
-};   
+}   
 
 /**
  * @brief  Ulozi string na vystupni buffer
@@ -228,7 +228,7 @@ BUFF_STATE COMM_print(char *chr)
 	}
 	UART_tick();
 	return stat;
-}; 
+} 
 
 /**
  * @brief  Prekopiruje zadanou pamet na vystupni buffer 
@@ -251,7 +251,7 @@ int8_t COMM_send(uint8_t * memory, uint16_t size)
 	{
 		return -1;
 	}
-};  
+}  
 
 /**
  * @brief  Prekopiruje vstupni buffer na pridelenou pamet a vrati kolik skutence bylo prekopirovano
@@ -272,7 +272,7 @@ int16_t COMM_read(uint8_t * memory, uint16_t size)
 		}
 	}
 	return i;
-};
+}
 
 /**
  * @brief  Precte znak z prichoziho bufferu
@@ -301,7 +301,7 @@ int16_t COMM_read_char()
 	
 	
   return result;
-};            
+}            
 
 int16_t COMM_view_char(void)
 {
@@ -316,7 +316,7 @@ int16_t COMM_view_char(void)
 		result = inBuffField[inBuffer.readPointer];
 	}
 	return result;
-};
+}
 
 /**
  * @brief  Zavola scpi/nasi knihovnu na rozpoznani prikazu a vrati prikaz z vstupniho bufferu
@@ -328,7 +328,7 @@ COMM_CMD* COMM_get_command()
   //TODO
 	commCommand = SCPI_try_parse_cmd();
   return &commCommand;
-}; 
+} 
 
 /**
  * @brief  Uart zada o obsluhu (plny buffer/chyba atd)
@@ -338,7 +338,7 @@ COMM_CMD* COMM_get_command()
 void COMM_tick()
 {
   //TODO
-};                    
+}                    
 
 
 /************************ END OF FILE *****************************************/

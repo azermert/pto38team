@@ -11,7 +11,7 @@
 
 /* Includes ------------------------------------------------------------------*/
 //#include "<procesor>.h"
-#include "stm32f10x.h"
+#include "typedefs.h"
 #include "timeBase.h"
 #include "comm.h"
 #include "scope.h"
@@ -122,7 +122,7 @@ void SCOPE_set_sample_rate(uint32_t smpRate)
 	ADC_i.ADC_samplingFrequency = smpRate;
 	ADC_i.p_ADC_tick = &SCOPE_ADC_request; 
 	ADC_init(&ADC_i);
-};
+}
 
 /**
  * @brief  Hodnota pro voltmeter vcetne filtrace (samples = pocet vzorku pro prumerovani) 
@@ -132,7 +132,7 @@ void SCOPE_set_sample_rate(uint32_t smpRate)
 uint16_t SCOPE_get_voltage (uint8_t samples)
 {
 	return ADC_meas_sample();
-};
+}
 
 /**
  * @brief  odstartovani & reset mereni
@@ -145,7 +145,7 @@ void SCOPE_start_meas(void)
 	gSCOPE.SCOPE_state = SCOPE_TRIGGER_WAIT;
 	firstPass=TRUE;
 	ADC_circle_meas_start();
-};
+}
 
 
 void SCOPE_setPreTrigger(uint16_t _value){
@@ -161,7 +161,7 @@ void SCOPE_stop_meas(void)
 {
 	ADC_circle_meas_stop();
 	gSCOPE.SCOPE_state = SCOPE_IDLE;
-};
+}
 
 /**
  * @brief Single mereni nejvyssi rychlosti 
@@ -171,7 +171,7 @@ void SCOPE_stop_meas(void)
 void SCOPE_DMA_meas(void)
 {
 	//TODO
-};
+}
 
 /**
  * @brief  nastaveni urovne pro trigger
@@ -181,7 +181,7 @@ void SCOPE_DMA_meas(void)
 void SCOPE_set_trigger_level(uint16_t trigLevel)
 {
 	gSCOPE.SCOPE_triggerLevel = trigLevel;
-};
+}
 
 /**
  * @brief  nastaveni trigger modu
@@ -191,7 +191,7 @@ void SCOPE_set_trigger_level(uint16_t trigLevel)
 void SCOPE_set_trigger_mode(SCOPE_TRIGGER_MODE trigMode)
 {
 	gSCOPE.SCOPE_triggerMode = trigMode;
-};
+}
 
 /**
  * @brief  nastaveni hrany pro trigger
@@ -201,7 +201,7 @@ void SCOPE_set_trigger_mode(SCOPE_TRIGGER_MODE trigMode)
 void SCOPE_set_trigger_edge(SCOPE_TRIGGER_EDGE trigEdge)
 {
 	gSCOPE.SCOPE_triggerEdge = trigEdge;
-};
+}
 
 /**
  * @brief  Vrati stav knihovny osciloskopu
@@ -346,7 +346,7 @@ void SCOPE_ADC_request(uint16_t _value)
 
 
 
-};
+}
 
 /**
  * @brief  Inicializace pomoci decsriptoru
@@ -378,7 +378,7 @@ void SCOPE_init(SCOPE_TypeDef * _desc)
 	_desc->SCOPE_state = SCOPE_IDLE;
 	
 	SCOPE_buf_init(_desc->p_SCOPE_buffer);	
-};
+}
 
 /************************ END OF FILE *****************************************/
 
