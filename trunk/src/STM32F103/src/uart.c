@@ -26,7 +26,7 @@
 /* Private define ------------------------------------------------------------*/ 
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
-UART_InitTypeDef urt;
+PTO_UART_InitTypeDef urt;
 
 /* Private function prototypes -----------------------------------------------*/
 void send_next(void);
@@ -88,7 +88,7 @@ BUFF_STATE store_byte(char chr)
 	GPIO_Init(GPIOA, &GPIO_InitStructure);
 }
 
-void UART_init(UART_InitTypeDef * _desc)
+void UART_init(PTO_UART_InitTypeDef * _desc)
 {
 	USART_InitTypeDef USART_InitStruct;
 

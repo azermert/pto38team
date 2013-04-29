@@ -19,8 +19,8 @@
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 
-uint32_t frequency=0;;
-uint32_t filtredFreq=0;;
+uint32_t frequency=0;
+uint32_t filtredFreq=0;
 uint32_t numOfCountOverflows=0;
 
 /* Private function prototypes -----------------------------------------------*/
@@ -88,7 +88,7 @@ uint32_t COUNT_get_filtred_freq(void)
 {
 	//TODO
 	return filtredFreq;
-};
+}
 
 /**
  * @brief   Prisel impuls k zapocitani

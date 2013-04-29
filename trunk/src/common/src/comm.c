@@ -28,7 +28,7 @@ COMM_Buffer inBuffer;
 COMM_InitTypeDef COMM_desc;
 COMM_STATE commState;
 COMM_CMD commCommand;
-UART_InitTypeDef uart;
+PTO_UART_InitTypeDef uart;
 
 
 
