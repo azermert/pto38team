@@ -97,6 +97,7 @@
   */
 
 /* Includes ------------------------------------------------------------------*/
+#include "stm32f0xx_conf.h"
 #include "stm32f0xx_dac.h"
 
 /** @addtogroup STM32F0xx_StdPeriph_Driver

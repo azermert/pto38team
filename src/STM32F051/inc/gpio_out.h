@@ -17,9 +17,9 @@
 /* Zadne includy zde nebudou!!!*/
 
 /* GPIO_out_Exported_Functions */
-void GPIO_OUT_init();                     /* Inicializace vystupnich pinu */
+void GPIO_OUT_init(void);                     /* Inicializace vystupnich pinu */
 void GPIO_set_word(uint8_t);              /* Nastaveni pozadovaneho kodoveho slova */
-uint8_t GPIO_get_setted_val();            /* Precte hodnotu, ktera byla skutecne nastavena */
+uint8_t GPIO_get_setted_val(void);            /* Precte hodnotu, ktera byla skutecne nastavena */
 
 
 #endif /*__stm32f0xx_GPIO_OUT_H */

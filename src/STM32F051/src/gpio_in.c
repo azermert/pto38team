@@ -14,16 +14,17 @@
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f0xx.h"
 #include "gpio_in.h"
+#include "stm32f0xx_conf.h"
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/ 
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
-bool GPIOINunInitialized = TRUE;
-bool GPIOINoverflowed = FALSE;
-GPIO_IN_STATE gpioInState = GPIO_ERR;
-GPIO_IN_InitTypeDef GPIO_IN_desc;
-uint16_t GPIOINbufferPointer = 0;
+bool lGPIOInUnInitialized = TRUE;
+bool lGPIOInOverflowed = FALSE;
+GPIO_IN_STATE lGpioInState = GPIO_ERR;
+GPIO_IN_InitTypeDef lGPIO_IN_desc;
+uint16_t lGPIOInBufferPointer = 0;
 
 /* Private function prototypes -----------------------------------------------*/
 /* Private functions ---------------------------------------------------------*/
@@ -36,6 +37,7 @@ uint16_t GPIOINbufferPointer = 0;
 void GPIO_IN_init(GPIO_IN_InitTypeDef * p_GPIO_IN_desc)
 {
   //TODO
+	lGPIOInUnInitialized = FALSE;
 }     
 
 /**
@@ -45,7 +47,7 @@ void GPIO_IN_init(GPIO_IN_InitTypeDef * p_GPIO_IN_desc)
   */
 GPIO_IN_STATE GPIO_IN_get_state()
 {
-  return gpioInState;
+  return lGpioInState;
 }            
 
 /**
@@ -66,7 +68,7 @@ uint8_t GPIO_get_word()
   */
 uint16_t GPIO_get_pointer()
 {
-  return GPIOINbufferPointer;
+  return lGPIOInBufferPointer;
 }                  
 
 /**
@@ -76,7 +78,7 @@ uint16_t GPIO_get_pointer()
   */
 bool GPIO_is_buffer_overflowed()
 {
-  return GPIOINoverflowed;
+  return lGPIOInOverflowed;
 }          
 
 /**

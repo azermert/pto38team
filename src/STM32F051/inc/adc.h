@@ -13,10 +13,23 @@
 #ifndef __stm32f0xx_ADC_H
 #define __stm32f0xx_ADC_H
 
+#define ADC_MEM_SIZE 8		//buffer pro prumerovani voltmetru
+#define ADC_IRQn				ADC1_COMP_IRQn
+#define TIMER_CLOCKS 		RCC_APB1Periph_TIM3
+#define TRIGGER_TIMER 	TIM3
+#define ADC_CLOCKS 			RCC_AHBPeriph_GPIOC|RCC_APB2Periph_ADC1
+
+#define ADC_Pin			GPIO_Pin_5
+#define ADC_Port		GPIOC
+#define ADC_CHANNEL		ADC_Channel_15
+#define ADC_TRIGGER		ADC_ExternalTrigConv_T3_TRGO 
+
+
+
 /* Includes ------------------------------------------------------------------*/
 /* Zadne includy zde nebudou!!!*/
 
-typedef void (*tick_adc)(void);
+typedef void (*tick_adc)(uint16_t _value);
 
 typedef struct
 {
@@ -24,7 +37,7 @@ typedef struct
   uint32_t * p_ADC_memory;                /* Pointer na pamet kam muze ADC zapisovat */ 
   uint32_t ADC_memorySize;                /* Velikost pameti pro ADC */ 
   tick_adc p_ADC_tick;                    /* Pointer na funkci OSC_ADC_Request() */
-}ADC_InitTypeDef;
+}PTO_ADC_InitTypeDef;
 
 
 typedef enum
@@ -38,7 +51,7 @@ typedef enum
 
 
 /* ADC_Exported_Functions */
-void ADC_init(ADC_InitTypeDef * p_ADC_desc);          /* Inicializace pomoci decsriptoru */
+void ADC_init(PTO_ADC_InitTypeDef * p_ADC_desc);          /* Inicializace pomoci decsriptoru */
 uint16_t ADC_meas_sample(void);               /* Zmeri jeden vzorek a vrati vysledek */
 void ADC_circle_meas_start(void);             /* Odstartuje nepretrzite mereni */
 void ADC_circle_meas_stop(void);              /* Zastavi nepretrzite mereni */

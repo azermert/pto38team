@@ -73,6 +73,7 @@
   */
 
 /* Includes ------------------------------------------------------------------*/
+#include "stm32f0xx_conf.h"
 #include "stm32f0xx_adc.h"
 #include "stm32f0xx_rcc.h"
 
@@ -355,16 +356,16 @@ void ADC_WaitModeCmd(ADC_TypeDef* ADCx, FunctionalState NewState)
   assert_param(IS_ADC_ALL_PERIPH(ADCx));
   assert_param(IS_FUNCTIONAL_STATE(NewState));
   
-  if (NewState != DISABLE)
-  {
-    /* Enable the ADC Automatic Delayed conversion */
-    ADCx->CFGR1 |= ADC_CFGR1_WAIT;
-  }
-  else
-  {
-    /* Disable the ADC Automatic Delayed conversion */
-    ADCx->CFGR1 &= (uint32_t)~ADC_CFGR1_WAIT;
-  }
+//   if (NewState != DISABLE)
+//   {
+//     /* Enable the ADC Automatic Delayed conversion */
+//     ADCx->CFGR1 |= ADC_CFGR1_WAIT;
+//   }
+//   else
+//   {
+//     /* Disable the ADC Automatic Delayed conversion */
+//     ADCx->CFGR1 &= (uint32_t)~ADC_CFGR1_WAIT;
+//   }
 }
 
 /**

@@ -183,34 +183,63 @@ Default_Handler PROC
                 EXPORT  CEC_IRQHandler                 [WEAK]
 
 
+
 WWDG_IRQHandler
+				B			.
 PVD_IRQHandler
+				B			.
 RTC_IRQHandler
+				B       .
 FLASH_IRQHandler
+				B       .
 RCC_IRQHandler
+				B       .
 EXTI0_1_IRQHandler
+				B       .
 EXTI2_3_IRQHandler
+				B       .
 EXTI4_15_IRQHandler
+				B       .
 TS_IRQHandler
+				B       .
 DMA1_Channel1_IRQHandler
+				B       .
 DMA1_Channel2_3_IRQHandler
+				B       .
 DMA1_Channel4_5_IRQHandler
+				B       .
 ADC1_COMP_IRQHandler 
+				B       .
 TIM1_BRK_UP_TRG_COM_IRQHandler
+				B       .
 TIM1_CC_IRQHandler
+				B       .
 TIM2_IRQHandler
+				B       .
 TIM3_IRQHandler
+				B       .
 TIM6_DAC_IRQHandler
+				B       .
 TIM14_IRQHandler
+				B       .
 TIM15_IRQHandler
+				B       .
 TIM16_IRQHandler
+				B       .
 TIM17_IRQHandler
+				B       .
 I2C1_IRQHandler
+				B       .
 I2C2_IRQHandler
+				B       .
 SPI1_IRQHandler
+				B       .
 SPI2_IRQHandler
+				B       .
 USART1_IRQHandler
+				B       .
 USART2_IRQHandler
+                B       .
 CEC_IRQHandler   
 
                 B       .
