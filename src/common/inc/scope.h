@@ -66,11 +66,11 @@ typedef enum
 
 typedef struct
 {
-  	uint16_t * memory;												/* Pointer na pamet kam muze Osciloskop zapisovat */
-  	uint16_t size;														/* Velikost pameti pro osciloskop */														
+  uint16_t * memory;												/* Pointer na pamet kam muze Osciloskop zapisovat */
+  uint16_t size_buff;														/* Velikost pameti pro osciloskop */														
 	uint16_t triggerIndex;									/* Pointer vzorku na kterem nastel triger */
 	uint16_t writeIndex;		//last write
-  	uint16_t readIndex;
+  uint16_t readIndex;
 	uint16_t preTrigger;
 	uint16_t dataRemain;	  	//post-trigger data counter	| 0 = done
 	uint16_t indexStart;

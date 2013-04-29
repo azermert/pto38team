@@ -67,7 +67,7 @@ void measure_Tick(void){
 			
 			tmp = gSCOPE.p_SCOPE_buffer->memory[gSCOPE.p_SCOPE_buffer->readIndex];
 			gSCOPE.p_SCOPE_buffer->readIndex++;
-			if(gSCOPE.p_SCOPE_buffer->readIndex == gSCOPE.p_SCOPE_buffer->size){
+			if(gSCOPE.p_SCOPE_buffer->readIndex == gSCOPE.p_SCOPE_buffer->size_buff){
 				gSCOPE.p_SCOPE_buffer->readIndex = 0;
 			}
 
@@ -225,7 +225,7 @@ void storeVal(SCOPE_Buffer * _buff, uint16_t _val){		//zapis do kruhu, neresi se
 		case SCOPE_BUFF_DATA:
 
 			_buff->writeIndex++;
-			if(_buff->writeIndex == _buff->size){
+			if(_buff->writeIndex == _buff->size_buff){
 				_buff->writeIndex = 0;
 				_buff->overFlew=TRUE;
 			}
@@ -245,7 +245,7 @@ SCOPE_BUFF_STATE storeVal_at(SCOPE_Buffer * _buff, uint16_t _val){
 	if( _buff->dataRemain == 0 ){
 		_buff->state = SCOPE_BUFF_FULL;
 		_buff->indexStart = _buff->writeIndex + 1;	 	//first data to read
-		if(_buff->indexStart >= _buff->size){
+		if(_buff->indexStart >= _buff->size_buff){
 			_buff->indexStart = 0;
 		}
 
@@ -261,10 +261,10 @@ SCOPE_BUFF_STATE storeVal_at(SCOPE_Buffer * _buff, uint16_t _val){
 void set_trig(SCOPE_Buffer * _buff){
 
 	_buff->triggerIndex = _buff->writeIndex;
-	if (_buff->overFlew || (_buff->size - _buff->preTrigger) > _buff->size - _buff->writeIndex){
-		_buff->dataRemain = _buff->size - _buff->preTrigger;
+	if (_buff->overFlew || (_buff->size_buff - _buff->preTrigger) > _buff->size_buff - _buff->writeIndex){
+		_buff->dataRemain = _buff->size_buff - _buff->preTrigger;
 	}else{
-		_buff->dataRemain = _buff->size - _buff->writeIndex-1;
+		_buff->dataRemain = _buff->size_buff - _buff->writeIndex-1;
 	}
 
 }
@@ -355,7 +355,7 @@ void SCOPE_ADC_request(uint16_t _value)
  */ 
 void SCOPE_buf_init(SCOPE_Buffer * _buff){
 	_buff->memory = lData;
-	_buff->size = DATA_SIZE;
+	_buff->size_buff = DATA_SIZE;
 	_buff->writeIndex = 0;
 	_buff->readIndex = 0;
 	_buff->dataRemain = 0;
