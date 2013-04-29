@@ -166,7 +166,7 @@ void set_scope_param(){
 				//TODO zmena bitoveho rozsahu vzorku
 			break;
 			
-			case WID_STRT:
+			case WID_SRAT:
 				SCOPE_start_meas();
 			break;
 			

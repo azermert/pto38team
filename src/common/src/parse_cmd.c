@@ -206,7 +206,7 @@ void parse_OSCP_cmd(){
 					}
 				}
 			break;
-			case WID_STRT:
+			case WID_SRAT:
 					result.PARAM_hash[params]=hash;
 			break;
 			case WID_STOP:
@@ -302,13 +302,13 @@ void parse_GENUS_cmd(){
 					}
 				}
 			break;
-			case WID_STRT:
+			case WID_SRAT:
 					result.PARAM_hash[params]=hash;
 			break;
 			case WID_STOP:
 					result.PARAM_hash[params]=hash;
 			break;
-			case WID_FRQQM:
+			case WID_FEQQM:
 					result.PARAM_hash[params]=hash;
 			break;
 			case WID_PLSQM:
@@ -382,7 +382,7 @@ void parse_LOGUS_cmd(){
 				}
 			break;	
 			
-			case WID_STRT:
+			case WID_SRAT:
 					result.PARAM_hash[params]=hash;
 			break;
 			
@@ -408,7 +408,7 @@ void parse_CONT_cmd(){
 		hash=read_COMM_hash();
 		
 		switch(hash){
-			case WID_STRT:
+			case WID_SRAT:
 					result.PARAM_hash[params]=hash;
 			break;
 			
@@ -416,7 +416,7 @@ void parse_CONT_cmd(){
 					result.PARAM_hash[params]=hash;
 			break;
 			
-			case WID_FRQQM:
+			case WID_FEQQM:
 				testTimeout(4);
 				if(COMM_read_char() == ' '){
 					result.PARAM_hash[params]=hash;
