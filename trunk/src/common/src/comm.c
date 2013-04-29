@@ -47,14 +47,14 @@ void COMM_init(COMM_InitTypeDef * p_COMM_desc)
 {
 	COMM_desc = *p_COMM_desc;
 	
-	outBuffer.size = UART_BUFF_SIZE;
+	outBuffer.size_buff = UART_BUFF_SIZE;
 	outBuffer.memory = &outBuffField[0];
 	
   outBuffer.writePointer = 0;
   outBuffer.readPointer = 0;
   outBuffer.state = BUFF_FREE;
 	
-	inBuffer.size = UART_BUFF_SIZE;
+	inBuffer.size_buff = UART_BUFF_SIZE;
 	inBuffer.memory = &inBuffField[0];
 	
   inBuffer.writePointer = 0;
@@ -132,7 +132,7 @@ uint16_t COMM_get_in_free_space()
 	}
 	else
 	{
-		result = inBuffer.size-inBuffer.writePointer+inBuffer.readPointer;
+		result = inBuffer.size_buff-inBuffer.writePointer+inBuffer.readPointer;
 	}
   return result;
 };
@@ -152,7 +152,7 @@ uint16_t COMM_get_out_free_space()
 	}
 	else
 	{
-		result = outBuffer.size-outBuffer.writePointer+outBuffer.readPointer;
+		result = outBuffer.size_buff-outBuffer.writePointer+outBuffer.readPointer;
 	}
   return result;
 };      
@@ -181,7 +181,7 @@ BUFF_STATE COMM_put_char(char chr)
 	outBuffField[outBuffer.writePointer]=chr;
 	tmpPointer=outBuffer.writePointer+1;
 	
-	if (tmpPointer>(outBuffer.size-1))
+	if (tmpPointer>(outBuffer.size_buff-1))
 	{
 		tmpPointer =0;
 	}
@@ -294,7 +294,7 @@ int16_t COMM_read_char()
 		inBuffer.readPointer++;
 	}
 	
-	if(inBuffer.readPointer >= (inBuffer.size))
+	if(inBuffer.readPointer >= (inBuffer.size_buff))
 	{
 		inBuffer.readPointer = 0; 
 	}

@@ -45,7 +45,7 @@ BUFF_STATE store_byte(char chr)
 	*(((*urt.p_inBuffer).memory)+((*urt.p_inBuffer).writePointer))=chr;
 	tmpPointer=(*urt.p_inBuffer).writePointer+1;
 	
-	if (tmpPointer>((*urt.p_inBuffer).size-1))
+	if (tmpPointer>((*urt.p_inBuffer).size_buff-1))
 	{
 		tmpPointer =0;
 	}

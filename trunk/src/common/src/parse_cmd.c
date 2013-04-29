@@ -132,7 +132,7 @@ void parse_OSCP_cmd(){
 					result.PARAM_hash[params]=hash;
 					hash=read_COMM_hash();
 					if(IS_OSCP_TRIG(hash)){
-						result.data[params]=hash;
+						result.data_cmd[params]=hash;
 					}else{
 						error=TRUE;
 					}
@@ -148,7 +148,7 @@ void parse_OSCP_cmd(){
 					res_over = hash & 0x0FFFF;
 					value = (hash >> 16) & 0x0FFFF;
 					if(res_over == 0){
-						result.data[params]=value;
+						result.data_cmd[params]=value;
 					}else{
 						error=TRUE;
 					}
@@ -164,7 +164,7 @@ void parse_OSCP_cmd(){
 					res_over = hash & 0x0FFFF;
 					value = (hash >> 16) & 0x0FFFF;
 					if(res_over == 0){
-						result.data[params]=value;
+						result.data_cmd[params]=value;
 					}else{
 						error=TRUE;
 					}
@@ -176,7 +176,7 @@ void parse_OSCP_cmd(){
 					result.PARAM_hash[params]=hash;
 					hash=read_COMM_hash();
 					if(IS_OSCP_EDGE(hash)){
-					result.data[params]=hash;
+					result.data_cmd[params]=hash;
 					}else{
 						error=TRUE;
 					}
@@ -188,7 +188,7 @@ void parse_OSCP_cmd(){
 					result.PARAM_hash[params]=hash;
 					hash=read_COMM_hash();
 					if(IS_OSCP_FREQ(hash)){
-						result.data[params]=hash;
+						result.data_cmd[params]=hash;
 					}else{
 						error=TRUE;
 					}
@@ -200,7 +200,7 @@ void parse_OSCP_cmd(){
 					result.PARAM_hash[params]=hash;
 					hash=read_COMM_hash();
 					if(IS_OSCP_DEPT(hash)){
-						result.data[params]=hash;
+						result.data_cmd[params]=hash;
 					}else{
 						error=TRUE;
 					}
@@ -236,7 +236,7 @@ void parse_GENUS_cmd(){
 					result.PARAM_hash[params]=hash;
 					hash=read_COMM_hash();
 					if(IS_GENUS_TYPE(hash)){
-						result.data[params]=hash;
+						result.data_cmd[params]=hash;
 					}else{
 						error=TRUE;
 					}
@@ -252,7 +252,7 @@ void parse_GENUS_cmd(){
 					res_over = hash & 0x0FFFF;
 					value = (hash >> 16) & 0x0FFFF;
 					if(res_over == 0){
-						result.data[params]=value;
+						result.data_cmd[params]=value;
 					}else{
 						error=TRUE;
 					}
@@ -268,7 +268,7 @@ void parse_GENUS_cmd(){
 					res_over = hash & 0x0FFFF;
 					value = (hash >> 16) & 0x0FFFF;
 					if(res_over == 0){
-						result.data[params]=value;
+						result.data_cmd[params]=value;
 					}else{
 						error=TRUE;
 					}
@@ -284,7 +284,7 @@ void parse_GENUS_cmd(){
 					res_over = hash & 0x0FFFF;
 					value = (hash >> 16) & 0x0FFFF;
 					if(res_over == 0){
-						result.data[params]=value;
+						result.data_cmd[params]=value;
 					}else{
 						error=TRUE;
 					}
@@ -296,7 +296,7 @@ void parse_GENUS_cmd(){
 					result.PARAM_hash[params]=hash;
 					hash=read_COMM_hash();
 					if(hash<=4294967295){
-						result.data[params]=hash;
+						result.data_cmd[params]=hash;
 					}else{
 						error=TRUE;
 					}
@@ -336,7 +336,7 @@ void parse_LOGUS_cmd(){
 					result.PARAM_hash[params]=hash;
 					hash=read_COMM_hash();
 					if(IS_LOGUS_EDGE(hash)){
-					result.data[params]=hash;
+					result.data_cmd[params]=hash;
 					}else{
 						error=TRUE;
 					}
@@ -349,7 +349,7 @@ void parse_LOGUS_cmd(){
 					result.PARAM_hash[params]=hash;
 					hash=read_COMM_hash();
 					if(IS_LOGUS_TYPE(hash)){
-						result.data[params]=hash;
+						result.data_cmd[params]=hash;
 					}else{
 						error=TRUE;
 					}
@@ -362,7 +362,7 @@ void parse_LOGUS_cmd(){
 					result.PARAM_hash[params]=hash;
 					hash=read_COMM_hash();
 					if(hash == 1 || hash == 0){//Zvyseni hodnoty (0-4) G
-						result.data[params]=hash;
+						result.data_cmd[params]=hash;
 					}else{
 						error=TRUE;
 					}
@@ -375,7 +375,7 @@ void parse_LOGUS_cmd(){
 					result.PARAM_hash[params]=hash;
 					hash=read_COMM_hash();
 					if(IS_LOGUS_FREQ(hash)){
-						result.data[params]=hash;
+						result.data_cmd[params]=hash;
 					}else{
 						error=TRUE;
 					}
@@ -422,7 +422,7 @@ void parse_CONT_cmd(){
 					result.PARAM_hash[params]=hash;
 					hash=read_COMM_hash();
 					if(IS_LOGUS_EDGE(hash)){
-					result.data[params]=hash;
+					result.data_cmd[params]=hash;
 					}else{
 						error=TRUE;
 					}
@@ -510,9 +510,9 @@ void clearCMD(void){
 	result.PARAM_hash[0]=0;
   result.PARAM_hash[1]=0;
   result.PARAM_hash[2]=0;
-  result.data[0]=0;
-	result.data[1]=0;
-	result.data[2]=0;
+  result.data_cmd[0]=0;
+	result.data_cmd[1]=0;
+	result.data_cmd[2]=0;
 }
 
 

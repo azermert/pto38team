@@ -51,7 +51,7 @@ typedef struct
 typedef struct
 {
   uint8_t * memory;
-  uint16_t size;
+  uint16_t size_buff;
   uint16_t writePointer;
   uint16_t readPointer;
   BUFF_STATE state;
@@ -61,7 +61,7 @@ typedef struct
 {
   uint32_t COMMAND_type;
   uint32_t PARAM_hash[3];
-  int32_t data[3];
+  int32_t data_cmd[3];
 } COMM_CMD;
 
 
