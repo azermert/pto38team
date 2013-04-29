@@ -10,7 +10,7 @@
 
 /* Includes ------------------------------------------------------------------*/
 //#include "<procesor>.h"
-#include "stm32f10x.h"
+#include "typedefs.h"
 #include "generator.h"
 
 /* Private typedef -----------------------------------------------------------*/
@@ -29,7 +29,7 @@
 void GEN_init(GEN_InitTypeDef * p_GEN_desc)
 {
 	//TODO
-};
+}
 
 /**
  * @brief  Do bufferu napocita vzorky pro dany signal, frekvenci offset atd
@@ -41,7 +41,7 @@ bool GEN_set_signal(GEN_SIGNAL* p_GEN_signal)
 {
 	//TODO
 	return FALSE;
-};
+}
 
 /**
  * @brief  Odstartuje generovani signalu
@@ -51,7 +51,7 @@ bool GEN_set_signal(GEN_SIGNAL* p_GEN_signal)
 void GEN_start()													
 {
 	//TODO
-};
+}
 
 /**
  * @brief  Zastavi generovani signalu 
@@ -61,7 +61,7 @@ void GEN_start()
 void GEN_stop()
 {
 	//TODO
-};
+}
 
 /**
  * @brief  Vrati stav generatoru
@@ -72,7 +72,7 @@ GEN_STATE GEN_get_state()
 {
 	//TODO
 	return GEN_ERR;
-};
+}
 
 
 

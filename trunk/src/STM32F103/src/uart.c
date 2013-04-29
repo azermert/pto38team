@@ -65,7 +65,7 @@ BUFF_STATE store_byte(char chr)
 	}
 
 	return (*urt.p_inBuffer).state;
-};  
+} 
 
 
 /**
@@ -108,7 +108,7 @@ void UART_init(UART_InitTypeDef * _desc)
 
 	initHW_UART();
 	USART_Cmd(USART2, ENABLE);
-};
+}
 
 /**
   * @brief  Fce viditelna z COMM urcena k odstartovani prenosu pokud jsou data v bufferu
@@ -118,7 +118,7 @@ void UART_init(UART_InitTypeDef * _desc)
 void UART_tick()
 {
 	send_next();
-};  
+}  
 
 /**
  * @brief  Obsluha preruseni UART
@@ -140,7 +140,7 @@ void USART2_IRQHandler(void)
 	{
 		send_next();
   	}
-};
+}
 
 
 

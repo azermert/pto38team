@@ -11,7 +11,7 @@
 
 /* Includes ------------------------------------------------------------------*/
 //#include "<procesor>.h"
-#include "stm32f10x.h"
+#include "typedefs.h"
 #include "log_analyser.h"
 
 /* Private typedef -----------------------------------------------------------*/

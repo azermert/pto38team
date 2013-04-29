@@ -44,7 +44,7 @@ void testTimeout(uint8_t _znak){
 			if(timeElapsed(timeout)){
 				break;
 			}
-		};
+		}
 }
 
 
