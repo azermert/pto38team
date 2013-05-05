@@ -13,6 +13,8 @@
 #ifndef __INITIALIZE_H
 #define __INITIALIZE_H
 
+#define DAC_MEM_SIZE 20
+extern uint16_t gDAC_memory[DAC_MEM_SIZE];
 
 /* Includes ------------------------------------------------------------------*/
 

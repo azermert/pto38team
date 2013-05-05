@@ -10,8 +10,8 @@
 */ 
 
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __procesor_DAC_H
-#define __procesor_DAC_H
+#ifndef __stm32f0xx_DAC_H
+#define __stm32f0xx_DAC_H
 
 /* Includes ------------------------------------------------------------------*/
 /* Zadne includy zde nebudou!!!*/
@@ -21,9 +21,9 @@ typedef void (*tick_dac)(void);
 typedef struct
 {
   uint32_t DAC_samplingFrequency;        
-  uint32_t * p_DAC_memory;                /* Pointer na pamet, ze ktere DAC muze cist */ 
+  uint16_t * p_DAC_memory;                /* Pointer na pamet, ze ktere DAC muze cist */ 
   uint32_t DAC_memorySize;                /* Velikost pameti pro DAC */ 
-}DAC_InitTypeDef;
+}PTO_DAC_InitTypeDef;
 
 
 typedef enum
@@ -36,7 +36,7 @@ typedef enum
 
 
 /* ADC_Exported_Functions */
-void DAC_init(DAC_InitTypeDef * p_DAC_desc);          /* Inicializace pomoci decsriptoru */
+void DAC_init(PTO_DAC_InitTypeDef * p_DAC_desc);          /* Inicializace pomoci decsriptoru */
 void DAC_set_sample(uint16_t sample);     /* Nastavi hodnotu na vystup */
 void DAC_DMA_start(void);                     /* Odstartuje generovani vystupu pomoci DMA */
 DAC_STATE DAC_get_state(void);                /* Vrati stav prevodniku */
@@ -46,6 +46,6 @@ int8_t DAC_set_pointer(uint16_t pointer); /* Nastavi odkud se ma zacit generovat
 
 
 
-#endif /*__<procesor>_DAC_H */
+#endif /*__stm32f0xx_DAC_H */
 
 /************************ END OF FILE *****************************************/
