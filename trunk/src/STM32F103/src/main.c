@@ -15,6 +15,7 @@
 #include "comm.h"
 #include "uart.h"
 #include "adc.h"
+#include "dac.h"
 #include "scope.h"
 #include "state_automat.h"
 
@@ -40,9 +41,14 @@ int main(void) {
 	while (1) {
 
 	if(timeElapsed(slowTick)){
+		u16 sample;
+		
 		slowTick += SLOWINTERVAL;
 		//messageParser();
 		STATE_tick_slow();
+
+		//DAC_set_sample(sample);
+
 
 	}
 
