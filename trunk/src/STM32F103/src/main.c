@@ -41,7 +41,7 @@ int main(void) {
 	while (1) {
 
 	if(timeElapsed(slowTick)){
-		u16 sample;
+		//u16 sample;
 		
 		slowTick += SLOWINTERVAL;
 		//messageParser();

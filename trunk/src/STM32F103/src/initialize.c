@@ -11,7 +11,10 @@
 #include "dac.h"
 #include "scope.h"
 
-uint16_t gDAC_memory[DAC_MEM_SIZE];
+#define DAC_MEM_SIZE 20
+uint16_t lDAC_memory[DAC_MEM_SIZE];
+
+
 
 void init_Discovery(void){
 
@@ -69,7 +72,7 @@ void initialize(void){
 	SCOPE_setPreTrigger(100);	
 	
 	DAC_desc.DAC_samplingFrequency = 2000000;
-	DAC_desc.p_DAC_memory =  gDAC_memory;
+	DAC_desc.p_DAC_memory =  lDAC_memory;
 	DAC_desc.DAC_memorySize = DAC_MEM_SIZE;
 	DAC_init(&DAC_desc);
 
@@ -77,26 +80,26 @@ void initialize(void){
 	{
 		gDAC_memory[i] = (0x0FFF * i)/(DAC_MEM_SIZE-1);
 	}	*/
-	gDAC_memory[0] = 2048;
-	gDAC_memory[1] = 2680;
-	gDAC_memory[2] = 3250;
-	gDAC_memory[3] = 3703;
-	gDAC_memory[4] = 3995;
-	gDAC_memory[5] = 4095;
-	gDAC_memory[6] = 3995;
-	gDAC_memory[7] = 3703;
-	gDAC_memory[8] = 3250;
-	gDAC_memory[9] = 2680;
-	gDAC_memory[10] = 2048;
-	gDAC_memory[11] = 1415;
-	gDAC_memory[12] = 844;
-	gDAC_memory[13] = 391;
-	gDAC_memory[14] = 100;
-	gDAC_memory[15] = 0;
-	gDAC_memory[16] = 100;
-	gDAC_memory[17] = 391;
-	gDAC_memory[18] = 844;
-	gDAC_memory[19] = 1415;
+	lDAC_memory[0] = 2048;
+	lDAC_memory[1] = 2680;
+	lDAC_memory[2] = 3250;
+	lDAC_memory[3] = 3703;
+	lDAC_memory[4] = 3995;
+	lDAC_memory[5] = 4095;
+	lDAC_memory[6] = 3995;
+	lDAC_memory[7] = 3703;
+	lDAC_memory[8] = 3250;
+	lDAC_memory[9] = 2680;
+	lDAC_memory[10] = 2048;
+	lDAC_memory[11] = 1415;
+	lDAC_memory[12] = 844;
+	lDAC_memory[13] = 391;
+	lDAC_memory[14] = 100;
+	lDAC_memory[15] = 0;
+	lDAC_memory[16] = 100;
+	lDAC_memory[17] = 391;
+	lDAC_memory[18] = 844;
+	lDAC_memory[19] = 1415;
 
 
 
