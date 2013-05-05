@@ -137,7 +137,7 @@ void DAC_init(PTO_DAC_InitTypeDef * p_DAC_desc)
   	TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;  
   	TIM_TimeBaseInit(TIM2, &TIM_TimeBaseStructure);
 
-	TIM_DMACmd(TIM2, TIM_DMA_Update, ENABLE);					//dma request podle TIM2
+	DAC_DMA_start();
 
 
   	/* TIM2 TRGO selection */
