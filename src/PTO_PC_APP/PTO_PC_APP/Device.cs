@@ -12,17 +12,19 @@ namespace PTO_PC_APP
 {
     class Device
     {
-        public enum processor_type { STM32F051,STM32F100,STM32F303,STM32F407,ADuC843}
+        //public enum processor_type { STM32F051,STM32F100,STM32F303,STM32F407,ADuC843}
         public struct config {
           public  int scopeMaxf;
           public  int scopeDept;
           public  int scopeBuffLenght;
           public  int vref_mv;
+          public string procType;
+
         }
 
         config procConf;
         private string name;
-        private processor_type processor;
+       // private processor_type processor;
         private string version;
         private SerialPort port;
         private bool opened=false;
@@ -40,26 +42,28 @@ namespace PTO_PC_APP
         {
             this.port = port;
             this.name = name;
+            procConf = new config();
             switch (processor) { 
                 case Defines.STM32F051:
-                    this.processor = processor_type.STM32F051;
+                    procConf.procType = Defines.STM32F051;
                     break;
                 case Defines.STM32F100:
-                    this.processor = processor_type.STM32F100;
+                    procConf.procType = Defines.STM32F100;
                     break;
                 case Defines.STM32F303:
-                    this.processor = processor_type.STM32F303;
+                    procConf.procType = Defines.STM32F303;
                     break;
                 case Defines.STM32F407:
-                    this.processor = processor_type.STM32F407;
+                    procConf.procType = Defines.STM32F407;
                     break;
                 case Defines.ADuC843:
-                    this.processor = processor_type.ADuC843;
+                    procConf.procType = Defines.ADuC843;
                     break;
                 default:
                     break;
             }
             tic();
+
             this.version = version;
             this.port.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.serialPort_DataReceived);
             this.port.ErrorReceived += new System.IO.Ports.SerialErrorReceivedEventHandler(this.serialPort_ErrorReceived);
@@ -107,8 +111,8 @@ namespace PTO_PC_APP
             Console.WriteLine(l.ToString());
         }
 
-        public processor_type get_processor() {
-            return this.processor;
+        public string get_processor() {
+            return this.procConf.procType;
         }
 
         public string get_version() {
@@ -138,8 +142,8 @@ namespace PTO_PC_APP
 
         private void parse_Xml() {
 
-            XmlTextReader reader = new XmlTextReader(Defines.confPath + Defines.STM32F100 + ".xml");
-            procConf = new config();
+            XmlTextReader reader = new XmlTextReader(Defines.confPath + procConf.procType + ".xml");
+            //procConf = new config();
             string param_name="";
 
             while (reader.Read())
@@ -212,7 +216,7 @@ namespace PTO_PC_APP
                             for(;input>0;input--){
                                 leng+=""+(port.ReadChar() - 48);
                             }
-                           // Console.WriteLine(leng);
+                            Console.WriteLine("new OSCP "+count+" - "+leng);
                             int delka = int.Parse(leng);
                             
 

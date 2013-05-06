@@ -86,6 +86,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ADuC843.xml" />
     <Content Include="STM32F100.xml">
       <SubType>Designer</SubType>
     </Content>

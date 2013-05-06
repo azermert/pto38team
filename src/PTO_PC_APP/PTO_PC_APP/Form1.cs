@@ -272,8 +272,8 @@ namespace PTO_PC_APP
                     
 
                 sc.set_scope_trigger_edge(Defines.RISE);
-                sc.set_scope_trigger_type(Defines.SCOPE_TRIG_NORMAL);
-                sc.set_scope_sampling_freq(Defines.FREQ_100K);
+                sc.set_scope_trigger_type(Defines.SCOPE_TRIG_AUTO);
+                sc.set_scope_sampling_freq(Defines.FREQ_10K);
                 
 
                 scope.buffLenght = sc.get_dev_configuration().scopeBuffLenght;
@@ -282,8 +282,8 @@ namespace PTO_PC_APP
                 scope.update_time_base();
                 scope.signal = new double[scope.buffLenght];
 
-                sc.set_scope_pretrig(sc.get_dev_configuration().scopeBuffLenght * scope.pretrig / 100);
-                sc.set_scope_trigger_level(scope.trig_level);
+                //sc.set_scope_pretrig(sc.get_dev_configuration().scopeBuffLenght * scope.pretrig / 100);
+                //sc.set_scope_trigger_level(scope.trig_level);
                 sc.set_scope_start();
 
             }
