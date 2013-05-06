@@ -64,16 +64,20 @@ void measure_Tick(void){
 				gSCOPE.p_SCOPE_buffer->readIndex = gSCOPE.p_SCOPE_buffer->indexStart;
 				firstPass = FALSE;
 			}
-			
-			tmp = gSCOPE.p_SCOPE_buffer->memory[gSCOPE.p_SCOPE_buffer->readIndex];
-			gSCOPE.p_SCOPE_buffer->readIndex++;
-			if(gSCOPE.p_SCOPE_buffer->readIndex == gSCOPE.p_SCOPE_buffer->size_buff){
-				gSCOPE.p_SCOPE_buffer->readIndex = 0;
-			}
-
-			tmp = (tmp >> 4);	//12 bit -> 8 bit
-			tmp = (tmp & 0x0FF);
-			COMM_put_char((uint8_t)tmp);			
+			while(COMM_get_out_free_space()>1){
+				tmp = gSCOPE.p_SCOPE_buffer->memory[gSCOPE.p_SCOPE_buffer->readIndex];
+				gSCOPE.p_SCOPE_buffer->readIndex++;
+				if(gSCOPE.p_SCOPE_buffer->readIndex == gSCOPE.p_SCOPE_buffer->size_buff){
+					gSCOPE.p_SCOPE_buffer->readIndex = 0;
+				}
+				tmp = (tmp >> 4);	//12 bit -> 8 bit
+				tmp = (tmp & 0x0FF);
+				COMM_put_char((uint8_t)tmp);
+				
+				if(gSCOPE.p_SCOPE_buffer->readIndex == gSCOPE.p_SCOPE_buffer->indexStart){
+					break;
+				}
+			}			
 
 			if(gSCOPE.p_SCOPE_buffer->readIndex == gSCOPE.p_SCOPE_buffer->indexStart){
 				//readDone
@@ -84,7 +88,11 @@ void measure_Tick(void){
 						ADC_circle_meas_stop();
 						break;
 					
-					case TRIG_NORMAL:
+					case TRIG_NORMAL:/*
+						gSCOPE.SCOPE_state = SCOPE_TRIGGER_WAIT;
+					  gSCOPE.p_SCOPE_buffer->overFlew = FALSE;
+						gSCOPE.p_SCOPE_buffer->state = SCOPE_BUFF_FREE;
+						firstPass=TRUE;*/
 						SCOPE_start_meas();
 						break;
 					case TRIG_AUTO:
@@ -92,7 +100,6 @@ void measure_Tick(void){
 						break;
 					default:
 						break;
-
 				}
 
 //				StmState = IDLE;
