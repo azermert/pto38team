@@ -45,7 +45,7 @@ namespace PTO_PC_APP
         public string timeB = "";
         public string timeDif = "";
         public string freq = "";
-        public int samplingfreq = 1000;
+        public int samplingfreq = 10000;
         public double[] signal;
         public double[] time;
         public double maxTime = 0;
