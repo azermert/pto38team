@@ -193,6 +193,60 @@
             this.toolStripStatusLabel_device = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel_status = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label27 = new System.Windows.Forms.Label();
+            this.label28 = new System.Windows.Forms.Label();
+            this.label30 = new System.Windows.Forms.Label();
+            this.label31 = new System.Windows.Forms.Label();
+            this.label32 = new System.Windows.Forms.Label();
+            this.label33 = new System.Windows.Forms.Label();
+            this.label34 = new System.Windows.Forms.Label();
+            this.label26 = new System.Windows.Forms.Label();
+            this.label35 = new System.Windows.Forms.Label();
+            this.label37 = new System.Windows.Forms.Label();
+            this.label41 = new System.Windows.Forms.Label();
+            this.label42 = new System.Windows.Forms.Label();
+            this.label29 = new System.Windows.Forms.Label();
+            this.tableLayoutPanel14 = new System.Windows.Forms.TableLayoutPanel();
+            this.zedGraphControl_generator = new ZedGraph.ZedGraphControl();
+            this.tableLayoutPanel15 = new System.Windows.Forms.TableLayoutPanel();
+            this.radioButton3 = new System.Windows.Forms.RadioButton();
+            this.radioButton4 = new System.Windows.Forms.RadioButton();
+            this.radioButton5 = new System.Windows.Forms.RadioButton();
+            this.radioButton6 = new System.Windows.Forms.RadioButton();
+            this.radioButton7 = new System.Windows.Forms.RadioButton();
+            this.radioButton8 = new System.Windows.Forms.RadioButton();
+            this.tableLayoutPanel16 = new System.Windows.Forms.TableLayoutPanel();
+            this.button1 = new System.Windows.Forms.Button();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.checkBox5 = new System.Windows.Forms.CheckBox();
+            this.label36 = new System.Windows.Forms.Label();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.trackBar3 = new System.Windows.Forms.TrackBar();
+            this.label38 = new System.Windows.Forms.Label();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.trackBar4 = new System.Windows.Forms.TrackBar();
+            this.label39 = new System.Windows.Forms.Label();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.trackBar5 = new System.Windows.Forms.TrackBar();
+            this.label40 = new System.Windows.Forms.Label();
+            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.trackBar6 = new System.Windows.Forms.TrackBar();
+            this.radioButton9 = new System.Windows.Forms.RadioButton();
+            this.radioButton10 = new System.Windows.Forms.RadioButton();
+            this.radioButton11 = new System.Windows.Forms.RadioButton();
+            this.label43 = new System.Windows.Forms.Label();
+            this.label44 = new System.Windows.Forms.Label();
+            this.label45 = new System.Windows.Forms.Label();
+            this.label46 = new System.Windows.Forms.Label();
+            this.label47 = new System.Windows.Forms.Label();
+            this.label48 = new System.Windows.Forms.Label();
+            this.label49 = new System.Windows.Forms.Label();
+            this.label50 = new System.Windows.Forms.Label();
+            this.label51 = new System.Windows.Forms.Label();
+            this.label52 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -202,7 +256,11 @@
             this.tableLayoutPanel7.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.tableLayoutPanel8.SuspendLayout();
+            this.groupBox_general.SuspendLayout();
             this.groupBox_scope.SuspendLayout();
+            this.groupBox_logAnalyser.SuspendLayout();
+            this.groupBox_generator.SuspendLayout();
+            this.tabPage_generator.SuspendLayout();
             this.tabPage_scope.SuspendLayout();
             this.panel5.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -240,6 +298,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.statusStrip1.SuspendLayout();
+            this.tableLayoutPanel14.SuspendLayout();
+            this.tableLayoutPanel15.SuspendLayout();
+            this.tableLayoutPanel16.SuspendLayout();
+            this.groupBox4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar6)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -251,7 +317,7 @@
             this.aboutToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(834, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(784, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -280,7 +346,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 24);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(834, 538);
+            this.panel1.Size = new System.Drawing.Size(784, 538);
             this.panel1.TabIndex = 1;
             // 
             // tabControl1
@@ -294,7 +360,7 @@
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(834, 516);
+            this.tabControl1.Size = new System.Drawing.Size(784, 516);
             this.tabControl1.TabIndex = 0;
             // 
             // tabPage_device
@@ -304,7 +370,7 @@
             this.tabPage_device.Location = new System.Drawing.Point(4, 22);
             this.tabPage_device.Name = "tabPage_device";
             this.tabPage_device.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_device.Size = new System.Drawing.Size(826, 490);
+            this.tabPage_device.Size = new System.Drawing.Size(776, 490);
             this.tabPage_device.TabIndex = 1;
             this.tabPage_device.Text = "Device";
             // 
@@ -320,7 +386,7 @@
             this.tableLayoutPanel5.Name = "tableLayoutPanel5";
             this.tableLayoutPanel5.RowCount = 1;
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(820, 484);
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(770, 484);
             this.tableLayoutPanel5.TabIndex = 0;
             // 
             // tableLayoutPanel6
@@ -330,7 +396,7 @@
             this.tableLayoutPanel6.Controls.Add(this.tableLayoutPanel7, 0, 1);
             this.tableLayoutPanel6.Controls.Add(this.listBox_devices, 0, 0);
             this.tableLayoutPanel6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel6.Location = new System.Drawing.Point(660, 0);
+            this.tableLayoutPanel6.Location = new System.Drawing.Point(610, 0);
             this.tableLayoutPanel6.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel6.Name = "tableLayoutPanel6";
             this.tableLayoutPanel6.RowCount = 2;
@@ -394,7 +460,7 @@
             this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox3.Location = new System.Drawing.Point(3, 3);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(654, 478);
+            this.groupBox3.Size = new System.Drawing.Size(604, 478);
             this.groupBox3.TabIndex = 3;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Device overwiev";
@@ -418,15 +484,21 @@
             this.tableLayoutPanel8.RowCount = 1;
             this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 171F));
-            this.tableLayoutPanel8.Size = new System.Drawing.Size(648, 250);
+            this.tableLayoutPanel8.Size = new System.Drawing.Size(598, 250);
             this.tableLayoutPanel8.TabIndex = 1;
             // 
             // groupBox_general
             // 
+            this.groupBox_general.Controls.Add(this.label42);
+            this.groupBox_general.Controls.Add(this.label41);
+            this.groupBox_general.Controls.Add(this.label26);
+            this.groupBox_general.Controls.Add(this.label29);
+            this.groupBox_general.Controls.Add(this.label35);
+            this.groupBox_general.Controls.Add(this.label37);
             this.groupBox_general.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox_general.Location = new System.Drawing.Point(3, 3);
             this.groupBox_general.Name = "groupBox_general";
-            this.groupBox_general.Size = new System.Drawing.Size(123, 244);
+            this.groupBox_general.Size = new System.Drawing.Size(113, 244);
             this.groupBox_general.TabIndex = 0;
             this.groupBox_general.TabStop = false;
             this.groupBox_general.Text = "General";
@@ -435,16 +507,18 @@
             // 
             this.groupBox_scope.Controls.Add(this.label17);
             this.groupBox_scope.Controls.Add(this.label18);
+            this.groupBox_scope.Controls.Add(this.label11);
             this.groupBox_scope.Controls.Add(this.label12);
+            this.groupBox_scope.Controls.Add(this.label7);
             this.groupBox_scope.Controls.Add(this.label23);
             this.groupBox_scope.Controls.Add(this.label9);
             this.groupBox_scope.Controls.Add(this.label20);
             this.groupBox_scope.Controls.Add(this.label22);
             this.groupBox_scope.Controls.Add(this.label21);
             this.groupBox_scope.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox_scope.Location = new System.Drawing.Point(132, 3);
+            this.groupBox_scope.Location = new System.Drawing.Point(122, 3);
             this.groupBox_scope.Name = "groupBox_scope";
-            this.groupBox_scope.Size = new System.Drawing.Size(123, 244);
+            this.groupBox_scope.Size = new System.Drawing.Size(113, 244);
             this.groupBox_scope.TabIndex = 1;
             this.groupBox_scope.TabStop = false;
             this.groupBox_scope.Text = "Scope";
@@ -454,9 +528,9 @@
             this.label17.AutoSize = true;
             this.label17.Location = new System.Drawing.Point(7, 16);
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(103, 13);
+            this.label17.Size = new System.Drawing.Size(100, 13);
             this.label17.TabIndex = 0;
-            this.label17.Text = "Sampling frequency:";
+            this.label17.Text = "Sampling frequency";
             // 
             // label18
             // 
@@ -499,18 +573,18 @@
             this.label20.AutoSize = true;
             this.label20.Location = new System.Drawing.Point(7, 62);
             this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(63, 13);
+            this.label20.Size = new System.Drawing.Size(60, 13);
             this.label20.TabIndex = 0;
-            this.label20.Text = "Data depth:";
+            this.label20.Text = "Data depth";
             // 
             // label22
             // 
             this.label22.AutoSize = true;
             this.label22.Location = new System.Drawing.Point(7, 109);
             this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(70, 13);
+            this.label22.Size = new System.Drawing.Size(67, 13);
             this.label22.TabIndex = 0;
-            this.label22.Text = "Buffer lenght:";
+            this.label22.Text = "Buffer lenght";
             // 
             // label21
             // 
@@ -523,20 +597,38 @@
             // 
             // groupBox_logAnalyser
             // 
+            this.groupBox_logAnalyser.Controls.Add(this.label34);
+            this.groupBox_logAnalyser.Controls.Add(this.label32);
+            this.groupBox_logAnalyser.Controls.Add(this.label33);
+            this.groupBox_logAnalyser.Controls.Add(this.label13);
+            this.groupBox_logAnalyser.Controls.Add(this.label31);
+            this.groupBox_logAnalyser.Controls.Add(this.label27);
+            this.groupBox_logAnalyser.Controls.Add(this.label30);
+            this.groupBox_logAnalyser.Controls.Add(this.label28);
             this.groupBox_logAnalyser.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox_logAnalyser.Location = new System.Drawing.Point(261, 3);
+            this.groupBox_logAnalyser.Location = new System.Drawing.Point(241, 3);
             this.groupBox_logAnalyser.Name = "groupBox_logAnalyser";
-            this.groupBox_logAnalyser.Size = new System.Drawing.Size(123, 244);
+            this.groupBox_logAnalyser.Size = new System.Drawing.Size(113, 244);
             this.groupBox_logAnalyser.TabIndex = 2;
             this.groupBox_logAnalyser.TabStop = false;
             this.groupBox_logAnalyser.Text = "Log. analyser";
             // 
             // groupBox_generator
             // 
+            this.groupBox_generator.Controls.Add(this.label52);
+            this.groupBox_generator.Controls.Add(this.label51);
+            this.groupBox_generator.Controls.Add(this.label43);
+            this.groupBox_generator.Controls.Add(this.label50);
+            this.groupBox_generator.Controls.Add(this.label44);
+            this.groupBox_generator.Controls.Add(this.label49);
+            this.groupBox_generator.Controls.Add(this.label45);
+            this.groupBox_generator.Controls.Add(this.label48);
+            this.groupBox_generator.Controls.Add(this.label46);
+            this.groupBox_generator.Controls.Add(this.label47);
             this.groupBox_generator.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox_generator.Location = new System.Drawing.Point(390, 3);
+            this.groupBox_generator.Location = new System.Drawing.Point(360, 3);
             this.groupBox_generator.Name = "groupBox_generator";
-            this.groupBox_generator.Size = new System.Drawing.Size(123, 244);
+            this.groupBox_generator.Size = new System.Drawing.Size(113, 244);
             this.groupBox_generator.TabIndex = 3;
             this.groupBox_generator.TabStop = false;
             this.groupBox_generator.Text = "Generator";
@@ -544,9 +636,9 @@
             // groupBox_counter
             // 
             this.groupBox_counter.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox_counter.Location = new System.Drawing.Point(519, 3);
+            this.groupBox_counter.Location = new System.Drawing.Point(479, 3);
             this.groupBox_counter.Name = "groupBox_counter";
-            this.groupBox_counter.Size = new System.Drawing.Size(126, 244);
+            this.groupBox_counter.Size = new System.Drawing.Size(116, 244);
             this.groupBox_counter.TabIndex = 4;
             this.groupBox_counter.TabStop = false;
             this.groupBox_counter.Text = "Counter";
@@ -558,7 +650,7 @@
             this.label_device_connected.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.label_device_connected.Location = new System.Drawing.Point(3, 16);
             this.label_device_connected.Name = "label_device_connected";
-            this.label_device_connected.Size = new System.Drawing.Size(648, 36);
+            this.label_device_connected.Size = new System.Drawing.Size(598, 36);
             this.label_device_connected.TabIndex = 0;
             this.label_device_connected.Text = "No device Connected";
             this.label_device_connected.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -566,10 +658,11 @@
             // tabPage_generator
             // 
             this.tabPage_generator.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage_generator.Controls.Add(this.tableLayoutPanel14);
             this.tabPage_generator.Location = new System.Drawing.Point(4, 22);
             this.tabPage_generator.Name = "tabPage_generator";
             this.tabPage_generator.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_generator.Size = new System.Drawing.Size(826, 490);
+            this.tabPage_generator.Size = new System.Drawing.Size(776, 490);
             this.tabPage_generator.TabIndex = 4;
             this.tabPage_generator.Text = "Generator";
             // 
@@ -579,7 +672,7 @@
             this.tabPage_counter.Location = new System.Drawing.Point(4, 22);
             this.tabPage_counter.Name = "tabPage_counter";
             this.tabPage_counter.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_counter.Size = new System.Drawing.Size(826, 490);
+            this.tabPage_counter.Size = new System.Drawing.Size(776, 490);
             this.tabPage_counter.TabIndex = 3;
             this.tabPage_counter.Text = "Counter";
             // 
@@ -590,7 +683,7 @@
             this.tabPage_scope.Location = new System.Drawing.Point(4, 22);
             this.tabPage_scope.Name = "tabPage_scope";
             this.tabPage_scope.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_scope.Size = new System.Drawing.Size(826, 490);
+            this.tabPage_scope.Size = new System.Drawing.Size(776, 490);
             this.tabPage_scope.TabIndex = 0;
             this.tabPage_scope.Text = "Osciloscope";
             // 
@@ -602,7 +695,7 @@
             this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel5.Location = new System.Drawing.Point(3, 3);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(820, 484);
+            this.panel5.Size = new System.Drawing.Size(770, 484);
             this.panel5.TabIndex = 0;
             // 
             // panel4
@@ -614,7 +707,7 @@
             this.panel4.Margin = new System.Windows.Forms.Padding(2);
             this.panel4.Name = "panel4";
             this.panel4.Padding = new System.Windows.Forms.Padding(2);
-            this.panel4.Size = new System.Drawing.Size(620, 349);
+            this.panel4.Size = new System.Drawing.Size(570, 349);
             this.panel4.TabIndex = 2;
             // 
             // zedGraphControl_scope
@@ -634,14 +727,14 @@
             this.zedGraphControl_scope.ScrollMinX = 0D;
             this.zedGraphControl_scope.ScrollMinY = 0D;
             this.zedGraphControl_scope.ScrollMinY2 = 0D;
-            this.zedGraphControl_scope.Size = new System.Drawing.Size(616, 345);
+            this.zedGraphControl_scope.Size = new System.Drawing.Size(566, 345);
             this.zedGraphControl_scope.TabIndex = 0;
             // 
             // panel3
             // 
             this.panel3.Controls.Add(this.tableLayoutPanel4);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel3.Location = new System.Drawing.Point(620, 0);
+            this.panel3.Location = new System.Drawing.Point(570, 0);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(200, 349);
             this.panel3.TabIndex = 1;
@@ -1058,7 +1151,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panel2.Location = new System.Drawing.Point(0, 349);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(820, 135);
+            this.panel2.Size = new System.Drawing.Size(770, 135);
             this.panel2.TabIndex = 0;
             // 
             // tableLayoutPanel1
@@ -1077,7 +1170,7 @@
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(820, 135);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(770, 135);
             this.tableLayoutPanel1.TabIndex = 2;
             // 
             // groupBox_voltage
@@ -1304,6 +1397,7 @@
             // radioButton_points
             // 
             this.radioButton_points.AutoSize = true;
+            this.radioButton_points.Enabled = false;
             this.radioButton_points.Location = new System.Drawing.Point(6, 102);
             this.radioButton_points.Name = "radioButton_points";
             this.radioButton_points.Size = new System.Drawing.Size(54, 17);
@@ -1314,22 +1408,23 @@
             // radioButton_vectors
             // 
             this.radioButton_vectors.AutoSize = true;
-            this.radioButton_vectors.Checked = true;
+            this.radioButton_vectors.Enabled = false;
             this.radioButton_vectors.Location = new System.Drawing.Point(6, 79);
             this.radioButton_vectors.Name = "radioButton_vectors";
             this.radioButton_vectors.Size = new System.Drawing.Size(61, 17);
             this.radioButton_vectors.TabIndex = 3;
-            this.radioButton_vectors.TabStop = true;
             this.radioButton_vectors.Text = "Vectors";
             this.radioButton_vectors.UseVisualStyleBackColor = true;
             // 
             // radioButton_interp
             // 
             this.radioButton_interp.AutoSize = true;
+            this.radioButton_interp.Checked = true;
             this.radioButton_interp.Location = new System.Drawing.Point(6, 56);
             this.radioButton_interp.Name = "radioButton_interp";
             this.radioButton_interp.Size = new System.Drawing.Size(75, 17);
             this.radioButton_interp.TabIndex = 2;
+            this.radioButton_interp.TabStop = true;
             this.radioButton_interp.Text = "Interpolate";
             this.radioButton_interp.UseVisualStyleBackColor = true;
             // 
@@ -1352,7 +1447,7 @@
             this.groupBox_time.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox_time.Location = new System.Drawing.Point(303, 3);
             this.groupBox_time.Name = "groupBox_time";
-            this.groupBox_time.Size = new System.Drawing.Size(314, 129);
+            this.groupBox_time.Size = new System.Drawing.Size(264, 129);
             this.groupBox_time.TabIndex = 0;
             this.groupBox_time.TabStop = false;
             this.groupBox_time.Text = "Time base";
@@ -1375,7 +1470,7 @@
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 38F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 17F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 38F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(158, 110);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(108, 110);
             this.tableLayoutPanel3.TabIndex = 4;
             // 
             // trackBar_zoom
@@ -1385,7 +1480,7 @@
             this.trackBar_zoom.Maximum = 1024;
             this.trackBar_zoom.MaximumSize = new System.Drawing.Size(1024, 30);
             this.trackBar_zoom.Name = "trackBar_zoom";
-            this.trackBar_zoom.Size = new System.Drawing.Size(152, 30);
+            this.trackBar_zoom.Size = new System.Drawing.Size(102, 30);
             this.trackBar_zoom.TabIndex = 1;
             this.trackBar_zoom.TickStyle = System.Windows.Forms.TickStyle.None;
             this.trackBar_zoom.ValueChanged += new System.EventHandler(this.trackBar_zoom_ValueChanged);
@@ -1397,7 +1492,7 @@
             this.trackBar_position.Maximum = 1024;
             this.trackBar_position.MaximumSize = new System.Drawing.Size(1024, 30);
             this.trackBar_position.Name = "trackBar_position";
-            this.trackBar_position.Size = new System.Drawing.Size(152, 30);
+            this.trackBar_position.Size = new System.Drawing.Size(102, 30);
             this.trackBar_position.TabIndex = 1;
             this.trackBar_position.TickStyle = System.Windows.Forms.TickStyle.None;
             this.trackBar_position.Value = 512;
@@ -1635,7 +1730,7 @@
             this.groupBox_trigger.Controls.Add(this.maskedTextBox_pretrig);
             this.groupBox_trigger.Controls.Add(this.trackBar_trig_level);
             this.groupBox_trigger.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox_trigger.Location = new System.Drawing.Point(623, 3);
+            this.groupBox_trigger.Location = new System.Drawing.Point(573, 3);
             this.groupBox_trigger.MaximumSize = new System.Drawing.Size(195, 129);
             this.groupBox_trigger.MinimumSize = new System.Drawing.Size(195, 129);
             this.groupBox_trigger.Name = "groupBox_trigger";
@@ -1779,7 +1874,7 @@
             this.tabPage_LA.Location = new System.Drawing.Point(4, 22);
             this.tabPage_LA.Name = "tabPage_LA";
             this.tabPage_LA.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_LA.Size = new System.Drawing.Size(826, 490);
+            this.tabPage_LA.Size = new System.Drawing.Size(776, 490);
             this.tabPage_LA.TabIndex = 2;
             this.tabPage_LA.Text = "Logic analyser";
             // 
@@ -1795,7 +1890,7 @@
             this.tableLayoutPanel10.Name = "tableLayoutPanel10";
             this.tableLayoutPanel10.RowCount = 1;
             this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel10.Size = new System.Drawing.Size(820, 484);
+            this.tableLayoutPanel10.Size = new System.Drawing.Size(770, 484);
             this.tableLayoutPanel10.TabIndex = 0;
             // 
             // tableLayoutPanel11
@@ -1805,7 +1900,7 @@
             this.tableLayoutPanel11.Controls.Add(this.groupBox_log_an_chan, 0, 0);
             this.tableLayoutPanel11.Controls.Add(this.groupBox1, 0, 2);
             this.tableLayoutPanel11.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel11.Location = new System.Drawing.Point(660, 0);
+            this.tableLayoutPanel11.Location = new System.Drawing.Point(610, 0);
             this.tableLayoutPanel11.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel11.Name = "tableLayoutPanel11";
             this.tableLayoutPanel11.RowCount = 3;
@@ -2143,7 +2238,7 @@
             this.tableLayoutPanel12.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel12.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel12.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel12.Size = new System.Drawing.Size(660, 484);
+            this.tableLayoutPanel12.Size = new System.Drawing.Size(610, 484);
             this.tableLayoutPanel12.TabIndex = 1;
             // 
             // zedGraphControl_log_analyser
@@ -2163,7 +2258,7 @@
             this.zedGraphControl_log_analyser.ScrollMinX = 0D;
             this.zedGraphControl_log_analyser.ScrollMinY = 0D;
             this.zedGraphControl_log_analyser.ScrollMinY2 = 0D;
-            this.zedGraphControl_log_analyser.Size = new System.Drawing.Size(656, 360);
+            this.zedGraphControl_log_analyser.Size = new System.Drawing.Size(606, 360);
             this.zedGraphControl_log_analyser.TabIndex = 5;
             // 
             // groupBox2
@@ -2172,7 +2267,7 @@
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox2.Location = new System.Drawing.Point(3, 367);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(654, 114);
+            this.groupBox2.Size = new System.Drawing.Size(604, 114);
             this.groupBox2.TabIndex = 4;
             this.groupBox2.TabStop = false;
             // 
@@ -2193,7 +2288,7 @@
             this.tableLayoutPanel13.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
             this.tableLayoutPanel13.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
             this.tableLayoutPanel13.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.tableLayoutPanel13.Size = new System.Drawing.Size(648, 95);
+            this.tableLayoutPanel13.Size = new System.Drawing.Size(598, 95);
             this.tableLayoutPanel13.TabIndex = 0;
             // 
             // label25
@@ -2212,7 +2307,7 @@
             this.trackBar2.Location = new System.Drawing.Point(3, 64);
             this.trackBar2.Maximum = 1000;
             this.trackBar2.Name = "trackBar2";
-            this.trackBar2.Size = new System.Drawing.Size(642, 28);
+            this.trackBar2.Size = new System.Drawing.Size(592, 28);
             this.trackBar2.TabIndex = 1;
             this.trackBar2.TickStyle = System.Windows.Forms.TickStyle.None;
             this.trackBar2.Value = 500;
@@ -2224,7 +2319,7 @@
             this.trackBar1.Location = new System.Drawing.Point(3, 18);
             this.trackBar1.Maximum = 1000;
             this.trackBar1.Name = "trackBar1";
-            this.trackBar1.Size = new System.Drawing.Size(642, 25);
+            this.trackBar1.Size = new System.Drawing.Size(592, 25);
             this.trackBar1.TabIndex = 0;
             this.trackBar1.TickStyle = System.Windows.Forms.TickStyle.None;
             // 
@@ -2246,7 +2341,7 @@
             this.toolStripProgressBar1});
             this.statusStrip1.Location = new System.Drawing.Point(0, 516);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(834, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(784, 22);
             this.statusStrip1.TabIndex = 0;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -2279,15 +2374,593 @@
             this.toolStripProgressBar1.Name = "toolStripProgressBar1";
             this.toolStripProgressBar1.Size = new System.Drawing.Size(100, 16);
             // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(7, 199);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(55, 13);
+            this.label7.TabIndex = 0;
+            this.label7.Text = "Scope pin";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(10, 216);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(13, 13);
+            this.label11.TabIndex = 1;
+            this.label11.Text = "--";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(10, 79);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(27, 13);
+            this.label13.TabIndex = 1;
+            this.label13.Text = "-- bit";
+            // 
+            // label27
+            // 
+            this.label27.AutoSize = true;
+            this.label27.Location = new System.Drawing.Point(7, 62);
+            this.label27.Name = "label27";
+            this.label27.Size = new System.Drawing.Size(57, 13);
+            this.label27.TabIndex = 0;
+            this.label27.Text = "Bus lenght";
+            // 
+            // label28
+            // 
+            this.label28.AutoSize = true;
+            this.label28.Location = new System.Drawing.Point(7, 109);
+            this.label28.Name = "label28";
+            this.label28.Size = new System.Drawing.Size(58, 13);
+            this.label28.TabIndex = 0;
+            this.label28.Text = "5V tolerant";
+            // 
+            // label30
+            // 
+            this.label30.AutoSize = true;
+            this.label30.Location = new System.Drawing.Point(7, 154);
+            this.label30.Name = "label30";
+            this.label30.Size = new System.Drawing.Size(89, 13);
+            this.label30.TabIndex = 0;
+            this.label30.Text = "Log analyser pins";
+            // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.label31.Location = new System.Drawing.Point(10, 126);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(13, 13);
+            this.label31.TabIndex = 1;
+            this.label31.Text = "--";
+            // 
+            // label32
+            // 
+            this.label32.AutoSize = true;
+            this.label32.Location = new System.Drawing.Point(10, 171);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(13, 13);
+            this.label32.TabIndex = 1;
+            this.label32.Text = "--";
+            // 
+            // label33
+            // 
+            this.label33.AutoSize = true;
+            this.label33.Location = new System.Drawing.Point(10, 33);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(38, 13);
+            this.label33.TabIndex = 1;
+            this.label33.Text = "-- ksps";
+            // 
+            // label34
+            // 
+            this.label34.AutoSize = true;
+            this.label34.Location = new System.Drawing.Point(7, 16);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(100, 13);
+            this.label34.TabIndex = 0;
+            this.label34.Text = "Sampling frequency";
+            // 
+            // label26
+            // 
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(10, 126);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(13, 13);
+            this.label26.TabIndex = 1;
+            this.label26.Text = "--";
+            // 
+            // label35
+            // 
+            this.label35.AutoSize = true;
+            this.label35.Location = new System.Drawing.Point(7, 109);
+            this.label35.Name = "label35";
+            this.label35.Size = new System.Drawing.Size(61, 13);
+            this.label35.TabIndex = 0;
+            this.label35.Text = "Connection";
+            // 
+            // label37
+            // 
+            this.label37.AutoSize = true;
+            this.label37.Location = new System.Drawing.Point(10, 79);
+            this.label37.Name = "label37";
+            this.label37.Size = new System.Drawing.Size(13, 13);
+            this.label37.TabIndex = 1;
+            this.label37.Text = "--";
+            // 
+            // label41
+            // 
+            this.label41.AutoSize = true;
+            this.label41.Location = new System.Drawing.Point(10, 33);
+            this.label41.Name = "label41";
+            this.label41.Size = new System.Drawing.Size(13, 13);
+            this.label41.TabIndex = 1;
+            this.label41.Text = "--";
+            // 
+            // label42
+            // 
+            this.label42.AutoSize = true;
+            this.label42.Location = new System.Drawing.Point(7, 16);
+            this.label42.Name = "label42";
+            this.label42.Size = new System.Drawing.Size(65, 13);
+            this.label42.TabIndex = 0;
+            this.label42.Text = "Device core";
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Location = new System.Drawing.Point(7, 62);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(79, 13);
+            this.label29.TabIndex = 0;
+            this.label29.Text = "Core frequency";
+            // 
+            // tableLayoutPanel14
+            // 
+            this.tableLayoutPanel14.ColumnCount = 2;
+            this.tableLayoutPanel14.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel14.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 250F));
+            this.tableLayoutPanel14.Controls.Add(this.zedGraphControl_generator, 0, 1);
+            this.tableLayoutPanel14.Controls.Add(this.tableLayoutPanel15, 0, 0);
+            this.tableLayoutPanel14.Controls.Add(this.tableLayoutPanel16, 1, 0);
+            this.tableLayoutPanel14.Controls.Add(this.groupBox4, 1, 1);
+            this.tableLayoutPanel14.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel14.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanel14.Name = "tableLayoutPanel14";
+            this.tableLayoutPanel14.RowCount = 2;
+            this.tableLayoutPanel14.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
+            this.tableLayoutPanel14.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel14.Size = new System.Drawing.Size(770, 484);
+            this.tableLayoutPanel14.TabIndex = 0;
+            // 
+            // zedGraphControl_generator
+            // 
+            this.zedGraphControl_generator.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.zedGraphControl_generator.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.zedGraphControl_generator.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.World);
+            this.zedGraphControl_generator.IsEnableVZoom = false;
+            this.zedGraphControl_generator.Location = new System.Drawing.Point(2, 37);
+            this.zedGraphControl_generator.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.zedGraphControl_generator.Name = "zedGraphControl_generator";
+            this.zedGraphControl_generator.Padding = new System.Windows.Forms.Padding(3);
+            this.zedGraphControl_generator.ScrollGrace = 0D;
+            this.zedGraphControl_generator.ScrollMaxX = 0D;
+            this.zedGraphControl_generator.ScrollMaxY = 0D;
+            this.zedGraphControl_generator.ScrollMaxY2 = 0D;
+            this.zedGraphControl_generator.ScrollMinX = 0D;
+            this.zedGraphControl_generator.ScrollMinY = 0D;
+            this.zedGraphControl_generator.ScrollMinY2 = 0D;
+            this.zedGraphControl_generator.Size = new System.Drawing.Size(516, 445);
+            this.zedGraphControl_generator.TabIndex = 1;
+            // 
+            // tableLayoutPanel15
+            // 
+            this.tableLayoutPanel15.ColumnCount = 6;
+            this.tableLayoutPanel15.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.tableLayoutPanel15.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.tableLayoutPanel15.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.tableLayoutPanel15.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.tableLayoutPanel15.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.tableLayoutPanel15.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.tableLayoutPanel15.Controls.Add(this.radioButton3, 0, 0);
+            this.tableLayoutPanel15.Controls.Add(this.radioButton4, 1, 0);
+            this.tableLayoutPanel15.Controls.Add(this.radioButton5, 2, 0);
+            this.tableLayoutPanel15.Controls.Add(this.radioButton6, 3, 0);
+            this.tableLayoutPanel15.Controls.Add(this.radioButton7, 4, 0);
+            this.tableLayoutPanel15.Controls.Add(this.radioButton8, 5, 0);
+            this.tableLayoutPanel15.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanel15.Name = "tableLayoutPanel15";
+            this.tableLayoutPanel15.RowCount = 1;
+            this.tableLayoutPanel15.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel15.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel15.Size = new System.Drawing.Size(514, 29);
+            this.tableLayoutPanel15.TabIndex = 2;
+            // 
+            // radioButton3
+            // 
+            this.radioButton3.Appearance = System.Windows.Forms.Appearance.Button;
+            this.radioButton3.AutoSize = true;
+            this.radioButton3.Checked = true;
+            this.radioButton3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.radioButton3.Location = new System.Drawing.Point(3, 3);
+            this.radioButton3.Name = "radioButton3";
+            this.radioButton3.Size = new System.Drawing.Size(79, 23);
+            this.radioButton3.TabIndex = 0;
+            this.radioButton3.TabStop = true;
+            this.radioButton3.Text = "Sine";
+            this.radioButton3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.radioButton3.UseVisualStyleBackColor = true;
+            // 
+            // radioButton4
+            // 
+            this.radioButton4.Appearance = System.Windows.Forms.Appearance.Button;
+            this.radioButton4.AutoSize = true;
+            this.radioButton4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.radioButton4.Location = new System.Drawing.Point(88, 3);
+            this.radioButton4.Name = "radioButton4";
+            this.radioButton4.Size = new System.Drawing.Size(79, 23);
+            this.radioButton4.TabIndex = 0;
+            this.radioButton4.Text = "Square";
+            this.radioButton4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.radioButton4.UseVisualStyleBackColor = true;
+            // 
+            // radioButton5
+            // 
+            this.radioButton5.Appearance = System.Windows.Forms.Appearance.Button;
+            this.radioButton5.AutoSize = true;
+            this.radioButton5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.radioButton5.Location = new System.Drawing.Point(173, 3);
+            this.radioButton5.Name = "radioButton5";
+            this.radioButton5.Size = new System.Drawing.Size(79, 23);
+            this.radioButton5.TabIndex = 0;
+            this.radioButton5.Text = "Triangle";
+            this.radioButton5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.radioButton5.UseVisualStyleBackColor = true;
+            // 
+            // radioButton6
+            // 
+            this.radioButton6.Appearance = System.Windows.Forms.Appearance.Button;
+            this.radioButton6.AutoSize = true;
+            this.radioButton6.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.radioButton6.Location = new System.Drawing.Point(258, 3);
+            this.radioButton6.Name = "radioButton6";
+            this.radioButton6.Size = new System.Drawing.Size(79, 23);
+            this.radioButton6.TabIndex = 0;
+            this.radioButton6.Text = "Ramp";
+            this.radioButton6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.radioButton6.UseVisualStyleBackColor = true;
+            // 
+            // radioButton7
+            // 
+            this.radioButton7.Appearance = System.Windows.Forms.Appearance.Button;
+            this.radioButton7.AutoSize = true;
+            this.radioButton7.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.radioButton7.Location = new System.Drawing.Point(343, 3);
+            this.radioButton7.Name = "radioButton7";
+            this.radioButton7.Size = new System.Drawing.Size(79, 23);
+            this.radioButton7.TabIndex = 0;
+            this.radioButton7.Text = "PWM";
+            this.radioButton7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.radioButton7.UseVisualStyleBackColor = true;
+            // 
+            // radioButton8
+            // 
+            this.radioButton8.Appearance = System.Windows.Forms.Appearance.Button;
+            this.radioButton8.AutoSize = true;
+            this.radioButton8.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.radioButton8.Location = new System.Drawing.Point(428, 3);
+            this.radioButton8.Name = "radioButton8";
+            this.radioButton8.Size = new System.Drawing.Size(83, 23);
+            this.radioButton8.TabIndex = 0;
+            this.radioButton8.Text = "Arbitary";
+            this.radioButton8.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.radioButton8.UseVisualStyleBackColor = true;
+            // 
+            // tableLayoutPanel16
+            // 
+            this.tableLayoutPanel16.ColumnCount = 5;
+            this.tableLayoutPanel16.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel16.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel16.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 10F));
+            this.tableLayoutPanel16.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel16.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel16.Controls.Add(this.button1, 1, 0);
+            this.tableLayoutPanel16.Controls.Add(this.checkBox5, 3, 0);
+            this.tableLayoutPanel16.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel16.Location = new System.Drawing.Point(523, 3);
+            this.tableLayoutPanel16.Name = "tableLayoutPanel16";
+            this.tableLayoutPanel16.RowCount = 1;
+            this.tableLayoutPanel16.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel16.Size = new System.Drawing.Size(244, 29);
+            this.tableLayoutPanel16.TabIndex = 3;
+            // 
+            // button1
+            // 
+            this.button1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button1.Location = new System.Drawing.Point(23, 3);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(91, 23);
+            this.button1.TabIndex = 0;
+            this.button1.Text = "Update signal";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.radioButton11);
+            this.groupBox4.Controls.Add(this.radioButton10);
+            this.groupBox4.Controls.Add(this.radioButton9);
+            this.groupBox4.Controls.Add(this.trackBar6);
+            this.groupBox4.Controls.Add(this.trackBar5);
+            this.groupBox4.Controls.Add(this.trackBar4);
+            this.groupBox4.Controls.Add(this.trackBar3);
+            this.groupBox4.Controls.Add(this.textBox4);
+            this.groupBox4.Controls.Add(this.textBox3);
+            this.groupBox4.Controls.Add(this.textBox2);
+            this.groupBox4.Controls.Add(this.textBox1);
+            this.groupBox4.Controls.Add(this.label40);
+            this.groupBox4.Controls.Add(this.label39);
+            this.groupBox4.Controls.Add(this.label38);
+            this.groupBox4.Controls.Add(this.label36);
+            this.groupBox4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox4.Location = new System.Drawing.Point(523, 38);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(244, 443);
+            this.groupBox4.TabIndex = 4;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = " Signal paremeters";
+            // 
+            // checkBox5
+            // 
+            this.checkBox5.Appearance = System.Windows.Forms.Appearance.Button;
+            this.checkBox5.AutoSize = true;
+            this.checkBox5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.checkBox5.Location = new System.Drawing.Point(130, 3);
+            this.checkBox5.Name = "checkBox5";
+            this.checkBox5.Size = new System.Drawing.Size(91, 23);
+            this.checkBox5.TabIndex = 1;
+            this.checkBox5.Text = "Enable output";
+            this.checkBox5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.checkBox5.UseVisualStyleBackColor = true;
+            // 
+            // label36
+            // 
+            this.label36.AutoSize = true;
+            this.label36.Location = new System.Drawing.Point(7, 20);
+            this.label36.Name = "label36";
+            this.label36.Size = new System.Drawing.Size(57, 13);
+            this.label36.TabIndex = 0;
+            this.label36.Text = "Frequency";
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(7, 37);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(57, 20);
+            this.textBox1.TabIndex = 1;
+            // 
+            // trackBar3
+            // 
+            this.trackBar3.AutoSize = false;
+            this.trackBar3.Location = new System.Drawing.Point(10, 63);
+            this.trackBar3.Name = "trackBar3";
+            this.trackBar3.Size = new System.Drawing.Size(228, 30);
+            this.trackBar3.TabIndex = 2;
+            this.trackBar3.TickStyle = System.Windows.Forms.TickStyle.None;
+            // 
+            // label38
+            // 
+            this.label38.AutoSize = true;
+            this.label38.Location = new System.Drawing.Point(6, 96);
+            this.label38.Name = "label38";
+            this.label38.Size = new System.Drawing.Size(53, 13);
+            this.label38.TabIndex = 0;
+            this.label38.Text = "Amplitude";
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(6, 113);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(57, 20);
+            this.textBox2.TabIndex = 1;
+            // 
+            // trackBar4
+            // 
+            this.trackBar4.AutoSize = false;
+            this.trackBar4.Location = new System.Drawing.Point(9, 139);
+            this.trackBar4.Name = "trackBar4";
+            this.trackBar4.Size = new System.Drawing.Size(228, 30);
+            this.trackBar4.TabIndex = 2;
+            this.trackBar4.TickStyle = System.Windows.Forms.TickStyle.None;
+            // 
+            // label39
+            // 
+            this.label39.AutoSize = true;
+            this.label39.Location = new System.Drawing.Point(6, 172);
+            this.label39.Name = "label39";
+            this.label39.Size = new System.Drawing.Size(35, 13);
+            this.label39.TabIndex = 0;
+            this.label39.Text = "Offset";
+            // 
+            // textBox3
+            // 
+            this.textBox3.Location = new System.Drawing.Point(6, 189);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(57, 20);
+            this.textBox3.TabIndex = 1;
+            // 
+            // trackBar5
+            // 
+            this.trackBar5.AutoSize = false;
+            this.trackBar5.Location = new System.Drawing.Point(9, 215);
+            this.trackBar5.Name = "trackBar5";
+            this.trackBar5.Size = new System.Drawing.Size(228, 30);
+            this.trackBar5.TabIndex = 2;
+            this.trackBar5.TickStyle = System.Windows.Forms.TickStyle.None;
+            // 
+            // label40
+            // 
+            this.label40.AutoSize = true;
+            this.label40.Location = new System.Drawing.Point(6, 248);
+            this.label40.Name = "label40";
+            this.label40.Size = new System.Drawing.Size(29, 13);
+            this.label40.TabIndex = 0;
+            this.label40.Text = "Duty";
+            // 
+            // textBox4
+            // 
+            this.textBox4.Location = new System.Drawing.Point(6, 265);
+            this.textBox4.Name = "textBox4";
+            this.textBox4.Size = new System.Drawing.Size(57, 20);
+            this.textBox4.TabIndex = 1;
+            // 
+            // trackBar6
+            // 
+            this.trackBar6.AutoSize = false;
+            this.trackBar6.Location = new System.Drawing.Point(9, 291);
+            this.trackBar6.Name = "trackBar6";
+            this.trackBar6.Size = new System.Drawing.Size(228, 30);
+            this.trackBar6.TabIndex = 2;
+            this.trackBar6.TickStyle = System.Windows.Forms.TickStyle.None;
+            // 
+            // radioButton9
+            // 
+            this.radioButton9.Appearance = System.Windows.Forms.Appearance.Button;
+            this.radioButton9.Location = new System.Drawing.Point(70, 37);
+            this.radioButton9.Name = "radioButton9";
+            this.radioButton9.Size = new System.Drawing.Size(45, 20);
+            this.radioButton9.TabIndex = 3;
+            this.radioButton9.TabStop = true;
+            this.radioButton9.Text = "mHz";
+            this.radioButton9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.radioButton9.UseVisualStyleBackColor = true;
+            // 
+            // radioButton10
+            // 
+            this.radioButton10.Appearance = System.Windows.Forms.Appearance.Button;
+            this.radioButton10.Checked = true;
+            this.radioButton10.Location = new System.Drawing.Point(121, 37);
+            this.radioButton10.Name = "radioButton10";
+            this.radioButton10.Size = new System.Drawing.Size(45, 20);
+            this.radioButton10.TabIndex = 3;
+            this.radioButton10.TabStop = true;
+            this.radioButton10.Text = "Hz";
+            this.radioButton10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.radioButton10.UseVisualStyleBackColor = true;
+            // 
+            // radioButton11
+            // 
+            this.radioButton11.Appearance = System.Windows.Forms.Appearance.Button;
+            this.radioButton11.Location = new System.Drawing.Point(172, 37);
+            this.radioButton11.Name = "radioButton11";
+            this.radioButton11.Size = new System.Drawing.Size(45, 20);
+            this.radioButton11.TabIndex = 3;
+            this.radioButton11.TabStop = true;
+            this.radioButton11.Text = "kHz";
+            this.radioButton11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.radioButton11.UseVisualStyleBackColor = true;
+            // 
+            // label43
+            // 
+            this.label43.AutoSize = true;
+            this.label43.Location = new System.Drawing.Point(10, 79);
+            this.label43.Name = "label43";
+            this.label43.Size = new System.Drawing.Size(27, 13);
+            this.label43.TabIndex = 1;
+            this.label43.Text = "-- bit";
+            // 
+            // label44
+            // 
+            this.label44.AutoSize = true;
+            this.label44.Location = new System.Drawing.Point(7, 109);
+            this.label44.Name = "label44";
+            this.label44.Size = new System.Drawing.Size(67, 13);
+            this.label44.TabIndex = 0;
+            this.label44.Text = "Buffer lenght";
+            // 
+            // label45
+            // 
+            this.label45.AutoSize = true;
+            this.label45.Location = new System.Drawing.Point(7, 62);
+            this.label45.Name = "label45";
+            this.label45.Size = new System.Drawing.Size(60, 13);
+            this.label45.TabIndex = 0;
+            this.label45.Text = "Data depth";
+            // 
+            // label46
+            // 
+            this.label46.AutoSize = true;
+            this.label46.Location = new System.Drawing.Point(7, 154);
+            this.label46.Name = "label46";
+            this.label46.Size = new System.Drawing.Size(61, 13);
+            this.label46.TabIndex = 0;
+            this.label46.Text = "Voltage ref.";
+            // 
+            // label47
+            // 
+            this.label47.AutoSize = true;
+            this.label47.Location = new System.Drawing.Point(10, 126);
+            this.label47.Name = "label47";
+            this.label47.Size = new System.Drawing.Size(54, 13);
+            this.label47.TabIndex = 1;
+            this.label47.Text = "-- samples";
+            // 
+            // label48
+            // 
+            this.label48.AutoSize = true;
+            this.label48.Location = new System.Drawing.Point(7, 199);
+            this.label48.Name = "label48";
+            this.label48.Size = new System.Drawing.Size(71, 13);
+            this.label48.TabIndex = 0;
+            this.label48.Text = "Generator pin";
+            // 
+            // label49
+            // 
+            this.label49.AutoSize = true;
+            this.label49.Location = new System.Drawing.Point(10, 171);
+            this.label49.Name = "label49";
+            this.label49.Size = new System.Drawing.Size(31, 13);
+            this.label49.TabIndex = 1;
+            this.label49.Text = "-- mV";
+            // 
+            // label50
+            // 
+            this.label50.AutoSize = true;
+            this.label50.Location = new System.Drawing.Point(10, 216);
+            this.label50.Name = "label50";
+            this.label50.Size = new System.Drawing.Size(13, 13);
+            this.label50.TabIndex = 1;
+            this.label50.Text = "--";
+            // 
+            // label51
+            // 
+            this.label51.AutoSize = true;
+            this.label51.Location = new System.Drawing.Point(10, 33);
+            this.label51.Name = "label51";
+            this.label51.Size = new System.Drawing.Size(38, 13);
+            this.label51.TabIndex = 1;
+            this.label51.Text = "-- ksps";
+            // 
+            // label52
+            // 
+            this.label52.AutoSize = true;
+            this.label52.Location = new System.Drawing.Point(7, 16);
+            this.label52.Name = "label52";
+            this.label52.Size = new System.Drawing.Size(100, 13);
+            this.label52.TabIndex = 0;
+            this.label52.Text = "Sampling frequency";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(834, 562);
+            this.ClientSize = new System.Drawing.Size(784, 562);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.MinimumSize = new System.Drawing.Size(800, 600);
+            this.MinimumSize = new System.Drawing.Size(775, 525);
             this.Name = "Form1";
             this.Text = "Form1";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
@@ -2302,8 +2975,15 @@
             this.tableLayoutPanel7.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.tableLayoutPanel8.ResumeLayout(false);
+            this.groupBox_general.ResumeLayout(false);
+            this.groupBox_general.PerformLayout();
             this.groupBox_scope.ResumeLayout(false);
             this.groupBox_scope.PerformLayout();
+            this.groupBox_logAnalyser.ResumeLayout(false);
+            this.groupBox_logAnalyser.PerformLayout();
+            this.groupBox_generator.ResumeLayout(false);
+            this.groupBox_generator.PerformLayout();
+            this.tabPage_generator.ResumeLayout(false);
             this.tabPage_scope.ResumeLayout(false);
             this.panel5.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
@@ -2352,6 +3032,17 @@
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
+            this.tableLayoutPanel14.ResumeLayout(false);
+            this.tableLayoutPanel15.ResumeLayout(false);
+            this.tableLayoutPanel15.PerformLayout();
+            this.tableLayoutPanel16.ResumeLayout(false);
+            this.tableLayoutPanel16.PerformLayout();
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar6)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2524,6 +3215,60 @@
         private System.Windows.Forms.TrackBar trackBar2;
         private System.Windows.Forms.TrackBar trackBar1;
         private System.Windows.Forms.Label label24;
+        private System.Windows.Forms.Label label42;
+        private System.Windows.Forms.Label label41;
+        private System.Windows.Forms.Label label26;
+        private System.Windows.Forms.Label label29;
+        private System.Windows.Forms.Label label35;
+        private System.Windows.Forms.Label label37;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label34;
+        private System.Windows.Forms.Label label32;
+        private System.Windows.Forms.Label label33;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label label31;
+        private System.Windows.Forms.Label label27;
+        private System.Windows.Forms.Label label30;
+        private System.Windows.Forms.Label label28;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel14;
+        private ZedGraph.ZedGraphControl zedGraphControl_generator;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel15;
+        private System.Windows.Forms.RadioButton radioButton3;
+        private System.Windows.Forms.RadioButton radioButton4;
+        private System.Windows.Forms.RadioButton radioButton5;
+        private System.Windows.Forms.RadioButton radioButton6;
+        private System.Windows.Forms.RadioButton radioButton7;
+        private System.Windows.Forms.RadioButton radioButton8;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel16;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.CheckBox checkBox5;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.TrackBar trackBar6;
+        private System.Windows.Forms.TrackBar trackBar5;
+        private System.Windows.Forms.TrackBar trackBar4;
+        private System.Windows.Forms.TrackBar trackBar3;
+        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.Label label40;
+        private System.Windows.Forms.Label label39;
+        private System.Windows.Forms.Label label38;
+        private System.Windows.Forms.Label label36;
+        private System.Windows.Forms.RadioButton radioButton11;
+        private System.Windows.Forms.RadioButton radioButton10;
+        private System.Windows.Forms.RadioButton radioButton9;
+        private System.Windows.Forms.Label label52;
+        private System.Windows.Forms.Label label51;
+        private System.Windows.Forms.Label label43;
+        private System.Windows.Forms.Label label50;
+        private System.Windows.Forms.Label label44;
+        private System.Windows.Forms.Label label49;
+        private System.Windows.Forms.Label label45;
+        private System.Windows.Forms.Label label48;
+        private System.Windows.Forms.Label label46;
+        private System.Windows.Forms.Label label47;
     }
 }
 

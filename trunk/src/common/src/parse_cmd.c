@@ -124,7 +124,8 @@ COMM_CMD SCPI_try_parse_cmd(void)
 
 void parse_OSCP_cmd(){
 	uint8_t params=0;
-	while(COMM_read_char() == ':' && params<3){
+	while(COMM_view_char() == ':' && params<3){
+		COMM_read_char();
 		testTimeout(4);
 		hash=read_COMM_hash();
 			switch(hash){
@@ -220,14 +221,15 @@ void parse_OSCP_cmd(){
 		}	
 	params++;
 	}
-	COMM_read_char();
+	//COMM_read_char();
 }
 
 //--------------------------------------- GENERATOR
 
 void parse_GENUS_cmd(){
 	uint8_t params=0;
-	while(COMM_read_char() == ':' && params<3){
+	while(COMM_view_char() == ':' && params<3){
+		COMM_read_char();
 		testTimeout(4);
 		hash=read_COMM_hash();
 		
@@ -322,12 +324,13 @@ void parse_GENUS_cmd(){
 		}	
 	params++;
 	}
-	COMM_read_char();
+//	COMM_read_char();
 }
 //--------------------------------------- LOGICKZ ANALYZATOR
 void parse_LOGUS_cmd(){
 	uint8_t params=0;
-	while(COMM_read_char() == ':' && params<3){
+	while(COMM_view_char() == ':' && params<3){
+		COMM_read_char();
 		testTimeout(4);
 		hash=read_COMM_hash();
 		
@@ -398,14 +401,15 @@ void parse_LOGUS_cmd(){
 		}	
 	params++;
 	}
-	COMM_read_char();
+	//COMM_read_char();
 }
 
 //--------------------------------------- CITAC
 
 void parse_CONT_cmd(){
 	uint8_t params=0;
-	while(COMM_read_char() == ':' && params<3){
+	while(COMM_view_char() == ':' && params<3){
+		COMM_read_char();
 		testTimeout(4);
 		hash=read_COMM_hash();
 		
@@ -437,12 +441,13 @@ void parse_CONT_cmd(){
 		}	
 	params++;
 	}
-	COMM_read_char();
+//	COMM_read_char();
 }
 //--------------------------------------- VOLTMETR - VOLT
 void parse_VOLT_cmd(){
 	uint8_t params=0;
-	while(COMM_read_char() == ':' && params<3){
+	while(COMM_view_char() == ':' && params<3){
+		COMM_read_char();
 		testTimeout(4);
 		hash=read_COMM_hash();
 		
@@ -456,12 +461,13 @@ void parse_VOLT_cmd(){
 		}	
 	params++;
 	}
-	COMM_read_char();
+	//COMM_read_char();
 }
 //--------------------------------------- VOLTMETR - MEAS
 void parse_MEAS_cmd(){
 	uint8_t params=0;
-	while(COMM_read_char() == ':' && params<3){
+	while(COMM_view_char() == ':' && params<3){
+		COMM_read_char();
 		testTimeout(4);
 		hash=read_COMM_hash();
 		
@@ -475,12 +481,13 @@ void parse_MEAS_cmd(){
 		}	
 	params++;
 	}
-	COMM_read_char();
+	//COMM_read_char();
 }
 //--------------------------------------- GPIO
 void parse_GPIO_cmd(){
 	uint8_t params=0;
-	while(COMM_read_char() == ':' && params<3){
+	while(COMM_view_char() == ':' && params<3){
+		COMM_read_char();
 		testTimeout(4);
 		hash=read_COMM_hash();
 		
@@ -497,7 +504,7 @@ void parse_GPIO_cmd(){
 		}	
 	params++;
 	}
-	COMM_read_char();
+//	COMM_read_char();
 }
 //---------------------------------------
 
