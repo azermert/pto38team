@@ -47,7 +47,9 @@
             this.groupBox_scope = new System.Windows.Forms.GroupBox();
             this.label17 = new System.Windows.Forms.Label();
             this.label18 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
             this.label23 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
             this.label22 = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
@@ -64,20 +66,21 @@
             this.panel3 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox_cursors_vertical = new System.Windows.Forms.GroupBox();
+            this.label_cur_freq = new System.Windows.Forms.Label();
             this.label_time_diff = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
+            this.label_cur_du = new System.Windows.Forms.Label();
             this.label_cur_time_b = new System.Windows.Forms.Label();
             this.label_cur_time_a = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
+            this.label_cur_ub = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
+            this.label_cur_ua = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.checkBox_ver_cur_en = new System.Windows.Forms.CheckBox();
             this.trackBar_ver_cur_a = new System.Windows.Forms.TrackBar();
             this.trackBar_ver_cur_b = new System.Windows.Forms.TrackBar();
             this.groupBox_measure = new System.Windows.Forms.GroupBox();
             this.checkBox10 = new System.Windows.Forms.CheckBox();
-            this.checkBox5 = new System.Windows.Forms.CheckBox();
+            this.checkBox_RMS = new System.Windows.Forms.CheckBox();
             this.checkBox9 = new System.Windows.Forms.CheckBox();
             this.checkBox8 = new System.Windows.Forms.CheckBox();
             this.checkBox4 = new System.Windows.Forms.CheckBox();
@@ -149,12 +152,47 @@
             this.maskedTextBox_pretrig = new System.Windows.Forms.MaskedTextBox();
             this.trackBar_trig_level = new System.Windows.Forms.TrackBar();
             this.tabPage_LA = new System.Windows.Forms.TabPage();
+            this.tableLayoutPanel10 = new System.Windows.Forms.TableLayoutPanel();
+            this.tableLayoutPanel11 = new System.Windows.Forms.TableLayoutPanel();
+            this.groupBox_log_an_chan = new System.Windows.Forms.GroupBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.checkBox26 = new System.Windows.Forms.CheckBox();
+            this.checkBox25 = new System.Windows.Forms.CheckBox();
+            this.checkBox24 = new System.Windows.Forms.CheckBox();
+            this.checkBox23 = new System.Windows.Forms.CheckBox();
+            this.checkBox22 = new System.Windows.Forms.CheckBox();
+            this.checkBox21 = new System.Windows.Forms.CheckBox();
+            this.checkBox20 = new System.Windows.Forms.CheckBox();
+            this.checkBox19 = new System.Windows.Forms.CheckBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.checkBox18 = new System.Windows.Forms.CheckBox();
+            this.checkBox17 = new System.Windows.Forms.CheckBox();
+            this.checkBox16 = new System.Windows.Forms.CheckBox();
+            this.checkBox15 = new System.Windows.Forms.CheckBox();
+            this.checkBox14 = new System.Windows.Forms.CheckBox();
+            this.checkBox13 = new System.Windows.Forms.CheckBox();
+            this.checkBox12 = new System.Windows.Forms.CheckBox();
+            this.checkBox11 = new System.Windows.Forms.CheckBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.checkBox28 = new System.Windows.Forms.CheckBox();
+            this.checkBox27 = new System.Windows.Forms.CheckBox();
+            this.label19 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.radioButton2 = new System.Windows.Forms.RadioButton();
+            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.tableLayoutPanel12 = new System.Windows.Forms.TableLayoutPanel();
+            this.zedGraphControl_log_analyser = new ZedGraph.ZedGraphControl();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.tableLayoutPanel13 = new System.Windows.Forms.TableLayoutPanel();
+            this.label25 = new System.Windows.Forms.Label();
+            this.trackBar2 = new System.Windows.Forms.TrackBar();
+            this.trackBar1 = new System.Windows.Forms.TrackBar();
+            this.label24 = new System.Windows.Forms.Label();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel_status_color = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel_device = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel_status = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
-            this.label_cur_freq = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -191,6 +229,16 @@
             this.groupBox_trigger.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar_pretrig)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar_trig_level)).BeginInit();
+            this.tabPage_LA.SuspendLayout();
+            this.tableLayoutPanel10.SuspendLayout();
+            this.tableLayoutPanel11.SuspendLayout();
+            this.groupBox_log_an_chan.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            this.tableLayoutPanel12.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            this.tableLayoutPanel13.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -387,7 +435,9 @@
             // 
             this.groupBox_scope.Controls.Add(this.label17);
             this.groupBox_scope.Controls.Add(this.label18);
+            this.groupBox_scope.Controls.Add(this.label12);
             this.groupBox_scope.Controls.Add(this.label23);
+            this.groupBox_scope.Controls.Add(this.label9);
             this.groupBox_scope.Controls.Add(this.label20);
             this.groupBox_scope.Controls.Add(this.label22);
             this.groupBox_scope.Controls.Add(this.label21);
@@ -417,6 +467,15 @@
             this.label18.TabIndex = 1;
             this.label18.Text = "-- ksps";
             // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(10, 171);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(31, 13);
+            this.label12.TabIndex = 1;
+            this.label12.Text = "-- mV";
+            // 
             // label23
             // 
             this.label23.AutoSize = true;
@@ -425,6 +484,15 @@
             this.label23.Size = new System.Drawing.Size(54, 13);
             this.label23.TabIndex = 1;
             this.label23.Text = "-- samples";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(7, 154);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(61, 13);
+            this.label9.TabIndex = 0;
+            this.label9.Text = "Voltage ref.";
             // 
             // label20
             // 
@@ -497,23 +565,23 @@
             // 
             // tabPage_generator
             // 
+            this.tabPage_generator.BackColor = System.Drawing.SystemColors.Control;
             this.tabPage_generator.Location = new System.Drawing.Point(4, 22);
             this.tabPage_generator.Name = "tabPage_generator";
             this.tabPage_generator.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage_generator.Size = new System.Drawing.Size(826, 490);
             this.tabPage_generator.TabIndex = 4;
             this.tabPage_generator.Text = "Generator";
-            this.tabPage_generator.UseVisualStyleBackColor = true;
             // 
             // tabPage_counter
             // 
+            this.tabPage_counter.BackColor = System.Drawing.SystemColors.Control;
             this.tabPage_counter.Location = new System.Drawing.Point(4, 22);
             this.tabPage_counter.Name = "tabPage_counter";
             this.tabPage_counter.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage_counter.Size = new System.Drawing.Size(826, 490);
             this.tabPage_counter.TabIndex = 3;
             this.tabPage_counter.Text = "Counter";
-            this.tabPage_counter.UseVisualStyleBackColor = true;
             // 
             // tabPage_scope
             // 
@@ -600,12 +668,12 @@
             this.groupBox_cursors_vertical.BackColor = System.Drawing.SystemColors.Control;
             this.groupBox_cursors_vertical.Controls.Add(this.label_cur_freq);
             this.groupBox_cursors_vertical.Controls.Add(this.label_time_diff);
-            this.groupBox_cursors_vertical.Controls.Add(this.label7);
+            this.groupBox_cursors_vertical.Controls.Add(this.label_cur_du);
             this.groupBox_cursors_vertical.Controls.Add(this.label_cur_time_b);
             this.groupBox_cursors_vertical.Controls.Add(this.label_cur_time_a);
-            this.groupBox_cursors_vertical.Controls.Add(this.label13);
+            this.groupBox_cursors_vertical.Controls.Add(this.label_cur_ub);
             this.groupBox_cursors_vertical.Controls.Add(this.label6);
-            this.groupBox_cursors_vertical.Controls.Add(this.label11);
+            this.groupBox_cursors_vertical.Controls.Add(this.label_cur_ua);
             this.groupBox_cursors_vertical.Controls.Add(this.label5);
             this.groupBox_cursors_vertical.Controls.Add(this.checkBox_ver_cur_en);
             this.groupBox_cursors_vertical.Controls.Add(this.trackBar_ver_cur_a);
@@ -618,80 +686,93 @@
             this.groupBox_cursors_vertical.TabStop = false;
             this.groupBox_cursors_vertical.Text = "Vertical cursors";
             // 
+            // label_cur_freq
+            // 
+            this.label_cur_freq.AutoSize = true;
+            this.label_cur_freq.Location = new System.Drawing.Point(67, 71);
+            this.label_cur_freq.Name = "label_cur_freq";
+            this.label_cur_freq.Size = new System.Drawing.Size(41, 13);
+            this.label_cur_freq.TabIndex = 3;
+            this.label_cur_freq.Text = "f ---- Hz";
+            // 
             // label_time_diff
             // 
             this.label_time_diff.AutoSize = true;
-            this.label_time_diff.Location = new System.Drawing.Point(69, 88);
+            this.label_time_diff.Location = new System.Drawing.Point(73, 88);
             this.label_time_diff.Name = "label_time_diff";
-            this.label_time_diff.Size = new System.Drawing.Size(47, 13);
+            this.label_time_diff.Size = new System.Drawing.Size(49, 13);
             this.label_time_diff.TabIndex = 2;
-            this.label_time_diff.Text = "dt xxxuS";
+            this.label_time_diff.Text = "dt ---- mS";
             this.label_time_diff.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // label7
+            // label_cur_du
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(17, 88);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(51, 13);
-            this.label7.TabIndex = 2;
-            this.label7.Text = "dU xxxxV";
-            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label_cur_du.AutoSize = true;
+            this.label_cur_du.Location = new System.Drawing.Point(4, 88);
+            this.label_cur_du.Name = "label_cur_du";
+            this.label_cur_du.Size = new System.Drawing.Size(54, 13);
+            this.label_cur_du.TabIndex = 2;
+            this.label_cur_du.Text = "dU ---- mV";
+            this.label_cur_du.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label_cur_time_b
             // 
             this.label_cur_time_b.AutoSize = true;
-            this.label_cur_time_b.Location = new System.Drawing.Point(74, 49);
+            this.label_cur_time_b.Location = new System.Drawing.Point(79, 49);
             this.label_cur_time_b.Name = "label_cur_time_b";
-            this.label_cur_time_b.Size = new System.Drawing.Size(41, 13);
+            this.label_cur_time_b.Size = new System.Drawing.Size(43, 13);
             this.label_cur_time_b.TabIndex = 2;
-            this.label_cur_time_b.Text = "t xxxuS";
+            this.label_cur_time_b.Text = "t ---- mS";
             this.label_cur_time_b.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label_cur_time_a
             // 
             this.label_cur_time_a.AutoSize = true;
-            this.label_cur_time_a.Location = new System.Drawing.Point(74, 36);
+            this.label_cur_time_a.Location = new System.Drawing.Point(79, 36);
             this.label_cur_time_a.Name = "label_cur_time_a";
-            this.label_cur_time_a.Size = new System.Drawing.Size(41, 13);
+            this.label_cur_time_a.Size = new System.Drawing.Size(43, 13);
             this.label_cur_time_a.TabIndex = 2;
-            this.label_cur_time_a.Text = "t xxxuS";
+            this.label_cur_time_a.Text = "t ---- mS";
             this.label_cur_time_a.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // label13
+            // label_cur_ub
             // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(21, 49);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(48, 13);
-            this.label13.TabIndex = 2;
-            this.label13.Text = "U xxxmV";
-            this.label13.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label_cur_ub.AutoSize = true;
+            this.label_cur_ub.Location = new System.Drawing.Point(13, 49);
+            this.label_cur_ub.Margin = new System.Windows.Forms.Padding(0);
+            this.label_cur_ub.Name = "label_cur_ub";
+            this.label_cur_ub.Size = new System.Drawing.Size(48, 13);
+            this.label_cur_ub.TabIndex = 2;
+            this.label_cur_ub.Text = "U ---- mV";
+            this.label_cur_ub.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(6, 49);
+            this.label6.Location = new System.Drawing.Point(2, 49);
+            this.label6.Margin = new System.Windows.Forms.Padding(0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(16, 13);
             this.label6.TabIndex = 2;
             this.label6.Text = "2:";
             this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // label11
+            // label_cur_ua
             // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(21, 36);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(48, 13);
-            this.label11.TabIndex = 2;
-            this.label11.Text = "U xxxmV";
-            this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.label_cur_ua.AutoSize = true;
+            this.label_cur_ua.Location = new System.Drawing.Point(13, 36);
+            this.label_cur_ua.Margin = new System.Windows.Forms.Padding(0);
+            this.label_cur_ua.Name = "label_cur_ua";
+            this.label_cur_ua.Size = new System.Drawing.Size(48, 13);
+            this.label_cur_ua.TabIndex = 2;
+            this.label_cur_ua.Text = "U ---- mV";
+            this.label_cur_ua.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(6, 36);
+            this.label5.Location = new System.Drawing.Point(2, 36);
+            this.label5.Margin = new System.Windows.Forms.Padding(0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(16, 13);
             this.label5.TabIndex = 2;
@@ -713,11 +794,11 @@
             // 
             this.trackBar_ver_cur_a.AutoSize = false;
             this.trackBar_ver_cur_a.Dock = System.Windows.Forms.DockStyle.Right;
-            this.trackBar_ver_cur_a.Location = new System.Drawing.Point(141, 16);
+            this.trackBar_ver_cur_a.Location = new System.Drawing.Point(145, 16);
             this.trackBar_ver_cur_a.Maximum = 1024;
             this.trackBar_ver_cur_a.Name = "trackBar_ver_cur_a";
             this.trackBar_ver_cur_a.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trackBar_ver_cur_a.Size = new System.Drawing.Size(25, 89);
+            this.trackBar_ver_cur_a.Size = new System.Drawing.Size(23, 89);
             this.trackBar_ver_cur_a.TabIndex = 0;
             this.trackBar_ver_cur_a.TickStyle = System.Windows.Forms.TickStyle.None;
             this.trackBar_ver_cur_a.ValueChanged += new System.EventHandler(this.trackBar_ver_cur_a_ValueChanged);
@@ -726,11 +807,11 @@
             // 
             this.trackBar_ver_cur_b.AutoSize = false;
             this.trackBar_ver_cur_b.Dock = System.Windows.Forms.DockStyle.Right;
-            this.trackBar_ver_cur_b.Location = new System.Drawing.Point(166, 16);
+            this.trackBar_ver_cur_b.Location = new System.Drawing.Point(168, 16);
             this.trackBar_ver_cur_b.Maximum = 1024;
             this.trackBar_ver_cur_b.Name = "trackBar_ver_cur_b";
             this.trackBar_ver_cur_b.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trackBar_ver_cur_b.Size = new System.Drawing.Size(25, 89);
+            this.trackBar_ver_cur_b.Size = new System.Drawing.Size(23, 89);
             this.trackBar_ver_cur_b.TabIndex = 0;
             this.trackBar_ver_cur_b.TickStyle = System.Windows.Forms.TickStyle.None;
             this.trackBar_ver_cur_b.ValueChanged += new System.EventHandler(this.trackBar_ver_cur_b_ValueChanged);
@@ -738,7 +819,7 @@
             // groupBox_measure
             // 
             this.groupBox_measure.Controls.Add(this.checkBox10);
-            this.groupBox_measure.Controls.Add(this.checkBox5);
+            this.groupBox_measure.Controls.Add(this.checkBox_RMS);
             this.groupBox_measure.Controls.Add(this.checkBox9);
             this.groupBox_measure.Controls.Add(this.checkBox8);
             this.groupBox_measure.Controls.Add(this.checkBox4);
@@ -766,16 +847,16 @@
             this.checkBox10.Text = "Freq";
             this.checkBox10.UseVisualStyleBackColor = true;
             // 
-            // checkBox5
+            // checkBox_RMS
             // 
-            this.checkBox5.AutoSize = true;
-            this.checkBox5.Location = new System.Drawing.Point(9, 19);
-            this.checkBox5.Margin = new System.Windows.Forms.Padding(1);
-            this.checkBox5.Name = "checkBox5";
-            this.checkBox5.Size = new System.Drawing.Size(50, 17);
-            this.checkBox5.TabIndex = 1;
-            this.checkBox5.Text = "RMS";
-            this.checkBox5.UseVisualStyleBackColor = true;
+            this.checkBox_RMS.AutoSize = true;
+            this.checkBox_RMS.Location = new System.Drawing.Point(9, 19);
+            this.checkBox_RMS.Margin = new System.Windows.Forms.Padding(1);
+            this.checkBox_RMS.Name = "checkBox_RMS";
+            this.checkBox_RMS.Size = new System.Drawing.Size(50, 17);
+            this.checkBox_RMS.TabIndex = 1;
+            this.checkBox_RMS.Text = "RMS";
+            this.checkBox_RMS.UseVisualStyleBackColor = true;
             // 
             // checkBox9
             // 
@@ -899,11 +980,11 @@
             // label_volt_diff
             // 
             this.label_volt_diff.AutoSize = true;
-            this.label_volt_diff.Location = new System.Drawing.Point(34, 87);
+            this.label_volt_diff.Location = new System.Drawing.Point(29, 85);
             this.label_volt_diff.Name = "label_volt_diff";
-            this.label_volt_diff.Size = new System.Drawing.Size(51, 13);
+            this.label_volt_diff.Size = new System.Drawing.Size(54, 13);
             this.label_volt_diff.TabIndex = 2;
-            this.label_volt_diff.Text = "dU xxxxV";
+            this.label_volt_diff.Text = "dU ---- mV";
             this.label_volt_diff.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // trackBar_hor_cur_b
@@ -937,7 +1018,7 @@
             this.label_cur_u_b.Name = "label_cur_u_b";
             this.label_cur_u_b.Size = new System.Drawing.Size(48, 13);
             this.label_cur_u_b.TabIndex = 2;
-            this.label_cur_u_b.Text = "U xxxmV";
+            this.label_cur_u_b.Text = "U ---- mV";
             this.label_cur_u_b.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label8
@@ -967,7 +1048,7 @@
             this.label_cur_u_a.Name = "label_cur_u_a";
             this.label_cur_u_a.Size = new System.Drawing.Size(48, 13);
             this.label_cur_u_a.TabIndex = 2;
-            this.label_cur_u_a.Text = "U xxxmV";
+            this.label_cur_u_a.Text = "U ---- mV";
             this.label_cur_u_a.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // panel2
@@ -1281,7 +1362,7 @@
             this.tableLayoutPanel3.AutoSize = true;
             this.tableLayoutPanel3.BackColor = System.Drawing.SystemColors.Control;
             this.tableLayoutPanel3.ColumnCount = 1;
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel3.Controls.Add(this.trackBar_zoom, 0, 0);
             this.tableLayoutPanel3.Controls.Add(this.trackBar_position, 0, 3);
             this.tableLayoutPanel3.Controls.Add(this.label2, 0, 0);
@@ -1290,9 +1371,9 @@
             this.tableLayoutPanel3.Location = new System.Drawing.Point(153, 16);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 4;
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 29.16667F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 70.83334F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 18F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 17F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 38F));
+            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 17F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 38F));
             this.tableLayoutPanel3.Size = new System.Drawing.Size(158, 110);
             this.tableLayoutPanel3.TabIndex = 4;
@@ -1300,7 +1381,7 @@
             // trackBar_zoom
             // 
             this.trackBar_zoom.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.trackBar_zoom.Location = new System.Drawing.Point(3, 18);
+            this.trackBar_zoom.Location = new System.Drawing.Point(3, 20);
             this.trackBar_zoom.Maximum = 1024;
             this.trackBar_zoom.MaximumSize = new System.Drawing.Size(1024, 30);
             this.trackBar_zoom.Name = "trackBar_zoom";
@@ -1312,7 +1393,7 @@
             // trackBar_position
             // 
             this.trackBar_position.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.trackBar_position.Location = new System.Drawing.Point(3, 74);
+            this.trackBar_position.Location = new System.Drawing.Point(3, 75);
             this.trackBar_position.Maximum = 1024;
             this.trackBar_position.MaximumSize = new System.Drawing.Size(1024, 30);
             this.trackBar_position.Name = "trackBar_position";
@@ -1334,7 +1415,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(3, 53);
+            this.label1.Location = new System.Drawing.Point(3, 55);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(44, 13);
             this.label1.TabIndex = 2;
@@ -1693,13 +1774,468 @@
             // 
             // tabPage_LA
             // 
+            this.tabPage_LA.BackColor = System.Drawing.SystemColors.Control;
+            this.tabPage_LA.Controls.Add(this.tableLayoutPanel10);
             this.tabPage_LA.Location = new System.Drawing.Point(4, 22);
             this.tabPage_LA.Name = "tabPage_LA";
             this.tabPage_LA.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage_LA.Size = new System.Drawing.Size(826, 490);
             this.tabPage_LA.TabIndex = 2;
             this.tabPage_LA.Text = "Logic analyser";
-            this.tabPage_LA.UseVisualStyleBackColor = true;
+            // 
+            // tableLayoutPanel10
+            // 
+            this.tableLayoutPanel10.ColumnCount = 2;
+            this.tableLayoutPanel10.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel10.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 160F));
+            this.tableLayoutPanel10.Controls.Add(this.tableLayoutPanel11, 1, 0);
+            this.tableLayoutPanel10.Controls.Add(this.tableLayoutPanel12, 0, 0);
+            this.tableLayoutPanel10.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel10.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanel10.Name = "tableLayoutPanel10";
+            this.tableLayoutPanel10.RowCount = 1;
+            this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel10.Size = new System.Drawing.Size(820, 484);
+            this.tableLayoutPanel10.TabIndex = 0;
+            // 
+            // tableLayoutPanel11
+            // 
+            this.tableLayoutPanel11.ColumnCount = 1;
+            this.tableLayoutPanel11.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel11.Controls.Add(this.groupBox_log_an_chan, 0, 0);
+            this.tableLayoutPanel11.Controls.Add(this.groupBox1, 0, 2);
+            this.tableLayoutPanel11.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel11.Location = new System.Drawing.Point(660, 0);
+            this.tableLayoutPanel11.Margin = new System.Windows.Forms.Padding(0);
+            this.tableLayoutPanel11.Name = "tableLayoutPanel11";
+            this.tableLayoutPanel11.RowCount = 3;
+            this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 310F));
+            this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 120F));
+            this.tableLayoutPanel11.Size = new System.Drawing.Size(160, 484);
+            this.tableLayoutPanel11.TabIndex = 0;
+            // 
+            // groupBox_log_an_chan
+            // 
+            this.groupBox_log_an_chan.Controls.Add(this.label15);
+            this.groupBox_log_an_chan.Controls.Add(this.checkBox26);
+            this.groupBox_log_an_chan.Controls.Add(this.checkBox25);
+            this.groupBox_log_an_chan.Controls.Add(this.checkBox24);
+            this.groupBox_log_an_chan.Controls.Add(this.checkBox23);
+            this.groupBox_log_an_chan.Controls.Add(this.checkBox22);
+            this.groupBox_log_an_chan.Controls.Add(this.checkBox21);
+            this.groupBox_log_an_chan.Controls.Add(this.checkBox20);
+            this.groupBox_log_an_chan.Controls.Add(this.checkBox19);
+            this.groupBox_log_an_chan.Controls.Add(this.label14);
+            this.groupBox_log_an_chan.Controls.Add(this.checkBox18);
+            this.groupBox_log_an_chan.Controls.Add(this.checkBox17);
+            this.groupBox_log_an_chan.Controls.Add(this.checkBox16);
+            this.groupBox_log_an_chan.Controls.Add(this.checkBox15);
+            this.groupBox_log_an_chan.Controls.Add(this.checkBox14);
+            this.groupBox_log_an_chan.Controls.Add(this.checkBox13);
+            this.groupBox_log_an_chan.Controls.Add(this.checkBox12);
+            this.groupBox_log_an_chan.Controls.Add(this.checkBox11);
+            this.groupBox_log_an_chan.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox_log_an_chan.Location = new System.Drawing.Point(3, 3);
+            this.groupBox_log_an_chan.Name = "groupBox_log_an_chan";
+            this.groupBox_log_an_chan.Size = new System.Drawing.Size(154, 304);
+            this.groupBox_log_an_chan.TabIndex = 0;
+            this.groupBox_log_an_chan.TabStop = false;
+            this.groupBox_log_an_chan.Text = "Channel";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(98, 20);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(40, 13);
+            this.label15.TabIndex = 3;
+            this.label15.Text = "Trigger";
+            // 
+            // checkBox26
+            // 
+            this.checkBox26.AutoSize = true;
+            this.checkBox26.Location = new System.Drawing.Point(114, 278);
+            this.checkBox26.Margin = new System.Windows.Forms.Padding(10, 5, 5, 5);
+            this.checkBox26.Name = "checkBox26";
+            this.checkBox26.Size = new System.Drawing.Size(15, 14);
+            this.checkBox26.TabIndex = 2;
+            this.checkBox26.UseVisualStyleBackColor = true;
+            // 
+            // checkBox25
+            // 
+            this.checkBox25.AutoSize = true;
+            this.checkBox25.Location = new System.Drawing.Point(114, 245);
+            this.checkBox25.Margin = new System.Windows.Forms.Padding(10, 5, 5, 5);
+            this.checkBox25.Name = "checkBox25";
+            this.checkBox25.Size = new System.Drawing.Size(15, 14);
+            this.checkBox25.TabIndex = 2;
+            this.checkBox25.UseVisualStyleBackColor = true;
+            // 
+            // checkBox24
+            // 
+            this.checkBox24.AutoSize = true;
+            this.checkBox24.Location = new System.Drawing.Point(114, 212);
+            this.checkBox24.Margin = new System.Windows.Forms.Padding(10, 5, 5, 5);
+            this.checkBox24.Name = "checkBox24";
+            this.checkBox24.Size = new System.Drawing.Size(15, 14);
+            this.checkBox24.TabIndex = 2;
+            this.checkBox24.UseVisualStyleBackColor = true;
+            // 
+            // checkBox23
+            // 
+            this.checkBox23.AutoSize = true;
+            this.checkBox23.Location = new System.Drawing.Point(114, 179);
+            this.checkBox23.Margin = new System.Windows.Forms.Padding(10, 5, 5, 5);
+            this.checkBox23.Name = "checkBox23";
+            this.checkBox23.Size = new System.Drawing.Size(15, 14);
+            this.checkBox23.TabIndex = 2;
+            this.checkBox23.UseVisualStyleBackColor = true;
+            // 
+            // checkBox22
+            // 
+            this.checkBox22.AutoSize = true;
+            this.checkBox22.Location = new System.Drawing.Point(114, 146);
+            this.checkBox22.Margin = new System.Windows.Forms.Padding(10, 5, 5, 5);
+            this.checkBox22.Name = "checkBox22";
+            this.checkBox22.Size = new System.Drawing.Size(15, 14);
+            this.checkBox22.TabIndex = 2;
+            this.checkBox22.UseVisualStyleBackColor = true;
+            // 
+            // checkBox21
+            // 
+            this.checkBox21.AutoSize = true;
+            this.checkBox21.Location = new System.Drawing.Point(114, 113);
+            this.checkBox21.Margin = new System.Windows.Forms.Padding(10, 5, 5, 5);
+            this.checkBox21.Name = "checkBox21";
+            this.checkBox21.Size = new System.Drawing.Size(15, 14);
+            this.checkBox21.TabIndex = 2;
+            this.checkBox21.UseVisualStyleBackColor = true;
+            // 
+            // checkBox20
+            // 
+            this.checkBox20.AutoSize = true;
+            this.checkBox20.Location = new System.Drawing.Point(114, 80);
+            this.checkBox20.Margin = new System.Windows.Forms.Padding(10, 5, 5, 5);
+            this.checkBox20.Name = "checkBox20";
+            this.checkBox20.Size = new System.Drawing.Size(15, 14);
+            this.checkBox20.TabIndex = 2;
+            this.checkBox20.UseVisualStyleBackColor = true;
+            // 
+            // checkBox19
+            // 
+            this.checkBox19.AutoSize = true;
+            this.checkBox19.Location = new System.Drawing.Point(114, 47);
+            this.checkBox19.Margin = new System.Windows.Forms.Padding(10, 5, 5, 5);
+            this.checkBox19.Name = "checkBox19";
+            this.checkBox19.Size = new System.Drawing.Size(15, 14);
+            this.checkBox19.TabIndex = 2;
+            this.checkBox19.UseVisualStyleBackColor = true;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(32, 20);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(40, 13);
+            this.label14.TabIndex = 1;
+            this.label14.Text = "Enable";
+            // 
+            // checkBox18
+            // 
+            this.checkBox18.Appearance = System.Windows.Forms.Appearance.Button;
+            this.checkBox18.AutoSize = true;
+            this.checkBox18.ForeColor = System.Drawing.Color.Purple;
+            this.checkBox18.Location = new System.Drawing.Point(20, 273);
+            this.checkBox18.Margin = new System.Windows.Forms.Padding(5);
+            this.checkBox18.Name = "checkBox18";
+            this.checkBox18.Size = new System.Drawing.Size(65, 23);
+            this.checkBox18.TabIndex = 0;
+            this.checkBox18.Text = "Channel 7";
+            this.checkBox18.UseVisualStyleBackColor = true;
+            // 
+            // checkBox17
+            // 
+            this.checkBox17.Appearance = System.Windows.Forms.Appearance.Button;
+            this.checkBox17.AutoSize = true;
+            this.checkBox17.ForeColor = System.Drawing.Color.Indigo;
+            this.checkBox17.Location = new System.Drawing.Point(20, 240);
+            this.checkBox17.Margin = new System.Windows.Forms.Padding(5);
+            this.checkBox17.Name = "checkBox17";
+            this.checkBox17.Size = new System.Drawing.Size(65, 23);
+            this.checkBox17.TabIndex = 0;
+            this.checkBox17.Text = "Channel 6";
+            this.checkBox17.UseVisualStyleBackColor = true;
+            // 
+            // checkBox16
+            // 
+            this.checkBox16.Appearance = System.Windows.Forms.Appearance.Button;
+            this.checkBox16.AutoSize = true;
+            this.checkBox16.ForeColor = System.Drawing.Color.Blue;
+            this.checkBox16.Location = new System.Drawing.Point(20, 207);
+            this.checkBox16.Margin = new System.Windows.Forms.Padding(5);
+            this.checkBox16.Name = "checkBox16";
+            this.checkBox16.Size = new System.Drawing.Size(65, 23);
+            this.checkBox16.TabIndex = 0;
+            this.checkBox16.Text = "Channel 5";
+            this.checkBox16.UseVisualStyleBackColor = true;
+            // 
+            // checkBox15
+            // 
+            this.checkBox15.Appearance = System.Windows.Forms.Appearance.Button;
+            this.checkBox15.AutoSize = true;
+            this.checkBox15.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
+            this.checkBox15.Location = new System.Drawing.Point(20, 174);
+            this.checkBox15.Margin = new System.Windows.Forms.Padding(5);
+            this.checkBox15.Name = "checkBox15";
+            this.checkBox15.Size = new System.Drawing.Size(65, 23);
+            this.checkBox15.TabIndex = 0;
+            this.checkBox15.Text = "Channel 4";
+            this.checkBox15.UseVisualStyleBackColor = true;
+            // 
+            // checkBox14
+            // 
+            this.checkBox14.Appearance = System.Windows.Forms.Appearance.Button;
+            this.checkBox14.AutoSize = true;
+            this.checkBox14.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.checkBox14.Location = new System.Drawing.Point(20, 141);
+            this.checkBox14.Margin = new System.Windows.Forms.Padding(5);
+            this.checkBox14.Name = "checkBox14";
+            this.checkBox14.Size = new System.Drawing.Size(65, 23);
+            this.checkBox14.TabIndex = 0;
+            this.checkBox14.Text = "Channel 3";
+            this.checkBox14.UseVisualStyleBackColor = true;
+            // 
+            // checkBox13
+            // 
+            this.checkBox13.Appearance = System.Windows.Forms.Appearance.Button;
+            this.checkBox13.AutoSize = true;
+            this.checkBox13.ForeColor = System.Drawing.Color.Olive;
+            this.checkBox13.Location = new System.Drawing.Point(20, 108);
+            this.checkBox13.Margin = new System.Windows.Forms.Padding(5);
+            this.checkBox13.Name = "checkBox13";
+            this.checkBox13.Size = new System.Drawing.Size(65, 23);
+            this.checkBox13.TabIndex = 0;
+            this.checkBox13.Text = "Channel 2";
+            this.checkBox13.UseVisualStyleBackColor = true;
+            // 
+            // checkBox12
+            // 
+            this.checkBox12.Appearance = System.Windows.Forms.Appearance.Button;
+            this.checkBox12.AutoSize = true;
+            this.checkBox12.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
+            this.checkBox12.Location = new System.Drawing.Point(20, 75);
+            this.checkBox12.Margin = new System.Windows.Forms.Padding(5);
+            this.checkBox12.Name = "checkBox12";
+            this.checkBox12.Size = new System.Drawing.Size(65, 23);
+            this.checkBox12.TabIndex = 0;
+            this.checkBox12.Text = "Channel 1";
+            this.checkBox12.UseVisualStyleBackColor = true;
+            // 
+            // checkBox11
+            // 
+            this.checkBox11.Appearance = System.Windows.Forms.Appearance.Button;
+            this.checkBox11.AutoSize = true;
+            this.checkBox11.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.checkBox11.Location = new System.Drawing.Point(20, 42);
+            this.checkBox11.Margin = new System.Windows.Forms.Padding(5);
+            this.checkBox11.Name = "checkBox11";
+            this.checkBox11.Size = new System.Drawing.Size(65, 23);
+            this.checkBox11.TabIndex = 0;
+            this.checkBox11.Text = "Channel 0";
+            this.checkBox11.UseVisualStyleBackColor = true;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.checkBox28);
+            this.groupBox1.Controls.Add(this.checkBox27);
+            this.groupBox1.Controls.Add(this.label19);
+            this.groupBox1.Controls.Add(this.label16);
+            this.groupBox1.Controls.Add(this.radioButton2);
+            this.groupBox1.Controls.Add(this.radioButton1);
+            this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox1.Location = new System.Drawing.Point(3, 367);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(154, 114);
+            this.groupBox1.TabIndex = 1;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Trigger";
+            // 
+            // checkBox28
+            // 
+            this.checkBox28.Appearance = System.Windows.Forms.Appearance.Button;
+            this.checkBox28.Checked = true;
+            this.checkBox28.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.checkBox28.Location = new System.Drawing.Point(88, 45);
+            this.checkBox28.Name = "checkBox28";
+            this.checkBox28.Size = new System.Drawing.Size(50, 24);
+            this.checkBox28.TabIndex = 2;
+            this.checkBox28.Text = "OR";
+            this.checkBox28.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.checkBox28.UseVisualStyleBackColor = true;
+            // 
+            // checkBox27
+            // 
+            this.checkBox27.Appearance = System.Windows.Forms.Appearance.Button;
+            this.checkBox27.Location = new System.Drawing.Point(88, 75);
+            this.checkBox27.Name = "checkBox27";
+            this.checkBox27.Size = new System.Drawing.Size(50, 24);
+            this.checkBox27.TabIndex = 2;
+            this.checkBox27.Text = "AND";
+            this.checkBox27.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.checkBox27.UseVisualStyleBackColor = true;
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(95, 26);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(33, 13);
+            this.label19.TabIndex = 1;
+            this.label19.Text = "Logic";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(26, 26);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(32, 13);
+            this.label16.TabIndex = 1;
+            this.label16.Text = "Edge";
+            // 
+            // radioButton2
+            // 
+            this.radioButton2.Appearance = System.Windows.Forms.Appearance.Button;
+            this.radioButton2.Location = new System.Drawing.Point(18, 75);
+            this.radioButton2.Name = "radioButton2";
+            this.radioButton2.Size = new System.Drawing.Size(50, 24);
+            this.radioButton2.TabIndex = 0;
+            this.radioButton2.Text = "Fall";
+            this.radioButton2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.radioButton2.UseVisualStyleBackColor = true;
+            // 
+            // radioButton1
+            // 
+            this.radioButton1.Appearance = System.Windows.Forms.Appearance.Button;
+            this.radioButton1.Checked = true;
+            this.radioButton1.Location = new System.Drawing.Point(18, 45);
+            this.radioButton1.Name = "radioButton1";
+            this.radioButton1.Size = new System.Drawing.Size(50, 24);
+            this.radioButton1.TabIndex = 0;
+            this.radioButton1.TabStop = true;
+            this.radioButton1.Text = "Rise";
+            this.radioButton1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.radioButton1.UseVisualStyleBackColor = true;
+            // 
+            // tableLayoutPanel12
+            // 
+            this.tableLayoutPanel12.ColumnCount = 1;
+            this.tableLayoutPanel12.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel12.Controls.Add(this.zedGraphControl_log_analyser, 0, 0);
+            this.tableLayoutPanel12.Controls.Add(this.groupBox2, 0, 1);
+            this.tableLayoutPanel12.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel12.Location = new System.Drawing.Point(0, 0);
+            this.tableLayoutPanel12.Margin = new System.Windows.Forms.Padding(0);
+            this.tableLayoutPanel12.Name = "tableLayoutPanel12";
+            this.tableLayoutPanel12.RowCount = 2;
+            this.tableLayoutPanel12.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel12.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 120F));
+            this.tableLayoutPanel12.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel12.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel12.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel12.Size = new System.Drawing.Size(660, 484);
+            this.tableLayoutPanel12.TabIndex = 1;
+            // 
+            // zedGraphControl_log_analyser
+            // 
+            this.zedGraphControl_log_analyser.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.zedGraphControl_log_analyser.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.zedGraphControl_log_analyser.Font = new System.Drawing.Font("Microsoft Sans Serif", 7F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.World);
+            this.zedGraphControl_log_analyser.IsEnableVZoom = false;
+            this.zedGraphControl_log_analyser.Location = new System.Drawing.Point(2, 2);
+            this.zedGraphControl_log_analyser.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.zedGraphControl_log_analyser.Name = "zedGraphControl_log_analyser";
+            this.zedGraphControl_log_analyser.Padding = new System.Windows.Forms.Padding(3);
+            this.zedGraphControl_log_analyser.ScrollGrace = 0D;
+            this.zedGraphControl_log_analyser.ScrollMaxX = 0D;
+            this.zedGraphControl_log_analyser.ScrollMaxY = 0D;
+            this.zedGraphControl_log_analyser.ScrollMaxY2 = 0D;
+            this.zedGraphControl_log_analyser.ScrollMinX = 0D;
+            this.zedGraphControl_log_analyser.ScrollMinY = 0D;
+            this.zedGraphControl_log_analyser.ScrollMinY2 = 0D;
+            this.zedGraphControl_log_analyser.Size = new System.Drawing.Size(656, 360);
+            this.zedGraphControl_log_analyser.TabIndex = 5;
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.tableLayoutPanel13);
+            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBox2.Location = new System.Drawing.Point(3, 367);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(654, 114);
+            this.groupBox2.TabIndex = 4;
+            this.groupBox2.TabStop = false;
+            // 
+            // tableLayoutPanel13
+            // 
+            this.tableLayoutPanel13.ColumnCount = 1;
+            this.tableLayoutPanel13.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel13.Controls.Add(this.label25, 0, 0);
+            this.tableLayoutPanel13.Controls.Add(this.trackBar2, 0, 3);
+            this.tableLayoutPanel13.Controls.Add(this.trackBar1, 0, 1);
+            this.tableLayoutPanel13.Controls.Add(this.label24, 0, 2);
+            this.tableLayoutPanel13.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel13.Location = new System.Drawing.Point(3, 16);
+            this.tableLayoutPanel13.Margin = new System.Windows.Forms.Padding(0);
+            this.tableLayoutPanel13.Name = "tableLayoutPanel13";
+            this.tableLayoutPanel13.RowCount = 4;
+            this.tableLayoutPanel13.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.tableLayoutPanel13.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel13.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
+            this.tableLayoutPanel13.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.tableLayoutPanel13.Size = new System.Drawing.Size(648, 95);
+            this.tableLayoutPanel13.TabIndex = 0;
+            // 
+            // label25
+            // 
+            this.label25.AutoSize = true;
+            this.label25.Location = new System.Drawing.Point(3, 0);
+            this.label25.Name = "label25";
+            this.label25.Size = new System.Drawing.Size(34, 13);
+            this.label25.TabIndex = 3;
+            this.label25.Text = "Zoom";
+            // 
+            // trackBar2
+            // 
+            this.trackBar2.AutoSize = false;
+            this.trackBar2.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.trackBar2.Location = new System.Drawing.Point(3, 64);
+            this.trackBar2.Maximum = 1000;
+            this.trackBar2.Name = "trackBar2";
+            this.trackBar2.Size = new System.Drawing.Size(642, 28);
+            this.trackBar2.TabIndex = 1;
+            this.trackBar2.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.trackBar2.Value = 500;
+            // 
+            // trackBar1
+            // 
+            this.trackBar1.AutoSize = false;
+            this.trackBar1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.trackBar1.Location = new System.Drawing.Point(3, 18);
+            this.trackBar1.Maximum = 1000;
+            this.trackBar1.Name = "trackBar1";
+            this.trackBar1.Size = new System.Drawing.Size(642, 25);
+            this.trackBar1.TabIndex = 0;
+            this.trackBar1.TickStyle = System.Windows.Forms.TickStyle.None;
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(3, 46);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(44, 13);
+            this.label24.TabIndex = 4;
+            this.label24.Text = "Position";
             // 
             // statusStrip1
             // 
@@ -1742,15 +2278,6 @@
             this.toolStripProgressBar1.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.toolStripProgressBar1.Name = "toolStripProgressBar1";
             this.toolStripProgressBar1.Size = new System.Drawing.Size(100, 16);
-            // 
-            // label_cur_freq
-            // 
-            this.label_cur_freq.AutoSize = true;
-            this.label_cur_freq.Location = new System.Drawing.Point(10, 70);
-            this.label_cur_freq.Name = "label_cur_freq";
-            this.label_cur_freq.Size = new System.Drawing.Size(49, 13);
-            this.label_cur_freq.TabIndex = 3;
-            this.label_cur_freq.Text = "f xxxx Hz";
             // 
             // Form1
             // 
@@ -1810,6 +2337,19 @@
             this.groupBox_trigger.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar_pretrig)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar_trig_level)).EndInit();
+            this.tabPage_LA.ResumeLayout(false);
+            this.tableLayoutPanel10.ResumeLayout(false);
+            this.tableLayoutPanel11.ResumeLayout(false);
+            this.groupBox_log_an_chan.ResumeLayout(false);
+            this.groupBox_log_an_chan.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            this.tableLayoutPanel12.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
+            this.tableLayoutPanel13.ResumeLayout(false);
+            this.tableLayoutPanel13.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -1856,7 +2396,7 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
         private System.Windows.Forms.GroupBox groupBox_measure;
         private System.Windows.Forms.CheckBox checkBox10;
-        private System.Windows.Forms.CheckBox checkBox5;
+        private System.Windows.Forms.CheckBox checkBox_RMS;
         private System.Windows.Forms.CheckBox checkBox9;
         private System.Windows.Forms.CheckBox checkBox8;
         private System.Windows.Forms.CheckBox checkBox4;
@@ -1870,15 +2410,15 @@
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel_device;
         private System.Windows.Forms.TrackBar trackBar_ver_cur_a;
         private System.Windows.Forms.TrackBar trackBar_ver_cur_b;
-        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label_cur_du;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.CheckBox checkBox_ver_cur_en;
         private System.Windows.Forms.Label label_time_diff;
         private System.Windows.Forms.Label label_cur_time_b;
         private System.Windows.Forms.Label label_cur_time_a;
-        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label label_cur_ub;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label_cur_ua;
         private System.Windows.Forms.TrackBar trackBar_hor_cur_a;
         private System.Windows.Forms.Label label_volt_diff;
         private System.Windows.Forms.TrackBar trackBar_hor_cur_b;
@@ -1946,6 +2486,44 @@
         private System.Windows.Forms.RadioButton radioButton_trig_single;
         private System.Windows.Forms.TrackBar trackBar_vol_level;
         private System.Windows.Forms.Label label_cur_freq;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel10;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel11;
+        private System.Windows.Forms.GroupBox groupBox_log_an_chan;
+        private System.Windows.Forms.CheckBox checkBox18;
+        private System.Windows.Forms.CheckBox checkBox17;
+        private System.Windows.Forms.CheckBox checkBox16;
+        private System.Windows.Forms.CheckBox checkBox15;
+        private System.Windows.Forms.CheckBox checkBox14;
+        private System.Windows.Forms.CheckBox checkBox13;
+        private System.Windows.Forms.CheckBox checkBox12;
+        private System.Windows.Forms.CheckBox checkBox11;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.CheckBox checkBox26;
+        private System.Windows.Forms.CheckBox checkBox25;
+        private System.Windows.Forms.CheckBox checkBox24;
+        private System.Windows.Forms.CheckBox checkBox23;
+        private System.Windows.Forms.CheckBox checkBox22;
+        private System.Windows.Forms.CheckBox checkBox21;
+        private System.Windows.Forms.CheckBox checkBox20;
+        private System.Windows.Forms.CheckBox checkBox19;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.RadioButton radioButton2;
+        private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.CheckBox checkBox28;
+        private System.Windows.Forms.CheckBox checkBox27;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel12;
+        private ZedGraph.ZedGraphControl zedGraphControl_log_analyser;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel13;
+        private System.Windows.Forms.Label label25;
+        private System.Windows.Forms.TrackBar trackBar2;
+        private System.Windows.Forms.TrackBar trackBar1;
+        private System.Windows.Forms.Label label24;
     }
 }
 

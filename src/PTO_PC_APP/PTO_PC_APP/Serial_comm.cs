@@ -110,7 +110,7 @@ namespace PTO_PC_APP
             if (!connected)
             {   
                 SerialPort serialPort = new SerialPort();
-                serialPort.ReadBufferSize = 1048576;
+                serialPort.ReadBufferSize = 128*1024;
                 serialPort.BaudRate = 115200;
                 this.connectingInProgress = true;
                 this.error = 0;

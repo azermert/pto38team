@@ -6,6 +6,7 @@ using System.IO.Ports;
 using System.Xml;
 using System.Windows.Forms;
 using System.Threading;
+using System.Diagnostics;
 
 namespace PTO_PC_APP
 {
@@ -31,6 +32,9 @@ namespace PTO_PC_APP
         private bool newScopeData=false;
         private byte[] scopeBuffer;
 
+        int count = 0;
+        Stopwatch st;
+
 
         public Device(SerialPort port, string name, string processor, string version)
         {
@@ -55,7 +59,7 @@ namespace PTO_PC_APP
                 default:
                     break;
             }
-
+            tic();
             this.version = version;
             this.port.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.serialPort_DataReceived);
             this.port.ErrorReceived += new System.IO.Ports.SerialErrorReceivedEventHandler(this.serialPort_ErrorReceived);
@@ -172,6 +176,7 @@ namespace PTO_PC_APP
 
         private void serialPort_DataReceived(object sender, SerialDataReceivedEventArgs e){
             char input;
+         //  tic();
             while (port.IsOpen && port.BytesToRead > 0)
             {
                 while (port.BytesToRead > 0)
@@ -180,9 +185,12 @@ namespace PTO_PC_APP
                     msg += input;
                     if (msg.Length == 4)
                     {
+                    //    Console.WriteLine(msg);
                         break;
                     }
+                //    Thread.Yield();
                 }
+             //   toc("cmd read");
                 if (msg.Length > 4)
                 {
                     msg = msg.Substring(0, 4);
@@ -198,34 +206,38 @@ namespace PTO_PC_APP
                         case Defines.SCOPE_8BIT:
                             input = (char)(port.ReadChar()-48);
                             string leng="";
-                           // Console.WriteLine("new");
+                            count++;
+                       //    toc("new OSCP "+count+" - ");
 
                             for(;input>0;input--){
                                 leng+=""+(port.ReadChar() - 48);
                             }
                            // Console.WriteLine(leng);
                             int delka = int.Parse(leng);
-
+                            
 
                             int wd = 0;
                             while (port.IsOpen && port.BytesToRead < delka) {
-                                Thread.Sleep(1);
+                                //Thread.Yield();
                                 wd++;
-                                if (wd > 1000) {
+                               //toc("sleep");
+                                if (wd > 500) {
                                     break;
                                 }
                             }
                             if (!port.IsOpen) {
                                 break;
                             }
+                          //  toc("data ready");
                             port.Read(scopeBuffer, 0, delka);
+                           // Array.Copy(actualScopeData, test, delka);
+                          // toc("New data read");
                             newScopeData = true;
                         
                             break;
                         case Defines.ERROR:
                             break;
                         case Defines.ACKNOWLEDGE:
-                            int k = 0;
                             break;
 
                         default:
@@ -240,7 +252,10 @@ namespace PTO_PC_APP
                 {
                     msg = msg.Substring(1, 3);
                 }
+
+                Thread.Yield();
             }
+       //     toc("COmm pause");
         }
 
         private void serialPort_ErrorReceived(object sender, System.IO.Ports.SerialErrorReceivedEventArgs e)
@@ -250,7 +265,18 @@ namespace PTO_PC_APP
 
 
 
-        
+        private void tic()
+        {
+            st = new Stopwatch();
+            st.Start();
+        }
+
+        private void toc(string s)
+        {
+            st.Stop();
+            Console.WriteLine(s + " " + st.ElapsedMilliseconds.ToString() + "ms");
+            st.Start();
+        }    
 
 
 

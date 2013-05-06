@@ -20,52 +20,17 @@ namespace PTO_PC_APP
         Serial_comm sc = new Serial_comm();
         System.Timers.Timer GUITimer = new System.Timers.Timer(50);
         Thread comm;
-        Thread scope_zed;
-        enum paintMode { IDLE,SEARCHING,DEV_FOUND,CONNECTING,DISCONECTED,CONNECTED,COMM_ERR,SCOPE };
-        paintMode mode;
+        Thread scope_th;
+        Scope_thread scope;
+        //enum paintMode { IDLE,SEARCHING,DEV_FOUND,CONNECTING,DISCONECTED,CONNECTED,COMM_ERR,SCOPE };
+        //paintMode mode;
 
-        //scope promenne
-        GraphPane scopePane;
+        Paint_mode.Mode mode;
 
-        int trig_level = 0;
-        int pretrig = 100;
-        int buffLenght = 0;
-        double scale = 1;
-        double horPosition = 0.5;
-
-        double verPosition = 0;
-        double accuracy = 0;  //prepocet z bitu na volty
-        double range = 5;
-        int maxRange = 5; //V;
-
-        bool horCurEN = false;
-        double horCursorA = 0;
-        double horCursorB = 0;
-        string timeA = "";
-        string timeB = "";
-        string timeDif = "";
-        string freq = "";
-
-
-        bool verCurEN = false;
-        double verCursorA = 0;
-        double verCursorB = 0;
-        string voltA = "";
-        string voltB = "";
-        string voltDif = "";
-        int samplingfreq = 10000;
-        double[] signal;
-        byte[] meas;
-        double[] time;
-        double maxTime = 0;
 
         Stopwatch stopWatch;
-
-
         private int watchdog = 0;
-
-        
-
+       
         public Form1()
         {
             InitializeComponent();
@@ -76,172 +41,56 @@ namespace PTO_PC_APP
 
             zedGraphControl_scope.MasterPane[0].YAxis.MajorGrid.IsVisible = true;
             zedGraphControl_scope.MasterPane[0].YAxis.Title.IsVisible = false;
-
-            scopePane = zedGraphControl_scope.GraphPane;
+            scope = new Scope_thread();
 
             this.panel5.Enabled = false;
-            
 
             GUITimer.Elapsed += new ElapsedEventHandler(Update_GUI);
             GUITimer.Interval = 50;
 
             comm = new Thread(new ThreadStart(sc.comm_run));
-            scope_zed = new Thread(new ThreadStart(zed_scope_thread));
-            mode = paintMode.IDLE;
-
-            this.trig_level = this.trackBar_trig_level.Value;
-            this.pretrig = this.trackBar_pretrig.Value;
-
-            
+            scope_th = new Thread(new ThreadStart(scope.run));
+            mode = Paint_mode.Mode.IDLE;
+            scope.scopePane = zedGraphControl_scope.GraphPane;
+            scope.trig_level = this.trackBar_trig_level.Value;
+            scope.pretrig = this.trackBar_pretrig.Value;
+ 
             comm.Start();
+
         }
 
-        public void zed_scope_thread() {
-            while(this.mode==paintMode.SCOPE){
-                if (sc.is_connected() && sc.is_new_scope_data())
-                {
-                    generate_time_base(samplingfreq, buffLenght);
-                    meas = sc.get_scope_data();
-                    for (int i = 0; i < buffLenght; i++) {
-                        signal[i] = accuracy * meas[i] / 1000;
-                    }
-                }
 
-                //osy grafu
-                scopePane.YAxis.Scale.MaxAuto = false;
-                scopePane.YAxis.Scale.MinAuto = false;
-
-                scopePane.XAxis.Scale.MaxAuto = false;
-                scopePane.XAxis.Scale.MinAuto = false;
-
-                double interval = scale * maxTime;
-                double posmin = (interval / 2) ;
-                double posScale = (maxTime - interval) / maxTime;
-
-                double maxX = (maxTime) * horPosition * posScale + posmin + interval / 2;
-                double minX = (maxTime) * horPosition * posScale + posmin - interval / 2;
-
-                interval = range;
-                posmin = (interval / 2) ;
-                posScale = (maxRange - interval) / maxRange;
-
-                double maxY = maxRange * verPosition * posScale + posmin + interval / 2;
-                double minY = maxRange * verPosition * posScale + posmin - interval / 2;
-
-                scopePane.XAxis.Scale.Max = maxX;
-                scopePane.XAxis.Scale.Min = minX;
-
-                scopePane.YAxis.Scale.Max = maxY;
-                scopePane.YAxis.Scale.Min = minY;
-
-                //vykresleni prubehu
-                scopePane.CurveList.Clear();
-                LineItem curve = scopePane.AddCurve("", time, signal, Color.Red, SymbolType.Diamond);
-                curve.Symbol.Size = 2;
-                curve.Line.IsSmooth = true;
-                curve.Line.SmoothTension = 0.5F;
-
-                //zoom position
-                PointPairList list1 = new PointPairList();
-                list1.Add( (maxTime) * horPosition,maxY);
-                curve = scopePane.AddCurve("", list1, Color.Red, SymbolType.TriangleDown);
-                curve.Symbol.Size = 15;
-                curve.Symbol.Fill.Color = Color.Red;
-                curve.Symbol.Fill.IsVisible = true;
-
-                //trigger time
-                list1 = new PointPairList();
-                list1.Add((maxTime) * pretrig/100, maxY);
-                curve = scopePane.AddCurve("", list1, Color.Blue, SymbolType.TriangleDown);
-                curve.Symbol.Size = 20;
-                curve.Symbol.Fill.Color = Color.Blue;
-                curve.Symbol.Fill.IsVisible = true;
-
-                //triggerlevel
-                list1 = new PointPairList();
-                list1.Add(minX, trig_level/16*accuracy/1000);
-                curve=scopePane.AddCurve("", list1, Color.Green, SymbolType.Diamond);
-                curve.Symbol.Size = 15;
-                curve.Symbol.Fill.Color = Color.Green;
-                curve.Symbol.Fill.IsVisible = true;
-
-                //kurzory
-                if (horCurEN) {
-                    double uA = horCursorA * maxY + (1 - horCursorA) * minY;
-                    double uB = horCursorB * maxY + (1 - horCursorB) * minY;
-                    double ud = uA - uB;
-                    this.voltDif = "dU " + (Math.Round(ud * 1000, 2)).ToString() + " mV";
-                    this.voltA = "U " + (Math.Round(uA * 1000, 2)).ToString() + " mV";
-                    this.voltB = "U " + (Math.Round(uB * 1000, 2)).ToString() + " mV";
-
-                    list1 = new PointPairList();
-                    list1.Add(minX, uA);
-                    list1.Add(maxX, uA);
-                    curve = scopePane.AddCurve("", list1, Color.DarkBlue, SymbolType.HDash);
-                    curve.Symbol.Size = 0;
-                    curve.Line.IsSmooth = true;
-                    
-
-                    list1 = new PointPairList();
-                    list1.Add(minX, uB);
-                    list1.Add(maxX, uB);
-                    curve = scopePane.AddCurve("", list1, Color.DarkBlue, SymbolType.HDash);
-                    curve.Symbol.Size = 0;
-                    curve.Line.IsSmooth = true;
-                }
-
-                if (verCurEN)
-                {
-                    double tA = verCursorA * maxX + (1 - verCursorA) * minX;
-                    double tB = verCursorB * maxX + (1 - verCursorB) * minX;
-                    double td = tA - tB;
-                    double f = 1 / td;
-                    this.timeDif = "dt " + (Math.Round(td * 1000, 3)).ToString() + " ms";
-                    this.timeA = "t " + (Math.Round(tA * 1000, 3)).ToString() + " ms";
-                    this.timeB = "t " + (Math.Round(tB * 1000, 3)).ToString() + " ms";
-                    this.freq = "f= " + Math.Abs((Math.Round(f / 1000, 3))).ToString() + " kHz";
-                    
-                    list1 = new PointPairList();
-                    list1.Add(tA, minY);
-                    list1.Add(tA, maxY);
-                    curve = scopePane.AddCurve("", list1, Color.DarkBlue, SymbolType.HDash);
-                    curve.Symbol.Size = 0;
-                    curve.Line.IsSmooth = true;
-                    
-
-                    list1 = new PointPairList();
-                    list1.Add(tB, minY);
-                    list1.Add(tB, maxY);
-                    curve = scopePane.AddCurve("", list1, Color.DarkBlue, SymbolType.HDash);
-                    curve.Symbol.Size = 0;
-                    curve.Line.IsSmooth = true;
-                    
-                }
-
-
-                zedGraphControl_scope.AxisChange();
-                Invalidate();
-                zedGraphControl_scope.Invalidate();
-                
-                Thread.Yield();
-                Thread.Sleep(10);
+        private void Update_GUI(object sender, ElapsedEventArgs e)
+        {
+            if (sc.is_connected() && sc.is_new_scope_data())
+            {
+                scope.new_data(sc.get_scope_data());
             }
+            if (mode == Paint_mode.Mode.SCOPE)
+            {
+                if (scope.is_invalid())
+                {
+                    //zedGraphControl_scope.AxisChange();
+                    zedGraphControl_scope.Invalidate();
+                }
+            }
+            this.Invalidate();
+
+
         }
 
-        private void Update_GUI(object sender, ElapsedEventArgs e) {
-            this.Invalidate();
-        }
 
 
         protected override void OnPaint(PaintEventArgs e)
         {
             switch (mode)
             {
-                case paintMode.IDLE:
+                    
+                case Paint_mode.Mode.IDLE:
                     break;
 
 
-                case paintMode.SEARCHING:
+                case Paint_mode.Mode.SEARCHING:
                     if (sc.is_connecting_in_progress())
                     {
                         this.button_connect.Enabled = false;
@@ -252,13 +101,13 @@ namespace PTO_PC_APP
                     {
                         if (sc.is_new_devices())
                         {
-                            this.mode = paintMode.DEV_FOUND;
+                            this.mode = Paint_mode.Mode.DEV_FOUND;
                         }
                     }
                     break;
 
 
-                case paintMode.DEV_FOUND:
+                case Paint_mode.Mode.DEV_FOUND:
                     if (sc.is_new_devices())
                     {
                         if (sc.get_num_of_devices() > 0)
@@ -280,16 +129,16 @@ namespace PTO_PC_APP
                     break;
 
 
-                case paintMode.CONNECTING:
+                case Paint_mode.Mode.CONNECTING:
                     if (sc.is_connected())
                     {
-                        this.mode = paintMode.CONNECTED;
+                        this.mode = Paint_mode.Mode.CONNECTED;
                     }
                     else {
                         watchdog++;
                         if (watchdog > 20) {
                             watchdog = 0;
-                            this.mode = paintMode.COMM_ERR;
+                            this.mode = Paint_mode.Mode.COMM_ERR;
                             comm_error();
                             sc.disconnect_device();
                         }
@@ -297,57 +146,59 @@ namespace PTO_PC_APP
                     break;
 
 
-                case paintMode.CONNECTED:
+                case Paint_mode.Mode.CONNECTED:
                     connected();
+                    validate_general();
                     validate_scope();
-                    this.mode = paintMode.IDLE;
+                    this.mode = Paint_mode.Mode.IDLE;
                     break;
-                case paintMode.DISCONECTED:
-                    break;
-
-                case paintMode.COMM_ERR:
+                case Paint_mode.Mode.DISCONECTED:
                     break;
 
-                case paintMode.SCOPE:
-                    if (verCurEN) {
-                        this.label_cur_time_a.Text = timeA;
-                        this.label_cur_time_b.Text = timeB;
-                        this.label_time_diff.Text = timeDif;
-                        this.label_cur_freq.Text = freq;
+                case Paint_mode.Mode.COMM_ERR:
+                    break;
+
+                case Paint_mode.Mode.SCOPE:
+                    if (scope.verCurEN) {
+                        this.label_cur_time_a.Text = scope.timeA;
+                        this.label_cur_time_b.Text = scope.timeB;
+                        this.label_time_diff.Text = scope.timeDif;
+                        this.label_cur_freq.Text = scope.freq;
+                        this.label_cur_ua.Text = scope.UA;
+                        this.label_cur_ub.Text = scope.UB;
+                        this.label_cur_du.Text = scope.DiffU;
                     }
-
-                    if (horCurEN) { 
-                        this.label_volt_diff.Text = voltDif;
-                        this.label_cur_u_a.Text = voltA;
-                        this.label_cur_u_b.Text = voltB;
+                    if (scope.horCurEN)
+                    {
+                        this.label_volt_diff.Text = scope.voltDif;
+                        this.label_cur_u_a.Text = scope.voltA;
+                        this.label_cur_u_b.Text = scope.voltB;
                     }
+                    if (this.checkBox_RMS.Checked) { 
+                        double RMS=0;
+                        for (int i = 0; i < scope.buffLenght; i++)
+                        {
+                            RMS += scope.signal[i] * scope.signal[i];
+                        }
+                        RMS = Math.Sqrt(RMS / scope.buffLenght);
 
+                        this.checkBox_RMS.Text = "RMS " + (Math.Round(RMS, 3)).ToString()+" V";
+                    }
+                    
+                    zedGraphControl_scope.Refresh();
                     break;
-
-
                 default:
                     break;
             }
+
         }
-
-        //vypocet casove zakladny
-        private void generate_time_base(int sampling, int lenght)
-        {
-            for (int i = 0; i < lenght; i++)
-            {
-                this.time[i] = (double)(i) / sampling;
-            }
-
-            maxTime = (double)(lenght) / sampling;
-        }
-
 
 
         private void button_scan_Click(object sender, EventArgs e)
         {
             sc.find_dev_req();
             this.listBox_devices.Items.Clear();
-            mode = paintMode.SEARCHING;
+            mode = Paint_mode.Mode.SEARCHING;
             if (!GUITimer.Enabled)
             {
                 GUITimer.Enabled = true;
@@ -380,18 +231,16 @@ namespace PTO_PC_APP
                     }
                     sc.connect_device(dev);
                     this.toolStripStatusLabel_status.Text = "Connecting to " + dev;
-                    this.mode = paintMode.CONNECTING;
+                    this.mode = Paint_mode.Mode.CONNECTING;
 
                 }
             }
-            else {
+            else
+            {
                 sc.disconnect_device();
                 disconnect();
-                this.mode = paintMode.DISCONECTED;
+                this.mode = Paint_mode.Mode.DISCONECTED;
 
-            
-            
-            
             }
         }
 
@@ -400,10 +249,12 @@ namespace PTO_PC_APP
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (this.mode == paintMode.SCOPE) {
+            if (this.mode == Paint_mode.Mode.SCOPE) {
+                scope.update_mode(Paint_mode.Mode.IDLE);
+                scope_th.Join();
                 sc.set_scope_stop();
             }
-            this.mode = paintMode.IDLE;
+            this.mode = Paint_mode.Mode.IDLE;
             sc.comm_stop();
         }
 
@@ -411,11 +262,12 @@ namespace PTO_PC_APP
         {
             if (this.checkBox_scope_enable.Checked)
             {
-                this.mode = paintMode.SCOPE;
+                this.mode = Paint_mode.Mode.SCOPE;
+                scope.update_mode(mode);
 
-                scope_zed = new Thread(new ThreadStart(zed_scope_thread));
+                scope_th = new Thread(new ThreadStart(scope.run));
 
-                scope_zed.Start();
+                scope_th.Start();
                 
                     
 
@@ -424,21 +276,21 @@ namespace PTO_PC_APP
                 sc.set_scope_sampling_freq(Defines.FREQ_100K);
                 
 
-                buffLenght = sc.get_dev_configuration().scopeBuffLenght;
-                accuracy = (double)(sc.get_dev_configuration().vref_mv) / 255;
-                this.time = new double[buffLenght];
-                generate_time_base(100000, buffLenght);
-                signal = new double[buffLenght];
-                
-                sc.set_scope_pretrig( sc.get_dev_configuration().scopeBuffLenght * this.pretrig / 100);
-                sc.set_scope_trigger_level(this.trig_level);
+                scope.buffLenght = sc.get_dev_configuration().scopeBuffLenght;
+                scope.accuracy = (double)(sc.get_dev_configuration().vref_mv) / 255;
+                scope.time = new double[scope.buffLenght];
+                scope.update_time_base();
+                scope.signal = new double[scope.buffLenght];
+
+                sc.set_scope_pretrig(sc.get_dev_configuration().scopeBuffLenght * scope.pretrig / 100);
+                sc.set_scope_trigger_level(scope.trig_level);
                 sc.set_scope_start();
 
             }
             else {
-                this.mode = paintMode.IDLE;
-                scope_zed.Join();
-                scope_zed.Abort();
+                this.mode = Paint_mode.Mode.IDLE;
+                scope.update_mode(mode);
+                scope_th.Join();
                 sc.set_scope_stop();
             }
         }
@@ -446,7 +298,7 @@ namespace PTO_PC_APP
         //svazani posivniku s text boxem a odesilani hgodnot trigger
         private void trackBar_trig_level_MouseUp(object sender, MouseEventArgs e)
         {
-            if (this.trig_level != this.trackBar_trig_level.Value)
+            if (scope.trig_level != this.trackBar_trig_level.Value)
             {
                 this.maskedTextBox_trig_level.Text = this.trackBar_trig_level.Value.ToString();
             }
@@ -461,8 +313,8 @@ namespace PTO_PC_APP
                 }
 
                 this.trackBar_trig_level.Value = val;
-                this.trig_level = val;
-                sc.set_scope_trigger_level(this.trig_level);
+                scope.trig_level = val;
+                sc.set_scope_trigger_level(scope.trig_level);
 
             }catch(Exception ex){
                 this.maskedTextBox_trig_level.Text = this.trackBar_trig_level.Value.ToString();
@@ -482,7 +334,7 @@ namespace PTO_PC_APP
                 }
 
                 this.trackBar_pretrig.Value = val;
-                this.pretrig = val;
+                scope.pretrig = val;
                 int buffl = sc.get_dev_configuration().scopeBuffLenght * val / 100;
                 sc.set_scope_pretrig(buffl);
 
@@ -495,7 +347,7 @@ namespace PTO_PC_APP
 
         private void trackBar_pretrig_MouseUp(object sender, MouseEventArgs e)
         {
-            if (this.pretrig != this.trackBar_pretrig.Value)
+            if (scope.pretrig != this.trackBar_pretrig.Value)
             {
                 this.maskedTextBox_pretrig.Text = this.trackBar_pretrig.Value.ToString();
             }
@@ -507,9 +359,11 @@ namespace PTO_PC_APP
             stopWatch.Start();
         }
 
-        private void toc() {
+        private void toc(string s) {
             stopWatch.Stop();
-            Console.WriteLine(stopWatch.ElapsedMilliseconds.ToString() + "ms");
+
+            Console.WriteLine(s+" " +stopWatch.ElapsedMilliseconds.ToString() + "ms");
+            stopWatch.Start();
         }
 
         private void comm_error() {
@@ -540,13 +394,16 @@ namespace PTO_PC_APP
             this.button_scan.Enabled = true;
         }
 
-        private void validate_scope(){
+        private void validate_general() {
             Device.config c = sc.get_dev_configuration();
             this.label18.Text = (c.scopeMaxf / 1000) + " kHz";
             this.label21.Text = c.scopeDept + " bits";
-            this.label23.Text = c.scopeBuffLenght+" samples";
+            this.label23.Text = c.scopeBuffLenght + " samples";
+            this.label12.Text = c.vref_mv + " mV";
+        }
+        private void validate_scope(){
             this.panel5.Enabled = true;
-
+            Device.config c = sc.get_dev_configuration();
             if (c.scopeMaxf < 5000000) {
                 this.radioButton_5m.Enabled = false;
             }
@@ -597,7 +454,7 @@ namespace PTO_PC_APP
         private void radioButton_5m_CheckedChanged(object sender, EventArgs e)
         {
             if (this.radioButton_5m.Checked) {
-                samplingfreq = 5000000;
+                scope.samplingfreq = 5000000;
                 sc.set_scope_sampling_freq(Defines.FREQ_5M);
             }
         }
@@ -606,7 +463,7 @@ namespace PTO_PC_APP
         {
             if (this.radioButton_2m.Checked)
             {
-                samplingfreq = 2000000;
+                scope.samplingfreq = 2000000;
                 sc.set_scope_sampling_freq(Defines.FREQ_2M);
             }
         }
@@ -615,7 +472,7 @@ namespace PTO_PC_APP
         {
             if (this.radioButton_1m.Checked)
             {
-                samplingfreq = 1000000;
+                scope.samplingfreq = 1000000;
                 sc.set_scope_sampling_freq(Defines.FREQ_1M);
             }
         }
@@ -624,7 +481,7 @@ namespace PTO_PC_APP
         {
             if (this.radioButton_500k.Checked)
             {
-                samplingfreq = 500000;
+                scope.samplingfreq = 500000;
                 sc.set_scope_sampling_freq(Defines.FREQ_500K);
             }
         }
@@ -633,7 +490,7 @@ namespace PTO_PC_APP
         {
             if (this.radioButton_200k.Checked)
             {
-                samplingfreq = 200000;
+                scope.samplingfreq = 200000;
                 sc.set_scope_sampling_freq(Defines.FREQ_200K);
             }
         }
@@ -642,7 +499,7 @@ namespace PTO_PC_APP
         {
             if (this.radioButton_100k.Checked)
             {
-                samplingfreq = 100000;
+                scope.samplingfreq = 100000;
                 sc.set_scope_sampling_freq(Defines.FREQ_100K);
             }
         }
@@ -651,7 +508,7 @@ namespace PTO_PC_APP
         {
             if (this.radioButton_50k.Checked)
             {
-                samplingfreq = 50000;
+                scope.samplingfreq = 50000;
                 sc.set_scope_sampling_freq(Defines.FREQ_50K);
             }
         }
@@ -660,7 +517,7 @@ namespace PTO_PC_APP
         {
             if (this.radioButton_20k.Checked)
             {
-                samplingfreq = 20000;
+                scope.samplingfreq = 20000;
                 sc.set_scope_sampling_freq(Defines.FREQ_20K);
             }
         }
@@ -669,7 +526,7 @@ namespace PTO_PC_APP
         {
             if (this.radioButton_10k.Checked)
             {
-                samplingfreq = 10000;
+                scope.samplingfreq = 10000;
                 sc.set_scope_sampling_freq(Defines.FREQ_10K);
             }
         }
@@ -678,7 +535,7 @@ namespace PTO_PC_APP
         {
             if (this.radioButton_5k.Checked)
             {
-                samplingfreq = 5000;
+                scope.samplingfreq = 5000;
                 sc.set_scope_sampling_freq(Defines.FREQ_5K);
             }
         }
@@ -687,7 +544,7 @@ namespace PTO_PC_APP
         {
             if (this.radioButton_2k.Checked)
             {
-                samplingfreq = 2000;
+                scope.samplingfreq = 2000;
                 sc.set_scope_sampling_freq(Defines.FREQ_2K);
             }
         }
@@ -696,7 +553,7 @@ namespace PTO_PC_APP
         {
             if (this.radioButton_1k.Checked)
             {
-                samplingfreq = 1000;
+                scope.samplingfreq = 1000;
                 sc.set_scope_sampling_freq(Defines.FREQ_1K);
             }
         }
@@ -747,23 +604,23 @@ namespace PTO_PC_APP
 
         private void trackBar_zoom_ValueChanged(object sender, EventArgs e)
         {
-            this.scale = 1.0 - (double)(this.trackBar_zoom.Value) / (this.trackBar_zoom.Maximum - this.trackBar_zoom.Minimum + 10);
+            scope.scale = 1.0 - (double)(this.trackBar_zoom.Value) / (this.trackBar_zoom.Maximum - this.trackBar_zoom.Minimum + 10);
         }
 
         private void trackBar_position_ValueChanged(object sender, EventArgs e)
         {
-            this.horPosition = (double)(this.trackBar_position.Value) / (this.trackBar_position.Maximum - this.trackBar_position.Minimum);
+            scope.horPosition = (double)(this.trackBar_position.Value) / (this.trackBar_position.Maximum - this.trackBar_position.Minimum);
         }
 
         private void trackBar_vol_level_ValueChanged(object sender, EventArgs e)
         {
-            this.verPosition = (double)(this.trackBar_vol_level.Value) / (this.trackBar_vol_level.Maximum - this.trackBar_vol_level.Minimum);
+            scope.verPosition = (double)(this.trackBar_vol_level.Value) / (this.trackBar_vol_level.Maximum - this.trackBar_vol_level.Minimum);
         }
 
         private void radioButton_1mv_CheckedChanged(object sender, EventArgs e)
         {
             if (radioButton_1mv.Checked) {
-                this.range = 0.001;
+                scope.range = 0.001;
             }
         }
 
@@ -771,7 +628,7 @@ namespace PTO_PC_APP
         {
             if (radioButton_2mv.Checked)
             {
-                this.range = 0.002;
+                scope.range = 0.002;
             }
         }
 
@@ -779,7 +636,7 @@ namespace PTO_PC_APP
         {
             if (radioButton_5mv.Checked)
             {
-                this.range = 0.005;
+                scope.range = 0.005;
             }
         }
 
@@ -787,7 +644,7 @@ namespace PTO_PC_APP
         {
             if (radioButton_10mv.Checked)
             {
-                this.range = 0.01;
+                scope.range = 0.01;
             }
         }
 
@@ -795,7 +652,7 @@ namespace PTO_PC_APP
         {
             if (radioButton_20mv.Checked)
             {
-                this.range = 0.02;
+                scope.range = 0.02;
             }
         }
 
@@ -803,7 +660,7 @@ namespace PTO_PC_APP
         {
             if (radioButton_50mv.Checked)
             {
-                this.range = 0.05;
+                scope.range = 0.05;
             }
         }
 
@@ -811,7 +668,7 @@ namespace PTO_PC_APP
         {
             if (radioButton_100mv.Checked)
             {
-                this.range = 0.1;
+                scope.range = 0.1;
             }
         }
 
@@ -819,7 +676,7 @@ namespace PTO_PC_APP
         {
             if (radioButton_200mv.Checked)
             {
-                this.range = 0.2;
+                scope.range = 0.2;
             }
         }
 
@@ -827,7 +684,7 @@ namespace PTO_PC_APP
         {
             if (radioButton_500mv.Checked)
             {
-                this.range = 0.5;
+                scope.range = 0.5;
             }
         }
 
@@ -835,7 +692,7 @@ namespace PTO_PC_APP
         {
             if (radioButton_1v.Checked)
             {
-                this.range = 1;
+                scope.range = 1;
             }
         }
 
@@ -843,7 +700,7 @@ namespace PTO_PC_APP
         {
             if (radioButton_2v.Checked)
             {
-                this.range = 2;
+                scope.range = 2;
             }
         }
 
@@ -851,53 +708,41 @@ namespace PTO_PC_APP
         {
             if (radioButton_5v.Checked)
             {
-                this.range = 5;
+                scope.range = 5;
             }
         }
 
         private void checkBox_ver_cur_en_CheckedChanged(object sender, EventArgs e)
         {
-           this.verCurEN=this.checkBox_ver_cur_en.Checked;
+            scope.verCurEN = this.checkBox_ver_cur_en.Checked;
         }
 
         private void checkBox_hor_cur_en_CheckedChanged(object sender, EventArgs e)
         {
-            this.horCurEN = this.checkBox_hor_cur_en.Checked;
+            scope.horCurEN = this.checkBox_hor_cur_en.Checked;
         }
 
         private void trackBar_ver_cur_a_ValueChanged(object sender, EventArgs e)
         {
-            this.verCursorA = (double)(this.trackBar_ver_cur_a.Value) / (this.trackBar_ver_cur_a.Maximum - this.trackBar_ver_cur_a.Minimum);
+            scope.verCursorA = (double)(this.trackBar_ver_cur_a.Value) / (this.trackBar_ver_cur_a.Maximum - this.trackBar_ver_cur_a.Minimum);
         }
 
         private void trackBar_ver_cur_b_ValueChanged(object sender, EventArgs e)
         {
-            this.verCursorB = (double)(this.trackBar_ver_cur_b.Value) / (this.trackBar_ver_cur_b.Maximum - this.trackBar_ver_cur_b.Minimum);
+            scope.verCursorB = (double)(this.trackBar_ver_cur_b.Value) / (this.trackBar_ver_cur_b.Maximum - this.trackBar_ver_cur_b.Minimum);
         }
 
         private void trackBar_hor_cur_a_ValueChanged(object sender, EventArgs e)
         {
-            this.horCursorA = (double)(this.trackBar_hor_cur_a.Value) / (this.trackBar_hor_cur_a.Maximum - this.trackBar_hor_cur_a.Minimum);
+            scope.horCursorA = (double)(this.trackBar_hor_cur_a.Value) / (this.trackBar_hor_cur_a.Maximum - this.trackBar_hor_cur_a.Minimum);
         }
 
         private void trackBar_hor_cur_b_ValueChanged(object sender, EventArgs e)
         {
-            this.horCursorB = (double)(this.trackBar_hor_cur_b.Value) / (this.trackBar_hor_cur_b.Maximum - this.trackBar_hor_cur_b.Minimum);
+            scope.horCursorB = (double)(this.trackBar_hor_cur_b.Value) / (this.trackBar_hor_cur_b.Maximum - this.trackBar_hor_cur_b.Minimum);
   
         }
 
-
-
-
-
-
-
-
-
-
-
-
-        
 
 
 
