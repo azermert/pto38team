@@ -21,12 +21,11 @@ namespace PTO_PC_APP
         System.Timers.Timer GUITimer = new System.Timers.Timer(50);
         Thread comm;
         Thread scope_th;
+        int scopeWatchDog = 0;
+
         Scope_thread scope;
-        //enum paintMode { IDLE,SEARCHING,DEV_FOUND,CONNECTING,DISCONECTED,CONNECTED,COMM_ERR,SCOPE };
-        //paintMode mode;
 
         Paint_mode.Mode mode;
-
 
         Stopwatch stopWatch;
         private int watchdog = 0;
@@ -62,23 +61,37 @@ namespace PTO_PC_APP
 
         private void Update_GUI(object sender, ElapsedEventArgs e)
         {
-            if (sc.is_connected() && sc.is_new_scope_data())
+            if (scope.mode==Paint_mode.Mode.SCOPE && sc.is_connected())
             {
-                scope.new_data(sc.get_scope_data());
+                if (sc.is_new_scope_data())
+                {
+                    scope.new_data(sc.get_scope_data());
+                    if (scope.trig == Scope_thread.TriggerType.NORMAL)
+                    {
+                        sc.set_scope_start();
+                        scope.trigShow = true;
+                        scopeWatchDog = 0;
+                    }
+                }
+                else
+                {
+                    if (scopeWatchDog > 20 && scope.trig==Scope_thread.TriggerType.NORMAL) {
+                        sc.set_scope_start();
+                        Console.WriteLine("Scope watch dog occurs");
+                        scopeWatchDog = 0;
+                    }
+                    scopeWatchDog++;
+                }
             }
             if (mode == Paint_mode.Mode.SCOPE)
             {
                 if (scope.is_invalid())
                 {
-                    //zedGraphControl_scope.AxisChange();
                     zedGraphControl_scope.Invalidate();
                 }
             }
             this.Invalidate();
-
-
         }
-
 
 
         protected override void OnPaint(PaintEventArgs e)
@@ -159,32 +172,7 @@ namespace PTO_PC_APP
                     break;
 
                 case Paint_mode.Mode.SCOPE:
-                    if (scope.verCurEN) {
-                        this.label_cur_time_a.Text = scope.timeA;
-                        this.label_cur_time_b.Text = scope.timeB;
-                        this.label_time_diff.Text = scope.timeDif;
-                        this.label_cur_freq.Text = scope.freq;
-                        this.label_cur_ua.Text = scope.UA;
-                        this.label_cur_ub.Text = scope.UB;
-                        this.label_cur_du.Text = scope.DiffU;
-                    }
-                    if (scope.horCurEN)
-                    {
-                        this.label_volt_diff.Text = scope.voltDif;
-                        this.label_cur_u_a.Text = scope.voltA;
-                        this.label_cur_u_b.Text = scope.voltB;
-                    }
-                    if (this.checkBox_RMS.Checked) { 
-                        double RMS=0;
-                        for (int i = 0; i < scope.buffLenght; i++)
-                        {
-                            RMS += scope.signal[i] * scope.signal[i];
-                        }
-                        RMS = Math.Sqrt(RMS / scope.buffLenght);
-
-                        this.checkBox_RMS.Text = "RMS " + (Math.Round(RMS, 3)).ToString()+" V";
-                    }
-                    
+                    paint_scope();
                     zedGraphControl_scope.Refresh();
                     break;
                 default:
@@ -207,7 +195,7 @@ namespace PTO_PC_APP
 
         }
         
-        
+        /*  Button Connect */
         private void button_connect_Click(object sender, EventArgs e)
         {
             if (this.button_connect.Text.Equals("Connect"))
@@ -220,7 +208,6 @@ namespace PTO_PC_APP
                 }
                 else
                 {
-
                     if (dev[4] == ':')
                     {
                         dev = dev.Substring(0, 4);
@@ -239,14 +226,14 @@ namespace PTO_PC_APP
             {
                 sc.disconnect_device();
                 disconnect();
+                invalidate_scope();
                 this.mode = Paint_mode.Mode.DISCONECTED;
-
             }
         }
 
 
 
-
+        /* zavirani okna */
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (this.mode == Paint_mode.Mode.SCOPE) {
@@ -258,6 +245,8 @@ namespace PTO_PC_APP
             sc.comm_stop();
         }
 
+
+        /*  Scope enable */
         private void checkBox_scope_enable_CheckedChanged(object sender, EventArgs e)
         {
             if (this.checkBox_scope_enable.Checked)
@@ -268,22 +257,23 @@ namespace PTO_PC_APP
                 scope_th = new Thread(new ThreadStart(scope.run));
 
                 scope_th.Start();
-                
-                    
 
-                sc.set_scope_trigger_edge(Defines.RISE);
-                sc.set_scope_trigger_type(Defines.SCOPE_TRIG_AUTO);
-                sc.set_scope_sampling_freq(Defines.FREQ_10K);
-                
+                if (scope.firstRun)
+                {
+                    scope.firstRun = false;
+                    sc.set_scope_trigger_edge(Defines.RISE);
+                    sc.set_scope_trigger_type(Defines.SCOPE_TRIG_SINGLE);
+                    sc.set_scope_sampling_freq(Defines.FREQ_10K);
+                }
 
                 scope.buffLenght = sc.get_dev_configuration().scopeBuffLenght;
-                scope.accuracy = (double)(sc.get_dev_configuration().vref_mv) / 255;
+                scope.accuracy = (double)(sc.get_dev_configuration().ScopeVref_mv) / 255;
                 scope.time = new double[scope.buffLenght];
                 scope.update_time_base();
                 scope.signal = new double[scope.buffLenght];
 
-                //sc.set_scope_pretrig(sc.get_dev_configuration().scopeBuffLenght * scope.pretrig / 100);
-                //sc.set_scope_trigger_level(scope.trig_level);
+                sc.set_scope_pretrig(sc.get_dev_configuration().scopeBuffLenght * scope.pretrig / 100);
+                sc.set_scope_trigger_level(scope.trig_level);
                 sc.set_scope_start();
 
             }
@@ -294,6 +284,8 @@ namespace PTO_PC_APP
                 sc.set_scope_stop();
             }
         }
+
+
 
         //svazani posivniku s text boxem a odesilani hgodnot trigger
         private void trackBar_trig_level_MouseUp(object sender, MouseEventArgs e)
@@ -309,13 +301,11 @@ namespace PTO_PC_APP
             try {
                 int val = int.Parse(this.maskedTextBox_trig_level.Text);
                 if (val > 4096) {
-                    throw new System.ArgumentException("Parameter cannot be greatherthen 4096", "original");
+                    throw new System.ArgumentException("Parameter cannot be greather then 4096", "original");
                 }
-
                 this.trackBar_trig_level.Value = val;
                 scope.trig_level = val;
                 sc.set_scope_trigger_level(scope.trig_level);
-
             }catch(Exception ex){
                 this.maskedTextBox_trig_level.Text = this.trackBar_trig_level.Value.ToString();
             }
@@ -330,9 +320,8 @@ namespace PTO_PC_APP
                 int val = int.Parse(this.maskedTextBox_pretrig.Text);
                 if (val > 100)
                 {
-                    throw new System.ArgumentException("Parameter cannot be greatherthen 4096", "original");
+                    throw new System.ArgumentException("Parameter cannot be greather then 100", "original");
                 }
-
                 this.trackBar_pretrig.Value = val;
                 scope.pretrig = val;
                 int buffl = sc.get_dev_configuration().scopeBuffLenght * val / 100;
@@ -354,6 +343,8 @@ namespace PTO_PC_APP
         }
 
 
+
+        /* funkce pro mereni casu - pro debug*/
         private void tic() {
             stopWatch = new Stopwatch();
             stopWatch.Start();
@@ -366,6 +357,11 @@ namespace PTO_PC_APP
             stopWatch.Start();
         }
 
+
+
+        /*
+         Metody zdlouhave a nudne pro vykreslovani prvku
+         */
         private void comm_error() {
             this.button_connect.Text = "Connect";
             this.label_device_connected.Text = "No device connected";
@@ -385,7 +381,8 @@ namespace PTO_PC_APP
         }
 
 
-        private void disconnect() {
+        private void disconnect()
+        {
             this.toolStripStatusLabel_status_color.BackColor = Color.Red;
             this.toolStripStatusLabel_status.Text = "Disconnected";
             this.label_device_connected.Text = "No Device connected";
@@ -394,12 +391,99 @@ namespace PTO_PC_APP
             this.button_scan.Enabled = true;
         }
 
-        private void validate_general() {
+        private void validate_general()
+        {
             Device.config c = sc.get_dev_configuration();
             this.label18.Text = (c.scopeMaxf / 1000) + " kHz";
             this.label21.Text = c.scopeDept + " bits";
             this.label23.Text = c.scopeBuffLenght + " samples";
-            this.label12.Text = c.vref_mv + " mV";
+            this.label12.Text = c.ScopeVref_mv + " mV";
+            this.label41.Text = c.procCore;
+            this.label37.Text = c.clock;
+            this.label26.Text = c.comm;
+            this.label53.Text = c.connection;
+        }
+
+        private void paint_scope()
+        {
+            if (scope.verCurEN)
+            {
+                this.label_cur_time_a.Text = scope.timeA;
+                this.label_cur_time_b.Text = scope.timeB;
+                this.label_time_diff.Text = scope.timeDif;
+                this.label_cur_freq.Text = scope.freq;
+                this.label_cur_ua.Text = scope.UA;
+                this.label_cur_ub.Text = scope.UB;
+                this.label_cur_du.Text = scope.DiffU;
+            }
+            if (scope.horCurEN)
+            {
+                this.label_volt_diff.Text = scope.voltDif;
+                this.label_cur_u_a.Text = scope.voltA;
+                this.label_cur_u_b.Text = scope.voltB;
+            }
+            if (this.checkBox_RMS.Checked)
+            {
+                this.checkBox_RMS.Text = "RMS " + (Math.Round(scope.RMS, 3)).ToString() + " V";
+            }
+
+            if (this.checkBox_mean.Checked)
+            {
+                this.checkBox_mean.Text = "Mean " + (Math.Round(scope.mean, 3)).ToString() + " V";
+            }
+            if (this.checkBox_max.Checked)
+            {
+                this.checkBox_max.Text = "Max " + (Math.Round(scope.Max, 3)).ToString() + " V";
+            }
+            if (this.checkBox_min.Checked)
+            {
+                this.checkBox_min.Text = "Min " + (Math.Round(scope.Min, 3)).ToString() + " V";
+            }
+            if (this.checkBox_PkPk.Checked)
+            {
+                this.checkBox_PkPk.Text = "Pk-Pk " + (Math.Round(scope.PkPk, 3)).ToString() + " V";
+            }
+            if (this.checkBox_duty.Checked)
+            {
+                this.checkBox_duty.Text = "Duty " + (Math.Round(scope.duty * 100, 1)).ToString() + " %";
+            }
+            if (this.checkBox_high.Checked)
+            {
+                this.checkBox_high.Text = "High " + (Math.Round(scope.High * 100, 1)).ToString() + " %";
+            }
+            if (this.checkBox_low.Checked)
+            {
+                this.checkBox_low.Text = "Low " + (Math.Round(scope.Low * 100, 1)).ToString() + " %";
+            }
+
+            if (scope.trigShow)
+            {
+                this.toolStripStatusLabel_status.Text = "Trig";
+                scope.trigShow = false;
+            }
+            else
+            {
+                this.toolStripStatusLabel_status.Text = "";
+            }
+        }
+
+        private void invalidate_scope()
+        {
+            this.panel5.Enabled = false;
+            this.radioButton_5m.Enabled = true;
+            this.radioButton_2m.Enabled = true;
+            this.radioButton_1m.Enabled = true;
+            this.radioButton_500k.Enabled = true;
+            this.radioButton_200k.Enabled = true;
+            this.radioButton_100k.Enabled = true;
+            this.radioButton_50k.Enabled = true;
+            this.radioButton_10k.Enabled = true;
+            this.radioButton_20k.Enabled = true;
+
+            this.radioButton_10k.Checked = true;
+            this.radioButton_trig_normal.Checked = true;
+            this.checkBox_trig_rise.Checked = true;
+            this.checkBox_trig_fall.Checked = false;
         }
         private void validate_scope(){
             this.panel5.Enabled = true;
@@ -579,7 +663,8 @@ namespace PTO_PC_APP
         {
             if (this.radioButton_trig_normal.Checked)
             {
-                sc.set_scope_trigger_type(Defines.SCOPE_TRIG_NORMAL);
+                scope.set_trigger(Scope_thread.TriggerType.NORMAL);
+                sc.set_scope_trigger_type(Defines.SCOPE_TRIG_SINGLE);
                 sc.set_scope_start();
             }
         }
@@ -588,6 +673,7 @@ namespace PTO_PC_APP
         {
             if (this.radioButton_trig_auto.Checked)
             {
+                scope.set_trigger(Scope_thread.TriggerType.AUTO);
                 sc.set_scope_trigger_type(Defines.SCOPE_TRIG_AUTO);
                 sc.set_scope_start();
             }
@@ -597,6 +683,7 @@ namespace PTO_PC_APP
         {
             if (this.radioButton_trig_single.Checked)
             {
+                scope.set_trigger(Scope_thread.TriggerType.SINGLE);
                 sc.set_scope_trigger_type(Defines.SCOPE_TRIG_SINGLE);
                 sc.set_scope_start();
             }
@@ -742,6 +829,70 @@ namespace PTO_PC_APP
             scope.horCursorB = (double)(this.trackBar_hor_cur_b.Value) / (this.trackBar_hor_cur_b.Maximum - this.trackBar_hor_cur_b.Minimum);
   
         }
+
+        private void checkBox_RMS_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!this.checkBox_RMS.Checked) {
+                this.checkBox_RMS.Text = "RMS";
+            }
+        }
+
+        private void checkBox_mean_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!this.checkBox_mean.Checked)
+            {
+                this.checkBox_mean.Text = "Mean";
+            }
+        }
+
+        private void checkBox_PkPk_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!this.checkBox_PkPk.Checked)
+            {
+                this.checkBox_PkPk.Text = "Pk-Pk";
+            }
+        }
+
+        private void checkBox_max_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!this.checkBox_max.Checked)
+            {
+                this.checkBox_max.Text = "Max";
+            }
+        }
+
+        private void checkBox_min_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!this.checkBox_min.Checked)
+            {
+                this.checkBox_min.Text = "Min";
+            }
+        }
+
+        private void checkBox_duty_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!this.checkBox_duty.Checked)
+            {
+                this.checkBox_duty.Text = "Duty";
+            }
+        }
+
+        private void checkBox_low_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!this.checkBox_low.Checked)
+            {
+                this.checkBox_low.Text = "Low";
+            }
+        }
+
+        private void checkBox_high_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!this.checkBox_high.Checked)
+            {
+                this.checkBox_high.Text = "High";
+            }
+        }
+
 
 
 

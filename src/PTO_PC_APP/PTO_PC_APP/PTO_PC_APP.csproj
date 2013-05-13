@@ -86,7 +86,12 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ADuC843.xml" />
+    <Content Include="ADuC843.xml">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="STM32F051.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="STM32F100.xml">
       <SubType>Designer</SubType>
     </Content>

@@ -14,19 +14,26 @@ namespace PTO_PC_APP
     {
         //public enum processor_type { STM32F051,STM32F100,STM32F303,STM32F407,ADuC843}
         public struct config {
-          public  int scopeMaxf;
-          public  int scopeDept;
-          public  int scopeBuffLenght;
-          public  int vref_mv;
           public string procType;
+          public string procCore;
 
+          public string comm;
+          public string connection;
+          public string clock;
+  
+          public int scopeMaxf;
+          public int scopeDept;
+          public int scopeBuffLenght;
+          public string scopePin;
+          public int ScopeVref_mv;
         }
 
         config procConf;
         private string name;
-       // private processor_type processor;
         private string version;
         private SerialPort port;
+        private string portName="";
+        private int Baudrate=0;
         private bool opened=false;
         private string msg;
         XmlDocument xmlDoc = new XmlDocument();
@@ -38,10 +45,16 @@ namespace PTO_PC_APP
         Stopwatch st;
 
 
-        public Device(SerialPort port, string name, string processor, string version)
+        public Device(string portn, string name, string processor, string version, int speed)
         {
-            this.port = port;
+            this.portName = portn;
+            this.Baudrate = speed;
             this.name = name;
+            SerialPort port = new SerialPort();
+            this.port.PortName = portName;
+            this.port.ReadBufferSize = 1024*1024;
+            this.port.BaudRate = Baudrate;
+            
             procConf = new config();
             switch (processor) { 
                 case Defines.STM32F051:
@@ -162,10 +175,28 @@ namespace PTO_PC_APP
                                 procConf.scopeDept = int.Parse(reader.Value);
                                 break;
                             case "sc_v_ref":
-                                procConf.vref_mv = int.Parse(reader.Value);
+                                procConf.ScopeVref_mv = int.Parse(reader.Value);
                                 break;
                             case "sc_buffsize":
                                 procConf.scopeBuffLenght = int.Parse(reader.Value);
+                                break;
+                            case "sc_pin":
+                                procConf.scopePin = reader.Value;
+                                break;
+                            case "processor":
+                                procConf.procType = reader.Value;
+                                break;
+                            case "core":
+                                procConf.procCore = reader.Value;
+                                break;
+                            case "comm":
+                                procConf.comm = reader.Value;
+                                break;
+                            case "clock":
+                                procConf.clock = reader.Value;
+                                break;
+                            case "connect":
+                                procConf.connection = reader.Value;
                                 break;
                             default:
                                 break;
@@ -173,7 +204,6 @@ namespace PTO_PC_APP
                     break;
                 }
             }
-
             this.scopeBuffer = new byte[procConf.scopeBuffLenght];
         }
 
@@ -225,7 +255,7 @@ namespace PTO_PC_APP
                                 //Thread.Yield();
                                 wd++;
                                //toc("sleep");
-                                if (wd > 500) {
+                                if (wd > 500000) {
                                     break;
                                 }
                             }
@@ -264,6 +294,7 @@ namespace PTO_PC_APP
 
         private void serialPort_ErrorReceived(object sender, System.IO.Ports.SerialErrorReceivedEventArgs e)
         {
+            MessageBox.Show("Fatal error at serial comunication\r\n Didn't you unplag the device?\r\n\r\n Please restart the aplication!!!\r\n\r\n " + e, "Fatal error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             int i = 0;
         }
 
