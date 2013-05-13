@@ -50,7 +50,7 @@ namespace PTO_PC_APP
         public string timeA = "";
         public string timeB = "";
         public string timeDif = "";
-        public string freq = "";
+        public string frequency = "";
         public int samplingfreq = 10000;
         public double[] signal;
         public double[] time;
@@ -65,10 +65,15 @@ namespace PTO_PC_APP
         public double duty = 0;
         public double Low = 0;
         public double High = 0;
+        public double Freq = 0;
+        public double period = 0;
 
 
         private bool invalid=true;
         private bool lockPane = false;
+
+        public bool showPoints = false;
+        public bool interpolation = true;
      
         public void Scope_thready(int smp) {
             this.samplingfreq = smp;
@@ -121,35 +126,59 @@ namespace PTO_PC_APP
             int down = 0;
             int downTotal = 0;
             int upTotal = 0;
+            int periods = 0;
             bool countEN = false;
             bool rise=false;
+            double frq = 0;
 
             if(signal[0]<center){
                 rise=true;
             }
             for (int i = 0; i < buffLenght; i++)
             {
-                if ((rise && !countEN && signal[i] > center) || (!rise && !countEN && signal[i] < center)) //nabezna || sestupna hrana
+                if ((rise && !countEN && signal[i] >= center) || (!rise && !countEN && signal[i] < center)) //nabezna || sestupna hrana
                 {
                     countEN = true;
                 }
-                if ((rise && countEN && signal[i] > center && down > 0) || (!rise && countEN && signal[i] < center && up > 0))
+                if ((rise && countEN && signal[i] >= center && down > 0) || (!rise && countEN && signal[i] < center && up > 0))
                 {
                     countEN = false;
                     downTotal += down;
                     upTotal += up;
+                    if (up > 3 && down > 3)
+                    {
+                        periods++;
+                        if (frq == 0)
+                        {
+                            frq = (double)samplingfreq / (up + down);
+                        }
+                        else
+                        {
+                            frq += (double)samplingfreq / (up + down);
+                        }
+                    }
                     up = 0;
                     down = 0;
                 }
 
-
                 if (countEN){
-                    if (signal[i] > center){
+                    if (signal[i] >= center){
                         up++;
                     }else{
                         down++;
                     }
                 }
+            }
+
+            if (periods >= 2)
+            {
+                Freq = frq/periods;
+                period = 1 / Freq;
+            }
+            else
+            {
+                Freq = Double.PositiveInfinity;
+                period = Double.PositiveInfinity; 
             }
             duty = (double)(upTotal) / (downTotal + upTotal);
             High = duty;
@@ -192,8 +221,15 @@ namespace PTO_PC_APP
                 //vykresleni prubehu
                 scopePane.CurveList.Clear();
                 LineItem curve = scopePane.AddCurve("", time, signal, Color.Red, SymbolType.Diamond);
-                curve.Symbol.Size = 4;
-                curve.Line.IsSmooth = true;
+                if (this.showPoints)
+                {
+                    curve.Symbol.Size = 4;
+                }
+                else {
+                    curve.Symbol.Size = 0;
+                }
+                
+                curve.Line.IsSmooth = interpolation;
                 curve.Line.SmoothTension = 0.5F;
                 curve.Line.IsOptimizedDraw = true;
 
@@ -292,19 +328,19 @@ namespace PTO_PC_APP
                     this.timeB = "t " + (Math.Round(tB * 1000, 3)).ToString() + " ms";
                     if (Double.IsInfinity(f))
                     {
-                        this.freq = "f Inf";
+                        this.frequency = "f Inf";
                     }
                     else if (f >= 1000000)
                     {
-                        this.freq = "f " + (Math.Round(f / 1000000, 3)).ToString() + " MHz";
+                        this.frequency = "f " + (Math.Round(f / 1000000, 3)).ToString() + " MHz";
                     }
                     else if (f >= 1000)
                     {
-                        this.freq = "f " + (Math.Round(f / 1000, 3)).ToString() + " kHz";
+                        this.frequency = "f " + (Math.Round(f / 1000, 3)).ToString() + " kHz";
                     }
                     else
                     {
-                        this.freq = "f " + (Math.Round(f, 3)).ToString() + " Hz";
+                        this.frequency = "f " + (Math.Round(f, 3)).ToString() + " Hz";
                     }
 
                     if (VA >= 1)

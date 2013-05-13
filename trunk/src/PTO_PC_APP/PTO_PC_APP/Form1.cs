@@ -75,7 +75,7 @@ namespace PTO_PC_APP
                 }
                 else
                 {
-                    if (scopeWatchDog > 20 && scope.trig==Scope_thread.TriggerType.NORMAL) {
+                    if (scopeWatchDog > 25 && scope.trig==Scope_thread.TriggerType.NORMAL) {
                         sc.set_scope_start();
                         Console.WriteLine("Scope watch dog occurs");
                         scopeWatchDog = 0;
@@ -224,10 +224,16 @@ namespace PTO_PC_APP
             }
             else
             {
+                this.mode = Paint_mode.Mode.DISCONECTED;
+                //vypnuti osciloskopu
+                scope.update_mode(mode);
+                scope_th.Join();
+                sc.set_scope_stop();
+                this.checkBox_scope_enable.Checked = false;
+
                 sc.disconnect_device();
                 disconnect();
                 invalidate_scope();
-                this.mode = Paint_mode.Mode.DISCONECTED;
             }
         }
 
@@ -402,6 +408,7 @@ namespace PTO_PC_APP
             this.label37.Text = c.clock;
             this.label26.Text = c.comm;
             this.label53.Text = c.connection;
+            this.label11.Text = c.scopePin;
         }
 
         private void paint_scope()
@@ -411,7 +418,7 @@ namespace PTO_PC_APP
                 this.label_cur_time_a.Text = scope.timeA;
                 this.label_cur_time_b.Text = scope.timeB;
                 this.label_time_diff.Text = scope.timeDif;
-                this.label_cur_freq.Text = scope.freq;
+                this.label_cur_freq.Text = scope.frequency;
                 this.label_cur_ua.Text = scope.UA;
                 this.label_cur_ub.Text = scope.UB;
                 this.label_cur_du.Text = scope.DiffU;
@@ -455,6 +462,31 @@ namespace PTO_PC_APP
             {
                 this.checkBox_low.Text = "Low " + (Math.Round(scope.Low * 100, 1)).ToString() + " %";
             }
+            if (this.checkBox_freq.Checked)
+            {
+                if (Double.IsInfinity(scope.Freq))
+                {
+                    this.checkBox_freq.Text = "Freq ??? Hz";
+                }
+                else if (scope.Freq >= 1000)
+                {
+                    this.checkBox_freq.Text = "Freq " + (Math.Round(scope.Freq / 1000, 2)).ToString() + " kHz";
+                }
+                else {
+                    this.checkBox_freq.Text = "Freq " + (Math.Round(scope.Freq, 1)).ToString() + " Hz";
+                }
+            }
+            if (this.checkBox_period.Checked)
+            {
+                if (Double.IsInfinity(scope.period))
+                {
+                    this.checkBox_period.Text = "Period ??? ms";
+                }
+                else
+                {
+                    this.checkBox_period.Text = "Per. " + (Math.Round(scope.period*1000, 2)).ToString() + " ms";
+                }
+            }
 
             if (scope.trigShow)
             {
@@ -470,6 +502,9 @@ namespace PTO_PC_APP
         private void invalidate_scope()
         {
             this.panel5.Enabled = false;
+          
+        }
+        private void validate_scope(){ 
             this.radioButton_5m.Enabled = true;
             this.radioButton_2m.Enabled = true;
             this.radioButton_1m.Enabled = true;
@@ -484,8 +519,6 @@ namespace PTO_PC_APP
             this.radioButton_trig_normal.Checked = true;
             this.checkBox_trig_rise.Checked = true;
             this.checkBox_trig_fall.Checked = false;
-        }
-        private void validate_scope(){
             this.panel5.Enabled = true;
             Device.config c = sc.get_dev_configuration();
             if (c.scopeMaxf < 5000000) {
@@ -893,10 +926,30 @@ namespace PTO_PC_APP
             }
         }
 
+        private void checkBox_freq_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!this.checkBox_freq.Checked)
+            {
+                this.checkBox_freq.Text = "Freq";
+            }
+        }
 
+        private void checkBox_period_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!this.checkBox_period.Checked)
+            {
+                this.checkBox_period.Text = "Period";
+            }
+        }
 
+        private void checkBox_points_CheckedChanged(object sender, EventArgs e)
+        {
+            scope.showPoints = this.checkBox_points.Checked;
+        }
 
-
-
+        private void radioButton_interp_CheckedChanged(object sender, EventArgs e)
+        {
+            scope.interpolation = this.radioButton_interp.Checked;
+        }
     }
 }

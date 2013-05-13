@@ -46,6 +46,7 @@
             this.groupBox_general = new System.Windows.Forms.GroupBox();
             this.label42 = new System.Windows.Forms.Label();
             this.label41 = new System.Windows.Forms.Label();
+            this.label53 = new System.Windows.Forms.Label();
             this.label26 = new System.Windows.Forms.Label();
             this.label29 = new System.Windows.Forms.Label();
             this.label35 = new System.Windows.Forms.Label();
@@ -133,14 +134,14 @@
             this.trackBar_ver_cur_a = new System.Windows.Forms.TrackBar();
             this.trackBar_ver_cur_b = new System.Windows.Forms.TrackBar();
             this.groupBox_measure = new System.Windows.Forms.GroupBox();
-            this.checkBox10 = new System.Windows.Forms.CheckBox();
+            this.checkBox_freq = new System.Windows.Forms.CheckBox();
             this.checkBox_RMS = new System.Windows.Forms.CheckBox();
             this.checkBox_low = new System.Windows.Forms.CheckBox();
             this.checkBox_high = new System.Windows.Forms.CheckBox();
             this.checkBox_min = new System.Windows.Forms.CheckBox();
             this.checkBox_duty = new System.Windows.Forms.CheckBox();
             this.checkBox_max = new System.Windows.Forms.CheckBox();
-            this.checkBox6 = new System.Windows.Forms.CheckBox();
+            this.checkBox_period = new System.Windows.Forms.CheckBox();
             this.checkBox_PkPk = new System.Windows.Forms.CheckBox();
             this.checkBox_mean = new System.Windows.Forms.CheckBox();
             this.groupBox_cursors_horizontal = new System.Windows.Forms.GroupBox();
@@ -170,9 +171,6 @@
             this.radioButton_2v = new System.Windows.Forms.RadioButton();
             this.radioButton_1v = new System.Windows.Forms.RadioButton();
             this.groupBox_channel = new System.Windows.Forms.GroupBox();
-            this.radioButton_points = new System.Windows.Forms.RadioButton();
-            this.radioButton_vectors = new System.Windows.Forms.RadioButton();
-            this.radioButton_interp = new System.Windows.Forms.RadioButton();
             this.checkBox_scope_enable = new System.Windows.Forms.CheckBox();
             this.groupBox_time = new System.Windows.Forms.GroupBox();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
@@ -247,7 +245,9 @@
             this.toolStripStatusLabel_device = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel_status = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
-            this.label53 = new System.Windows.Forms.Label();
+            this.checkBox_points = new System.Windows.Forms.CheckBox();
+            this.radioButton_interp = new System.Windows.Forms.RadioButton();
+            this.radioButton13 = new System.Windows.Forms.RadioButton();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -318,7 +318,7 @@
             this.aboutToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(784, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(812, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -347,7 +347,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 24);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(784, 463);
+            this.panel1.Size = new System.Drawing.Size(812, 539);
             this.panel1.TabIndex = 1;
             // 
             // tabControl1
@@ -361,7 +361,7 @@
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(784, 441);
+            this.tabControl1.Size = new System.Drawing.Size(812, 517);
             this.tabControl1.TabIndex = 0;
             // 
             // tabPage_device
@@ -522,6 +522,15 @@
             this.label41.Size = new System.Drawing.Size(13, 13);
             this.label41.TabIndex = 1;
             this.label41.Text = "--";
+            // 
+            // label53
+            // 
+            this.label53.AutoSize = true;
+            this.label53.Location = new System.Drawing.Point(10, 143);
+            this.label53.Name = "label53";
+            this.label53.Size = new System.Drawing.Size(13, 13);
+            this.label53.TabIndex = 1;
+            this.label53.Text = "--";
             // 
             // label26
             // 
@@ -1263,7 +1272,7 @@
             this.tabPage_scope.Location = new System.Drawing.Point(4, 22);
             this.tabPage_scope.Name = "tabPage_scope";
             this.tabPage_scope.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_scope.Size = new System.Drawing.Size(776, 415);
+            this.tabPage_scope.Size = new System.Drawing.Size(804, 491);
             this.tabPage_scope.TabIndex = 0;
             this.tabPage_scope.Text = "Osciloscope";
             // 
@@ -1275,7 +1284,7 @@
             this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel5.Location = new System.Drawing.Point(3, 3);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(770, 409);
+            this.panel5.Size = new System.Drawing.Size(798, 485);
             this.panel5.TabIndex = 0;
             // 
             // panel4
@@ -1287,7 +1296,7 @@
             this.panel4.Margin = new System.Windows.Forms.Padding(2);
             this.panel4.Name = "panel4";
             this.panel4.Padding = new System.Windows.Forms.Padding(2);
-            this.panel4.Size = new System.Drawing.Size(570, 274);
+            this.panel4.Size = new System.Drawing.Size(598, 350);
             this.panel4.TabIndex = 2;
             // 
             // zedGraphControl_scope
@@ -1307,16 +1316,16 @@
             this.zedGraphControl_scope.ScrollMinX = 0D;
             this.zedGraphControl_scope.ScrollMinY = 0D;
             this.zedGraphControl_scope.ScrollMinY2 = 0D;
-            this.zedGraphControl_scope.Size = new System.Drawing.Size(566, 270);
+            this.zedGraphControl_scope.Size = new System.Drawing.Size(594, 346);
             this.zedGraphControl_scope.TabIndex = 0;
             // 
             // panel3
             // 
             this.panel3.Controls.Add(this.tableLayoutPanel4);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel3.Location = new System.Drawing.Point(570, 0);
+            this.panel3.Location = new System.Drawing.Point(598, 0);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(200, 274);
+            this.panel3.Size = new System.Drawing.Size(200, 350);
             this.panel3.TabIndex = 1;
             // 
             // tableLayoutPanel4
@@ -1333,7 +1342,7 @@
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 120F));
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(200, 274);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(200, 350);
             this.tableLayoutPanel4.TabIndex = 1;
             // 
             // groupBox_cursors_vertical
@@ -1354,7 +1363,7 @@
             this.groupBox_cursors_vertical.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox_cursors_vertical.Location = new System.Drawing.Point(3, 123);
             this.groupBox_cursors_vertical.Name = "groupBox_cursors_vertical";
-            this.groupBox_cursors_vertical.Size = new System.Drawing.Size(194, 71);
+            this.groupBox_cursors_vertical.Size = new System.Drawing.Size(194, 109);
             this.groupBox_cursors_vertical.TabIndex = 0;
             this.groupBox_cursors_vertical.TabStop = false;
             this.groupBox_cursors_vertical.Text = "Vertical cursors";
@@ -1471,7 +1480,7 @@
             this.trackBar_ver_cur_a.Maximum = 1024;
             this.trackBar_ver_cur_a.Name = "trackBar_ver_cur_a";
             this.trackBar_ver_cur_a.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trackBar_ver_cur_a.Size = new System.Drawing.Size(23, 52);
+            this.trackBar_ver_cur_a.Size = new System.Drawing.Size(23, 90);
             this.trackBar_ver_cur_a.TabIndex = 0;
             this.trackBar_ver_cur_a.TickStyle = System.Windows.Forms.TickStyle.None;
             this.trackBar_ver_cur_a.ValueChanged += new System.EventHandler(this.trackBar_ver_cur_a_ValueChanged);
@@ -1484,21 +1493,21 @@
             this.trackBar_ver_cur_b.Maximum = 1024;
             this.trackBar_ver_cur_b.Name = "trackBar_ver_cur_b";
             this.trackBar_ver_cur_b.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trackBar_ver_cur_b.Size = new System.Drawing.Size(23, 52);
+            this.trackBar_ver_cur_b.Size = new System.Drawing.Size(23, 90);
             this.trackBar_ver_cur_b.TabIndex = 0;
             this.trackBar_ver_cur_b.TickStyle = System.Windows.Forms.TickStyle.None;
             this.trackBar_ver_cur_b.ValueChanged += new System.EventHandler(this.trackBar_ver_cur_b_ValueChanged);
             // 
             // groupBox_measure
             // 
-            this.groupBox_measure.Controls.Add(this.checkBox10);
+            this.groupBox_measure.Controls.Add(this.checkBox_freq);
             this.groupBox_measure.Controls.Add(this.checkBox_RMS);
             this.groupBox_measure.Controls.Add(this.checkBox_low);
             this.groupBox_measure.Controls.Add(this.checkBox_high);
             this.groupBox_measure.Controls.Add(this.checkBox_min);
             this.groupBox_measure.Controls.Add(this.checkBox_duty);
             this.groupBox_measure.Controls.Add(this.checkBox_max);
-            this.groupBox_measure.Controls.Add(this.checkBox6);
+            this.groupBox_measure.Controls.Add(this.checkBox_period);
             this.groupBox_measure.Controls.Add(this.checkBox_PkPk);
             this.groupBox_measure.Controls.Add(this.checkBox_mean);
             this.groupBox_measure.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -1509,16 +1518,17 @@
             this.groupBox_measure.TabStop = false;
             this.groupBox_measure.Text = "Measurment";
             // 
-            // checkBox10
+            // checkBox_freq
             // 
-            this.checkBox10.AutoSize = true;
-            this.checkBox10.Location = new System.Drawing.Point(101, 19);
-            this.checkBox10.Margin = new System.Windows.Forms.Padding(1);
-            this.checkBox10.Name = "checkBox10";
-            this.checkBox10.Size = new System.Drawing.Size(47, 17);
-            this.checkBox10.TabIndex = 1;
-            this.checkBox10.Text = "Freq";
-            this.checkBox10.UseVisualStyleBackColor = true;
+            this.checkBox_freq.AutoSize = true;
+            this.checkBox_freq.Location = new System.Drawing.Point(101, 19);
+            this.checkBox_freq.Margin = new System.Windows.Forms.Padding(1);
+            this.checkBox_freq.Name = "checkBox_freq";
+            this.checkBox_freq.Size = new System.Drawing.Size(47, 17);
+            this.checkBox_freq.TabIndex = 1;
+            this.checkBox_freq.Text = "Freq";
+            this.checkBox_freq.UseVisualStyleBackColor = true;
+            this.checkBox_freq.CheckedChanged += new System.EventHandler(this.checkBox_freq_CheckedChanged);
             // 
             // checkBox_RMS
             // 
@@ -1592,16 +1602,17 @@
             this.checkBox_max.UseVisualStyleBackColor = true;
             this.checkBox_max.CheckedChanged += new System.EventHandler(this.checkBox_max_CheckedChanged);
             // 
-            // checkBox6
+            // checkBox_period
             // 
-            this.checkBox6.AutoSize = true;
-            this.checkBox6.Location = new System.Drawing.Point(101, 37);
-            this.checkBox6.Margin = new System.Windows.Forms.Padding(0);
-            this.checkBox6.Name = "checkBox6";
-            this.checkBox6.Size = new System.Drawing.Size(56, 17);
-            this.checkBox6.TabIndex = 1;
-            this.checkBox6.Text = "Period";
-            this.checkBox6.UseVisualStyleBackColor = true;
+            this.checkBox_period.AutoSize = true;
+            this.checkBox_period.Location = new System.Drawing.Point(101, 37);
+            this.checkBox_period.Margin = new System.Windows.Forms.Padding(0);
+            this.checkBox_period.Name = "checkBox_period";
+            this.checkBox_period.Size = new System.Drawing.Size(56, 17);
+            this.checkBox_period.TabIndex = 1;
+            this.checkBox_period.Text = "Period";
+            this.checkBox_period.UseVisualStyleBackColor = true;
+            this.checkBox_period.CheckedChanged += new System.EventHandler(this.checkBox_period_CheckedChanged);
             // 
             // checkBox_PkPk
             // 
@@ -1638,9 +1649,9 @@
             this.groupBox_cursors_horizontal.Controls.Add(this.label10);
             this.groupBox_cursors_horizontal.Controls.Add(this.label_cur_u_a);
             this.groupBox_cursors_horizontal.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox_cursors_horizontal.Location = new System.Drawing.Point(3, 200);
+            this.groupBox_cursors_horizontal.Location = new System.Drawing.Point(3, 238);
             this.groupBox_cursors_horizontal.Name = "groupBox_cursors_horizontal";
-            this.groupBox_cursors_horizontal.Size = new System.Drawing.Size(194, 71);
+            this.groupBox_cursors_horizontal.Size = new System.Drawing.Size(194, 109);
             this.groupBox_cursors_horizontal.TabIndex = 2;
             this.groupBox_cursors_horizontal.TabStop = false;
             this.groupBox_cursors_horizontal.Text = "Horizontal cursors";
@@ -1653,7 +1664,7 @@
             this.trackBar_hor_cur_a.Maximum = 1024;
             this.trackBar_hor_cur_a.Name = "trackBar_hor_cur_a";
             this.trackBar_hor_cur_a.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trackBar_hor_cur_a.Size = new System.Drawing.Size(25, 52);
+            this.trackBar_hor_cur_a.Size = new System.Drawing.Size(25, 90);
             this.trackBar_hor_cur_a.TabIndex = 0;
             this.trackBar_hor_cur_a.TickStyle = System.Windows.Forms.TickStyle.None;
             this.trackBar_hor_cur_a.ValueChanged += new System.EventHandler(this.trackBar_hor_cur_a_ValueChanged);
@@ -1676,7 +1687,7 @@
             this.trackBar_hor_cur_b.Maximum = 1024;
             this.trackBar_hor_cur_b.Name = "trackBar_hor_cur_b";
             this.trackBar_hor_cur_b.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trackBar_hor_cur_b.Size = new System.Drawing.Size(25, 52);
+            this.trackBar_hor_cur_b.Size = new System.Drawing.Size(25, 90);
             this.trackBar_hor_cur_b.TabIndex = 0;
             this.trackBar_hor_cur_b.TickStyle = System.Windows.Forms.TickStyle.None;
             this.trackBar_hor_cur_b.ValueChanged += new System.EventHandler(this.trackBar_hor_cur_b_ValueChanged);
@@ -1737,9 +1748,9 @@
             this.panel2.BackColor = System.Drawing.SystemColors.Control;
             this.panel2.Controls.Add(this.tableLayoutPanel1);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel2.Location = new System.Drawing.Point(0, 274);
+            this.panel2.Location = new System.Drawing.Point(0, 350);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(770, 135);
+            this.panel2.Size = new System.Drawing.Size(798, 135);
             this.panel2.TabIndex = 0;
             // 
             // tableLayoutPanel1
@@ -1758,7 +1769,7 @@
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(770, 135);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(798, 135);
             this.tableLayoutPanel1.TabIndex = 2;
             // 
             // groupBox_voltage
@@ -1968,9 +1979,9 @@
             // groupBox_channel
             // 
             this.groupBox_channel.BackColor = System.Drawing.SystemColors.Control;
-            this.groupBox_channel.Controls.Add(this.radioButton_points);
-            this.groupBox_channel.Controls.Add(this.radioButton_vectors);
+            this.groupBox_channel.Controls.Add(this.radioButton13);
             this.groupBox_channel.Controls.Add(this.radioButton_interp);
+            this.groupBox_channel.Controls.Add(this.checkBox_points);
             this.groupBox_channel.Controls.Add(this.checkBox_scope_enable);
             this.groupBox_channel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox_channel.Location = new System.Drawing.Point(3, 3);
@@ -1981,40 +1992,6 @@
             this.groupBox_channel.TabIndex = 0;
             this.groupBox_channel.TabStop = false;
             this.groupBox_channel.Text = "Channel";
-            // 
-            // radioButton_points
-            // 
-            this.radioButton_points.AutoSize = true;
-            this.radioButton_points.Enabled = false;
-            this.radioButton_points.Location = new System.Drawing.Point(6, 102);
-            this.radioButton_points.Name = "radioButton_points";
-            this.radioButton_points.Size = new System.Drawing.Size(54, 17);
-            this.radioButton_points.TabIndex = 4;
-            this.radioButton_points.Text = "Points";
-            this.radioButton_points.UseVisualStyleBackColor = true;
-            // 
-            // radioButton_vectors
-            // 
-            this.radioButton_vectors.AutoSize = true;
-            this.radioButton_vectors.Enabled = false;
-            this.radioButton_vectors.Location = new System.Drawing.Point(6, 79);
-            this.radioButton_vectors.Name = "radioButton_vectors";
-            this.radioButton_vectors.Size = new System.Drawing.Size(61, 17);
-            this.radioButton_vectors.TabIndex = 3;
-            this.radioButton_vectors.Text = "Vectors";
-            this.radioButton_vectors.UseVisualStyleBackColor = true;
-            // 
-            // radioButton_interp
-            // 
-            this.radioButton_interp.AutoSize = true;
-            this.radioButton_interp.Checked = true;
-            this.radioButton_interp.Location = new System.Drawing.Point(6, 56);
-            this.radioButton_interp.Name = "radioButton_interp";
-            this.radioButton_interp.Size = new System.Drawing.Size(75, 17);
-            this.radioButton_interp.TabIndex = 2;
-            this.radioButton_interp.TabStop = true;
-            this.radioButton_interp.Text = "Interpolate";
-            this.radioButton_interp.UseVisualStyleBackColor = true;
             // 
             // checkBox_scope_enable
             // 
@@ -2035,7 +2012,7 @@
             this.groupBox_time.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox_time.Location = new System.Drawing.Point(303, 3);
             this.groupBox_time.Name = "groupBox_time";
-            this.groupBox_time.Size = new System.Drawing.Size(264, 129);
+            this.groupBox_time.Size = new System.Drawing.Size(292, 129);
             this.groupBox_time.TabIndex = 0;
             this.groupBox_time.TabStop = false;
             this.groupBox_time.Text = "Time base";
@@ -2058,7 +2035,7 @@
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 38F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 17F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 38F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(108, 110);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(136, 110);
             this.tableLayoutPanel3.TabIndex = 4;
             // 
             // trackBar_zoom
@@ -2068,7 +2045,7 @@
             this.trackBar_zoom.Maximum = 1024;
             this.trackBar_zoom.MaximumSize = new System.Drawing.Size(1024, 30);
             this.trackBar_zoom.Name = "trackBar_zoom";
-            this.trackBar_zoom.Size = new System.Drawing.Size(102, 30);
+            this.trackBar_zoom.Size = new System.Drawing.Size(130, 30);
             this.trackBar_zoom.TabIndex = 1;
             this.trackBar_zoom.TickStyle = System.Windows.Forms.TickStyle.None;
             this.trackBar_zoom.ValueChanged += new System.EventHandler(this.trackBar_zoom_ValueChanged);
@@ -2080,7 +2057,7 @@
             this.trackBar_position.Maximum = 1024;
             this.trackBar_position.MaximumSize = new System.Drawing.Size(1024, 30);
             this.trackBar_position.Name = "trackBar_position";
-            this.trackBar_position.Size = new System.Drawing.Size(102, 30);
+            this.trackBar_position.Size = new System.Drawing.Size(130, 30);
             this.trackBar_position.TabIndex = 1;
             this.trackBar_position.TickStyle = System.Windows.Forms.TickStyle.None;
             this.trackBar_position.Value = 512;
@@ -2318,7 +2295,7 @@
             this.groupBox_trigger.Controls.Add(this.maskedTextBox_pretrig);
             this.groupBox_trigger.Controls.Add(this.trackBar_trig_level);
             this.groupBox_trigger.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox_trigger.Location = new System.Drawing.Point(573, 3);
+            this.groupBox_trigger.Location = new System.Drawing.Point(601, 3);
             this.groupBox_trigger.MaximumSize = new System.Drawing.Size(195, 129);
             this.groupBox_trigger.MinimumSize = new System.Drawing.Size(195, 129);
             this.groupBox_trigger.Name = "groupBox_trigger";
@@ -2925,9 +2902,9 @@
             this.toolStripStatusLabel_device,
             this.toolStripStatusLabel_status,
             this.toolStripProgressBar1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 441);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 517);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(784, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(812, 22);
             this.statusStrip1.TabIndex = 0;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -2960,24 +2937,49 @@
             this.toolStripProgressBar1.Name = "toolStripProgressBar1";
             this.toolStripProgressBar1.Size = new System.Drawing.Size(100, 16);
             // 
-            // label53
+            // checkBox_points
             // 
-            this.label53.AutoSize = true;
-            this.label53.Location = new System.Drawing.Point(10, 143);
-            this.label53.Name = "label53";
-            this.label53.Size = new System.Drawing.Size(13, 13);
-            this.label53.TabIndex = 1;
-            this.label53.Text = "--";
+            this.checkBox_points.AutoSize = true;
+            this.checkBox_points.Location = new System.Drawing.Point(7, 104);
+            this.checkBox_points.Name = "checkBox_points";
+            this.checkBox_points.Size = new System.Drawing.Size(55, 17);
+            this.checkBox_points.TabIndex = 2;
+            this.checkBox_points.Text = "Points";
+            this.checkBox_points.UseVisualStyleBackColor = true;
+            this.checkBox_points.CheckedChanged += new System.EventHandler(this.checkBox_points_CheckedChanged);
+            // 
+            // radioButton_interp
+            // 
+            this.radioButton_interp.AutoSize = true;
+            this.radioButton_interp.Checked = true;
+            this.radioButton_interp.Location = new System.Drawing.Point(7, 50);
+            this.radioButton_interp.Name = "radioButton_interp";
+            this.radioButton_interp.Size = new System.Drawing.Size(75, 17);
+            this.radioButton_interp.TabIndex = 3;
+            this.radioButton_interp.TabStop = true;
+            this.radioButton_interp.Text = "Interpolate";
+            this.radioButton_interp.UseVisualStyleBackColor = true;
+            this.radioButton_interp.CheckedChanged += new System.EventHandler(this.radioButton_interp_CheckedChanged);
+            // 
+            // radioButton13
+            // 
+            this.radioButton13.AutoSize = true;
+            this.radioButton13.Location = new System.Drawing.Point(7, 74);
+            this.radioButton13.Name = "radioButton13";
+            this.radioButton13.Size = new System.Drawing.Size(61, 17);
+            this.radioButton13.TabIndex = 4;
+            this.radioButton13.Text = "Vectors";
+            this.radioButton13.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(784, 487);
+            this.ClientSize = new System.Drawing.Size(812, 563);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
-            this.MinimumSize = new System.Drawing.Size(775, 525);
+            this.MinimumSize = new System.Drawing.Size(820, 600);
             this.Name = "Form1";
             this.Text = "Form1";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
@@ -3085,9 +3087,6 @@
         private System.Windows.Forms.GroupBox groupBox_channel;
         private ZedGraph.ZedGraphControl zedGraphControl_scope;
         private System.Windows.Forms.CheckBox checkBox_scope_enable;
-        private System.Windows.Forms.RadioButton radioButton_points;
-        private System.Windows.Forms.RadioButton radioButton_vectors;
-        private System.Windows.Forms.RadioButton radioButton_interp;
         private System.Windows.Forms.TrackBar trackBar_position;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
@@ -3103,14 +3102,14 @@
         private System.Windows.Forms.MaskedTextBox maskedTextBox_trig_level;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
         private System.Windows.Forms.GroupBox groupBox_measure;
-        private System.Windows.Forms.CheckBox checkBox10;
+        private System.Windows.Forms.CheckBox checkBox_freq;
         private System.Windows.Forms.CheckBox checkBox_RMS;
         private System.Windows.Forms.CheckBox checkBox_low;
         private System.Windows.Forms.CheckBox checkBox_high;
         private System.Windows.Forms.CheckBox checkBox_min;
         private System.Windows.Forms.CheckBox checkBox_duty;
         private System.Windows.Forms.CheckBox checkBox_max;
-        private System.Windows.Forms.CheckBox checkBox6;
+        private System.Windows.Forms.CheckBox checkBox_period;
         private System.Windows.Forms.CheckBox checkBox_PkPk;
         private System.Windows.Forms.CheckBox checkBox_mean;
         private System.Windows.Forms.GroupBox groupBox_cursors_horizontal;
@@ -3287,6 +3286,9 @@
         private System.Windows.Forms.Label label46;
         private System.Windows.Forms.Label label47;
         private System.Windows.Forms.Label label53;
+        private System.Windows.Forms.CheckBox checkBox_points;
+        private System.Windows.Forms.RadioButton radioButton13;
+        private System.Windows.Forms.RadioButton radioButton_interp;
     }
 }
 
