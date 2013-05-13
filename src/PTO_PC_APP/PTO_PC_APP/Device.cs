@@ -7,6 +7,7 @@ using System.Xml;
 using System.Windows.Forms;
 using System.Threading;
 using System.Diagnostics;
+using System.IO;
 
 namespace PTO_PC_APP
 {
@@ -44,13 +45,16 @@ namespace PTO_PC_APP
         int count = 0;
         Stopwatch st;
 
+        private StreamWriter logWriter;
 
         public Device(string portn, string name, string processor, string version, int speed)
         {
+
             this.portName = portn;
             this.Baudrate = speed;
             this.name = name;
-            SerialPort port = new SerialPort();
+
+            this.port = new SerialPort();
             this.port.PortName = portName;
             this.port.ReadBufferSize = 1024*1024;
             this.port.BaudRate = Baudrate;
@@ -83,7 +87,11 @@ namespace PTO_PC_APP
 
         }
 
+        
+
         public void open_port() {
+            logWriter = File.AppendText("logfile.txt");
+            Log("PORT otevřen: "+this.portName+"  Baudrate:"+this.Baudrate+"  Zařízení:"+this.get_processor());
             try {
                 parse_Xml();
                 msg = "";
@@ -97,6 +105,8 @@ namespace PTO_PC_APP
         }
 
         public void close_port() {
+            Log("PORT zavřen: " + this.portName);
+            logWriter.Close();
             port.Close();
             port.Dispose();
             this.opened = false;
@@ -107,9 +117,19 @@ namespace PTO_PC_APP
         }
 
         public void send(string s) {
-            port.Write(s);
-            Console.WriteLine(s);
-        
+            try
+            {
+                port.Write(s);
+
+                if (s.Length>5 && s[5] != 'S' && s[6] != 'R') {
+                    logUart(s);
+                }
+                Console.WriteLine(s);
+            }
+            catch (Exception ex) {
+                Log("Data se nepodařilo odeslat:\r\n"+ex);
+                Console.WriteLine(ex);
+            }
         }
 
         public void send_short(int l)
@@ -294,7 +314,9 @@ namespace PTO_PC_APP
 
         private void serialPort_ErrorReceived(object sender, System.IO.Ports.SerialErrorReceivedEventArgs e)
         {
-            MessageBox.Show("Fatal error at serial comunication\r\n Didn't you unplag the device?\r\n\r\n Please restart the aplication!!!\r\n\r\n " + e, "Fatal error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            Log("Chyba na komunikaci seriové linky:\r\n" + e);
+            Console.WriteLine(e);
+            //MessageBox.Show("Fatal error at serial comunication\r\n Didn't you unplag the device?\r\n\r\n Please restart the aplication!!!\r\n\r\n " + e, "Fatal error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             int i = 0;
         }
 
@@ -311,9 +333,32 @@ namespace PTO_PC_APP
             st.Stop();
             Console.WriteLine(s + " " + st.ElapsedMilliseconds.ToString() + "ms");
             st.Start();
-        }    
+        }
 
 
+        public void Log(string logMessage)
+        {
+            logWriter.Write("\r\nLog Entry : ");
+            logWriter.WriteLine("{0} {1}", DateTime.Now.ToLongTimeString(),
+            DateTime.Now.ToLongDateString());
+            logWriter.WriteLine("  :{0}", logMessage);
+            logWriter.WriteLine("-------------------------------");
+        }
+
+        public void LogEnd() {
+            logWriter.WriteLine("Konec logu");
+            logWriter.WriteLine("-------------------------------");
+            logWriter.WriteLine("\r\n\r\n\r\n");
+        }
+
+        public void logUart(string s){
+            logWriter.Write("UART send (" + DateTime.Now.Minute + ":" + DateTime.Now.Second + "." + DateTime.Now.Millisecond + "): " +s+"\r\n");
+       
+        }
+
+        public void logText(string s) {
+            logWriter.Write(s);
+        }
 
 
 

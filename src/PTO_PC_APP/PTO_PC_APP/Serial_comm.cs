@@ -27,6 +27,8 @@ namespace PTO_PC_APP
         private Device connectedDevice;
         private bool newDevices = false;
         private bool run = true;
+        SerialPort serialPort;
+
 
 
 
@@ -109,7 +111,7 @@ namespace PTO_PC_APP
 
             if (!connected)
             {   
-                SerialPort serialPort = new SerialPort();
+                serialPort = new SerialPort();
                 serialPort.ReadBufferSize = 128*1024;
                 serialPort.BaudRate = 115200;
                 this.connectingInProgress = true;
@@ -178,15 +180,18 @@ namespace PTO_PC_APP
                                     i++;
                                 }
                             }
+
+                            string portname = serialPort.PortName;
+                            int baud = serialPort.BaudRate;
                             serialPort.Close();
-                            Device tmp = new Device(serialPort.PortName, deviceName, procesor, version,serialPort.BaudRate);
+                            serialPort.Dispose();
+                            Device tmp = new Device(portname, deviceName, procesor, version,baud);
                             devices.Add(tmp);     
                         }
                         else
                         {
                             serialPort.Close();
                         }
-
                     }
                     catch (Exception ex)
                     {
@@ -195,7 +200,6 @@ namespace PTO_PC_APP
                         }
                         Console.WriteLine(ex);
                     }
-
                 }
                 newDevices = true;
                 this.connectingInProgress = false;
