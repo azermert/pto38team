@@ -135,14 +135,14 @@
             this.groupBox_measure = new System.Windows.Forms.GroupBox();
             this.checkBox10 = new System.Windows.Forms.CheckBox();
             this.checkBox_RMS = new System.Windows.Forms.CheckBox();
-            this.checkBox9 = new System.Windows.Forms.CheckBox();
-            this.checkBox8 = new System.Windows.Forms.CheckBox();
-            this.checkBox4 = new System.Windows.Forms.CheckBox();
-            this.checkBox7 = new System.Windows.Forms.CheckBox();
-            this.checkBox3 = new System.Windows.Forms.CheckBox();
+            this.checkBox_low = new System.Windows.Forms.CheckBox();
+            this.checkBox_high = new System.Windows.Forms.CheckBox();
+            this.checkBox_min = new System.Windows.Forms.CheckBox();
+            this.checkBox_duty = new System.Windows.Forms.CheckBox();
+            this.checkBox_max = new System.Windows.Forms.CheckBox();
             this.checkBox6 = new System.Windows.Forms.CheckBox();
-            this.checkBox2 = new System.Windows.Forms.CheckBox();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.checkBox_PkPk = new System.Windows.Forms.CheckBox();
+            this.checkBox_mean = new System.Windows.Forms.CheckBox();
             this.groupBox_cursors_horizontal = new System.Windows.Forms.GroupBox();
             this.trackBar_hor_cur_a = new System.Windows.Forms.TrackBar();
             this.label_volt_diff = new System.Windows.Forms.Label();
@@ -247,6 +247,7 @@
             this.toolStripStatusLabel_device = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel_status = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripProgressBar1 = new System.Windows.Forms.ToolStripProgressBar();
+            this.label53 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.tabControl1.SuspendLayout();
@@ -346,7 +347,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 24);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(784, 538);
+            this.panel1.Size = new System.Drawing.Size(784, 463);
             this.panel1.TabIndex = 1;
             // 
             // tabControl1
@@ -360,7 +361,7 @@
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(784, 516);
+            this.tabControl1.Size = new System.Drawing.Size(784, 441);
             this.tabControl1.TabIndex = 0;
             // 
             // tabPage_device
@@ -370,7 +371,7 @@
             this.tabPage_device.Location = new System.Drawing.Point(4, 22);
             this.tabPage_device.Name = "tabPage_device";
             this.tabPage_device.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_device.Size = new System.Drawing.Size(776, 490);
+            this.tabPage_device.Size = new System.Drawing.Size(776, 415);
             this.tabPage_device.TabIndex = 1;
             this.tabPage_device.Text = "Device";
             // 
@@ -386,7 +387,7 @@
             this.tableLayoutPanel5.Name = "tableLayoutPanel5";
             this.tableLayoutPanel5.RowCount = 1;
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(770, 484);
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(770, 409);
             this.tableLayoutPanel5.TabIndex = 0;
             // 
             // tableLayoutPanel6
@@ -402,7 +403,7 @@
             this.tableLayoutPanel6.RowCount = 2;
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanel6.Size = new System.Drawing.Size(160, 484);
+            this.tableLayoutPanel6.Size = new System.Drawing.Size(160, 409);
             this.tableLayoutPanel6.TabIndex = 2;
             // 
             // tableLayoutPanel7
@@ -413,7 +414,7 @@
             this.tableLayoutPanel7.Controls.Add(this.button_connect, 0, 0);
             this.tableLayoutPanel7.Controls.Add(this.button_scan, 1, 0);
             this.tableLayoutPanel7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel7.Location = new System.Drawing.Point(0, 454);
+            this.tableLayoutPanel7.Location = new System.Drawing.Point(0, 379);
             this.tableLayoutPanel7.Margin = new System.Windows.Forms.Padding(0);
             this.tableLayoutPanel7.Name = "tableLayoutPanel7";
             this.tableLayoutPanel7.RowCount = 1;
@@ -450,7 +451,7 @@
             this.listBox_devices.FormattingEnabled = true;
             this.listBox_devices.Location = new System.Drawing.Point(3, 3);
             this.listBox_devices.Name = "listBox_devices";
-            this.listBox_devices.Size = new System.Drawing.Size(154, 448);
+            this.listBox_devices.Size = new System.Drawing.Size(154, 373);
             this.listBox_devices.TabIndex = 1;
             // 
             // groupBox3
@@ -460,7 +461,7 @@
             this.groupBox3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox3.Location = new System.Drawing.Point(3, 3);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(604, 478);
+            this.groupBox3.Size = new System.Drawing.Size(604, 403);
             this.groupBox3.TabIndex = 3;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Device overwiev";
@@ -491,6 +492,7 @@
             // 
             this.groupBox_general.Controls.Add(this.label42);
             this.groupBox_general.Controls.Add(this.label41);
+            this.groupBox_general.Controls.Add(this.label53);
             this.groupBox_general.Controls.Add(this.label26);
             this.groupBox_general.Controls.Add(this.label29);
             this.groupBox_general.Controls.Add(this.label35);
@@ -896,7 +898,7 @@
             this.tabPage_generator.Location = new System.Drawing.Point(4, 22);
             this.tabPage_generator.Name = "tabPage_generator";
             this.tabPage_generator.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_generator.Size = new System.Drawing.Size(776, 490);
+            this.tabPage_generator.Size = new System.Drawing.Size(776, 415);
             this.tabPage_generator.TabIndex = 4;
             this.tabPage_generator.Text = "Generator";
             // 
@@ -915,7 +917,7 @@
             this.tableLayoutPanel14.RowCount = 2;
             this.tableLayoutPanel14.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this.tableLayoutPanel14.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel14.Size = new System.Drawing.Size(770, 484);
+            this.tableLayoutPanel14.Size = new System.Drawing.Size(770, 409);
             this.tableLayoutPanel14.TabIndex = 0;
             // 
             // zedGraphControl_generator
@@ -935,7 +937,7 @@
             this.zedGraphControl_generator.ScrollMinX = 0D;
             this.zedGraphControl_generator.ScrollMinY = 0D;
             this.zedGraphControl_generator.ScrollMinY2 = 0D;
-            this.zedGraphControl_generator.Size = new System.Drawing.Size(516, 445);
+            this.zedGraphControl_generator.Size = new System.Drawing.Size(516, 370);
             this.zedGraphControl_generator.TabIndex = 1;
             // 
             // tableLayoutPanel15
@@ -1102,7 +1104,7 @@
             this.groupBox4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox4.Location = new System.Drawing.Point(523, 38);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(244, 443);
+            this.groupBox4.Size = new System.Drawing.Size(244, 368);
             this.groupBox4.TabIndex = 4;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = " Signal paremeters";
@@ -1250,7 +1252,7 @@
             this.tabPage_counter.Location = new System.Drawing.Point(4, 22);
             this.tabPage_counter.Name = "tabPage_counter";
             this.tabPage_counter.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_counter.Size = new System.Drawing.Size(776, 490);
+            this.tabPage_counter.Size = new System.Drawing.Size(776, 415);
             this.tabPage_counter.TabIndex = 3;
             this.tabPage_counter.Text = "Counter";
             // 
@@ -1261,7 +1263,7 @@
             this.tabPage_scope.Location = new System.Drawing.Point(4, 22);
             this.tabPage_scope.Name = "tabPage_scope";
             this.tabPage_scope.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_scope.Size = new System.Drawing.Size(776, 490);
+            this.tabPage_scope.Size = new System.Drawing.Size(776, 415);
             this.tabPage_scope.TabIndex = 0;
             this.tabPage_scope.Text = "Osciloscope";
             // 
@@ -1273,7 +1275,7 @@
             this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel5.Location = new System.Drawing.Point(3, 3);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(770, 484);
+            this.panel5.Size = new System.Drawing.Size(770, 409);
             this.panel5.TabIndex = 0;
             // 
             // panel4
@@ -1285,7 +1287,7 @@
             this.panel4.Margin = new System.Windows.Forms.Padding(2);
             this.panel4.Name = "panel4";
             this.panel4.Padding = new System.Windows.Forms.Padding(2);
-            this.panel4.Size = new System.Drawing.Size(570, 349);
+            this.panel4.Size = new System.Drawing.Size(570, 274);
             this.panel4.TabIndex = 2;
             // 
             // zedGraphControl_scope
@@ -1305,7 +1307,7 @@
             this.zedGraphControl_scope.ScrollMinX = 0D;
             this.zedGraphControl_scope.ScrollMinY = 0D;
             this.zedGraphControl_scope.ScrollMinY2 = 0D;
-            this.zedGraphControl_scope.Size = new System.Drawing.Size(566, 345);
+            this.zedGraphControl_scope.Size = new System.Drawing.Size(566, 270);
             this.zedGraphControl_scope.TabIndex = 0;
             // 
             // panel3
@@ -1314,7 +1316,7 @@
             this.panel3.Dock = System.Windows.Forms.DockStyle.Right;
             this.panel3.Location = new System.Drawing.Point(570, 0);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(200, 349);
+            this.panel3.Size = new System.Drawing.Size(200, 274);
             this.panel3.TabIndex = 1;
             // 
             // tableLayoutPanel4
@@ -1331,7 +1333,7 @@
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 120F));
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(200, 349);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(200, 274);
             this.tableLayoutPanel4.TabIndex = 1;
             // 
             // groupBox_cursors_vertical
@@ -1352,7 +1354,7 @@
             this.groupBox_cursors_vertical.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox_cursors_vertical.Location = new System.Drawing.Point(3, 123);
             this.groupBox_cursors_vertical.Name = "groupBox_cursors_vertical";
-            this.groupBox_cursors_vertical.Size = new System.Drawing.Size(194, 108);
+            this.groupBox_cursors_vertical.Size = new System.Drawing.Size(194, 71);
             this.groupBox_cursors_vertical.TabIndex = 0;
             this.groupBox_cursors_vertical.TabStop = false;
             this.groupBox_cursors_vertical.Text = "Vertical cursors";
@@ -1469,7 +1471,7 @@
             this.trackBar_ver_cur_a.Maximum = 1024;
             this.trackBar_ver_cur_a.Name = "trackBar_ver_cur_a";
             this.trackBar_ver_cur_a.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trackBar_ver_cur_a.Size = new System.Drawing.Size(23, 89);
+            this.trackBar_ver_cur_a.Size = new System.Drawing.Size(23, 52);
             this.trackBar_ver_cur_a.TabIndex = 0;
             this.trackBar_ver_cur_a.TickStyle = System.Windows.Forms.TickStyle.None;
             this.trackBar_ver_cur_a.ValueChanged += new System.EventHandler(this.trackBar_ver_cur_a_ValueChanged);
@@ -1482,7 +1484,7 @@
             this.trackBar_ver_cur_b.Maximum = 1024;
             this.trackBar_ver_cur_b.Name = "trackBar_ver_cur_b";
             this.trackBar_ver_cur_b.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trackBar_ver_cur_b.Size = new System.Drawing.Size(23, 89);
+            this.trackBar_ver_cur_b.Size = new System.Drawing.Size(23, 52);
             this.trackBar_ver_cur_b.TabIndex = 0;
             this.trackBar_ver_cur_b.TickStyle = System.Windows.Forms.TickStyle.None;
             this.trackBar_ver_cur_b.ValueChanged += new System.EventHandler(this.trackBar_ver_cur_b_ValueChanged);
@@ -1491,14 +1493,14 @@
             // 
             this.groupBox_measure.Controls.Add(this.checkBox10);
             this.groupBox_measure.Controls.Add(this.checkBox_RMS);
-            this.groupBox_measure.Controls.Add(this.checkBox9);
-            this.groupBox_measure.Controls.Add(this.checkBox8);
-            this.groupBox_measure.Controls.Add(this.checkBox4);
-            this.groupBox_measure.Controls.Add(this.checkBox7);
-            this.groupBox_measure.Controls.Add(this.checkBox3);
+            this.groupBox_measure.Controls.Add(this.checkBox_low);
+            this.groupBox_measure.Controls.Add(this.checkBox_high);
+            this.groupBox_measure.Controls.Add(this.checkBox_min);
+            this.groupBox_measure.Controls.Add(this.checkBox_duty);
+            this.groupBox_measure.Controls.Add(this.checkBox_max);
             this.groupBox_measure.Controls.Add(this.checkBox6);
-            this.groupBox_measure.Controls.Add(this.checkBox2);
-            this.groupBox_measure.Controls.Add(this.checkBox1);
+            this.groupBox_measure.Controls.Add(this.checkBox_PkPk);
+            this.groupBox_measure.Controls.Add(this.checkBox_mean);
             this.groupBox_measure.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox_measure.Location = new System.Drawing.Point(3, 3);
             this.groupBox_measure.Name = "groupBox_measure";
@@ -1528,61 +1530,67 @@
             this.checkBox_RMS.TabIndex = 1;
             this.checkBox_RMS.Text = "RMS";
             this.checkBox_RMS.UseVisualStyleBackColor = true;
+            this.checkBox_RMS.CheckedChanged += new System.EventHandler(this.checkBox_RMS_CheckedChanged);
             // 
-            // checkBox9
+            // checkBox_low
             // 
-            this.checkBox9.AutoSize = true;
-            this.checkBox9.Location = new System.Drawing.Point(101, 91);
-            this.checkBox9.Margin = new System.Windows.Forms.Padding(1);
-            this.checkBox9.Name = "checkBox9";
-            this.checkBox9.Size = new System.Drawing.Size(46, 17);
-            this.checkBox9.TabIndex = 1;
-            this.checkBox9.Text = "Low";
-            this.checkBox9.UseVisualStyleBackColor = true;
+            this.checkBox_low.AutoSize = true;
+            this.checkBox_low.Location = new System.Drawing.Point(101, 91);
+            this.checkBox_low.Margin = new System.Windows.Forms.Padding(1);
+            this.checkBox_low.Name = "checkBox_low";
+            this.checkBox_low.Size = new System.Drawing.Size(46, 17);
+            this.checkBox_low.TabIndex = 1;
+            this.checkBox_low.Text = "Low";
+            this.checkBox_low.UseVisualStyleBackColor = true;
+            this.checkBox_low.CheckedChanged += new System.EventHandler(this.checkBox_low_CheckedChanged);
             // 
-            // checkBox8
+            // checkBox_high
             // 
-            this.checkBox8.AutoSize = true;
-            this.checkBox8.Location = new System.Drawing.Point(101, 73);
-            this.checkBox8.Margin = new System.Windows.Forms.Padding(0);
-            this.checkBox8.Name = "checkBox8";
-            this.checkBox8.Size = new System.Drawing.Size(48, 17);
-            this.checkBox8.TabIndex = 1;
-            this.checkBox8.Text = "High";
-            this.checkBox8.UseVisualStyleBackColor = true;
+            this.checkBox_high.AutoSize = true;
+            this.checkBox_high.Location = new System.Drawing.Point(101, 73);
+            this.checkBox_high.Margin = new System.Windows.Forms.Padding(0);
+            this.checkBox_high.Name = "checkBox_high";
+            this.checkBox_high.Size = new System.Drawing.Size(48, 17);
+            this.checkBox_high.TabIndex = 1;
+            this.checkBox_high.Text = "High";
+            this.checkBox_high.UseVisualStyleBackColor = true;
+            this.checkBox_high.CheckedChanged += new System.EventHandler(this.checkBox_high_CheckedChanged);
             // 
-            // checkBox4
+            // checkBox_min
             // 
-            this.checkBox4.AutoSize = true;
-            this.checkBox4.Location = new System.Drawing.Point(9, 91);
-            this.checkBox4.Margin = new System.Windows.Forms.Padding(1);
-            this.checkBox4.Name = "checkBox4";
-            this.checkBox4.Size = new System.Drawing.Size(43, 17);
-            this.checkBox4.TabIndex = 1;
-            this.checkBox4.Text = "Min";
-            this.checkBox4.UseVisualStyleBackColor = true;
+            this.checkBox_min.AutoSize = true;
+            this.checkBox_min.Location = new System.Drawing.Point(9, 91);
+            this.checkBox_min.Margin = new System.Windows.Forms.Padding(1);
+            this.checkBox_min.Name = "checkBox_min";
+            this.checkBox_min.Size = new System.Drawing.Size(43, 17);
+            this.checkBox_min.TabIndex = 1;
+            this.checkBox_min.Text = "Min";
+            this.checkBox_min.UseVisualStyleBackColor = true;
+            this.checkBox_min.CheckedChanged += new System.EventHandler(this.checkBox_min_CheckedChanged);
             // 
-            // checkBox7
+            // checkBox_duty
             // 
-            this.checkBox7.AutoSize = true;
-            this.checkBox7.Location = new System.Drawing.Point(101, 55);
-            this.checkBox7.Margin = new System.Windows.Forms.Padding(1);
-            this.checkBox7.Name = "checkBox7";
-            this.checkBox7.Size = new System.Drawing.Size(48, 17);
-            this.checkBox7.TabIndex = 1;
-            this.checkBox7.Text = "Duty";
-            this.checkBox7.UseVisualStyleBackColor = true;
+            this.checkBox_duty.AutoSize = true;
+            this.checkBox_duty.Location = new System.Drawing.Point(101, 55);
+            this.checkBox_duty.Margin = new System.Windows.Forms.Padding(1);
+            this.checkBox_duty.Name = "checkBox_duty";
+            this.checkBox_duty.Size = new System.Drawing.Size(48, 17);
+            this.checkBox_duty.TabIndex = 1;
+            this.checkBox_duty.Text = "Duty";
+            this.checkBox_duty.UseVisualStyleBackColor = true;
+            this.checkBox_duty.CheckedChanged += new System.EventHandler(this.checkBox_duty_CheckedChanged);
             // 
-            // checkBox3
+            // checkBox_max
             // 
-            this.checkBox3.AutoSize = true;
-            this.checkBox3.Location = new System.Drawing.Point(9, 73);
-            this.checkBox3.Margin = new System.Windows.Forms.Padding(0);
-            this.checkBox3.Name = "checkBox3";
-            this.checkBox3.Size = new System.Drawing.Size(46, 17);
-            this.checkBox3.TabIndex = 1;
-            this.checkBox3.Text = "Max";
-            this.checkBox3.UseVisualStyleBackColor = true;
+            this.checkBox_max.AutoSize = true;
+            this.checkBox_max.Location = new System.Drawing.Point(9, 73);
+            this.checkBox_max.Margin = new System.Windows.Forms.Padding(0);
+            this.checkBox_max.Name = "checkBox_max";
+            this.checkBox_max.Size = new System.Drawing.Size(46, 17);
+            this.checkBox_max.TabIndex = 1;
+            this.checkBox_max.Text = "Max";
+            this.checkBox_max.UseVisualStyleBackColor = true;
+            this.checkBox_max.CheckedChanged += new System.EventHandler(this.checkBox_max_CheckedChanged);
             // 
             // checkBox6
             // 
@@ -1595,27 +1603,29 @@
             this.checkBox6.Text = "Period";
             this.checkBox6.UseVisualStyleBackColor = true;
             // 
-            // checkBox2
+            // checkBox_PkPk
             // 
-            this.checkBox2.AutoSize = true;
-            this.checkBox2.Location = new System.Drawing.Point(9, 55);
-            this.checkBox2.Margin = new System.Windows.Forms.Padding(1);
-            this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(55, 17);
-            this.checkBox2.TabIndex = 1;
-            this.checkBox2.Text = "Pk-Pk";
-            this.checkBox2.UseVisualStyleBackColor = true;
+            this.checkBox_PkPk.AutoSize = true;
+            this.checkBox_PkPk.Location = new System.Drawing.Point(9, 55);
+            this.checkBox_PkPk.Margin = new System.Windows.Forms.Padding(1);
+            this.checkBox_PkPk.Name = "checkBox_PkPk";
+            this.checkBox_PkPk.Size = new System.Drawing.Size(55, 17);
+            this.checkBox_PkPk.TabIndex = 1;
+            this.checkBox_PkPk.Text = "Pk-Pk";
+            this.checkBox_PkPk.UseVisualStyleBackColor = true;
+            this.checkBox_PkPk.CheckedChanged += new System.EventHandler(this.checkBox_PkPk_CheckedChanged);
             // 
-            // checkBox1
+            // checkBox_mean
             // 
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new System.Drawing.Point(9, 37);
-            this.checkBox1.Margin = new System.Windows.Forms.Padding(0);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(53, 17);
-            this.checkBox1.TabIndex = 1;
-            this.checkBox1.Text = "Mean";
-            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox_mean.AutoSize = true;
+            this.checkBox_mean.Location = new System.Drawing.Point(9, 37);
+            this.checkBox_mean.Margin = new System.Windows.Forms.Padding(0);
+            this.checkBox_mean.Name = "checkBox_mean";
+            this.checkBox_mean.Size = new System.Drawing.Size(53, 17);
+            this.checkBox_mean.TabIndex = 1;
+            this.checkBox_mean.Text = "Mean";
+            this.checkBox_mean.UseVisualStyleBackColor = true;
+            this.checkBox_mean.CheckedChanged += new System.EventHandler(this.checkBox_mean_CheckedChanged);
             // 
             // groupBox_cursors_horizontal
             // 
@@ -1628,9 +1638,9 @@
             this.groupBox_cursors_horizontal.Controls.Add(this.label10);
             this.groupBox_cursors_horizontal.Controls.Add(this.label_cur_u_a);
             this.groupBox_cursors_horizontal.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox_cursors_horizontal.Location = new System.Drawing.Point(3, 237);
+            this.groupBox_cursors_horizontal.Location = new System.Drawing.Point(3, 200);
             this.groupBox_cursors_horizontal.Name = "groupBox_cursors_horizontal";
-            this.groupBox_cursors_horizontal.Size = new System.Drawing.Size(194, 109);
+            this.groupBox_cursors_horizontal.Size = new System.Drawing.Size(194, 71);
             this.groupBox_cursors_horizontal.TabIndex = 2;
             this.groupBox_cursors_horizontal.TabStop = false;
             this.groupBox_cursors_horizontal.Text = "Horizontal cursors";
@@ -1643,7 +1653,7 @@
             this.trackBar_hor_cur_a.Maximum = 1024;
             this.trackBar_hor_cur_a.Name = "trackBar_hor_cur_a";
             this.trackBar_hor_cur_a.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trackBar_hor_cur_a.Size = new System.Drawing.Size(25, 90);
+            this.trackBar_hor_cur_a.Size = new System.Drawing.Size(25, 52);
             this.trackBar_hor_cur_a.TabIndex = 0;
             this.trackBar_hor_cur_a.TickStyle = System.Windows.Forms.TickStyle.None;
             this.trackBar_hor_cur_a.ValueChanged += new System.EventHandler(this.trackBar_hor_cur_a_ValueChanged);
@@ -1666,7 +1676,7 @@
             this.trackBar_hor_cur_b.Maximum = 1024;
             this.trackBar_hor_cur_b.Name = "trackBar_hor_cur_b";
             this.trackBar_hor_cur_b.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trackBar_hor_cur_b.Size = new System.Drawing.Size(25, 90);
+            this.trackBar_hor_cur_b.Size = new System.Drawing.Size(25, 52);
             this.trackBar_hor_cur_b.TabIndex = 0;
             this.trackBar_hor_cur_b.TickStyle = System.Windows.Forms.TickStyle.None;
             this.trackBar_hor_cur_b.ValueChanged += new System.EventHandler(this.trackBar_hor_cur_b_ValueChanged);
@@ -1727,7 +1737,7 @@
             this.panel2.BackColor = System.Drawing.SystemColors.Control;
             this.panel2.Controls.Add(this.tableLayoutPanel1);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel2.Location = new System.Drawing.Point(0, 349);
+            this.panel2.Location = new System.Drawing.Point(0, 274);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(770, 135);
             this.panel2.TabIndex = 0;
@@ -2350,7 +2360,6 @@
             this.radioButton_trig_auto.Name = "radioButton_trig_auto";
             this.radioButton_trig_auto.Size = new System.Drawing.Size(50, 24);
             this.radioButton_trig_auto.TabIndex = 5;
-            this.radioButton_trig_auto.TabStop = true;
             this.radioButton_trig_auto.Text = "Auto";
             this.radioButton_trig_auto.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.radioButton_trig_auto.UseVisualStyleBackColor = true;
@@ -2359,6 +2368,7 @@
             // radioButton_trig_normal
             // 
             this.radioButton_trig_normal.Appearance = System.Windows.Forms.Appearance.Button;
+            this.radioButton_trig_normal.Checked = true;
             this.radioButton_trig_normal.Location = new System.Drawing.Point(139, 69);
             this.radioButton_trig_normal.Name = "radioButton_trig_normal";
             this.radioButton_trig_normal.Size = new System.Drawing.Size(50, 24);
@@ -2372,12 +2382,10 @@
             // radioButton_trig_single
             // 
             this.radioButton_trig_single.Appearance = System.Windows.Forms.Appearance.Button;
-            this.radioButton_trig_single.Checked = true;
             this.radioButton_trig_single.Location = new System.Drawing.Point(139, 39);
             this.radioButton_trig_single.Name = "radioButton_trig_single";
             this.radioButton_trig_single.Size = new System.Drawing.Size(50, 24);
             this.radioButton_trig_single.TabIndex = 5;
-            this.radioButton_trig_single.TabStop = true;
             this.radioButton_trig_single.Text = "Single";
             this.radioButton_trig_single.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.radioButton_trig_single.UseVisualStyleBackColor = true;
@@ -2452,7 +2460,7 @@
             this.tabPage_LA.Location = new System.Drawing.Point(4, 22);
             this.tabPage_LA.Name = "tabPage_LA";
             this.tabPage_LA.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage_LA.Size = new System.Drawing.Size(776, 490);
+            this.tabPage_LA.Size = new System.Drawing.Size(776, 415);
             this.tabPage_LA.TabIndex = 2;
             this.tabPage_LA.Text = "Logic analyser";
             // 
@@ -2468,7 +2476,7 @@
             this.tableLayoutPanel10.Name = "tableLayoutPanel10";
             this.tableLayoutPanel10.RowCount = 1;
             this.tableLayoutPanel10.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel10.Size = new System.Drawing.Size(770, 484);
+            this.tableLayoutPanel10.Size = new System.Drawing.Size(770, 409);
             this.tableLayoutPanel10.TabIndex = 0;
             // 
             // tableLayoutPanel11
@@ -2485,7 +2493,7 @@
             this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 310F));
             this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 120F));
-            this.tableLayoutPanel11.Size = new System.Drawing.Size(160, 484);
+            this.tableLayoutPanel11.Size = new System.Drawing.Size(160, 409);
             this.tableLayoutPanel11.TabIndex = 0;
             // 
             // groupBox_log_an_chan
@@ -2727,7 +2735,7 @@
             this.groupBox1.Controls.Add(this.radioButton2);
             this.groupBox1.Controls.Add(this.radioButton1);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox1.Location = new System.Drawing.Point(3, 367);
+            this.groupBox1.Location = new System.Drawing.Point(3, 292);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(154, 114);
             this.groupBox1.TabIndex = 1;
@@ -2816,7 +2824,7 @@
             this.tableLayoutPanel12.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel12.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel12.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel12.Size = new System.Drawing.Size(610, 484);
+            this.tableLayoutPanel12.Size = new System.Drawing.Size(610, 409);
             this.tableLayoutPanel12.TabIndex = 1;
             // 
             // zedGraphControl_log_analyser
@@ -2836,14 +2844,14 @@
             this.zedGraphControl_log_analyser.ScrollMinX = 0D;
             this.zedGraphControl_log_analyser.ScrollMinY = 0D;
             this.zedGraphControl_log_analyser.ScrollMinY2 = 0D;
-            this.zedGraphControl_log_analyser.Size = new System.Drawing.Size(606, 360);
+            this.zedGraphControl_log_analyser.Size = new System.Drawing.Size(606, 285);
             this.zedGraphControl_log_analyser.TabIndex = 5;
             // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.tableLayoutPanel13);
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox2.Location = new System.Drawing.Point(3, 367);
+            this.groupBox2.Location = new System.Drawing.Point(3, 292);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(604, 114);
             this.groupBox2.TabIndex = 4;
@@ -2917,7 +2925,7 @@
             this.toolStripStatusLabel_device,
             this.toolStripStatusLabel_status,
             this.toolStripProgressBar1});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 516);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 441);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(784, 22);
             this.statusStrip1.TabIndex = 0;
@@ -2952,11 +2960,20 @@
             this.toolStripProgressBar1.Name = "toolStripProgressBar1";
             this.toolStripProgressBar1.Size = new System.Drawing.Size(100, 16);
             // 
+            // label53
+            // 
+            this.label53.AutoSize = true;
+            this.label53.Location = new System.Drawing.Point(10, 143);
+            this.label53.Name = "label53";
+            this.label53.Size = new System.Drawing.Size(13, 13);
+            this.label53.TabIndex = 1;
+            this.label53.Text = "--";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(784, 562);
+            this.ClientSize = new System.Drawing.Size(784, 487);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
@@ -3088,14 +3105,14 @@
         private System.Windows.Forms.GroupBox groupBox_measure;
         private System.Windows.Forms.CheckBox checkBox10;
         private System.Windows.Forms.CheckBox checkBox_RMS;
-        private System.Windows.Forms.CheckBox checkBox9;
-        private System.Windows.Forms.CheckBox checkBox8;
-        private System.Windows.Forms.CheckBox checkBox4;
-        private System.Windows.Forms.CheckBox checkBox7;
-        private System.Windows.Forms.CheckBox checkBox3;
+        private System.Windows.Forms.CheckBox checkBox_low;
+        private System.Windows.Forms.CheckBox checkBox_high;
+        private System.Windows.Forms.CheckBox checkBox_min;
+        private System.Windows.Forms.CheckBox checkBox_duty;
+        private System.Windows.Forms.CheckBox checkBox_max;
         private System.Windows.Forms.CheckBox checkBox6;
-        private System.Windows.Forms.CheckBox checkBox2;
-        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.CheckBox checkBox_PkPk;
+        private System.Windows.Forms.CheckBox checkBox_mean;
         private System.Windows.Forms.GroupBox groupBox_cursors_horizontal;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel_status_color;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel_device;
@@ -3269,6 +3286,7 @@
         private System.Windows.Forms.Label label48;
         private System.Windows.Forms.Label label46;
         private System.Windows.Forms.Label label47;
+        private System.Windows.Forms.Label label53;
     }
 }
 

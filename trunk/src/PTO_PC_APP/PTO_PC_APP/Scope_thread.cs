@@ -16,9 +16,15 @@ namespace PTO_PC_APP
         public Paint_mode.Mode mode;
         //Stopwatch stopWatch;
 
+        public enum TriggerType { SINGLE, NORMAL, AUTO };
+        public TriggerType trig = TriggerType.NORMAL;
 
-        public int trig_level = 0;
-        public int pretrig = 100;
+        public bool firstRun = true;
+
+        public bool trigShow = false;
+
+        public int trig_level = 2048;
+        public int pretrig = 50;
         public int buffLenght = 0;
         public double scale = 1;
         public double horPosition = 0.5;
@@ -50,6 +56,17 @@ namespace PTO_PC_APP
         public double[] time;
         public double maxTime = 0;
 
+        public double RMS = 0;
+        public double mean = 0;
+        public double PkPk = 0;
+        public double Max = 0;
+        public double Min = 0;
+
+        public double duty = 0;
+        public double Low = 0;
+        public double High = 0;
+
+
         private bool invalid=true;
         private bool lockPane = false;
      
@@ -74,12 +91,69 @@ namespace PTO_PC_APP
 
         public void new_data(byte[] d)
         {
-            tic();
+            RMS = 0;
+            mean = 0;
+            Max = -100;
+            Min = 100;
+
+            tic(); 
             generate_time_base(samplingfreq, buffLenght);
             for (int i = 0; i < buffLenght; i++)
             {
                 signal[i] = accuracy * d[i] / 1000;
+
+                RMS += signal[i] * signal[i];
+                mean += signal[i];
+                if (signal[i] > Max) {
+                    Max = signal[i];
+                }
+                if (signal[i] < Min) {
+                    Min = signal[i];
+                }
             }
+
+            RMS = Math.Sqrt(RMS / buffLenght);
+            mean = (mean / buffLenght);
+            PkPk = Max - Min;
+
+            double center = (Max+Min)/2;
+            int up = 0;
+            int down = 0;
+            int downTotal = 0;
+            int upTotal = 0;
+            bool countEN = false;
+            bool rise=false;
+
+            if(signal[0]<center){
+                rise=true;
+            }
+            for (int i = 0; i < buffLenght; i++)
+            {
+                if ((rise && !countEN && signal[i] > center) || (!rise && !countEN && signal[i] < center)) //nabezna || sestupna hrana
+                {
+                    countEN = true;
+                }
+                if ((rise && countEN && signal[i] > center && down > 0) || (!rise && countEN && signal[i] < center && up > 0))
+                {
+                    countEN = false;
+                    downTotal += down;
+                    upTotal += up;
+                    up = 0;
+                    down = 0;
+                }
+
+
+                if (countEN){
+                    if (signal[i] > center){
+                        up++;
+                    }else{
+                        down++;
+                    }
+                }
+            }
+            duty = (double)(upTotal) / (downTotal + upTotal);
+            High = duty;
+            Low = 1 - High;
             toc("new data processed");
         }
 
@@ -118,7 +192,7 @@ namespace PTO_PC_APP
                 //vykresleni prubehu
                 scopePane.CurveList.Clear();
                 LineItem curve = scopePane.AddCurve("", time, signal, Color.Red, SymbolType.Diamond);
-                curve.Symbol.Size = 2;
+                curve.Symbol.Size = 4;
                 curve.Line.IsSmooth = true;
                 curve.Line.SmoothTension = 0.5F;
                 curve.Line.IsOptimizedDraw = true;
@@ -134,7 +208,7 @@ namespace PTO_PC_APP
 
                 //trigger time
                 list1 = new PointPairList();
-                list1.Add((maxTime) * pretrig / 100, maxY);
+                list1.Add(((maxTime) * pretrig / 100 - (maxTime / buffLenght)), maxY);
                 curve = scopePane.AddCurve("", list1, Color.Blue, SymbolType.TriangleDown);
                 curve.Symbol.Size = 20;
                 curve.Symbol.Fill.Color = Color.Blue;
@@ -183,7 +257,13 @@ namespace PTO_PC_APP
                     int indexUB = (int)(tB / maxTime * buffLenght);
                     double VA = 0;
                     double VB = 0;
-
+                    if (indexUA >= buffLenght) {
+                        indexUA = buffLenght - 1;
+                    }
+                    if (indexUB >= buffLenght)
+                    {
+                        indexUB = buffLenght - 1;
+                    }
                     //vypocet linearni interpolace napeti kurzoru
                     if (indexUA < buffLenght - 1)
                     {
@@ -298,6 +378,10 @@ namespace PTO_PC_APP
 
         public void update_mode(Paint_mode.Mode m) {
             this.mode = m;
+        }
+
+        public void set_trigger(TriggerType tr) {
+            this.trig = tr;
         }
 
         private void tic()

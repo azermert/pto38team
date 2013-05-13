@@ -176,13 +176,11 @@ namespace PTO_PC_APP
                                 {
                                     version = version + msg[i];
                                     i++;
-
                                 }
                             }
                             serialPort.Close();
-                            Device tmp = new Device(serialPort, deviceName, procesor, version);
-                            devices.Add(tmp);
-                            
+                            Device tmp = new Device(serialPort.PortName, deviceName, procesor, version,serialPort.BaudRate);
+                            devices.Add(tmp);     
                         }
                         else
                         {

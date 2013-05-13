@@ -71,7 +71,7 @@ void initialize(void){
 	
 	SCOPE_setPreTrigger(100);	
 	
-	DAC_desc.DAC_samplingFrequency = 2000000;
+	DAC_desc.DAC_samplingFrequency = 20000;
 	DAC_desc.p_DAC_memory =  lDAC_memory;
 	DAC_desc.DAC_memorySize = DAC_MEM_SIZE;
 	DAC_init(&DAC_desc);
