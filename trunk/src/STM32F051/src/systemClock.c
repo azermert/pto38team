@@ -2,6 +2,7 @@
 #include "systemClock.h"
 
 #include "stm32f0xx.h"
+#include "typedefs.h"
 #include "stm32f0xx_rcc.h"
 
 #include "timeBase.h"

@@ -16,6 +16,7 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f0xx.h"
+#include "typedefs.h"
 #include "stm32f0xx_conf.h"
 #include "adc.h"
 #include "NVIC_Basic.h"

@@ -3,6 +3,7 @@
 
 					*********************** */
 #include "stm32f0xx.h"
+#include "typedefs.h"
 #include "NVIC_Basic.h"
 
 void NVIC_IntEnable (u8 Channel, u8 Priority){	//NVIC set anable bit & priority
