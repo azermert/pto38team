@@ -1,8 +1,12 @@
 
+
+
+
+#include "stm32f0xx.h"
+#include "typedefs.h"
 #include "timeBase.h"
 #include "NVIC_Basic.h"
 
-#include "stm32f0xx.h"
 #include "stm32f0xx_rcc.h"
 
 /* Private variables*/

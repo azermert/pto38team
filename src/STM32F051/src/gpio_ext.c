@@ -12,6 +12,7 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f0xx.h"
+#include "typedefs.h"
 #include "gpio_ext.h"
 #include "stm32f0xx_conf.h"
 
