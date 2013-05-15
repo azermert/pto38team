@@ -1,0 +1,9 @@
+﻿vyresit vypinani vlaken
+
+vyresit prepinani obrazovek a akce na ne
+
+udelat generovani signalu
+
+odstranit zavislost na defines procesor type - DONE
+
+double buffer grafika

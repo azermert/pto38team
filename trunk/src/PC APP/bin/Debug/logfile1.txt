@@ -1,0 +1,59 @@
+
+Log Entry : 14:56:37 15. května 2013
+  :PORT otevřen: COM4  Baudrate:115200  Zařízení:STM32F100
+-------------------------------
+UART send (56:41.285): OSCP:EDGE RISE
+UART send (56:41.286): OSCP:TRIG SING
+UART send (56:41.287): OSCP:FREQ 10K_
+UART send (56:41.288): OSCP:PRET 
+250
+UART send (56:41.290): OSCP:LEVL 
+2048
+UART send (56:49.878): OSCP:LEVL 
+2418
+UART send (57:11.455): OSCP:FREQ 100K
+UART send (57:24.659): OSCP:STOP
+
+Log Entry : 14:57:24 15. května 2013
+  :PORT zavřen: COM4
+-------------------------------
+
+Log Entry : 15:02:16 15. května 2013
+  :PORT otevřen: COM4  Baudrate:115200  Zařízení:STM32F100
+-------------------------------
+UART send (2:19.169): OSCP:EDGE RISE
+UART send (2:19.173): OSCP:TRIG SING
+UART send (2:19.173): OSCP:FREQ 10K_
+UART send (2:19.174): OSCP:PRET 
+250
+UART send (2:19.177): OSCP:LEVL 
+2048
+UART send (2:24.643): OSCP:FREQ 20K_
+UART send (2:26.182): OSCP:FREQ 50K_
+UART send (2:28.726): OSCP:FREQ 20K_
+UART send (2:30.72): OSCP:FREQ 50K_
+UART send (2:34.62): OSCP:FREQ 20K_
+UART send (2:37.188): OSCP:FREQ 50K_
+UART send (2:39.827): OSCP:FREQ 100K
+UART send (3:11.966): OSCP:STOP
+
+Log Entry : 15:03:11 15. května 2013
+  :PORT zavřen: COM4
+-------------------------------
+
+Log Entry : 15:04:00 15. května 2013
+  :PORT otevřen: COM4  Baudrate:115200  Zařízení:STM32F100
+-------------------------------
+UART send (4:2.686): OSCP:EDGE RISE
+UART send (4:2.686): OSCP:TRIG SING
+UART send (4:2.687): OSCP:FREQ 10K_
+UART send (4:2.688): OSCP:PRET 
+250
+UART send (4:2.691): OSCP:LEVL 
+2048
+UART send (4:8.172): OSCP:FREQ 100K
+UART send (5:45.72): OSCP:STOP
+
+Log Entry : 15:05:45 15. května 2013
+  :PORT zavřen: COM4
+-------------------------------
