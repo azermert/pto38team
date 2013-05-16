@@ -43,6 +43,14 @@ namespace PTO_PC_APP
             zedGraphControl_scope.MasterPane[0].YAxis.MajorGrid.IsVisible = true;
             zedGraphControl_scope.MasterPane[0].YAxis.Title.IsVisible = false;
             scope = new Scope_thread();
+
+            zedGraphControl_generator.MasterPane[0].IsFontsScaled = false;
+            zedGraphControl_generator.MasterPane[0].Title.IsVisible = false;
+            zedGraphControl_generator.MasterPane[0].XAxis.MajorGrid.IsVisible = true;
+            zedGraphControl_generator.MasterPane[0].XAxis.Title.IsVisible = false;
+
+            zedGraphControl_generator.MasterPane[0].YAxis.MajorGrid.IsVisible = true;
+            zedGraphControl_generator.MasterPane[0].YAxis.Title.IsVisible = false;
             generator = new Generator_thread();
 
             this.panel5.Enabled = false;
@@ -1022,6 +1030,116 @@ namespace PTO_PC_APP
         {
             Console.WriteLine("dev enter");
         }
+
+        private void trackBar_freq_ValueChanged(object sender, EventArgs e)
+        {
+            generator.frequency = ((double)(this.trackBar_freq.Value) / 10); 
+            this.textBox_freq.Text = generator.frequency.ToString();   
+        }
+
+        private void textBox_freq_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == Convert.ToChar(Keys.Enter))
+            {
+                try
+                {
+                    Double val = Double.Parse(this.textBox_freq.Text);
+                    if (val > 1000)
+                    {
+                        throw new System.ArgumentException("Parameter cannot be greather then ", "original");
+                    }
+                    this.trackBar_freq.Value = (int)(val * 10);
+                    generator.frequency = val;
+                }
+                catch (Exception ex)
+                {
+                    this.textBox_freq.Text = generator.frequency.ToString();
+                }
+            }
+        }
+
+        private void trackBar_ampl_ValueChanged(object sender, EventArgs e)
+        {
+            generator.amplitude= ((double)(this.trackBar_ampl.Value)/this.trackBar_ampl.Maximum*generator.v_ref);
+            this.textBox_ampl.Text = generator.amplitude.ToString(); 
+        }
+
+        private void textBox_ampl_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == Convert.ToChar(Keys.Enter))
+            {
+                try
+                {
+                    Double val = Double.Parse(this.textBox_ampl.Text);
+                    if (val > generator.v_ref)
+                    {
+                        throw new System.ArgumentException("Parameter cannot be greather then ", "original");
+                    }
+                    this.trackBar_ampl.Value = (int)(val/generator.v_ref*trackBar_ampl.Maximum);
+                    generator.amplitude = val;
+                }
+                catch (Exception ex)
+                {
+                    this.textBox_ampl.Text = generator.amplitude.ToString();
+                }
+            }
+        }
+
+        private void trackBar_offset_ValueChanged(object sender, EventArgs e)
+        {
+            generator.offset = ((double)(this.trackBar_offset.Value) / this.trackBar_offset.Maximum * generator.v_ref);
+            this.textBox_offset.Text = generator.offset.ToString(); 
+        }
+
+        private void textBox_offset_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == Convert.ToChar(Keys.Enter))
+            {
+                try
+                {
+                    Double val = Double.Parse(this.textBox_offset.Text);
+                    if (val > generator.v_ref)
+                    {
+                        throw new System.ArgumentException("Parameter cannot be greather then ", "original");
+                    }
+                    this.trackBar_offset.Value = (int)(val / generator.v_ref * trackBar_offset.Maximum);
+                    generator.offset = val;
+                }
+                catch (Exception ex)
+                {
+                    this.textBox_offset.Text = generator.offset.ToString();
+                }
+            }
+        }
+
+        private void trackBar_duty_ValueChanged(object sender, EventArgs e)
+        {
+            generator.duty = ((double)(this.trackBar_duty.Value) / this.trackBar_offset.Maximum * 100);
+            this.textBox_duty.Text = generator.duty.ToString(); 
+        }
+
+        private void textBox_duty_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == Convert.ToChar(Keys.Enter))
+            {
+                try
+                {
+                    Double val = Double.Parse(this.textBox_duty.Text);
+                    if (val > 100)
+                    {
+                        throw new System.ArgumentException("Parameter cannot be greather then ", "original");
+                    }
+                    this.trackBar_duty.Value = (int)(val / 100 * trackBar_duty.Maximum);
+                    generator.duty = val;
+                }
+                catch (Exception ex)
+                {
+                    this.textBox_duty.Text = generator.duty.ToString();
+                }
+            }
+        }
+
+
 
     }
 }

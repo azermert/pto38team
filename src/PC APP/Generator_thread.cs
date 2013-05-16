@@ -27,6 +27,8 @@ namespace PTO_PC_APP
         public double frequency = 100; //Hz
         public double offset = 0;//mV
 
+        public double v_ref = 3300;
+
 
 
 
@@ -38,16 +40,37 @@ namespace PTO_PC_APP
             {
                 Console.WriteLine("gen bezi " + this.signal.Length);
                 generatorPane.CurveList.Clear();
+
+                generatorPane.YAxis.Scale.MaxAuto = false;
+                generatorPane.YAxis.Scale.MinAuto = false;
+
+                generatorPane.XAxis.Scale.MaxAuto = false;
+                generatorPane.XAxis.Scale.MinAuto = false;
+
+                generatorPane.XAxis.Scale.Max = 1.0/frequency;
+                generatorPane.XAxis.Scale.Min = 0;
+
+                generatorPane.YAxis.Scale.Max = v_ref/1000;
+                generatorPane.YAxis.Scale.Min = 0;
+
                 for (int i = 0; i < buffLenght; i++) {
-                    this.time[i] = (double)i/buffLenght;
+                    this.time[i] = (double)i/frequency/buffLenght;
                     if (sigType == SignalType.SINE) {
-                        this.signal[i] = Math.Sin(time[i]*2*Math.PI) + offset;
+                        this.signal[i] = Math.Sin(time[i]*frequency*2*Math.PI)*amplitude/v_ref*v_ref/1000 + offset/1000;
+                        if (signal[i] < 0) {
+                            signal[i] = 0;
+                        }
+                        else if (signal[i] > v_ref/1000) {
+                            signal[i] = v_ref/1000;
+                        }
+                        
                     }
                 }
 
                 LineItem curve = generatorPane.AddCurve("", time, signal, Color.Red, SymbolType.Diamond);
                 curve.Line.IsSmooth = false;
                 curve.Line.IsOptimizedDraw = true;
+                curve.Symbol.Size = 0;
                 generatorPane.AxisChange();
                 Thread.Sleep(100);
             }
