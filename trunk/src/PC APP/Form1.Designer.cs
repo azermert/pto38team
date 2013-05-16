@@ -100,14 +100,14 @@
             this.radioButton11 = new System.Windows.Forms.RadioButton();
             this.radioButton10 = new System.Windows.Forms.RadioButton();
             this.radioButton9 = new System.Windows.Forms.RadioButton();
-            this.trackBar6 = new System.Windows.Forms.TrackBar();
-            this.trackBar5 = new System.Windows.Forms.TrackBar();
-            this.trackBar4 = new System.Windows.Forms.TrackBar();
-            this.trackBar3 = new System.Windows.Forms.TrackBar();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.trackBar_duty = new System.Windows.Forms.TrackBar();
+            this.trackBar_offset = new System.Windows.Forms.TrackBar();
+            this.trackBar_ampl = new System.Windows.Forms.TrackBar();
+            this.trackBar_freq = new System.Windows.Forms.TrackBar();
+            this.textBox_duty = new System.Windows.Forms.TextBox();
+            this.textBox_offset = new System.Windows.Forms.TextBox();
+            this.textBox_ampl = new System.Windows.Forms.TextBox();
+            this.textBox_freq = new System.Windows.Forms.TextBox();
             this.label40 = new System.Windows.Forms.Label();
             this.label39 = new System.Windows.Forms.Label();
             this.label38 = new System.Windows.Forms.Label();
@@ -265,10 +265,10 @@
             this.tableLayoutPanel15.SuspendLayout();
             this.tableLayoutPanel16.SuspendLayout();
             this.groupBox4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar6)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar4)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar_duty)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar_offset)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar_ampl)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar_freq)).BeginInit();
             this.tabPage_scope.SuspendLayout();
             this.panel5.SuspendLayout();
             this.panel4.SuspendLayout();
@@ -921,7 +921,6 @@
             this.tableLayoutPanel14.Controls.Add(this.tableLayoutPanel16, 1, 0);
             this.tableLayoutPanel14.Controls.Add(this.groupBox4, 1, 1);
             this.tableLayoutPanel14.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel14.Enabled = false;
             this.tableLayoutPanel14.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanel14.Name = "tableLayoutPanel14";
             this.tableLayoutPanel14.RowCount = 2;
@@ -1072,14 +1071,14 @@
             this.groupBox4.Controls.Add(this.radioButton11);
             this.groupBox4.Controls.Add(this.radioButton10);
             this.groupBox4.Controls.Add(this.radioButton9);
-            this.groupBox4.Controls.Add(this.trackBar6);
-            this.groupBox4.Controls.Add(this.trackBar5);
-            this.groupBox4.Controls.Add(this.trackBar4);
-            this.groupBox4.Controls.Add(this.trackBar3);
-            this.groupBox4.Controls.Add(this.textBox4);
-            this.groupBox4.Controls.Add(this.textBox3);
-            this.groupBox4.Controls.Add(this.textBox2);
-            this.groupBox4.Controls.Add(this.textBox1);
+            this.groupBox4.Controls.Add(this.trackBar_duty);
+            this.groupBox4.Controls.Add(this.trackBar_offset);
+            this.groupBox4.Controls.Add(this.trackBar_ampl);
+            this.groupBox4.Controls.Add(this.trackBar_freq);
+            this.groupBox4.Controls.Add(this.textBox_duty);
+            this.groupBox4.Controls.Add(this.textBox_offset);
+            this.groupBox4.Controls.Add(this.textBox_ampl);
+            this.groupBox4.Controls.Add(this.textBox_freq);
             this.groupBox4.Controls.Add(this.label40);
             this.groupBox4.Controls.Add(this.label39);
             this.groupBox4.Controls.Add(this.label38);
@@ -1140,69 +1139,81 @@
             this.radioButton9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.radioButton9.UseVisualStyleBackColor = true;
             // 
-            // trackBar6
+            // trackBar_duty
             // 
-            this.trackBar6.AutoSize = false;
-            this.trackBar6.Location = new System.Drawing.Point(9, 291);
-            this.trackBar6.Name = "trackBar6";
-            this.trackBar6.Size = new System.Drawing.Size(228, 30);
-            this.trackBar6.TabIndex = 2;
-            this.trackBar6.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.trackBar_duty.AutoSize = false;
+            this.trackBar_duty.Location = new System.Drawing.Point(9, 291);
+            this.trackBar_duty.Maximum = 1000;
+            this.trackBar_duty.Name = "trackBar_duty";
+            this.trackBar_duty.Size = new System.Drawing.Size(228, 30);
+            this.trackBar_duty.TabIndex = 2;
+            this.trackBar_duty.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.trackBar_duty.ValueChanged += new System.EventHandler(this.trackBar_duty_ValueChanged);
             // 
-            // trackBar5
+            // trackBar_offset
             // 
-            this.trackBar5.AutoSize = false;
-            this.trackBar5.Location = new System.Drawing.Point(9, 215);
-            this.trackBar5.Name = "trackBar5";
-            this.trackBar5.Size = new System.Drawing.Size(228, 30);
-            this.trackBar5.TabIndex = 2;
-            this.trackBar5.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.trackBar_offset.AutoSize = false;
+            this.trackBar_offset.Location = new System.Drawing.Point(9, 215);
+            this.trackBar_offset.Maximum = 10000;
+            this.trackBar_offset.Name = "trackBar_offset";
+            this.trackBar_offset.Size = new System.Drawing.Size(228, 30);
+            this.trackBar_offset.TabIndex = 2;
+            this.trackBar_offset.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.trackBar_offset.ValueChanged += new System.EventHandler(this.trackBar_offset_ValueChanged);
             // 
-            // trackBar4
+            // trackBar_ampl
             // 
-            this.trackBar4.AutoSize = false;
-            this.trackBar4.Location = new System.Drawing.Point(9, 139);
-            this.trackBar4.Name = "trackBar4";
-            this.trackBar4.Size = new System.Drawing.Size(228, 30);
-            this.trackBar4.TabIndex = 2;
-            this.trackBar4.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.trackBar_ampl.AutoSize = false;
+            this.trackBar_ampl.Location = new System.Drawing.Point(9, 139);
+            this.trackBar_ampl.Maximum = 10000;
+            this.trackBar_ampl.Name = "trackBar_ampl";
+            this.trackBar_ampl.Size = new System.Drawing.Size(228, 30);
+            this.trackBar_ampl.TabIndex = 2;
+            this.trackBar_ampl.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.trackBar_ampl.ValueChanged += new System.EventHandler(this.trackBar_ampl_ValueChanged);
             // 
-            // trackBar3
+            // trackBar_freq
             // 
-            this.trackBar3.AutoSize = false;
-            this.trackBar3.Location = new System.Drawing.Point(10, 63);
-            this.trackBar3.Name = "trackBar3";
-            this.trackBar3.Size = new System.Drawing.Size(228, 30);
-            this.trackBar3.TabIndex = 2;
-            this.trackBar3.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.trackBar_freq.AutoSize = false;
+            this.trackBar_freq.Location = new System.Drawing.Point(10, 63);
+            this.trackBar_freq.Maximum = 10000;
+            this.trackBar_freq.Name = "trackBar_freq";
+            this.trackBar_freq.Size = new System.Drawing.Size(228, 30);
+            this.trackBar_freq.TabIndex = 2;
+            this.trackBar_freq.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.trackBar_freq.ValueChanged += new System.EventHandler(this.trackBar_freq_ValueChanged);
             // 
-            // textBox4
+            // textBox_duty
             // 
-            this.textBox4.Location = new System.Drawing.Point(6, 265);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(57, 20);
-            this.textBox4.TabIndex = 1;
+            this.textBox_duty.Location = new System.Drawing.Point(6, 265);
+            this.textBox_duty.Name = "textBox_duty";
+            this.textBox_duty.Size = new System.Drawing.Size(57, 20);
+            this.textBox_duty.TabIndex = 1;
+            this.textBox_duty.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox_duty_KeyPress);
             // 
-            // textBox3
+            // textBox_offset
             // 
-            this.textBox3.Location = new System.Drawing.Point(6, 189);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(57, 20);
-            this.textBox3.TabIndex = 1;
+            this.textBox_offset.Location = new System.Drawing.Point(6, 189);
+            this.textBox_offset.Name = "textBox_offset";
+            this.textBox_offset.Size = new System.Drawing.Size(57, 20);
+            this.textBox_offset.TabIndex = 1;
+            this.textBox_offset.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox_offset_KeyPress);
             // 
-            // textBox2
+            // textBox_ampl
             // 
-            this.textBox2.Location = new System.Drawing.Point(6, 113);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(57, 20);
-            this.textBox2.TabIndex = 1;
+            this.textBox_ampl.Location = new System.Drawing.Point(6, 113);
+            this.textBox_ampl.Name = "textBox_ampl";
+            this.textBox_ampl.Size = new System.Drawing.Size(57, 20);
+            this.textBox_ampl.TabIndex = 1;
+            this.textBox_ampl.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox_ampl_KeyPress);
             // 
-            // textBox1
+            // textBox_freq
             // 
-            this.textBox1.Location = new System.Drawing.Point(7, 37);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(57, 20);
-            this.textBox1.TabIndex = 1;
+            this.textBox_freq.Location = new System.Drawing.Point(7, 39);
+            this.textBox_freq.Name = "textBox_freq";
+            this.textBox_freq.Size = new System.Drawing.Size(57, 20);
+            this.textBox_freq.TabIndex = 1;
+            this.textBox_freq.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox_freq_KeyPress);
             // 
             // label40
             // 
@@ -2995,10 +3006,10 @@
             this.tableLayoutPanel16.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar6)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar4)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar_duty)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar_offset)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar_ampl)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar_freq)).EndInit();
             this.tabPage_scope.ResumeLayout(false);
             this.panel5.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
@@ -3243,14 +3254,14 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.CheckBox checkBox5;
         private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.TrackBar trackBar6;
-        private System.Windows.Forms.TrackBar trackBar5;
-        private System.Windows.Forms.TrackBar trackBar4;
-        private System.Windows.Forms.TrackBar trackBar3;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TrackBar trackBar_duty;
+        private System.Windows.Forms.TrackBar trackBar_offset;
+        private System.Windows.Forms.TrackBar trackBar_ampl;
+        private System.Windows.Forms.TrackBar trackBar_freq;
+        private System.Windows.Forms.TextBox textBox_duty;
+        private System.Windows.Forms.TextBox textBox_offset;
+        private System.Windows.Forms.TextBox textBox_ampl;
+        private System.Windows.Forms.TextBox textBox_freq;
         private System.Windows.Forms.Label label40;
         private System.Windows.Forms.Label label39;
         private System.Windows.Forms.Label label38;

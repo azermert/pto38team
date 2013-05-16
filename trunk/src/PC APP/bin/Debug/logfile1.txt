@@ -57,3 +57,125 @@ UART send (5:45.72): OSCP:STOP
 Log Entry : 15:05:45 15. května 2013
   :PORT zavřen: COM4
 -------------------------------
+
+Log Entry : 22:04:33 16. května 2013
+  :PORT otevřen: COM4  Baudrate:115200  Zařízení:STM32F100
+-------------------------------
+UART send (4:37.110): OSCP:EDGE RISE
+UART send (4:37.111): OSCP:TRIG SING
+UART send (4:37.112): OSCP:FREQ 10K_
+UART send (4:37.113): OSCP:PRET 
+250
+UART send (4:37.115): OSCP:LEVL 
+2048
+UART send (4:52.562): OSCP:FREQ 100K
+UART send (4:58.776): OSCP:FREQ 10K_
+UART send (5:39.147): OSCP:FREQ 20K_
+UART send (5:41.306): OSCP:FREQ 100K
+UART send (5:42.571): OSCP:FREQ 10K_
+UART send (5:43.984): OSCP:FREQ 5K__
+UART send (6:2.282): OSCP:FREQ 2K__
+UART send (6:10.191): OSCP:STOP
+
+Log Entry : 22:06:10 16. května 2013
+  :PORT zavřen: COM4
+-------------------------------
+
+Log Entry : 23:56:47 16. května 2013
+  :PORT otevřen: COM4  Baudrate:115200  Zařízení:STM32F100
+-------------------------------
+UART send (57:17.706): GEN_:STOP
+
+Log Entry : 23:57:17 16. května 2013
+  :PORT zavřen: COM4
+-------------------------------
+
+Log Entry : 23:58:36 16. května 2013
+  :PORT otevřen: COM4  Baudrate:115200  Zařízení:STM32F100
+-------------------------------
+UART send (59:45.479): GEN_:STOP
+
+Log Entry : 23:59:45 16. května 2013
+  :PORT zavřen: COM4
+-------------------------------
+
+Log Entry : 0:00:17 17. května 2013
+  :PORT otevřen: COM4  Baudrate:115200  Zařízení:STM32F100
+-------------------------------
+UART send (0:56.761): GEN_:STOP
+
+Log Entry : 0:00:56 17. května 2013
+  :PORT zavřen: COM4
+-------------------------------
+
+Log Entry : 0:01:51 17. května 2013
+  :PORT otevřen: COM4  Baudrate:115200  Zařízení:STM32F100
+-------------------------------
+UART send (2:17.282): GEN_:STOP
+
+Log Entry : 0:02:17 17. května 2013
+  :PORT zavřen: COM4
+-------------------------------
+
+Log Entry : 0:02:33 17. května 2013
+  :PORT otevřen: COM4  Baudrate:115200  Zařízení:STM32F100
+-------------------------------
+UART send (3:4.9): GEN_:STOP
+
+Log Entry : 0:03:04 17. května 2013
+  :PORT zavřen: COM4
+-------------------------------
+
+Log Entry : 0:04:31 17. května 2013
+  :PORT otevřen: COM4  Baudrate:115200  Zařízení:STM32F100
+-------------------------------
+UART send (4:52.435): GEN_:STOP
+
+Log Entry : 0:04:52 17. května 2013
+  :PORT zavřen: COM4
+-------------------------------
+
+Log Entry : 0:05:09 17. května 2013
+  :PORT otevřen: COM4  Baudrate:115200  Zařízení:STM32F100
+-------------------------------
+UART send (6:30.128): GEN_:STOP
+
+Log Entry : 0:06:30 17. května 2013
+  :PORT zavřen: COM4
+-------------------------------
+
+Log Entry : 0:09:50 17. května 2013
+  :PORT otevřen: COM4  Baudrate:115200  Zařízení:STM32F100
+-------------------------------
+UART send (10:7.549): GEN_:STOP
+
+Log Entry : 0:10:07 17. května 2013
+  :PORT zavřen: COM4
+-------------------------------
+
+Log Entry : 0:10:37 17. května 2013
+  :PORT otevřen: COM4  Baudrate:115200  Zařízení:STM32F100
+-------------------------------
+UART send (11:22.170): GEN_:STOP
+
+Log Entry : 0:11:22 17. května 2013
+  :PORT zavřen: COM4
+-------------------------------
+
+Log Entry : 0:12:22 17. května 2013
+  :PORT otevřen: COM4  Baudrate:115200  Zařízení:STM32F100
+-------------------------------
+UART send (12:43.884): GEN_:STOP
+
+Log Entry : 0:12:43 17. května 2013
+  :PORT zavřen: COM4
+-------------------------------
+
+Log Entry : 0:13:08 17. května 2013
+  :PORT otevřen: COM4  Baudrate:115200  Zařízení:STM32F100
+-------------------------------
+UART send (13:29.668): GEN_:STOP
+
+Log Entry : 0:13:29 17. května 2013
+  :PORT zavřen: COM4
+-------------------------------
