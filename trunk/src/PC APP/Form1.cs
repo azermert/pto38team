@@ -1188,5 +1188,39 @@ namespace PTO_PC_APP
             }
         }
 
+        private void button_gen_update_signal_Click(object sender, EventArgs e)
+        {
+            if (generator.is_triangle()) {
+                sc.set_gen_signal_type(Defines.GEN_TRIANGLE);
+            }
+            else if (generator.is_sine()) {
+                sc.set_gen_signal_type(Defines.GEN_SINE);
+            }
+            else if (generator.is_square()) {
+                sc.set_gen_signal_type(Defines.GEN_SQUARE);
+            }
+
+            sc.set_gen_signal_params((int)(generator.amplitude / generator.v_ref * 65536),(int)(generator.offset / generator.v_ref * 65536),(int)(generator.duty / 100 * 65536));
+            sc.set_gen_sampling_freq((int)(generator.frequency*generator.get_gen_buff_lenght()*generator.freqMull));
+        }
+
+        private void checkBox_gen_en_output_CheckedChanged(object sender, EventArgs e)
+        {
+            if (this.checkBox_gen_en.Checked)
+            {
+                if (this.checkBox_gen_en_output.Checked)
+                {
+                    sc.gen_start();
+                }
+                else
+                {
+                    sc.gen_stop();
+                }
+            }
+            else {
+                this.checkBox_gen_en_output.Checked = false;
+            }
+        }
+
     }
 }
