@@ -47,13 +47,14 @@ namespace PTO_PC_APP
             zedGraphControl_generator.MasterPane[0].IsFontsScaled = false;
             zedGraphControl_generator.MasterPane[0].Title.IsVisible = false;
             zedGraphControl_generator.MasterPane[0].XAxis.MajorGrid.IsVisible = true;
-            zedGraphControl_generator.MasterPane[0].XAxis.Title.IsVisible = false;
+            zedGraphControl_generator.MasterPane[0].XAxis.Title.Text = "time (s)";
 
             zedGraphControl_generator.MasterPane[0].YAxis.MajorGrid.IsVisible = true;
             zedGraphControl_generator.MasterPane[0].YAxis.Title.IsVisible = false;
             generator = new Generator_thread();
 
             this.panel5.Enabled = false;
+            this.tableLayoutPanel14.Enabled = false;
 
             GUITimer.Elapsed += new ElapsedEventHandler(Update_GUI);
             GUITimer.Interval = 50;
@@ -213,7 +214,6 @@ namespace PTO_PC_APP
                 GUITimer.Enabled = true;
             }
             Thread.Sleep(10);
-
         }
         
         /*  Button Connect */
@@ -256,7 +256,7 @@ namespace PTO_PC_APP
                 this.checkBox_scope_enable.Checked = false;
                 invalidate_scope();
 
-
+                //vypnuti generatoru
                 generator.update_mode(mode);
                 if (gen_th.IsAlive)
                 {
@@ -274,18 +274,17 @@ namespace PTO_PC_APP
         }
 
 
-
         /* zavirani okna */
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (this.mode == Paint_mode.Mode.SCOPE) {
+            if (this.scope.mode == Paint_mode.Mode.SCOPE) {
                 scope.update_mode(Paint_mode.Mode.IDLE);
                 scope_th.Join();
                 sc.scope_stop();
             }
 
 
-            if (this.mode == Paint_mode.Mode.GENERATOR)
+            if (this.generator.mode == Paint_mode.Mode.GENERATOR)
             {
                 generator.update_mode(Paint_mode.Mode.IDLE);
                 gen_th.Join();
@@ -342,6 +341,14 @@ namespace PTO_PC_APP
             if (this.checkBox_gen_en.Checked)
             {
                 this.mode = Paint_mode.Mode.GENERATOR;
+                this.trackBar_ampl.Maximum = (int)generator.v_ref*2;
+                this.trackBar_offset.Maximum = (int)generator.v_ref*2;
+
+                this.trackBar_ampl.Value = (int)(generator.amplitude / generator.v_ref * trackBar_ampl.Maximum);
+                this.trackBar_offset.Value = (int)(generator.offset / generator.v_ref * trackBar_offset.Maximum);
+                this.trackBar_freq.Value = (int)(generator.frequency * 10);
+                this.trackBar_duty.Value = (int)(generator.duty / 100 * trackBar_duty.Maximum);
+
                 generator.update_mode(mode);
 
                 gen_th = new Thread(new ThreadStart(generator.run));
@@ -358,69 +365,11 @@ namespace PTO_PC_APP
 
 
 
-        //svazani posivniku s text boxem a odesilani hgodnot trigger
-        private void trackBar_trig_level_MouseUp(object sender, MouseEventArgs e)
-        {
-            if (scope.trig_level != this.trackBar_trig_level.Value)
-            {
-                this.maskedTextBox_trig_level.Text = this.trackBar_trig_level.Value.ToString();
-            }
-        }
-
-        private void maskedTextBox_trig_level_TextChanged(object sender, EventArgs e)
-        {
-            try {
-                int val = int.Parse(this.maskedTextBox_trig_level.Text);
-                if (val > 4096) {
-                    throw new System.ArgumentException("Parameter cannot be greather then 4096", "original");
-                }
-                this.trackBar_trig_level.Value = val;
-                scope.trig_level = val;
-                sc.set_scope_trigger_level(scope.trig_level);
-            }catch(Exception ex){
-                this.maskedTextBox_trig_level.Text = this.trackBar_trig_level.Value.ToString();
-            }
-        }
-
-
-        //svazani posivniku s text boxem a odesilani hodnot pretrigger
-        private void maskedTextBox_pretrig_TextChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                int val = int.Parse(this.maskedTextBox_pretrig.Text);
-                if (val > 100)
-                {
-                    throw new System.ArgumentException("Parameter cannot be greather then 100", "original");
-                }
-                this.trackBar_pretrig.Value = val;
-                scope.pretrig = val;
-                int buffl = sc.get_dev_configuration().scopeBuffLenght * val / 100;
-                sc.set_scope_pretrig(buffl);
-
-            }
-            catch (Exception ex)
-            {
-                this.maskedTextBox_pretrig.Text = this.trackBar_pretrig.Value.ToString();
-            }
-        }
-
-        private void trackBar_pretrig_MouseUp(object sender, MouseEventArgs e)
-        {
-            if (scope.pretrig != this.trackBar_pretrig.Value)
-            {
-                this.maskedTextBox_pretrig.Text = this.trackBar_pretrig.Value.ToString();
-            }
-        }
-
-
-
         /* funkce pro mereni casu - pro debug*/
         private void tic() {
             stopWatch = new Stopwatch();
             stopWatch.Start();
         }
-
         private void toc(string s) {
             stopWatch.Stop();
 
@@ -429,10 +378,8 @@ namespace PTO_PC_APP
         }
 
 
-
-        /*
-         Metody zdlouhave a nudne pro vykreslovani prvku
-         */
+        
+         /*vykreslovaci metody*/
         private void comm_error() {
             this.button_connect.Text = "Connect";
             this.label_device_connected.Text = "No device connected";
@@ -450,8 +397,6 @@ namespace PTO_PC_APP
             this.button_connect.Text = "Disconnect";
             this.button_scan.Enabled = false;
         }
-
-
         private void disconnect()
         {
             this.toolStripStatusLabel_status_color.BackColor = Color.Red;
@@ -477,9 +422,8 @@ namespace PTO_PC_APP
         }
         private void validate_generator() {
             this.tableLayoutPanel14.Enabled = true;
+            radioButton_gen_sine_CheckedChanged(null, EventArgs.Empty);
         }
-
-
         private void paint_scope()
         {
             if (scope.verCurEN)
@@ -567,17 +511,14 @@ namespace PTO_PC_APP
                 this.toolStripStatusLabel_status.Text = "";
             }
         }
-
         private void invalidate_scope()
         {
             this.panel5.Enabled = false;
         }
-
         private void invalidate_generator()
         {
             this.tableLayoutPanel14.Enabled = false;
         }
-
         private void validate_scope(){ 
             this.radioButton_5m.Enabled = true;
             this.radioButton_2m.Enabled = true;
@@ -639,9 +580,83 @@ namespace PTO_PC_APP
                 this.radioButton_2k.Enabled = false;
             }  
         }
-
+        //konec vykreslovaci meody
 
         /* button sampling calbacks */
+
+        /*metody scope prvku*/
+        //svazani posivniku s text boxem a odesilani hgodnot trigger
+        private void trackBar_trig_level_MouseUp(object sender, MouseEventArgs e)
+        {
+            int val = this.trackBar_trig_level.Value;
+            scope.trig_level = val;
+            sc.set_scope_trigger_level(scope.trig_level);
+        }
+        private void trackBar_trig_level_ValueChanged(object sender, EventArgs e)
+        {
+            this.maskedTextBox_trig_level.Text = this.trackBar_trig_level.Value.ToString();
+        }
+        private void maskedTextBox_trig_level_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == Convert.ToChar(Keys.Enter))
+            {
+                try
+                {
+                    int val = int.Parse(this.maskedTextBox_trig_level.Text);
+                    if (val > 4096)
+                    {
+                        throw new System.ArgumentException("Parameter cannot be greather then 4096", "original");
+                    }
+                    this.trackBar_trig_level.Value = val;
+                    scope.trig_level = val;
+                    sc.set_scope_trigger_level(scope.trig_level);
+                }
+                catch (Exception ex)
+                {
+                    this.maskedTextBox_trig_level.Text = this.trackBar_trig_level.Value.ToString();
+                }
+
+
+            }
+        }
+
+        //svazani posivniku s text boxem a odesilani hodnot pretrigger
+        private void trackBar_pretrig_MouseUp(object sender, MouseEventArgs e)
+        {
+            int val = this.trackBar_pretrig.Value;
+            scope.pretrig = val;
+            int buffl = sc.get_dev_configuration().scopeBuffLenght * val / 100;
+            sc.set_scope_pretrig(buffl);
+        }
+        private void maskedTextBox_pretrig_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == Convert.ToChar(Keys.Enter))
+            {
+                try
+                {
+                    int val = int.Parse(this.maskedTextBox_pretrig.Text);
+                    if (val > 100)
+                    {
+                        throw new System.ArgumentException("Parameter cannot be greather then 100", "original");
+                    }
+                    this.trackBar_pretrig.Value = val;
+                    scope.pretrig = val;
+                    int buffl = sc.get_dev_configuration().scopeBuffLenght * val / 100;
+                    sc.set_scope_pretrig(buffl);
+
+                }
+                catch (Exception ex)
+                {
+                    this.maskedTextBox_pretrig.Text = this.trackBar_pretrig.Value.ToString();
+                }
+            }
+        }
+        private void trackBar_pretrig_ValueChanged(object sender, EventArgs e)
+        {
+            this.maskedTextBox_pretrig.Text = this.trackBar_pretrig.Value.ToString();
+        }
+
+        //prepinani frekvence
         private void radioButton_5m_CheckedChanged(object sender, EventArgs e)
         {
             if (this.radioButton_5m.Checked) {
@@ -649,7 +664,6 @@ namespace PTO_PC_APP
                 sc.set_scope_sampling_freq(Defines.FREQ_5M);
             }
         }
-
         private void radioButton_2m_CheckedChanged(object sender, EventArgs e)
         {
             if (this.radioButton_2m.Checked)
@@ -658,7 +672,6 @@ namespace PTO_PC_APP
                 sc.set_scope_sampling_freq(Defines.FREQ_2M);
             }
         }
-
         private void radioButton_1m_CheckedChanged(object sender, EventArgs e)
         {
             if (this.radioButton_1m.Checked)
@@ -667,7 +680,6 @@ namespace PTO_PC_APP
                 sc.set_scope_sampling_freq(Defines.FREQ_1M);
             }
         }
-
         private void radioButton_500k_CheckedChanged(object sender, EventArgs e)
         {
             if (this.radioButton_500k.Checked)
@@ -676,7 +688,6 @@ namespace PTO_PC_APP
                 sc.set_scope_sampling_freq(Defines.FREQ_500K);
             }
         }
-
         private void radioButton_200k_CheckedChanged(object sender, EventArgs e)
         {
             if (this.radioButton_200k.Checked)
@@ -685,7 +696,6 @@ namespace PTO_PC_APP
                 sc.set_scope_sampling_freq(Defines.FREQ_200K);
             }
         }
-
         private void radioButton_100k_CheckedChanged(object sender, EventArgs e)
         {
             if (this.radioButton_100k.Checked)
@@ -694,7 +704,6 @@ namespace PTO_PC_APP
                 sc.set_scope_sampling_freq(Defines.FREQ_100K);
             }
         }
-
         private void radioButton_50k_CheckedChanged(object sender, EventArgs e)
         {
             if (this.radioButton_50k.Checked)
@@ -703,7 +712,6 @@ namespace PTO_PC_APP
                 sc.set_scope_sampling_freq(Defines.FREQ_50K);
             }
         }
-
         private void radioButton_20k_CheckedChanged(object sender, EventArgs e)
         {
             if (this.radioButton_20k.Checked)
@@ -712,7 +720,6 @@ namespace PTO_PC_APP
                 sc.set_scope_sampling_freq(Defines.FREQ_20K);
             }
         }
-
         private void radioButton_10k_CheckedChanged(object sender, EventArgs e)
         {
             if (this.radioButton_10k.Checked)
@@ -721,7 +728,6 @@ namespace PTO_PC_APP
                 sc.set_scope_sampling_freq(Defines.FREQ_10K);
             }
         }
-
         private void radioButton_5k_CheckedChanged(object sender, EventArgs e)
         {
             if (this.radioButton_5k.Checked)
@@ -730,7 +736,6 @@ namespace PTO_PC_APP
                 sc.set_scope_sampling_freq(Defines.FREQ_5K);
             }
         }
-
         private void radioButton_2k_CheckedChanged(object sender, EventArgs e)
         {
             if (this.radioButton_2k.Checked)
@@ -739,7 +744,6 @@ namespace PTO_PC_APP
                 sc.set_scope_sampling_freq(Defines.FREQ_2K);
             }
         }
-
         private void radioButton_1k_CheckedChanged(object sender, EventArgs e)
         {
             if (this.radioButton_1k.Checked)
@@ -748,7 +752,8 @@ namespace PTO_PC_APP
                 sc.set_scope_sampling_freq(Defines.FREQ_1K);
             }
         }
-
+       
+        //trigger mode
         private void checkBox_trig_rise_CheckedChanged(object sender, EventArgs e)
         {
             if (this.checkBox_trig_rise.Checked) {
@@ -756,7 +761,6 @@ namespace PTO_PC_APP
                 sc.set_scope_trigger_edge(Defines.RISE);
             }
         }
-
         private void checkBox_trig_fall_CheckedChanged(object sender, EventArgs e)
         {
             if (this.checkBox_trig_fall.Checked)
@@ -765,7 +769,6 @@ namespace PTO_PC_APP
                 sc.set_scope_trigger_edge(Defines.FALL);
             }
         }
-
         private void radioButton_trig_normal_CheckedChanged(object sender, EventArgs e)
         {
             if (this.radioButton_trig_normal.Checked)
@@ -775,7 +778,6 @@ namespace PTO_PC_APP
                 sc.scope_start();
             }
         }
-
         private void radioButton_trig_auto_CheckedChanged(object sender, EventArgs e)
         {
             if (this.radioButton_trig_auto.Checked)
@@ -785,7 +787,6 @@ namespace PTO_PC_APP
                 sc.scope_start();
             }
         }
-
         private void radioButton_trig_single_Click(object sender, EventArgs e)
         {
             if (this.radioButton_trig_single.Checked)
@@ -795,29 +796,28 @@ namespace PTO_PC_APP
                 sc.scope_start();
             }
         }
-
+    
+        //signal zoom
         private void trackBar_zoom_ValueChanged(object sender, EventArgs e)
         {
             scope.scale = 1.0 - (double)(this.trackBar_zoom.Value) / (this.trackBar_zoom.Maximum - this.trackBar_zoom.Minimum + 10);
         }
-
         private void trackBar_position_ValueChanged(object sender, EventArgs e)
         {
             scope.horPosition = (double)(this.trackBar_position.Value) / (this.trackBar_position.Maximum - this.trackBar_position.Minimum);
         }
-
         private void trackBar_vol_level_ValueChanged(object sender, EventArgs e)
         {
             scope.verPosition = (double)(this.trackBar_vol_level.Value) / (this.trackBar_vol_level.Maximum - this.trackBar_vol_level.Minimum);
         }
 
+        //zmena rozsahu
         private void radioButton_1mv_CheckedChanged(object sender, EventArgs e)
         {
             if (radioButton_1mv.Checked) {
                 scope.range = 0.001;
             }
         }
-
         private void radioButton_2mv_CheckedChanged(object sender, EventArgs e)
         {
             if (radioButton_2mv.Checked)
@@ -825,7 +825,6 @@ namespace PTO_PC_APP
                 scope.range = 0.002;
             }
         }
-
         private void radioButton_5mv_CheckedChanged(object sender, EventArgs e)
         {
             if (radioButton_5mv.Checked)
@@ -833,7 +832,6 @@ namespace PTO_PC_APP
                 scope.range = 0.005;
             }
         }
-
         private void radioButton_10mv_CheckedChanged(object sender, EventArgs e)
         {
             if (radioButton_10mv.Checked)
@@ -841,7 +839,6 @@ namespace PTO_PC_APP
                 scope.range = 0.01;
             }
         }
-
         private void radioButton_20mv_CheckedChanged(object sender, EventArgs e)
         {
             if (radioButton_20mv.Checked)
@@ -849,7 +846,6 @@ namespace PTO_PC_APP
                 scope.range = 0.02;
             }
         }
-
         private void radioButton_50mv_CheckedChanged(object sender, EventArgs e)
         {
             if (radioButton_50mv.Checked)
@@ -857,7 +853,6 @@ namespace PTO_PC_APP
                 scope.range = 0.05;
             }
         }
-
         private void radioButton_100mv_CheckedChanged(object sender, EventArgs e)
         {
             if (radioButton_100mv.Checked)
@@ -865,7 +860,6 @@ namespace PTO_PC_APP
                 scope.range = 0.1;
             }
         }
-
         private void radioButton_200mv_CheckedChanged(object sender, EventArgs e)
         {
             if (radioButton_200mv.Checked)
@@ -873,7 +867,6 @@ namespace PTO_PC_APP
                 scope.range = 0.2;
             }
         }
-
         private void radioButton_500mv_CheckedChanged(object sender, EventArgs e)
         {
             if (radioButton_500mv.Checked)
@@ -881,7 +874,6 @@ namespace PTO_PC_APP
                 scope.range = 0.5;
             }
         }
-
         private void radioButton_1v_CheckedChanged(object sender, EventArgs e)
         {
             if (radioButton_1v.Checked)
@@ -889,7 +881,6 @@ namespace PTO_PC_APP
                 scope.range = 1;
             }
         }
-
         private void radioButton_2v_CheckedChanged(object sender, EventArgs e)
         {
             if (radioButton_2v.Checked)
@@ -897,7 +888,6 @@ namespace PTO_PC_APP
                 scope.range = 2;
             }
         }
-
         private void radioButton_5v_CheckedChanged(object sender, EventArgs e)
         {
             if (radioButton_5v.Checked)
@@ -906,44 +896,40 @@ namespace PTO_PC_APP
             }
         }
 
+        //ovladani kurzoru
         private void checkBox_ver_cur_en_CheckedChanged(object sender, EventArgs e)
         {
             scope.verCurEN = this.checkBox_ver_cur_en.Checked;
         }
-
         private void checkBox_hor_cur_en_CheckedChanged(object sender, EventArgs e)
         {
             scope.horCurEN = this.checkBox_hor_cur_en.Checked;
         }
-
         private void trackBar_ver_cur_a_ValueChanged(object sender, EventArgs e)
         {
             scope.verCursorA = (double)(this.trackBar_ver_cur_a.Value) / (this.trackBar_ver_cur_a.Maximum - this.trackBar_ver_cur_a.Minimum);
         }
-
         private void trackBar_ver_cur_b_ValueChanged(object sender, EventArgs e)
         {
             scope.verCursorB = (double)(this.trackBar_ver_cur_b.Value) / (this.trackBar_ver_cur_b.Maximum - this.trackBar_ver_cur_b.Minimum);
         }
-
         private void trackBar_hor_cur_a_ValueChanged(object sender, EventArgs e)
         {
             scope.horCursorA = (double)(this.trackBar_hor_cur_a.Value) / (this.trackBar_hor_cur_a.Maximum - this.trackBar_hor_cur_a.Minimum);
         }
-
         private void trackBar_hor_cur_b_ValueChanged(object sender, EventArgs e)
         {
             scope.horCursorB = (double)(this.trackBar_hor_cur_b.Value) / (this.trackBar_hor_cur_b.Maximum - this.trackBar_hor_cur_b.Minimum);
   
         }
 
+        //automaticke mereni
         private void checkBox_RMS_CheckedChanged(object sender, EventArgs e)
         {
             if (!this.checkBox_RMS.Checked) {
                 this.checkBox_RMS.Text = "RMS";
             }
         }
-
         private void checkBox_mean_CheckedChanged(object sender, EventArgs e)
         {
             if (!this.checkBox_mean.Checked)
@@ -951,7 +937,6 @@ namespace PTO_PC_APP
                 this.checkBox_mean.Text = "Mean";
             }
         }
-
         private void checkBox_PkPk_CheckedChanged(object sender, EventArgs e)
         {
             if (!this.checkBox_PkPk.Checked)
@@ -959,7 +944,6 @@ namespace PTO_PC_APP
                 this.checkBox_PkPk.Text = "Pk-Pk";
             }
         }
-
         private void checkBox_max_CheckedChanged(object sender, EventArgs e)
         {
             if (!this.checkBox_max.Checked)
@@ -967,7 +951,6 @@ namespace PTO_PC_APP
                 this.checkBox_max.Text = "Max";
             }
         }
-
         private void checkBox_min_CheckedChanged(object sender, EventArgs e)
         {
             if (!this.checkBox_min.Checked)
@@ -975,7 +958,6 @@ namespace PTO_PC_APP
                 this.checkBox_min.Text = "Min";
             }
         }
-
         private void checkBox_duty_CheckedChanged(object sender, EventArgs e)
         {
             if (!this.checkBox_duty.Checked)
@@ -983,7 +965,6 @@ namespace PTO_PC_APP
                 this.checkBox_duty.Text = "Duty";
             }
         }
-
         private void checkBox_low_CheckedChanged(object sender, EventArgs e)
         {
             if (!this.checkBox_low.Checked)
@@ -991,7 +972,6 @@ namespace PTO_PC_APP
                 this.checkBox_low.Text = "Low";
             }
         }
-
         private void checkBox_high_CheckedChanged(object sender, EventArgs e)
         {
             if (!this.checkBox_high.Checked)
@@ -999,7 +979,6 @@ namespace PTO_PC_APP
                 this.checkBox_high.Text = "High";
             }
         }
-
         private void checkBox_freq_CheckedChanged(object sender, EventArgs e)
         {
             if (!this.checkBox_freq.Checked)
@@ -1007,7 +986,6 @@ namespace PTO_PC_APP
                 this.checkBox_freq.Text = "Freq";
             }
         }
-
         private void checkBox_period_CheckedChanged(object sender, EventArgs e)
         {
             if (!this.checkBox_period.Checked)
@@ -1016,27 +994,31 @@ namespace PTO_PC_APP
             }
         }
 
+        //interpolace signalu
         private void checkBox_points_CheckedChanged(object sender, EventArgs e)
         {
             scope.showPoints = this.checkBox_points.Checked;
         }
-
         private void radioButton_interp_CheckedChanged(object sender, EventArgs e)
         {
             scope.interpolation = this.radioButton_interp.Checked;
         }
+        /*metody scope konec*/
 
-        private void tabPage_device_Enter(object sender, EventArgs e)
-        {
-            Console.WriteLine("dev enter");
-        }
-
+        /*metody generator*/
+        //parametry signalu
         private void trackBar_freq_ValueChanged(object sender, EventArgs e)
         {
-            generator.frequency = ((double)(this.trackBar_freq.Value) / 10); 
+            if (this.trackBar_freq.Value < 1)
+            {
+                generator.frequency = 0.1;
+            }
+            else
+            {
+                generator.frequency = ((double)(this.trackBar_freq.Value) / 10);
+            }
             this.textBox_freq.Text = generator.frequency.ToString();   
         }
-
         private void textBox_freq_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == Convert.ToChar(Keys.Enter))
@@ -1044,7 +1026,7 @@ namespace PTO_PC_APP
                 try
                 {
                     Double val = Double.Parse(this.textBox_freq.Text);
-                    if (val > 1000)
+                    if (val > 1000 || val<0.1)
                     {
                         throw new System.ArgumentException("Parameter cannot be greather then ", "original");
                     }
@@ -1057,13 +1039,11 @@ namespace PTO_PC_APP
                 }
             }
         }
-
         private void trackBar_ampl_ValueChanged(object sender, EventArgs e)
         {
             generator.amplitude= ((double)(this.trackBar_ampl.Value)/this.trackBar_ampl.Maximum*generator.v_ref);
             this.textBox_ampl.Text = generator.amplitude.ToString(); 
         }
-
         private void textBox_ampl_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == Convert.ToChar(Keys.Enter))
@@ -1084,13 +1064,11 @@ namespace PTO_PC_APP
                 }
             }
         }
-
         private void trackBar_offset_ValueChanged(object sender, EventArgs e)
         {
             generator.offset = ((double)(this.trackBar_offset.Value) / this.trackBar_offset.Maximum * generator.v_ref);
             this.textBox_offset.Text = generator.offset.ToString(); 
         }
-
         private void textBox_offset_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == Convert.ToChar(Keys.Enter))
@@ -1111,13 +1089,11 @@ namespace PTO_PC_APP
                 }
             }
         }
-
         private void trackBar_duty_ValueChanged(object sender, EventArgs e)
         {
-            generator.duty = ((double)(this.trackBar_duty.Value) / this.trackBar_offset.Maximum * 100);
-            this.textBox_duty.Text = generator.duty.ToString(); 
+            generator.duty = ((double)(this.trackBar_duty.Value) / this.trackBar_duty.Maximum * 100);
+            this.textBox_duty.Text = generator.duty.ToString();
         }
-
         private void textBox_duty_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == Convert.ToChar(Keys.Enter))
@@ -1139,7 +1115,78 @@ namespace PTO_PC_APP
             }
         }
 
+        //typ signalu
+        private void radioButton_gen_sine_CheckedChanged(object sender, EventArgs e)
+        {
+            if (this.radioButton_gen_sine.Checked)
+            {
+                generator.set_sine();
+                this.trackBar_duty.Enabled = false;
+                this.textBox_duty.Enabled = false;
+            }
+        } 
+        private void radioButton_gen_square_CheckedChanged(object sender, EventArgs e)
+        {
+            if (this.radioButton_gen_square.Checked)
+            {
+                generator.set_square();
+                this.trackBar_duty.Enabled = true;
+                this.textBox_duty.Enabled = true;
+            }
+        }
+        private void radioButton_gen_triangle_CheckedChanged(object sender, EventArgs e)
+        {
+            if (this.radioButton_gen_triangle.Checked)
+            {
+                generator.set_triangle();
+                this.trackBar_duty.Enabled = true;
+                this.textBox_duty.Enabled = true;
+            }
+        }
 
+        //frekvence
+        private void radioButton_gen_mHz_CheckedChanged(object sender, EventArgs e)
+        {
+            if (this.radioButton_gen_mHz.Checked)
+            {
+                generator.freqMull = 0.001;
+            }
+        }
+        private void radioButton_gen_Hz_CheckedChanged(object sender, EventArgs e)
+        {
+            if (this.radioButton_gen_Hz.Checked)
+            {
+                generator.freqMull = 1;
+            }
+        }
+        private void radioButton_gen_kHz_CheckedChanged(object sender, EventArgs e)
+        {
+            if (this.radioButton_gen_kHz.Checked)
+            {
+                generator.freqMull = 1000;
+            }
+        }
+        /*metody generator konec*/
+        
+        private void tabPage_device_Enter(object sender, EventArgs e)
+        {
+            this.mode = Paint_mode.Mode.IDLE;
+        }
+        
+        private void tabPage_generator_Enter(object sender, EventArgs e)
+        {
+            if (this.checkBox_gen_en.Checked) {
+                this.mode = Paint_mode.Mode.GENERATOR;
+            }
+        }
+
+        private void tabPage_scope_Enter(object sender, EventArgs e)
+        {
+            if (this.checkBox_scope_enable.Checked)
+            {
+                this.mode = Paint_mode.Mode.SCOPE;
+            }
+        }
 
     }
 }
