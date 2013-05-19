@@ -19,15 +19,16 @@ namespace PTO_PC_APP
         private double[] time;
         private int buffLenght;
 
-        public enum SignalType { SINE,SQUARE,TRIANGLE,RAMP};
+        public enum SignalType { SINE,SQUARE,TRIANGLE};
 
         public SignalType sigType= SignalType.SINE;
-        public double duty = 0; //%
-        public double amplitude = 3000;// mV
+        public double duty = 50; //%
+        public double amplitude = 1000;// mV
         public double frequency = 100; //Hz
-        public double offset = 0;//mV
+        public double offset = 1500;//mV
 
         public double v_ref = 3300;
+        public double freqMull = 1;
 
 
 
@@ -38,32 +39,63 @@ namespace PTO_PC_APP
         {
             while (this.mode == Paint_mode.Mode.GENERATOR)
             {
-                Console.WriteLine("gen bezi " + this.signal.Length);
                 generatorPane.CurveList.Clear();
-
+                
                 generatorPane.YAxis.Scale.MaxAuto = false;
                 generatorPane.YAxis.Scale.MinAuto = false;
 
+                
                 generatorPane.XAxis.Scale.MaxAuto = false;
                 generatorPane.XAxis.Scale.MinAuto = false;
 
-                generatorPane.XAxis.Scale.Max = 1.0/frequency;
+                double xmax = 1.0 / (frequency * freqMull);
+                generatorPane.XAxis.Scale.Max = xmax;
+                if(xmax<=0.001){
+                    generatorPane.XAxis.Scale.Mag=-3;
+                    generatorPane.XAxis.Title.IsOmitMag = true;
+                    generatorPane.XAxis.Title.Text="time (ms)";
+                }else{
+                    generatorPane.XAxis.Title.Text="time (s)";
+                    generatorPane.XAxis.Scale.Mag = 0;
+                }
+                
+                Console.WriteLine("xxx:" + 1.0 / (frequency * freqMull));
                 generatorPane.XAxis.Scale.Min = 0;
 
                 generatorPane.YAxis.Scale.Max = v_ref/1000;
                 generatorPane.YAxis.Scale.Min = 0;
 
                 for (int i = 0; i < buffLenght; i++) {
-                    this.time[i] = (double)i/frequency/buffLenght;
+                    this.time[i] = (double)i/frequency/buffLenght/freqMull;
                     if (sigType == SignalType.SINE) {
-                        this.signal[i] = Math.Sin(time[i]*frequency*2*Math.PI)*amplitude/v_ref*v_ref/1000 + offset/1000;
+                        this.signal[i] = Math.Sin(time[i]*frequency*freqMull*2*Math.PI)*amplitude/v_ref*v_ref/1000 + offset/1000;
                         if (signal[i] < 0) {
                             signal[i] = 0;
                         }
                         else if (signal[i] > v_ref/1000) {
                             signal[i] = v_ref/1000;
                         }
-                        
+                    }
+                    else if (sigType == SignalType.SQUARE)
+                    {
+                        if (i > buffLenght * duty / 100)
+                        {
+                            this.signal[i] = (offset+amplitude)/1000;
+                        }
+                        else {
+                            this.signal[i] = (offset-amplitude)/1000;
+                        }
+                    }
+                    else if (sigType == SignalType.TRIANGLE)
+                    {
+                        if (i > buffLenght * duty / 100)
+                        {
+                            this.signal[i] = (offset + amplitude - amplitude/(buffLenght - (duty / 100 * buffLenght)) * (i - (buffLenght * duty / 100))) / 1000;
+                        }
+                        else
+                        {
+                            this.signal[i] = (offset + amplitude/(duty/100*buffLenght)*i) / 1000;
+                        }
                     }
                 }
 
@@ -88,5 +120,22 @@ namespace PTO_PC_APP
             this.time = new double[p];
             this.buffLenght = p;
         }
+
+        internal void set_sine()
+        {
+            this.sigType = SignalType.SINE;
+        }
+
+        internal void set_square()
+        {
+            this.sigType = SignalType.SQUARE;
+        }
+
+        internal void set_triangle()
+        {
+            this.sigType = SignalType.TRIANGLE;
+        }
+
+
     }
 }

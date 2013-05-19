@@ -88,18 +88,18 @@
             this.tableLayoutPanel14 = new System.Windows.Forms.TableLayoutPanel();
             this.zedGraphControl_generator = new ZedGraph.ZedGraphControl();
             this.tableLayoutPanel15 = new System.Windows.Forms.TableLayoutPanel();
-            this.radioButton3 = new System.Windows.Forms.RadioButton();
-            this.radioButton4 = new System.Windows.Forms.RadioButton();
-            this.radioButton5 = new System.Windows.Forms.RadioButton();
+            this.radioButton_gen_sine = new System.Windows.Forms.RadioButton();
+            this.radioButton_gen_square = new System.Windows.Forms.RadioButton();
+            this.radioButton_gen_triangle = new System.Windows.Forms.RadioButton();
             this.radioButton8 = new System.Windows.Forms.RadioButton();
             this.tableLayoutPanel16 = new System.Windows.Forms.TableLayoutPanel();
-            this.button1 = new System.Windows.Forms.Button();
-            this.checkBox5 = new System.Windows.Forms.CheckBox();
+            this.button_gen_update_signal = new System.Windows.Forms.Button();
+            this.checkBox_gen_en_output = new System.Windows.Forms.CheckBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.checkBox_gen_en = new System.Windows.Forms.CheckBox();
-            this.radioButton11 = new System.Windows.Forms.RadioButton();
-            this.radioButton10 = new System.Windows.Forms.RadioButton();
-            this.radioButton9 = new System.Windows.Forms.RadioButton();
+            this.radioButton_gen_kHz = new System.Windows.Forms.RadioButton();
+            this.radioButton_gen_Hz = new System.Windows.Forms.RadioButton();
+            this.radioButton_gen_mHz = new System.Windows.Forms.RadioButton();
             this.trackBar_duty = new System.Windows.Forms.TrackBar();
             this.trackBar_offset = new System.Windows.Forms.TrackBar();
             this.trackBar_ampl = new System.Windows.Forms.TrackBar();
@@ -910,6 +910,7 @@
             this.tabPage_generator.Size = new System.Drawing.Size(804, 492);
             this.tabPage_generator.TabIndex = 4;
             this.tabPage_generator.Text = "Generator";
+            this.tabPage_generator.Enter += new System.EventHandler(this.tabPage_generator_Enter);
             // 
             // tableLayoutPanel14
             // 
@@ -958,9 +959,9 @@
             this.tableLayoutPanel15.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
             this.tableLayoutPanel15.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
             this.tableLayoutPanel15.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66667F));
-            this.tableLayoutPanel15.Controls.Add(this.radioButton3, 0, 0);
-            this.tableLayoutPanel15.Controls.Add(this.radioButton4, 1, 0);
-            this.tableLayoutPanel15.Controls.Add(this.radioButton5, 2, 0);
+            this.tableLayoutPanel15.Controls.Add(this.radioButton_gen_sine, 0, 0);
+            this.tableLayoutPanel15.Controls.Add(this.radioButton_gen_square, 1, 0);
+            this.tableLayoutPanel15.Controls.Add(this.radioButton_gen_triangle, 2, 0);
             this.tableLayoutPanel15.Controls.Add(this.radioButton8, 5, 0);
             this.tableLayoutPanel15.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanel15.Name = "tableLayoutPanel15";
@@ -970,52 +971,56 @@
             this.tableLayoutPanel15.Size = new System.Drawing.Size(514, 29);
             this.tableLayoutPanel15.TabIndex = 2;
             // 
-            // radioButton3
+            // radioButton_gen_sine
             // 
-            this.radioButton3.Appearance = System.Windows.Forms.Appearance.Button;
-            this.radioButton3.AutoSize = true;
-            this.radioButton3.Checked = true;
-            this.radioButton3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.radioButton3.Location = new System.Drawing.Point(3, 3);
-            this.radioButton3.Name = "radioButton3";
-            this.radioButton3.Size = new System.Drawing.Size(79, 23);
-            this.radioButton3.TabIndex = 0;
-            this.radioButton3.TabStop = true;
-            this.radioButton3.Text = "Sine";
-            this.radioButton3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.radioButton3.UseVisualStyleBackColor = true;
+            this.radioButton_gen_sine.Appearance = System.Windows.Forms.Appearance.Button;
+            this.radioButton_gen_sine.AutoSize = true;
+            this.radioButton_gen_sine.Checked = true;
+            this.radioButton_gen_sine.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.radioButton_gen_sine.Location = new System.Drawing.Point(3, 3);
+            this.radioButton_gen_sine.Name = "radioButton_gen_sine";
+            this.radioButton_gen_sine.Size = new System.Drawing.Size(79, 23);
+            this.radioButton_gen_sine.TabIndex = 0;
+            this.radioButton_gen_sine.TabStop = true;
+            this.radioButton_gen_sine.Text = "Sine";
+            this.radioButton_gen_sine.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.radioButton_gen_sine.UseVisualStyleBackColor = true;
+            this.radioButton_gen_sine.CheckedChanged += new System.EventHandler(this.radioButton_gen_sine_CheckedChanged);
             // 
-            // radioButton4
+            // radioButton_gen_square
             // 
-            this.radioButton4.Appearance = System.Windows.Forms.Appearance.Button;
-            this.radioButton4.AutoSize = true;
-            this.radioButton4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.radioButton4.Location = new System.Drawing.Point(88, 3);
-            this.radioButton4.Name = "radioButton4";
-            this.radioButton4.Size = new System.Drawing.Size(79, 23);
-            this.radioButton4.TabIndex = 0;
-            this.radioButton4.Text = "Square";
-            this.radioButton4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.radioButton4.UseVisualStyleBackColor = true;
+            this.radioButton_gen_square.Appearance = System.Windows.Forms.Appearance.Button;
+            this.radioButton_gen_square.AutoSize = true;
+            this.radioButton_gen_square.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.radioButton_gen_square.Location = new System.Drawing.Point(88, 3);
+            this.radioButton_gen_square.Name = "radioButton_gen_square";
+            this.radioButton_gen_square.Size = new System.Drawing.Size(79, 23);
+            this.radioButton_gen_square.TabIndex = 0;
+            this.radioButton_gen_square.Text = "Square";
+            this.radioButton_gen_square.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.radioButton_gen_square.UseVisualStyleBackColor = true;
+            this.radioButton_gen_square.CheckedChanged += new System.EventHandler(this.radioButton_gen_square_CheckedChanged);
             // 
-            // radioButton5
+            // radioButton_gen_triangle
             // 
-            this.radioButton5.Appearance = System.Windows.Forms.Appearance.Button;
-            this.radioButton5.AutoSize = true;
-            this.radioButton5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.radioButton5.Location = new System.Drawing.Point(173, 3);
-            this.radioButton5.Name = "radioButton5";
-            this.radioButton5.Size = new System.Drawing.Size(79, 23);
-            this.radioButton5.TabIndex = 0;
-            this.radioButton5.Text = "Triangle";
-            this.radioButton5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.radioButton5.UseVisualStyleBackColor = true;
+            this.radioButton_gen_triangle.Appearance = System.Windows.Forms.Appearance.Button;
+            this.radioButton_gen_triangle.AutoSize = true;
+            this.radioButton_gen_triangle.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.radioButton_gen_triangle.Location = new System.Drawing.Point(173, 3);
+            this.radioButton_gen_triangle.Name = "radioButton_gen_triangle";
+            this.radioButton_gen_triangle.Size = new System.Drawing.Size(79, 23);
+            this.radioButton_gen_triangle.TabIndex = 0;
+            this.radioButton_gen_triangle.Text = "Triangle";
+            this.radioButton_gen_triangle.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.radioButton_gen_triangle.UseVisualStyleBackColor = true;
+            this.radioButton_gen_triangle.CheckedChanged += new System.EventHandler(this.radioButton_gen_triangle_CheckedChanged);
             // 
             // radioButton8
             // 
             this.radioButton8.Appearance = System.Windows.Forms.Appearance.Button;
             this.radioButton8.AutoSize = true;
             this.radioButton8.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.radioButton8.Enabled = false;
             this.radioButton8.Location = new System.Drawing.Point(428, 3);
             this.radioButton8.Name = "radioButton8";
             this.radioButton8.Size = new System.Drawing.Size(83, 23);
@@ -1032,8 +1037,8 @@
             this.tableLayoutPanel16.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 10F));
             this.tableLayoutPanel16.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel16.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tableLayoutPanel16.Controls.Add(this.button1, 1, 0);
-            this.tableLayoutPanel16.Controls.Add(this.checkBox5, 3, 0);
+            this.tableLayoutPanel16.Controls.Add(this.button_gen_update_signal, 1, 0);
+            this.tableLayoutPanel16.Controls.Add(this.checkBox_gen_en_output, 3, 0);
             this.tableLayoutPanel16.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel16.Location = new System.Drawing.Point(551, 3);
             this.tableLayoutPanel16.Name = "tableLayoutPanel16";
@@ -1042,35 +1047,35 @@
             this.tableLayoutPanel16.Size = new System.Drawing.Size(244, 29);
             this.tableLayoutPanel16.TabIndex = 3;
             // 
-            // button1
+            // button_gen_update_signal
             // 
-            this.button1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button1.Location = new System.Drawing.Point(23, 3);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(91, 23);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "Update signal";
-            this.button1.UseVisualStyleBackColor = true;
+            this.button_gen_update_signal.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button_gen_update_signal.Location = new System.Drawing.Point(23, 3);
+            this.button_gen_update_signal.Name = "button_gen_update_signal";
+            this.button_gen_update_signal.Size = new System.Drawing.Size(91, 23);
+            this.button_gen_update_signal.TabIndex = 0;
+            this.button_gen_update_signal.Text = "Update signal";
+            this.button_gen_update_signal.UseVisualStyleBackColor = true;
             // 
-            // checkBox5
+            // checkBox_gen_en_output
             // 
-            this.checkBox5.Appearance = System.Windows.Forms.Appearance.Button;
-            this.checkBox5.AutoSize = true;
-            this.checkBox5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.checkBox5.Location = new System.Drawing.Point(130, 3);
-            this.checkBox5.Name = "checkBox5";
-            this.checkBox5.Size = new System.Drawing.Size(91, 23);
-            this.checkBox5.TabIndex = 1;
-            this.checkBox5.Text = "Enable output";
-            this.checkBox5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.checkBox5.UseVisualStyleBackColor = true;
+            this.checkBox_gen_en_output.Appearance = System.Windows.Forms.Appearance.Button;
+            this.checkBox_gen_en_output.AutoSize = true;
+            this.checkBox_gen_en_output.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.checkBox_gen_en_output.Location = new System.Drawing.Point(130, 3);
+            this.checkBox_gen_en_output.Name = "checkBox_gen_en_output";
+            this.checkBox_gen_en_output.Size = new System.Drawing.Size(91, 23);
+            this.checkBox_gen_en_output.TabIndex = 1;
+            this.checkBox_gen_en_output.Text = "Enable output";
+            this.checkBox_gen_en_output.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.checkBox_gen_en_output.UseVisualStyleBackColor = true;
             // 
             // groupBox4
             // 
             this.groupBox4.Controls.Add(this.checkBox_gen_en);
-            this.groupBox4.Controls.Add(this.radioButton11);
-            this.groupBox4.Controls.Add(this.radioButton10);
-            this.groupBox4.Controls.Add(this.radioButton9);
+            this.groupBox4.Controls.Add(this.radioButton_gen_kHz);
+            this.groupBox4.Controls.Add(this.radioButton_gen_Hz);
+            this.groupBox4.Controls.Add(this.radioButton_gen_mHz);
             this.groupBox4.Controls.Add(this.trackBar_duty);
             this.groupBox4.Controls.Add(this.trackBar_offset);
             this.groupBox4.Controls.Add(this.trackBar_ampl);
@@ -1102,42 +1107,46 @@
             this.checkBox_gen_en.UseVisualStyleBackColor = true;
             this.checkBox_gen_en.CheckedChanged += new System.EventHandler(this.checkBox_gen_en_CheckedChanged);
             // 
-            // radioButton11
+            // radioButton_gen_kHz
             // 
-            this.radioButton11.Appearance = System.Windows.Forms.Appearance.Button;
-            this.radioButton11.Location = new System.Drawing.Point(172, 37);
-            this.radioButton11.Name = "radioButton11";
-            this.radioButton11.Size = new System.Drawing.Size(45, 20);
-            this.radioButton11.TabIndex = 3;
-            this.radioButton11.TabStop = true;
-            this.radioButton11.Text = "kHz";
-            this.radioButton11.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.radioButton11.UseVisualStyleBackColor = true;
+            this.radioButton_gen_kHz.Appearance = System.Windows.Forms.Appearance.Button;
+            this.radioButton_gen_kHz.Location = new System.Drawing.Point(172, 37);
+            this.radioButton_gen_kHz.Name = "radioButton_gen_kHz";
+            this.radioButton_gen_kHz.Size = new System.Drawing.Size(45, 20);
+            this.radioButton_gen_kHz.TabIndex = 3;
+            this.radioButton_gen_kHz.TabStop = true;
+            this.radioButton_gen_kHz.Text = "kHz";
+            this.radioButton_gen_kHz.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.radioButton_gen_kHz.UseVisualStyleBackColor = true;
+            this.radioButton_gen_kHz.CheckedChanged += new System.EventHandler(this.radioButton_gen_kHz_CheckedChanged);
             // 
-            // radioButton10
+            // radioButton_gen_Hz
             // 
-            this.radioButton10.Appearance = System.Windows.Forms.Appearance.Button;
-            this.radioButton10.Checked = true;
-            this.radioButton10.Location = new System.Drawing.Point(121, 37);
-            this.radioButton10.Name = "radioButton10";
-            this.radioButton10.Size = new System.Drawing.Size(45, 20);
-            this.radioButton10.TabIndex = 3;
-            this.radioButton10.TabStop = true;
-            this.radioButton10.Text = "Hz";
-            this.radioButton10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.radioButton10.UseVisualStyleBackColor = true;
+            this.radioButton_gen_Hz.Appearance = System.Windows.Forms.Appearance.Button;
+            this.radioButton_gen_Hz.Checked = true;
+            this.radioButton_gen_Hz.Location = new System.Drawing.Point(121, 37);
+            this.radioButton_gen_Hz.Name = "radioButton_gen_Hz";
+            this.radioButton_gen_Hz.Size = new System.Drawing.Size(45, 20);
+            this.radioButton_gen_Hz.TabIndex = 3;
+            this.radioButton_gen_Hz.TabStop = true;
+            this.radioButton_gen_Hz.Text = "Hz";
+            this.radioButton_gen_Hz.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.radioButton_gen_Hz.UseVisualStyleBackColor = true;
+            this.radioButton_gen_Hz.CheckedChanged += new System.EventHandler(this.radioButton_gen_Hz_CheckedChanged);
             // 
-            // radioButton9
+            // radioButton_gen_mHz
             // 
-            this.radioButton9.Appearance = System.Windows.Forms.Appearance.Button;
-            this.radioButton9.Location = new System.Drawing.Point(70, 37);
-            this.radioButton9.Name = "radioButton9";
-            this.radioButton9.Size = new System.Drawing.Size(45, 20);
-            this.radioButton9.TabIndex = 3;
-            this.radioButton9.TabStop = true;
-            this.radioButton9.Text = "mHz";
-            this.radioButton9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.radioButton9.UseVisualStyleBackColor = true;
+            this.radioButton_gen_mHz.Appearance = System.Windows.Forms.Appearance.Button;
+            this.radioButton_gen_mHz.Enabled = false;
+            this.radioButton_gen_mHz.Location = new System.Drawing.Point(70, 37);
+            this.radioButton_gen_mHz.Name = "radioButton_gen_mHz";
+            this.radioButton_gen_mHz.Size = new System.Drawing.Size(45, 20);
+            this.radioButton_gen_mHz.TabIndex = 3;
+            this.radioButton_gen_mHz.TabStop = true;
+            this.radioButton_gen_mHz.Text = "mHz";
+            this.radioButton_gen_mHz.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.radioButton_gen_mHz.UseVisualStyleBackColor = true;
+            this.radioButton_gen_mHz.CheckedChanged += new System.EventHandler(this.radioButton_gen_mHz_CheckedChanged);
             // 
             // trackBar_duty
             // 
@@ -1271,6 +1280,7 @@
             this.tabPage_scope.Size = new System.Drawing.Size(804, 492);
             this.tabPage_scope.TabIndex = 0;
             this.tabPage_scope.Text = "Osciloscope";
+            this.tabPage_scope.Enter += new System.EventHandler(this.tabPage_scope_Enter);
             // 
             // panel5
             // 
@@ -2408,6 +2418,7 @@
             this.trackBar_pretrig.TabIndex = 4;
             this.trackBar_pretrig.TickStyle = System.Windows.Forms.TickStyle.None;
             this.trackBar_pretrig.Value = 50;
+            this.trackBar_pretrig.ValueChanged += new System.EventHandler(this.trackBar_pretrig_ValueChanged);
             this.trackBar_pretrig.MouseUp += new System.Windows.Forms.MouseEventHandler(this.trackBar_pretrig_MouseUp);
             // 
             // label4
@@ -2435,7 +2446,7 @@
             this.maskedTextBox_trig_level.Size = new System.Drawing.Size(41, 20);
             this.maskedTextBox_trig_level.TabIndex = 2;
             this.maskedTextBox_trig_level.Text = "2048";
-            this.maskedTextBox_trig_level.TextChanged += new System.EventHandler(this.maskedTextBox_trig_level_TextChanged);
+            this.maskedTextBox_trig_level.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.maskedTextBox_trig_level_KeyPress);
             // 
             // maskedTextBox_pretrig
             // 
@@ -2444,7 +2455,7 @@
             this.maskedTextBox_pretrig.Size = new System.Drawing.Size(41, 20);
             this.maskedTextBox_pretrig.TabIndex = 2;
             this.maskedTextBox_pretrig.Text = "50";
-            this.maskedTextBox_pretrig.TextChanged += new System.EventHandler(this.maskedTextBox_pretrig_TextChanged);
+            this.maskedTextBox_pretrig.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.maskedTextBox_pretrig_KeyPress);
             // 
             // trackBar_trig_level
             // 
@@ -2458,6 +2469,7 @@
             this.trackBar_trig_level.TabIndex = 0;
             this.trackBar_trig_level.TickStyle = System.Windows.Forms.TickStyle.None;
             this.trackBar_trig_level.Value = 2048;
+            this.trackBar_trig_level.ValueChanged += new System.EventHandler(this.trackBar_trig_level_ValueChanged);
             this.trackBar_trig_level.MouseUp += new System.Windows.Forms.MouseEventHandler(this.trackBar_trig_level_MouseUp);
             // 
             // tabPage_LA
@@ -3246,13 +3258,13 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel14;
         private ZedGraph.ZedGraphControl zedGraphControl_generator;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel15;
-        private System.Windows.Forms.RadioButton radioButton3;
-        private System.Windows.Forms.RadioButton radioButton4;
-        private System.Windows.Forms.RadioButton radioButton5;
+        private System.Windows.Forms.RadioButton radioButton_gen_sine;
+        private System.Windows.Forms.RadioButton radioButton_gen_square;
+        private System.Windows.Forms.RadioButton radioButton_gen_triangle;
         private System.Windows.Forms.RadioButton radioButton8;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel16;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.CheckBox checkBox5;
+        private System.Windows.Forms.Button button_gen_update_signal;
+        private System.Windows.Forms.CheckBox checkBox_gen_en_output;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.TrackBar trackBar_duty;
         private System.Windows.Forms.TrackBar trackBar_offset;
@@ -3266,9 +3278,9 @@
         private System.Windows.Forms.Label label39;
         private System.Windows.Forms.Label label38;
         private System.Windows.Forms.Label label36;
-        private System.Windows.Forms.RadioButton radioButton11;
-        private System.Windows.Forms.RadioButton radioButton10;
-        private System.Windows.Forms.RadioButton radioButton9;
+        private System.Windows.Forms.RadioButton radioButton_gen_kHz;
+        private System.Windows.Forms.RadioButton radioButton_gen_Hz;
+        private System.Windows.Forms.RadioButton radioButton_gen_mHz;
         private System.Windows.Forms.Label label52;
         private System.Windows.Forms.Label label51;
         private System.Windows.Forms.Label label43;
