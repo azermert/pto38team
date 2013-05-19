@@ -58,8 +58,6 @@ namespace PTO_PC_APP
                     generatorPane.XAxis.Title.Text="time (s)";
                     generatorPane.XAxis.Scale.Mag = 0;
                 }
-                
-                Console.WriteLine("xxx:" + 1.0 / (frequency * freqMull));
                 generatorPane.XAxis.Scale.Min = 0;
 
                 generatorPane.YAxis.Scale.Max = v_ref/1000;
@@ -121,6 +119,10 @@ namespace PTO_PC_APP
             this.buffLenght = p;
         }
 
+        internal int get_gen_buff_lenght() {
+            return this.buffLenght;
+        }
+
         internal void set_sine()
         {
             this.sigType = SignalType.SINE;
@@ -135,6 +137,30 @@ namespace PTO_PC_APP
         {
             this.sigType = SignalType.TRIANGLE;
         }
+
+        public bool is_sine() {
+            if (this.sigType == SignalType.SINE) {
+                return true;
+            }
+            return false;
+        }
+        public bool is_triangle()
+        {
+            if (this.sigType == SignalType.TRIANGLE)
+            {
+                return true;
+            }
+            return false;
+        }
+        public bool is_square()
+        {
+            if (this.sigType == SignalType.SQUARE)
+            {
+                return true;
+            }
+            return false;
+        }
+
 
 
     }

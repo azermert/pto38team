@@ -165,6 +165,19 @@ namespace PTO_PC_APP
             Console.WriteLine(l.ToString());
         }
 
+        public void send_int(int l)
+        {
+            logText(l.ToString());
+            byte[] bt = BitConverter.GetBytes(l);
+            byte[] se=new byte[4];
+            se[0]=bt[0];
+            se[1]=bt[1];
+            se[2]=bt[2];
+            se[3]=bt[3];
+            port.Write(se, 0, 4);
+            Console.WriteLine(l.ToString());
+        }
+
         public string get_processor() {
             return this.procConf.procType;
         }

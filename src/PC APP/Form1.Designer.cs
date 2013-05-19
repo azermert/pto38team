@@ -1056,6 +1056,7 @@
             this.button_gen_update_signal.TabIndex = 0;
             this.button_gen_update_signal.Text = "Update signal";
             this.button_gen_update_signal.UseVisualStyleBackColor = true;
+            this.button_gen_update_signal.Click += new System.EventHandler(this.button_gen_update_signal_Click);
             // 
             // checkBox_gen_en_output
             // 
@@ -1069,6 +1070,7 @@
             this.checkBox_gen_en_output.Text = "Enable output";
             this.checkBox_gen_en_output.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.checkBox_gen_en_output.UseVisualStyleBackColor = true;
+            this.checkBox_gen_en_output.CheckedChanged += new System.EventHandler(this.checkBox_gen_en_output_CheckedChanged);
             // 
             // groupBox4
             // 

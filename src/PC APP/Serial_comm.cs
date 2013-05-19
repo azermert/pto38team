@@ -254,22 +254,18 @@ namespace PTO_PC_APP
         public void set_scope_sampling_freq(string smp) { 
             connectedDevice.send(Defines.SCOPE+":"+Defines.SCOPE_FREQUENCY+" "+smp);
         }
-
         public void scope_start()
         {
             connectedDevice.send(Defines.SCOPE + ":" + Defines.START);
         }
-
         public void scope_stop()
         {
             connectedDevice.send(Defines.SCOPE + ":" + Defines.STOP);
         }
-
         public void set_scope_trigger_edge(string edge)
         {
             connectedDevice.send(Defines.SCOPE + ":" + Defines.SCOPE_EDGE + " " + edge);
         }
-
         public void set_scope_trigger_type(string trig)
         {
             connectedDevice.send(Defines.SCOPE + ":" + Defines.SCOPE_TRIG + " " + trig);
@@ -301,6 +297,26 @@ namespace PTO_PC_APP
         public void gen_stop()
         {
             connectedDevice.send(Defines.GENERATOR + ":" + Defines.STOP);
+        }
+
+        public void set_gen_signal_type(string s) { 
+                connectedDevice.send(Defines.GENERATOR+":"+Defines.GEN_TYPE+" "+s); 
+        }
+
+        public void set_gen_signal_params(int amp, int off, int duty)
+        {
+            connectedDevice.send(Defines.GENERATOR + ":" + Defines.GEN_AMPLITUDE + " ");
+            connectedDevice.send_short(amp);
+            connectedDevice.send(":" + Defines.GEN_OFFSET + " ");
+            connectedDevice.send_short(off);
+            connectedDevice.send(":" + Defines.GEN_DUTY + " ");
+            connectedDevice.send_short(duty);
+        }
+
+        public void set_gen_sampling_freq(int smpfreq){
+            connectedDevice.send(":" + Defines.GEN_FREQUENCY + " ");
+            connectedDevice.send_int(smpfreq);
+      
         }
 
     }
