@@ -319,5 +319,12 @@ namespace PTO_PC_APP
       
         }
 
+        public bool get_ackn() {
+            return this.connectedDevice.get_ackn();
+        }
+
+        public void clear_ackn() {
+            this.connectedDevice.clear_ackn();
+        }
     }
 }

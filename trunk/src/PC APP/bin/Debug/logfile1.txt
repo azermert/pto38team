@@ -1,36 +1,351 @@
 
-Log Entry : 16:07:28 19. května 2013
+Log Entry : 17:00:39 19. května 2013
   :PORT otevřen: COM4  Baudrate:115200  Zařízení:STM32F100
 -------------------------------
-
-Log Entry : 16:07:33 19. května 2013
-  :PORT zavřen: COM4
--------------------------------
-
-Log Entry : 16:07:56 19. května 2013
-  :PORT otevřen: COM4  Baudrate:115200  Zařízení:STM32F100
--------------------------------
-
-Log Entry : 16:08:04 19. května 2013
-  :PORT zavřen: COM4
--------------------------------
-
-Log Entry : 16:08:25 19. května 2013
-  :PORT otevřen: COM4  Baudrate:115200  Zařízení:STM32F100
--------------------------------
-UART send (8:39.143): GEN_:TYPE TRIA
-UART send (8:39.145): GEN_:AMPL 
+UART send (0:45.354): GEN_:TYPE SINE
+UART send (0:45.356): GEN_:AMPL 
 19859
-UART send (8:39.147): :OFFS 
-25817
-UART send (8:39.149): :DUTY 
-7798
-UART send (8:39.151): :FREQ 
+HEX
+0x0014777
+UART send (0:45.360): :OFFS 
+29789
+HEX
+0x0093116
+UART send (0:45.362): :DUTY 
+32768
+HEX
+0x000128
+UART send (0:45.365): :FREQ 
 50000
-UART send (8:40.570): GEN_:SRAT
-UART send (8:41.895): GEN_:STOP
-UART send (8:42.766): GEN_:STOP
+bit con:50-C3-00-00
+0x48484848
+UART send (0:48.614): GEN_:STOP
 
-Log Entry : 16:08:42 19. května 2013
+Log Entry : 17:00:48 19. května 2013
+  :PORT zavřen: COM4
+-------------------------------
+
+Log Entry : 17:02:52 19. května 2013
+  :PORT otevřen: COM4  Baudrate:115200  Zařízení:STM32F100
+-------------------------------
+UART send (3:1.590): GEN_:TYPE SINE
+UART send (3:1.625): GEN_:AMPL 
+0x00-00-93-4D
+UART send (3:1.628): :OFFS 
+0x00-00-5D-74
+UART send (3:1.630): :DUTY 
+0x00-00-00-80
+UART send (3:1.633): :FREQ 
+0x80-F0-FA-02
+UART send (3:3.573): GEN_:STOP
+
+Log Entry : 17:03:03 19. května 2013
+  :PORT zavřen: COM4
+-------------------------------
+
+Log Entry : 17:04:23 19. května 2013
+  :PORT otevřen: COM4  Baudrate:115200  Zařízení:STM32F100
+-------------------------------
+UART send (4:29.410): GEN_:TYPE SINE
+UART send (4:29.412): GEN_:AMPL 
+19859(00-00-93-4D)
+UART send (4:29.415): :OFFS 
+29789(00-00-5D-74)
+UART send (4:29.417): :DUTY 
+32768(00-00-00-80)
+UART send (4:29.420): :FREQ 
+50000(50-C3-00-00)
+UART send (4:33.885): GEN_:TYPE SINE
+UART send (4:33.885): GEN_:AMPL 
+19859(00-00-93-4D)
+UART send (4:33.887): :OFFS 
+29789(00-00-5D-74)
+UART send (4:33.922): :DUTY 
+32768(00-00-00-80)
+UART send (4:33.924): :FREQ 
+50000000(80-F0-FA-02)
+UART send (4:35.155): GEN_:STOP
+
+Log Entry : 17:04:35 19. května 2013
+  :PORT zavřen: COM4
+-------------------------------
+
+Log Entry : 17:16:52 19. května 2013
+  :PORT otevřen: COM4  Baudrate:115200  Zařízení:STM32F100
+-------------------------------
+UART send (17:1.527): GEN_:SRAT
+UART send (17:3.147): GEN_:STOP
+UART send (17:4.219): GEN_:TYPE SINE
+UART send (17:4.220): GEN_:AMPL 
+19859(00-00-93-4D)
+UART send (17:4.223): :OFFS 
+29789(00-00-5D-74)
+UART send (17:4.225): :DUTY 
+32768(00-00-00-80)
+UART send (17:4.249): :FREQ 
+89550(CE-5D-01-00)
+UART send (17:9.894): GEN_:TYPE TRIA
+UART send (17:9.895): GEN_:AMPL 
+19859(00-00-93-4D)
+UART send (17:9.897): :OFFS 
+29789(00-00-5D-74)
+UART send (17:9.899): :DUTY 
+32768(00-00-00-80)
+UART send (17:9.901): :FREQ 
+196500(94-FF-02-00)
+
+Log Entry : 17:17:11 19. května 2013
+  :PORT zavřen: COM4
+-------------------------------
+
+Log Entry : 17:20:21 19. května 2013
+  :PORT otevřen: COM4  Baudrate:115200  Zařízení:STM32F100
+-------------------------------
+UART send (20:31.636): OSCP:STOP
+UART send (20:31.736): GEN_:STOP
+
+Log Entry : 17:20:31 19. května 2013
+  :PORT zavřen: COM4
+-------------------------------
+
+Log Entry : 17:20:40 19. května 2013
+  :PORT otevřen: COM4  Baudrate:115200  Zařízení:STM32F100
+-------------------------------
+UART send (20:47.609): GEN_:STOP
+
+Log Entry : 17:20:47 19. května 2013
+  :PORT zavřen: COM4
+-------------------------------
+
+Log Entry : 17:25:41 19. května 2013
+  :PORT otevřen: COM4  Baudrate:115200  Zařízení:STM32F100
+-------------------------------
+UART send (26:0.156): GEN_:STOP
+
+Log Entry : 17:26:00 19. května 2013
+  :PORT zavřen: COM4
+-------------------------------
+
+Log Entry : 17:28:22 19. května 2013
+  :PORT otevřen: COM4  Baudrate:115200  Zařízení:STM32F100
+-------------------------------
+UART send (28:49.321): GEN_:TYPE SINE
+UART send (28:49.323): GEN_:AMPL 
+65536(00-00-00-00)
+UART send (28:49.326): :OFFS 
+32768(00-00-00-80)
+UART send (28:49.328): :DUTY 
+32768(00-00-00-80)
+UART send (28:49.331): :FREQ 
+500000000(00-65-CD-1D)
+UART send (28:51.288): GEN_:STOP
+
+Log Entry : 17:28:51 19. května 2013
+  :PORT zavřen: COM4
+-------------------------------
+
+Log Entry : 17:30:58 19. května 2013
+  :PORT otevřen: COM4  Baudrate:115200  Zařízení:STM32F100
+-------------------------------
+UART send (31:2.789): GEN_:SRAT
+UART send (31:5.716): GEN_:STOP
+UART send (31:8.272): GEN_:STOP
+
+Log Entry : 17:31:08 19. května 2013
+  :PORT zavřen: COM4
+-------------------------------
+
+Log Entry : 17:33:12 19. května 2013
+  :PORT otevřen: COM4  Baudrate:115200  Zařízení:STM32F100
+-------------------------------
+UART send (33:16.81): GEN_:SRAT
+UART send (33:17.451): GEN_:STOP
+UART send (33:18.736): GEN_:SRAT
+UART send (33:27.826): GEN_:STOP
+UART send (33:29.50): GEN_:STOP
+
+Log Entry : 17:33:29 19. května 2013
+  :PORT zavřen: COM4
+-------------------------------
+
+Log Entry : 17:40:46 19. května 2013
+  :PORT otevřen: COM4  Baudrate:115200  Zařízení:STM32F100
+-------------------------------
+UART send (40:50.723): GEN_:TYPE SINE
+UART send (40:50.725): GEN_:AMPL 
+21845(00-00-55-55)
+UART send (40:50.728): :OFFS 
+32768(00-00-00-80)
+UART send (40:50.730): :DUTY 
+32768(00-00-00-80)
+UART send (40:50.732): :FREQ 
+50000(50-C3-00-00)
+UART send (40:51.922): GEN_:SRAT
+UART send (40:54.505): GEN_:STOP
+UART send (40:55.746): GEN_:STOP
+
+Log Entry : 17:40:55 19. května 2013
+  :PORT zavřen: COM4
+-------------------------------
+
+Log Entry : 18:40:25 19. května 2013
+  :PORT otevřen: COM4  Baudrate:115200  Zařízení:STM32F100
+-------------------------------
+UART send (40:28.324): GEN_:TYPE SINE
+UART send (40:28.333): GEN_:AMPL 
+21845(00-00-55-55)
+UART send (40:28.336): :OFFS 
+32768(00-00-00-80)
+UART send (40:28.338): :DUTY 
+32768(00-00-00-80)
+UART send (40:28.341): :FREQ 
+50000(C350)
+UART send (40:29.314): GEN_:TYPE SINE
+UART send (40:29.366): GEN_:AMPL 
+21845(00-00-55-55)
+UART send (40:29.367): :OFFS 
+32768(00-00-00-80)
+UART send (40:29.369): :DUTY 
+32768(00-00-00-80)
+UART send (40:29.371): :FREQ 
+50000(C350)
+UART send (40:31.810): GEN_:STOP
+
+Log Entry : 18:40:31 19. května 2013
+  :PORT zavřen: COM4
+-------------------------------
+
+Log Entry : 18:41:49 19. května 2013
+  :PORT otevřen: COM4  Baudrate:115200  Zařízení:STM32F100
+-------------------------------
+UART send (41:53.456): GEN_:SRAT
+UART send (41:54.442): GEN_:STOP
+UART send (41:55.752): GEN_:TYPE SINE
+UART send (41:55.755): GEN_:AMPL 
+21845(00005555)
+UART send (41:55.757): :OFFS 
+32768(00000080)
+UART send (41:55.759): :DUTY 
+32768(00000080)
+UART send (41:55.762): :FREQ 
+50000(50C30000)
+UART send (41:56.619): GEN_:TYPE SINE
+UART send (41:56.620): GEN_:AMPL 
+21845(00005555)
+UART send (41:56.624): :OFFS 
+32768(00000080)
+UART send (41:56.626): :DUTY 
+32768(00000080)
+UART send (41:56.628): :FREQ 
+50000(50C30000)
+UART send (41:57.135): GEN_:SRAT
+UART send (41:58.177): GEN_:STOP
+UART send (41:59.236): GEN_:SRAT
+UART send (42:0.580): GEN_:STOP
+UART send (42:2.464): GEN_:SRAT
+UART send (42:3.840): GEN_:STOP
+UART send (42:4.586): GEN_:SRAT
+UART send (42:5.530): GEN_:STOP
+UART send (42:6.717): GEN_:SRAT
+UART send (42:7.706): GEN_:STOP
+UART send (42:8.602): GEN_:SRAT
+UART send (42:10.48): GEN_:STOP
+UART send (42:11.82): GEN_:STOP
+
+Log Entry : 18:42:11 19. května 2013
+  :PORT zavřen: COM4
+-------------------------------
+
+Log Entry : 18:44:23 19. května 2013
+  :PORT otevřen: COM4  Baudrate:115200  Zařízení:STM32F100
+-------------------------------
+UART send (44:26.74): OSCP:EDGE RISE
+UART send (44:26.76): OSCP:TRIG SING
+UART send (44:26.77): OSCP:FREQ 10K_
+UART send (44:26.79): OSCP:PRET 
+250(0x0000FA00)
+UART send (44:26.82): OSCP:LEVL 
+2048(0x00000008)
+UART send (44:33.135): OSCP:PRET 
+250(0x0000FA00)
+UART send (44:34.436): OSCP:PRET 
+70(0x00004600)
+UART send (44:41.700): OSCP:PRET 
+255(0x0000FF00)
+UART send (44:46.883): OSCP:PRET 
+255(0x0000FF00)
+UART send (44:50.336): OSCP:PRET 
+110(0x00006E00)
+UART send (44:52.106): OSCP:PRET 
+315(0x00003B01)
+UART send (44:53.596): OSCP:LEVL 
+3109(0x0000250C)
+UART send (44:56.801): OSCP:LEVL 
+3061(0x0000F50B)
+UART send (44:58.310): OSCP:LEVL 
+3061(0x0000F50B)
+UART send (45:7.125): OSCP:LEVL 
+2311(0x00000709)
+UART send (45:46.529): OSCP:FREQ 20K_
+UART send (46:40.916): OSCP:PRET 
+255(0x0000FF00)
+UART send (46:42.461): OSCP:PRET 
+255(0x0000FF00)
+UART send (46:44.45): OSCP:LEVL 
+2376(0x00004809)
+UART send (46:45.136): OSCP:LEVL 
+2436(0x00008409)
+UART send (46:46.851): OSCP:LEVL 
+1925(0x00008507)
+UART send (46:51.201): OSCP:FREQ 100K
+UART send (46:54.323): OSCP:LEVL 
+1975(0x0000B707)
+UART send (46:55.647): OSCP:LEVL 
+2616(0x0000380A)
+UART send (47:1.437): OSCP:FREQ 1K__
+UART send (47:3.454): OSCP:FREQ 2K__
+UART send (47:33.390): GEN_:SRAT
+UART send (47:36.385): GEN_:STOP
+UART send (47:38.194): GEN_:SRAT
+UART send (47:39.0): GEN_:STOP
+UART send (47:40.752): GEN_:SRAT
+UART send (47:44.442): GEN_:STOP
+UART send (47:45.505): OSCP:STOP
+UART send (47:45.642): GEN_:STOP
+
+Log Entry : 18:47:45 19. května 2013
+  :PORT zavřen: COM4
+-------------------------------
+
+Log Entry : 10:33:02 21. května 2013
+  :PORT otevřen: COM4  Baudrate:115200  Zařízení:STM32F100
+-------------------------------
+UART send (33:5.444): OSCP:EDGE RISE
+UART send (33:5.445): OSCP:TRIG SING
+UART send (33:5.446): OSCP:FREQ 10K_
+UART send (33:5.447): OSCP:PRET 
+250(0x0000FA00)
+UART send (33:5.449): OSCP:LEVL 
+2048(0x00000008)
+UART send (33:8.818): OSCP:FREQ 5K__
+UART send (33:29.95): OSCP:FREQ 20K_
+UART send (33:31.126): OSCP:FREQ 50K_
+UART send (33:35.950): OSCP:FREQ 20K_
+UART send (33:37.479): OSCP:FREQ 50K_
+UART send (33:39.774): OSCP:FREQ 100K
+UART send (33:45.444): OSCP:FREQ 50K_
+UART send (33:47.274): OSCP:FREQ 20K_
+UART send (33:48.915): OSCP:FREQ 50K_
+UART send (33:52.326): OSCP:FREQ 20K_
+UART send (33:53.392): OSCP:FREQ 50K_
+UART send (33:58.286): OSCP:FREQ 100K
+UART send (34:14.181): OSCP:LEVL 
+2616(0x0000380A)
+UART send (34:58.980): OSCP:FREQ 20K_
+UART send (35:9.719): OSCP:FREQ 100K
+UART send (35:13.631): OSCP:STOP
+UART send (35:13.659): GEN_:STOP
+
+Log Entry : 10:35:13 21. května 2013
   :PORT zavřen: COM4
 -------------------------------

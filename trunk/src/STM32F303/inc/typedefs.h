@@ -13,9 +13,9 @@
 #define __TYPES_H
 
 #include "stm32f30x.h"
-#define IDN_STRING "STM32F100 based multipurpose device V0.0, K38FEL\r\n"
-#define ERR_STRING "Some problem with command parsing (chceck syntax and values)" //60chars
-#define OK_STRING  "OK"
+#define IDN_STRING "STM32F303 based multipurpose device V0.0, K38FEL"
+#define ERR_STRING "ERRR" //60chars
+#define OK_STRING  "ACKN"
 
 #endif /*__TYPES_H */
 

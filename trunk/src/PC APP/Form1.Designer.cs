@@ -95,8 +95,8 @@
             this.tableLayoutPanel16 = new System.Windows.Forms.TableLayoutPanel();
             this.button_gen_update_signal = new System.Windows.Forms.Button();
             this.checkBox_gen_en_output = new System.Windows.Forms.CheckBox();
+            this.panel_gen_enabled_color = new System.Windows.Forms.Panel();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.checkBox_gen_en = new System.Windows.Forms.CheckBox();
             this.radioButton_gen_kHz = new System.Windows.Forms.RadioButton();
             this.radioButton_gen_Hz = new System.Windows.Forms.RadioButton();
             this.radioButton_gen_mHz = new System.Windows.Forms.RadioButton();
@@ -1032,13 +1032,14 @@
             // tableLayoutPanel16
             // 
             this.tableLayoutPanel16.ColumnCount = 5;
-            this.tableLayoutPanel16.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel16.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 10F));
             this.tableLayoutPanel16.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel16.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 10F));
             this.tableLayoutPanel16.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel16.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel16.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tableLayoutPanel16.Controls.Add(this.button_gen_update_signal, 1, 0);
             this.tableLayoutPanel16.Controls.Add(this.checkBox_gen_en_output, 3, 0);
+            this.tableLayoutPanel16.Controls.Add(this.panel_gen_enabled_color, 4, 0);
             this.tableLayoutPanel16.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel16.Location = new System.Drawing.Point(551, 3);
             this.tableLayoutPanel16.Name = "tableLayoutPanel16";
@@ -1050,7 +1051,7 @@
             // button_gen_update_signal
             // 
             this.button_gen_update_signal.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.button_gen_update_signal.Location = new System.Drawing.Point(23, 3);
+            this.button_gen_update_signal.Location = new System.Drawing.Point(13, 3);
             this.button_gen_update_signal.Name = "button_gen_update_signal";
             this.button_gen_update_signal.Size = new System.Drawing.Size(91, 23);
             this.button_gen_update_signal.TabIndex = 0;
@@ -1063,7 +1064,7 @@
             this.checkBox_gen_en_output.Appearance = System.Windows.Forms.Appearance.Button;
             this.checkBox_gen_en_output.AutoSize = true;
             this.checkBox_gen_en_output.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.checkBox_gen_en_output.Location = new System.Drawing.Point(130, 3);
+            this.checkBox_gen_en_output.Location = new System.Drawing.Point(120, 3);
             this.checkBox_gen_en_output.Name = "checkBox_gen_en_output";
             this.checkBox_gen_en_output.Size = new System.Drawing.Size(91, 23);
             this.checkBox_gen_en_output.TabIndex = 1;
@@ -1072,9 +1073,16 @@
             this.checkBox_gen_en_output.UseVisualStyleBackColor = true;
             this.checkBox_gen_en_output.CheckedChanged += new System.EventHandler(this.checkBox_gen_en_output_CheckedChanged);
             // 
+            // panel_gen_enabled_color
+            // 
+            this.panel_gen_enabled_color.BackColor = System.Drawing.Color.Red;
+            this.panel_gen_enabled_color.Location = new System.Drawing.Point(217, 3);
+            this.panel_gen_enabled_color.Name = "panel_gen_enabled_color";
+            this.panel_gen_enabled_color.Size = new System.Drawing.Size(24, 23);
+            this.panel_gen_enabled_color.TabIndex = 2;
+            // 
             // groupBox4
             // 
-            this.groupBox4.Controls.Add(this.checkBox_gen_en);
             this.groupBox4.Controls.Add(this.radioButton_gen_kHz);
             this.groupBox4.Controls.Add(this.radioButton_gen_Hz);
             this.groupBox4.Controls.Add(this.radioButton_gen_mHz);
@@ -1097,17 +1105,6 @@
             this.groupBox4.TabIndex = 4;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = " Signal paremeters";
-            // 
-            // checkBox_gen_en
-            // 
-            this.checkBox_gen_en.AutoSize = true;
-            this.checkBox_gen_en.Location = new System.Drawing.Point(10, 421);
-            this.checkBox_gen_en.Name = "checkBox_gen_en";
-            this.checkBox_gen_en.Size = new System.Drawing.Size(59, 17);
-            this.checkBox_gen_en.TabIndex = 4;
-            this.checkBox_gen_en.Text = "Enable";
-            this.checkBox_gen_en.UseVisualStyleBackColor = true;
-            this.checkBox_gen_en.CheckedChanged += new System.EventHandler(this.checkBox_gen_en_CheckedChanged);
             // 
             // radioButton_gen_kHz
             // 
@@ -3297,7 +3294,7 @@
         private System.Windows.Forms.CheckBox checkBox_points;
         private System.Windows.Forms.RadioButton radioButton13;
         private System.Windows.Forms.RadioButton radioButton_interp;
-        private System.Windows.Forms.CheckBox checkBox_gen_en;
+        private System.Windows.Forms.Panel panel_gen_enabled_color;
     }
 }
 

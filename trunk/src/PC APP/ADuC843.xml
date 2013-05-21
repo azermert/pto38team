@@ -19,10 +19,10 @@
     <la_pins>Px y-z</la_pins>
   </log_analyser>
   <generator>
-    <gen_maxf>2000000</gen_maxf>
-    <gen_depth>12</gen_depth>
-    <gen_v_ref>3000</gen_v_ref>
-    <gen_buffsize>500</gen_buffsize>
-    <gen_pin>PA 4</gen_pin>
+    <gen_maxf>0</gen_maxf>
+    <gen_depth>0</gen_depth>
+    <gen_v_ref>0</gen_v_ref>
+    <gen_buffsize>0</gen_buffsize>
+    <gen_pin>0</gen_pin>
   </generator>
 </ConfigData>
