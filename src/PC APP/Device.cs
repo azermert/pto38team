@@ -33,7 +33,6 @@ namespace PTO_PC_APP
           public int genBuffLenght;
           public int genVref_mv;
           public string genPin;
-
         }
 
         config procConf;
@@ -44,6 +43,8 @@ namespace PTO_PC_APP
         private int Baudrate=0;
         private bool opened=false;
         private string msg;
+
+        public bool acknowledged = false;
         XmlDocument xmlDoc = new XmlDocument();
 
         private bool newScopeData=false;
@@ -154,26 +155,27 @@ namespace PTO_PC_APP
 
         public void send_short(int l)
         {
-            logText(l.ToString());
             byte[] bt = BitConverter.GetBytes(l);
             byte[] se=new byte[4];
             se[0]=0;
             se[1]=0;
-            se[2]=bt[0];
-            se[3]=bt[1];
+            se[2] = bt[0];
+            se[3] = bt[1];
+            logText(l.ToString() + "(0x" + BitConverter.ToString(se, 0).Replace("-","") + ")");
             port.Write(se, 0, 4);
             Console.WriteLine(l.ToString());
         }
 
         public void send_int(int l)
         {
-            logText(l.ToString());
             byte[] bt = BitConverter.GetBytes(l);
             byte[] se=new byte[4];
-            se[0]=bt[0];
-            se[1]=bt[1];
-            se[2]=bt[2];
-            se[3]=bt[3];
+
+            se[0] = bt[0];
+            se[1] = bt[1];
+            se[2] = bt[2];
+            se[3] = bt[3];
+            logText(l.ToString() + "(0x" + BitConverter.ToString(se, 0).Replace("-", "") + ")");
             port.Write(se, 0, 4);
             Console.WriteLine(l.ToString());
         }
@@ -341,6 +343,7 @@ namespace PTO_PC_APP
                         case Defines.ERROR:
                             break;
                         case Defines.ACKNOWLEDGE:
+                            acknowledged = true;
                             break;
 
                         default:
@@ -408,6 +411,12 @@ namespace PTO_PC_APP
             logWriter.Write(s+"\r\n");
         }
 
+        public bool get_ackn() {
+            return acknowledged;
+        }
+        public void clear_ackn() {
+            acknowledged = false;
+        }
 
 
     }
