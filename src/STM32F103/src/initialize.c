@@ -1,5 +1,4 @@
 
-
 #include "stm32f10x_rcc.h"
 #include "stm32f10x_gpio.h"
 
@@ -8,11 +7,12 @@
 #include "systemClock.h"
 #include "uart.h"
 #include "adc.h"   
-#include "dac.h"
+#include "generator.h"
 #include "scope.h"
+//#include "dac.h"
 
-#define DAC_MEM_SIZE 20
-uint16_t lDAC_memory[DAC_MEM_SIZE];
+//#define DAC_MEM_SIZE 20
+//uint16_t lDAC_memory[DAC_MEM_SIZE];	 
 
 
 
@@ -47,10 +47,6 @@ void serialCommInit(void){
 
 void initialize(void){
 
-	PTO_DAC_InitTypeDef DAC_desc;
-	//u8 i;	
-
-
 	init_SystemClock();	  	//RCC config
 
 	init_Discovery();	  	//leds & user button
@@ -58,8 +54,15 @@ void initialize(void){
 	init_TimeBase();	  	//timebase & clock
 
 	serialCommInit();		//uart2 init
-
 	
+	/* pozn. kdyz byl generator az za osciloskopem,
+	z neznameho duvodu to obcas slo, obcas(casteji) neslo.
+	(pri krokovani vse OK, v behu nikoliv)	*/
+
+	GEN_set_signal(&gGenSignal);
+
+	delay(1000000);		  	//pro jistotu
+		
 	
 	gSCOPE.SCOPE_samplingFrequency = 70000;      
 	gSCOPE.SCOPE_triggerEdge = SCOPE_RISING;
@@ -69,18 +72,22 @@ void initialize(void){
 
 	SCOPE_init(&gSCOPE);
 	
-	SCOPE_setPreTrigger(100);	
+	SCOPE_setPreTrigger(100);
 	
-	DAC_desc.DAC_samplingFrequency = 20000;
+
+
+	
+
+/*	DAC_desc.DAC_samplingFrequency = 20000;
 	DAC_desc.p_DAC_memory =  lDAC_memory;
 	DAC_desc.DAC_memorySize = DAC_MEM_SIZE;
-	DAC_init(&DAC_desc);
+	DAC_init(&DAC_desc);   	  */
 
 /*	for(i = 0; i < DAC_MEM_SIZE;i++)
 	{
 		gDAC_memory[i] = (0x0FFF * i)/(DAC_MEM_SIZE-1);
-	}	*/
-	lDAC_memory[0] = 2048;
+	}				*/
+/*	lDAC_memory[0] = 2048;
 	lDAC_memory[1] = 2680;
 	lDAC_memory[2] = 3250;
 	lDAC_memory[3] = 3703;
@@ -99,7 +106,7 @@ void initialize(void){
 	lDAC_memory[16] = 100;
 	lDAC_memory[17] = 391;
 	lDAC_memory[18] = 844;
-	lDAC_memory[19] = 1415;
+	lDAC_memory[19] = 1415;		*/  
 
 
 

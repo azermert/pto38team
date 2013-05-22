@@ -34,11 +34,14 @@ typedef enum
 	DAC_ERR
 }DAC_STATE;
 
+#define DMA_RATE_MAX	2000000
+#define DAC_MAX_VALUE	0x0FFF
 
 /* ADC_Exported_Functions */
 void DAC_init(PTO_DAC_InitTypeDef * p_DAC_desc);          /* Inicializace pomoci decsriptoru */
 void DAC_set_sample(uint16_t sample);     /* Nastavi hodnotu na vystup */
-void DAC_DMA_start(void);                     /* Odstartuje generovani vystupu pomoci DMA */
+void DAC_DMA_start(void); 
+void DAC_DMA_stop(void);                    /* Odstartuje generovani vystupu pomoci DMA */
 DAC_STATE DAC_get_state(void);                /* Vrati stav prevodniku */
 uint16_t DAC_get_pointer(void);               /* Vrati pozici posledniho nastaveneho vzorku */
 int8_t DAC_set_pointer(uint16_t pointer); /* Nastavi odkud se ma zacit generovat */
