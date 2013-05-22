@@ -54,17 +54,20 @@ typedef struct
 
 typedef struct
 {
-  GEN_Buffer* p_GEN_buffer;									/* Pointer na pamet bufferu */
+  	GEN_Buffer* p_GEN_buffer;									/* Pointer na pamet bufferu */
 	uint32_t	GEN_sampleRate;									/* Rychlost generovani */	
 	GEN_SIGNAL*	p_GEN_signal;									/* Pointer na structuru signalu */
 	GEN_STATE GEN_state;											/* stav generatoru */
 } GEN_InitTypeDef;
 
+#define GEN_BUFF_LENGHT 500
+extern GEN_SIGNAL	gGenSignal;
+
 /* GEN_Exported_Functions */
 void GEN_init(GEN_InitTypeDef * p_GEN_desc); /* Inicializace pomoci decsriptoru */
-bool GEN_set_signal(GEN_SIGNAL* p_GEN_signal);/* Do bufferu napocita vzorky pro dany signal, frekvenci offset atd*/
+bool GEN_set_signal(GEN_SIGNAL* _sig);/* Do bufferu napocita vzorky pro dany signal, frekvenci offset atd*/
 
-void GEN_start(void);														/* Odstartuje generovani signalu */
+void GEN_start(void);													/* Odstartuje generovani signalu */
 void GEN_stop(void);														/* Zastavi generovani signalu */
 
 GEN_STATE GEN_get_state(void);									/* Vrati stav generatoru */

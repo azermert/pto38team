@@ -137,9 +137,6 @@ void DAC_init(PTO_DAC_InitTypeDef * p_DAC_desc)
   	TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;  
   	TIM_TimeBaseInit(TIM2, &TIM_TimeBaseStructure);
 
-	DAC_DMA_start();
-
-
   	/* TIM2 TRGO selection */
   	TIM_SelectOutputTrigger(TIM2, TIM_TRGOSource_Update);
   
@@ -204,8 +201,14 @@ void DAC_DMA_start()
    /* Enable DMA for DAC Channel1 */
     TIM_DMACmd(TIM2, TIM_DMA_Update, ENABLE);					//dma request podle TIM2
 	dacState = DAC_DMA_RUN;
-}                
-
+}
+                
+void DAC_DMA_stop()
+{
+   /* Enable DMA for DAC Channel1 */
+    TIM_DMACmd(TIM2, TIM_DMA_Update, DISABLE);
+	dacState = DAC_IDLE;
+}
 /**
   * @brief  Vrati stav DAC
   * @param  None

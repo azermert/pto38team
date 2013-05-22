@@ -14,6 +14,7 @@
 #include "comm.h"
 #include "parse_cmd.h"
 #include "scope.h"
+#include "generator.h"
 
 
 /* Private typedef -----------------------------------------------------------*/
@@ -28,6 +29,7 @@ COMM_CMD* p_cmd;
 
 /* Private functions ---------------------------------------------------------*/
 void set_scope_param(void);
+void set_genus_param(void);
 /**
   * @brief  Jeden rychly krok stavoveho automatu. Resi hlavne mereni a odesilani dat (cca 1ms)
   * @param  None
@@ -63,7 +65,7 @@ void STATE_tick_slow(){
 		break;
 		
 		case WID_GENUS:
-			//set_GENUS_param();
+			set_genus_param();
 			COMM_print(OK_STRING);	
 		break;
 		
@@ -181,5 +183,55 @@ void set_scope_param(){
 		}
 }
 
+
+void set_genus_param(){
+	uint8_t prm=0;
+
+		while(p_cmd->PARAM_hash[prm] && prm<3){
+			
+			switch(p_cmd->PARAM_hash[prm]){
+				
+			case WID_FREQ:
+				gGenSignal.frequency = p_cmd->data_cmd[prm];
+			break;
+			
+			case WID_TYPE:
+				if(p_cmd->data_cmd[prm]==WID_SINE){
+					gGenSignal.GEN_signalType = GEN_SINE;
+				}else if(p_cmd->data_cmd[prm]==WID_SQRE){
+					gGenSignal.GEN_signalType = GEN_SQUARE;
+				}else if(p_cmd->data_cmd[prm]==WID_TRIA){
+					gGenSignal.GEN_signalType = GEN_TRIANGLE;
+				}else if(p_cmd->data_cmd[prm]==WID_ARBT){
+					gGenSignal.GEN_signalType = GEN_ARB;
+				}
+			break;
+				
+			case WID_AMPL:
+				gGenSignal.amplitude = p_cmd->data_cmd[prm];
+			break;	
+			
+			case WID_OFFS:
+				gGenSignal.offset = p_cmd->data_cmd[prm];
+			break;	
+			
+			case WID_DUTY:
+				gGenSignal.duty = p_cmd->data_cmd[prm];
+			break;
+				
+			case WID_SRAT:
+				GEN_start();
+			break;
+			
+			case WID_STOP:
+				GEN_stop();
+			break;
+				
+			default:
+				break;	
+			}
+		prm++;		
+		}
+}
 
 /************************ END OF FILE *****************************************/
