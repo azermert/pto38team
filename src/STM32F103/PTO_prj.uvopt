@@ -151,24 +151,9 @@
         <Bp>
           <Number>0</Number>
           <Type>0</Type>
-          <LineNumber>34</LineNumber>
-          <EnabledFlag>1</EnabledFlag>
-          <Address>134220084</Address>
-          <ByteObject>0</ByteObject>
-          <ManyObjects>0</ManyObjects>
-          <SizeOfObject>0</SizeOfObject>
-          <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>1</BreakIfRCount>
-          <Filename></Filename>
-          <ExecCommand></ExecCommand>
-          <Expression>\\processor_code\src/main.c\34</Expression>
-        </Bp>
-        <Bp>
-          <Number>1</Number>
-          <Type>0</Type>
           <LineNumber>195</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>134231290</Address>
+          <Address>134231298</Address>
           <ByteObject>0</ByteObject>
           <ManyObjects>0</ManyObjects>
           <SizeOfObject>0</SizeOfObject>
@@ -188,7 +173,12 @@
         <Ww>
           <count>1</count>
           <WinNumber>1</WinNumber>
-          <ItemText>gGenSignal</ItemText>
+          <ItemText>gGenSignal,0x0A</ItemText>
+        </Ww>
+        <Ww>
+          <count>2</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>lGenBuff</ItemText>
         </Ww>
       </WatchWindow1>
       <WatchWindow2>
@@ -528,8 +518,8 @@
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>152</TopLine>
-      <CurrentLine>160</CurrentLine>
+      <TopLine>153</TopLine>
+      <CurrentLine>179</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\src\adc.c</PathWithFileName>
       <FilenameWithoutPath>adc.c</FilenameWithoutPath>
@@ -682,7 +672,7 @@
       <Focus>0</Focus>
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>30</TopLine>
+      <TopLine>31</TopLine>
       <CurrentLine>55</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\src\main.c</PathWithFileName>
@@ -711,7 +701,7 @@
       <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
       <TopLine>31</TopLine>
-      <CurrentLine>38</CurrentLine>
+      <CurrentLine>42</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>.\src\timeBase.c</PathWithFileName>
       <FilenameWithoutPath>timeBase.c</FilenameWithoutPath>
@@ -1170,10 +1160,10 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>0</ColumnNumber>
+      <ColumnNumber>5</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>186</TopLine>
-      <CurrentLine>197</CurrentLine>
+      <TopLine>22</TopLine>
+      <CurrentLine>34</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\common\src\generator.c</PathWithFileName>
       <FilenameWithoutPath>generator.c</FilenameWithoutPath>
@@ -1212,10 +1202,10 @@
       <FileType>1</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>0</ColumnNumber>
+      <ColumnNumber>19</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>214</TopLine>
-      <CurrentLine>227</CurrentLine>
+      <TopLine>205</TopLine>
+      <CurrentLine>223</CurrentLine>
       <bDave2>0</bDave2>
       <PathWithFileName>..\common\src\state_automat.c</PathWithFileName>
       <FilenameWithoutPath>state_automat.c</FilenameWithoutPath>
@@ -1266,32 +1256,6 @@
     <PathWithFilename>C:\_USER\CVUT-FEL\Ing_Etapa\PTO\src\STM32F103\lib\STM32F10x_StdPeriph_Driver\inc\stm32f10x_tim.h</PathWithFilename>
     <TopLine>701</TopLine>
     <CurrentLine>712</CurrentLine>
-    <Constant>0</Constant>
-    <WindowPosition>
-      <length>0</length>
-      <flags>0</flags>
-      <showCmd>0</showCmd>
-      <MinPosition>
-        <xPos>0</xPos>
-        <yPos>0</yPos>
-      </MinPosition>
-      <MaxPosition>
-        <xPos>0</xPos>
-        <yPos>0</yPos>
-      </MaxPosition>
-      <NormalPosition>
-        <Top>0</Top>
-        <Left>0</Left>
-        <Right>0</Right>
-        <Bottom>0</Bottom>
-      </NormalPosition>
-    </WindowPosition>
-  </AlienFiles>
-
-  <AlienFiles>
-    <PathWithFilename>C:\_USER\CVUT-FEL\Ing_Etapa\PTO\src\common\inc\parse_cmd.h</PathWithFilename>
-    <TopLine>67</TopLine>
-    <CurrentLine>67</CurrentLine>
     <Constant>0</Constant>
     <WindowPosition>
       <length>0</length>
@@ -1393,6 +1357,32 @@
   </AlienFiles>
 
   <AlienFiles>
+    <PathWithFilename>C:\_USER\CVUT-FEL\Ing_Etapa\PTO\src\common\inc\parse_cmd.h</PathWithFilename>
+    <TopLine>67</TopLine>
+    <CurrentLine>67</CurrentLine>
+    <Constant>0</Constant>
+    <WindowPosition>
+      <length>0</length>
+      <flags>0</flags>
+      <showCmd>0</showCmd>
+      <MinPosition>
+        <xPos>0</xPos>
+        <yPos>0</yPos>
+      </MinPosition>
+      <MaxPosition>
+        <xPos>0</xPos>
+        <yPos>0</yPos>
+      </MaxPosition>
+      <NormalPosition>
+        <Top>0</Top>
+        <Left>0</Left>
+        <Right>0</Right>
+        <Bottom>0</Bottom>
+      </NormalPosition>
+    </WindowPosition>
+  </AlienFiles>
+
+  <AlienFiles>
     <PathWithFilename>C:\_USER\CVUT-FEL\Ing_Etapa\PTO\src\common\inc\generator.h</PathWithFilename>
     <TopLine>36</TopLine>
     <CurrentLine>53</CurrentLine>
@@ -1422,13 +1412,19 @@
     <Orientation>3</Orientation>
     <ActiveMDIGroup>0</ActiveMDIGroup>
     <MDIGroup>
-      <Size>81</Size>
-      <ActiveTab>0</ActiveTab>
+      <Size>72</Size>
+      <ActiveTab>1</ActiveTab>
       <Documents>
+        <Doc>
+          <Name>.\src\timeBase.c</Name>
+          <ColumnNumber>0</ColumnNumber>
+          <TopLine>31</TopLine>
+          <CurrentLine>42</CurrentLine>
+        </Doc>
         <Doc>
           <Name>.\src\main.c</Name>
           <ColumnNumber>0</ColumnNumber>
-          <TopLine>30</TopLine>
+          <TopLine>31</TopLine>
           <CurrentLine>55</CurrentLine>
         </Doc>
         <Doc>
@@ -1438,10 +1434,28 @@
           <CurrentLine>117</CurrentLine>
         </Doc>
         <Doc>
-          <Name>..\common\src\generator.c</Name>
+          <Name>..\common\src\state_automat.c</Name>
+          <ColumnNumber>19</ColumnNumber>
+          <TopLine>205</TopLine>
+          <CurrentLine>223</CurrentLine>
+        </Doc>
+        <Doc>
+          <Name>.\src\adc.c</Name>
           <ColumnNumber>0</ColumnNumber>
-          <TopLine>186</TopLine>
-          <CurrentLine>197</CurrentLine>
+          <TopLine>153</TopLine>
+          <CurrentLine>179</CurrentLine>
+        </Doc>
+        <Doc>
+          <Name>..\common\src\generator.c</Name>
+          <ColumnNumber>5</ColumnNumber>
+          <TopLine>22</TopLine>
+          <CurrentLine>34</CurrentLine>
+        </Doc>
+        <Doc>
+          <Name>.\inc\adc.h</Name>
+          <ColumnNumber>8</ColumnNumber>
+          <TopLine>11</TopLine>
+          <CurrentLine>23</CurrentLine>
         </Doc>
         <Doc>
           <Name>.\lib\STM32F10x_StdPeriph_Driver\src\stm32f10x_tim.c</Name>
@@ -1460,24 +1474,6 @@
           <ColumnNumber>5</ColumnNumber>
           <TopLine>144</TopLine>
           <CurrentLine>158</CurrentLine>
-        </Doc>
-        <Doc>
-          <Name>..\common\src\state_automat.c</Name>
-          <ColumnNumber>0</ColumnNumber>
-          <TopLine>214</TopLine>
-          <CurrentLine>227</CurrentLine>
-        </Doc>
-        <Doc>
-          <Name>.\src\timeBase.c</Name>
-          <ColumnNumber>0</ColumnNumber>
-          <TopLine>31</TopLine>
-          <CurrentLine>38</CurrentLine>
-        </Doc>
-        <Doc>
-          <Name>.\src\adc.c</Name>
-          <ColumnNumber>0</ColumnNumber>
-          <TopLine>152</TopLine>
-          <CurrentLine>160</CurrentLine>
         </Doc>
         <Doc>
           <Name>..\common\inc\parse_cmd.h</Name>
@@ -1575,16 +1571,10 @@
           <TopLine>71</TopLine>
           <CurrentLine>89</CurrentLine>
         </Doc>
-        <Doc>
-          <Name>.\inc\adc.h</Name>
-          <ColumnNumber>8</ColumnNumber>
-          <TopLine>11</TopLine>
-          <CurrentLine>23</CurrentLine>
-        </Doc>
       </Documents>
     </MDIGroup>
     <MDIGroup>
-      <Size>19</Size>
+      <Size>28</Size>
       <ActiveTab>0</ActiveTab>
       <Documents>
         <Doc>

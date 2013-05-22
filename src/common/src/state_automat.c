@@ -208,15 +208,15 @@ void set_genus_param(){
 			break;
 				
 			case WID_AMPL:
-				gGenSignal.amplitude = p_cmd->data_cmd[prm];
+				gGenSignal.amplitude = p_cmd->data_cmd[prm]/16;
 			break;	
 			
 			case WID_OFFS:
-				gGenSignal.offset = p_cmd->data_cmd[prm];
+				gGenSignal.offset = p_cmd->data_cmd[prm]/16;
 			break;	
 			
 			case WID_DUTY:
-				gGenSignal.duty = p_cmd->data_cmd[prm];
+				gGenSignal.duty = p_cmd->data_cmd[prm]/655;
 			break;
 				
 			case WID_SRAT:

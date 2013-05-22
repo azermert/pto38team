@@ -36,7 +36,7 @@ void GEN_init(GEN_InitTypeDef * p_GEN_desc)
 	PTO_DAC_InitTypeDef DAC_desc;
 	
 	DAC_desc.DAC_samplingFrequency = p_GEN_desc->GEN_sampleRate;
-	DAC_desc.p_DAC_memory =  p_GEN_desc->p_GEN_buffer->memory;
+	DAC_desc.p_DAC_memory =  lGenBuff;//p_GEN_desc->p_GEN_buffer->memory; z neznamych duvodu spolehlivejsi, bohuzel ztrata obecnosti
 	DAC_desc.DAC_memorySize = p_GEN_desc->p_GEN_buffer->size;
 
 	DAC_init(&DAC_desc);
@@ -83,11 +83,11 @@ bool GEN_set_signal(GEN_SIGNAL* _sig)
 			case GEN_SQUARE:
 				if(i<duty)
 				{
-					tmp = _sig->offset + _sig->amplitude;
+					tmp = _sig->offset - _sig->amplitude;
 				}
 				else
 				{
-					tmp = _sig->offset - _sig->amplitude;
+					tmp = _sig->offset + _sig->amplitude;
 				}
 				break;
 			case GEN_TRIANGLE:
@@ -100,9 +100,9 @@ bool GEN_set_signal(GEN_SIGNAL* _sig)
 				}
 				else
 				{
-					tmp = _sig->amplitude * 2 *	i;
-					tmp = tmp / duty;
-					tmp = tmp - _sig->offset + _sig->amplitude;
+					tmp = - _sig->amplitude * 2 * (i-duty);
+					tmp = tmp / (samples - duty);
+					tmp = tmp + _sig->offset + _sig->amplitude;
 				}
 				break;
 			case GEN_SINE:
