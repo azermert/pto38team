@@ -24,7 +24,7 @@ namespace PTO_PC_APP
         public bool trigShow = false;
 
         public int trig_level = 2048;
-        public int pretrig = 50;
+        public int pretrig = 5;
         public int buffLenght = 0;
         public double scale = 1;
         public double horPosition = 0.5;
