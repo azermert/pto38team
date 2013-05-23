@@ -1193,11 +1193,13 @@ namespace PTO_PC_APP
             {
                 sc.gen_start();
                 sc.clear_ackn();
+                this.button_gen_update_signal.Enabled = false;
                 //this.panel_gen_enabled_color.BackColor = Color.LawnGreen;
             }
             else
             {
                 sc.gen_stop();
+                this.button_gen_update_signal.Enabled = true;
                 this.panel_gen_enabled_color.BackColor = Color.Red;
             }
         }
@@ -1217,18 +1219,26 @@ namespace PTO_PC_APP
             }
 
             sc.set_gen_signal_params((int)(generator.amplitude / generator.v_ref * 65536), (int)(generator.offset / generator.v_ref * 65536), (int)(generator.duty / 100 * 65536));
-            sc.set_gen_sampling_freq((int)(generator.frequency * generator.get_gen_buff_lenght() * generator.freqMull));
+            sc.set_gen_sampling_freq((int)(generator.frequency * generator.freqMull));
         }
         /*metody generator konec*/
 
         private void tabPage_device_Enter(object sender, EventArgs e)
         {
             this.mode = Paint_mode.Mode.IDLE;
+            if (this.checkBox_scope_enable.Checked)
+            {
+                sc.scope_stop();
+            }
         }
 
         private void tabPage_generator_Enter(object sender, EventArgs e)
         {
             this.mode = Paint_mode.Mode.GENERATOR;
+            if (this.checkBox_scope_enable.Checked)
+            {
+                sc.scope_stop();
+            }
         }
 
         private void tabPage_scope_Enter(object sender, EventArgs e)
@@ -1236,6 +1246,7 @@ namespace PTO_PC_APP
             if (this.checkBox_scope_enable.Checked)
             {
                 this.mode = Paint_mode.Mode.SCOPE;
+                sc.scope_start();
             }
         }
     }

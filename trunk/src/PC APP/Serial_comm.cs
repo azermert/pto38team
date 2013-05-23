@@ -314,7 +314,7 @@ namespace PTO_PC_APP
         }
 
         public void set_gen_sampling_freq(int smpfreq){
-            connectedDevice.send(":" + Defines.GEN_FREQUENCY + " ");
+            connectedDevice.send(Defines.GENERATOR + ":" + Defines.GEN_FREQUENCY + " ");
             connectedDevice.send_int(smpfreq);
       
         }

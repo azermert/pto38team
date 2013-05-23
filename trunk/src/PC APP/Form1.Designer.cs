@@ -2416,7 +2416,7 @@
             this.trackBar_pretrig.Size = new System.Drawing.Size(152, 25);
             this.trackBar_pretrig.TabIndex = 4;
             this.trackBar_pretrig.TickStyle = System.Windows.Forms.TickStyle.None;
-            this.trackBar_pretrig.Value = 50;
+            this.trackBar_pretrig.Value = 5;
             this.trackBar_pretrig.ValueChanged += new System.EventHandler(this.trackBar_pretrig_ValueChanged);
             this.trackBar_pretrig.MouseUp += new System.Windows.Forms.MouseEventHandler(this.trackBar_pretrig_MouseUp);
             // 
@@ -2453,7 +2453,7 @@
             this.maskedTextBox_pretrig.Name = "maskedTextBox_pretrig";
             this.maskedTextBox_pretrig.Size = new System.Drawing.Size(41, 20);
             this.maskedTextBox_pretrig.TabIndex = 2;
-            this.maskedTextBox_pretrig.Text = "50";
+            this.maskedTextBox_pretrig.Text = "5";
             this.maskedTextBox_pretrig.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.maskedTextBox_pretrig_KeyPress);
             // 
             // trackBar_trig_level

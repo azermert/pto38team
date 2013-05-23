@@ -318,7 +318,15 @@ namespace PTO_PC_APP
                                 leng+=""+(port.ReadChar() - 48);
                             }
                             Console.WriteLine("new OSCP "+count+" - "+leng);
-                            int delka = int.Parse(leng);
+                            int delka = 0;
+                            try
+                            {
+                                delka = int.Parse(leng);
+                            }
+                            catch (Exception ex) {
+                                break;
+                            }
+                            
                             
 
                             int wd = 0;
