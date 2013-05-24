@@ -98,6 +98,7 @@ BUFF_STATE store_byte(char chr)
     
   /* Configure USART Rx as alternate function push-pull */
   GPIO_InitStructure.GPIO_Pin = GPIO_Pin_9;
+	GPIO_InitStructure.GPIO_OType = GPIO_OType_OD;
   GPIO_Init(GPIOD, &GPIO_InitStructure);
 
 
@@ -108,7 +109,9 @@ void UART_initialize(PTO_UART_InitTypeDef * _desc)
 	USART_InitTypeDef USART_InitStruct;
 
 	urt=*_desc;
-
+	
+	initHW_UART();
+	
 	USART_StructInit(&USART_InitStruct);	 	//8bit, parity_none, stopbit_1 ..
 
 	USART_InitStruct.USART_BaudRate = _desc->baudrate;
@@ -122,7 +125,6 @@ void UART_initialize(PTO_UART_InitTypeDef * _desc)
 
 	NVIC_IntEnable(USART3_IRQn,0x02);
 
-	initHW_UART();
 	USART_Cmd(USART3, ENABLE);
 };
 

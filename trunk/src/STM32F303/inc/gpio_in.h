@@ -13,6 +13,26 @@
 #ifndef __procesor_GPIO_IN_H
 #define __procesor_GPIO_IN_H
 
+#define PORTS_CLOCKS RCC_AHBPeriph_GPIOD
+
+#define DATA0_PORT	GPIOD
+#define DATA0_PIN	GPIO_Pin_8	
+#define DATA1_PORT	GPIOD
+#define DATA1_PIN	GPIO_Pin_9
+#define DATA2_PORT	GPIOD
+#define DATA2_PIN	GPIO_Pin_10
+#define DATA3_PORT	GPIOD
+#define DATA3_PIN	GPIO_Pin_11
+#define DATA4_PORT	GPIOD
+#define DATA4_PIN	GPIO_Pin_12
+#define DATA5_PORT	GPIOD
+#define DATA5_PIN	GPIO_Pin_13
+#define DATA6_PORT	GPIOD
+#define DATA6_PIN	GPIO_Pin_14
+#define DATA7_PORT	GPIOD
+#define DATA7_PIN	GPIO_Pin_15
+
+
 /* Includes ------------------------------------------------------------------*/
 /* Zadne includy zde nebudou!!!*/
 
