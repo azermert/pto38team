@@ -35,7 +35,57 @@ uint16_t lGPIOInBufferPointer = 0;
   */    
 void GPIO_IN_init(GPIO_IN_InitTypeDef * _desc)
 {
-  //TODO
+  	GPIO_InitTypeDef GPIO_InitStructure;
+
+	RCC_APB2PeriphClockCmd(PORTS_CLOCKS, ENABLE);
+
+	GPIO_InitStructure.GPIO_Pin = DATA0_PIN;
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN;	
+  GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
+	GPIO_Init(DATA0_PORT, &GPIO_InitStructure);
+	
+	GPIO_InitStructure.GPIO_Pin = DATA1_PIN;
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN;
+  GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+	GPIO_Init(DATA1_PORT, &GPIO_InitStructure);
+	
+	GPIO_InitStructure.GPIO_Pin = DATA2_PIN;
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN;
+  GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+	GPIO_Init(DATA2_PORT, &GPIO_InitStructure);
+	
+	GPIO_InitStructure.GPIO_Pin = DATA3_PIN;
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN;
+  GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+	GPIO_Init(DATA3_PORT, &GPIO_InitStructure);
+
+	GPIO_InitStructure.GPIO_Pin = DATA4_PIN;
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN;
+  GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+	GPIO_Init(DATA4_PORT, &GPIO_InitStructure);
+	
+	GPIO_InitStructure.GPIO_Pin = DATA5_PIN;
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN;
+  GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+	GPIO_Init(DATA5_PORT, &GPIO_InitStructure);
+	
+	GPIO_InitStructure.GPIO_Pin = DATA6_PIN;
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN;
+  GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+	GPIO_Init(DATA6_PORT, &GPIO_InitStructure);
+	
+	GPIO_InitStructure.GPIO_Pin = DATA7_PIN;
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN;
+  GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+	GPIO_Init(DATA7_PORT, &GPIO_InitStructure);
 }     
 
 /**
@@ -55,8 +105,13 @@ GPIO_IN_STATE GPIO_IN_get_state()
   */
 uint8_t GPIO_get_word()
 {
-  //TODO
-  return 0;
+	uint8_t ret;
+	uint16_t p = GPIO_ReadInputData(GPIOD);
+	
+	p = p & 0xFF00;
+	ret = p >> 8;
+	
+  return ret;
 }                   
 
 /**

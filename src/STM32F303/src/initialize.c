@@ -7,7 +7,8 @@
 #include "systemClock.h"
 #include "uart.h"
 #include "adc.h"
-#include "scope.h"
+//#include "scope.h"
+#include "generator.h"
 
 
 
@@ -19,19 +20,19 @@ void init_Discovery(void){
 
 	GPIO_InitTypeDef GPIO_InitStructure;
 
-	RCC_APB2PeriphClockCmd(RCC_AHBPeriph_GPIOC | RCC_AHBPeriph_GPIOA, ENABLE);
+	RCC_APB2PeriphClockCmd(RCC_AHBPeriph_GPIOE | RCC_AHBPeriph_GPIOA, ENABLE);
 
 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_8;
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;
 	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;
-	GPIO_Init(GPIOC, &GPIO_InitStructure);
+	GPIO_Init(GPIOE, &GPIO_InitStructure);
 
 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_9;
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;
 	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;
-	GPIO_Init(GPIOC, &GPIO_InitStructure);
+	GPIO_Init(GPIOE, &GPIO_InitStructure);
 
 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0;
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN;
@@ -49,7 +50,8 @@ void serialCommInit(void){
 
 void initialize(void){
 	
-
+	GEN_InitTypeDef gGenSignal;
+	GEN_SIGNAL sig;
 
 	init_SystemClock();	  	//RCC config
 
@@ -59,8 +61,19 @@ void initialize(void){
 
 	serialCommInit();		//uart2 init
 
+	/*
+	sig.amplitude = 0xFFF;
+	sig.duty = 50;
+	sig.frequency = 100;
+	sig.GEN_signalType = GEN_SINE;
+	sig.offset = 0;
 	
 	
+	gGenSignal.p_GEN_signal = &sig;
+	gGenSignal.p_GEN_buffer 
+	*/
+	
+	/*
 	gSCOPE.SCOPE_samplingFrequency = 10000;      
 	gSCOPE.SCOPE_triggerEdge = SCOPE_RISING;
 	gSCOPE.SCOPE_triggerMode = TRIG_AUTO;
@@ -70,7 +83,7 @@ void initialize(void){
 	SCOPE_init(&gSCOPE);
 	
 	SCOPE_setPreTrigger(256);	
-	
+	*/
 
 
 }
