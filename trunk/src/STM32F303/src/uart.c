@@ -26,7 +26,7 @@
 /* Private define ------------------------------------------------------------*/ 
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
-UART_InitTypeDef urt;
+PTO_UART_InitTypeDef urt;
 
 /* Private function prototypes -----------------------------------------------*/
 void send_next(void);
@@ -45,7 +45,7 @@ BUFF_STATE store_byte(char chr)
 	*(((*urt.p_inBuffer).memory)+((*urt.p_inBuffer).writePointer))=chr;
 	tmpPointer=(*urt.p_inBuffer).writePointer+1;
 	
-	if (tmpPointer>((*urt.p_inBuffer).size-1))
+	if (tmpPointer>((*urt.p_inBuffer).size_buff-1))
 	{
 		tmpPointer =0;
 	}
@@ -103,7 +103,7 @@ BUFF_STATE store_byte(char chr)
 
 }
 
-void UART_init(UART_InitTypeDef * _desc)
+void UART_initialize(PTO_UART_InitTypeDef * _desc)
 {
 	USART_InitTypeDef USART_InitStruct;
 

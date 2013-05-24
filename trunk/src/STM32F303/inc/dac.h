@@ -13,6 +13,8 @@
 #ifndef __procesor_DAC_H
 #define __procesor_DAC_H
 #define DAC_DHR12R1_ADDRESS      0x40007408
+#define	DAC_MAX_VALUE						 0xFFF
+#define	DMA_RATE_MAX						 10000000
 
 /* Includes ------------------------------------------------------------------*/
 /* Zadne includy zde nebudou!!!*/
@@ -41,6 +43,7 @@ typedef enum
 void DAC_initialize(pto_DAC_InitTypeDef * p_DAC_desc);          /* Inicializace pomoci decsriptoru */
 void DAC_set_sample(uint16_t sample);     /* Nastavi hodnotu na vystup */
 void DAC_DMA_start(void);                     /* Odstartuje generovani vystupu pomoci DMA */
+void DAC_DMA_stop(void);											/* Zastavi generovani vystupu pomoci DMA */
 DAC_STATE DAC_get_state(void);                /* Vrati stav prevodniku */
 uint16_t DAC_get_pointer(void);               /* Vrati pozici posledniho nastaveneho vzorku */
 int8_t DAC_set_pointer(uint16_t pointer); /* Nastavi odkud se ma zacit generovat */

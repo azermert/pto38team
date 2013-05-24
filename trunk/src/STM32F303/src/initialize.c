@@ -63,7 +63,7 @@ void initialize(void){
 	
 	gSCOPE.SCOPE_samplingFrequency = 10000;      
 	gSCOPE.SCOPE_triggerEdge = SCOPE_RISING;
-	gSCOPE.SCOPE_triggerMode = TRIG_SIGNAL;
+	gSCOPE.SCOPE_triggerMode = TRIG_AUTO;
 	gSCOPE.SCOPE_triggerLevel = 2048;
 	
 

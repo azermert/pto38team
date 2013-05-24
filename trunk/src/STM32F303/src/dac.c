@@ -140,6 +140,22 @@ void DAC_DMA_start()
 }                
 
 /**
+  * @brief  Zastavi generovani pomoci DMA
+  * @param  None
+  * @retval None
+  */
+void DAC_DMA_stop()
+{
+  /* Enable DMA2 Channel3 */
+	DMA_Cmd(DMA2_Channel3, DISABLE);
+	
+	/* Enable DMA for DAC Channel2 */
+	DAC_DMACmd(DAC_Channel_1, DISABLE);
+	
+	dacState = DAC_IDLE;
+} 
+
+/**
   * @brief  Vrati stav DAC
   * @param  None
   * @retval DAC_STATE
