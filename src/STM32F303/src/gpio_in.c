@@ -37,7 +37,7 @@ void GPIO_IN_init(GPIO_IN_InitTypeDef * _desc)
 {
   	GPIO_InitTypeDef GPIO_InitStructure;
 
-	RCC_APB2PeriphClockCmd(PORTS_CLOCKS, ENABLE);
+	RCC_AHBPeriphClockCmd(PORTS_CLOCKS, ENABLE);
 
 	GPIO_InitStructure.GPIO_Pin = DATA0_PIN;
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;

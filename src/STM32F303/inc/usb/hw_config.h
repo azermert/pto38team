@@ -31,7 +31,7 @@
 #define __HW_CONFIG_H
 
 /* Includes ------------------------------------------------------------------*/
-#include "platform_config.h"
+#include "stm32f30x.h"
 #include "usb_type.h"
 
 /* Exported types ------------------------------------------------------------*/
@@ -43,6 +43,14 @@
 #define LED_ON                0xF0
 #define LED_OFF               0xFF
 
+#define USART_RX_DATA_SIZE   2048
+
+#define USB_DISCONNECT                      GPIOB  
+#define USB_DISCONNECT_PIN                  GPIO_Pin_8
+#define RCC_AHBPeriph_GPIO_DISCONNECT       RCC_AHBPeriph_GPIOB
+#define         ID1          (0x1FFFF7AC)
+#define         ID2          (0x1FFFF7B0)
+#define         ID3          (0x1FFFF7B4)
 /* Exported functions ------------------------------------------------------- */
 void Set_System(void);
 void Set_USBClock(void);
@@ -50,10 +58,13 @@ void Enter_LowPowerMode(void);
 void Leave_LowPowerMode(void);
 void USB_Interrupts_Config(void);
 void USB_Cable_Config (FunctionalState NewState);
+void USART_Config_Default(void);
+bool USART_Config(void);
+void USB_To_USART_Send_Data(uint8_t* data_buffer, uint8_t Nb_bytes);
+void USART_To_USB_Send_Data(void);
+void Handle_USBAsynchXfer (void);
 void Get_SerialNum(void);
-void LCD_Control(void);
-uint32_t CDC_Send_DATA (uint8_t *ptrBuffer, uint8_t Send_length);
-uint32_t CDC_Receive_DATA(void);
+
 /* External variables --------------------------------------------------------*/
 
 #endif  /*__HW_CONFIG_H*/

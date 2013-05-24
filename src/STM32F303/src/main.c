@@ -29,72 +29,16 @@
 //#include "abc.h"
 #include "state_automat.h"
 
+#include "hw_config.h"
+#include "usb_lib.h"
+#include "usb_desc.h"
+#include "usb_pwr.h"
+
 #define FASTINTERVAL	1000	//1ms
 #define SLOWINTERVAL  100000	//100ms
-/*
-#define ID_STRING "STM32F100 based multipurpose device, K38FEL\r\n"
 
-typedef enum uint32_t{		  	//QM = question mark (?) ;  US = underscore	(_)
-	REGISTER_WID(I,D,N,QM),		//WID_IDNQM=('?' << 24)|('N' << 16)|('D' << 8)|('I'),
-	REGISTER_WID(G,E,N,US),
-	REGISTER_WID(G,P,I,O),
-	REGISTER_WID(O,S,C,P),
-	REGISTER_WID(L,O,G,US),
-	REGISTER_WID(C,O,N,T),
-	REGISTER_WID(M,E,A,S),
-	REGISTER_WID(V,O,L,T),
-
-	REGISTER_WID(S,E,T,V),
-	REGISTER_WID(G,E,T,QM),
-
-	REGISTER_WID(T,R,I,G),
-	REGISTER_WID(L,E,V,L),
-	REGISTER_WID(E,D,G,E),
-	REGISTER_WID(F,R,E,Q),
-	REGISTER_WID(D,E,P,T),
-	REGISTER_WID(S,T,R,T),
-	REGISTER_WID(S,T,O,P),
-
-	REGISTER_WID(T,Y,P,E),
-	REGISTER_WID(A,M,P,L),
-	REGISTER_WID(O,F,F,S),
-	REGISTER_WID(D,U,T,Y),
-	REGISTER_WID(D,A,T,A),
-
-	REGISTER_WID(C,H,A,N),
-
-	REGISTER_WID(F,R,Q,QM),
-	REGISTER_WID(P,L,S,QM),
-
-	REGISTER_WID(V,A,L,QM),
-
-	REGISTER_WID(N,O,R,M),
-	REGISTER_WID(A,U,T,O),
-	REGISTER_WID(S,I,N,G),
-
-	REGISTER_WID(R,I,S,E),
-	REGISTER_WID(F,A,L,L),
-
-	REGISTER_WID(1,K,US,US),
-	REGISTER_WID(1,0,K,US),
-	REGISTER_WID(1,0,0,K),
-	REGISTER_WID(1,M,US,US),
-
-	REGISTER_WID(0,8,B,US),
-	REGISTER_WID(1,6,B,US),
-
-	REGISTER_WID(S,I,N,E),
-	REGISTER_WID(S,Q,R,E),
-	REGISTER_WID(T,R,I,A),
-	REGISTER_WID(A,R,B,T),
-
-	REGISTER_WID(A,N,D,US),
-	REGISTER_WID(O,R,US,US)
-}WORD_ID;
-
-//BUILD_WORD(A,B,C,D);
-*/
 /* Main variables ---------------------------------------------------------*/
+GPIO_InitTypeDef GPIO_InitStructure;
 typedef void (*readTick)(void);
 
 readTick messageParser;
@@ -128,11 +72,34 @@ void measure_Tick(void);
 
 
 /* Functions */
-int main(void) {
+int main(void) {	
+	initialize();
+	
+	RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOE, ENABLE);
 
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_8 | GPIO_Pin_9 | GPIO_Pin_10 | GPIO_Pin_11 | GPIO_Pin_12 | GPIO_Pin_13;
+	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;
+	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;	
+  GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
+	GPIO_Init(GPIOE, &GPIO_InitStructure);
 	
 
-	initialize();
+	//GPIO_WriteBit(GPIOE, GPIO_Pin_8, Bit_SET);
+	
+#if defined (USE_USB)	
+	//USB init	
+	GPIOE->BSRR |= GPIO_Pin_8;
+	Set_System();
+	GPIOE->BSRR |= GPIO_Pin_9;
+  Set_USBClock();
+	GPIOE->BSRR |= GPIO_Pin_10;
+  USB_Interrupts_Config();
+	GPIOE->BSRR |= GPIO_Pin_11;
+  USB_Init();	
+	GPIOE->BSRR |= GPIO_Pin_12;
+#endif
+
 
 //	messageParser = &messageReadTick;	//default
 
@@ -156,9 +123,6 @@ int main(void) {
 	  UART_tick();
 		measure_Tick();
 	}
-	
-
-
 
 	}  //end while
 }  //end main()
