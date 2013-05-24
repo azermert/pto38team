@@ -33,7 +33,7 @@ typedef enum
 {
 	UART_SAFE_MODE = 9600,                 
 	UART_NORMAL	= 115200,
-	UART_HIGH                                                 
+	UART_HIGH = 921600                                                
 }UART_SPEED;
 
 typedef struct
@@ -43,11 +43,11 @@ typedef struct
   COMM_Buffer* p_outBuffer;
   tick_comm p_COMM_tick;
   UART_STATE state;     
-}UART_InitTypeDef;
+}PTO_UART_InitTypeDef;
 
 
 /* UART_Exported_Functions */
-void UART_init(UART_InitTypeDef * p_UART_desc);        /* Inicializace pomoci decsriptoru */
+void UART_initialize(PTO_UART_InitTypeDef * p_UART_desc);        /* Inicializace pomoci decsriptoru */
 void UART_tick(void);                         /* Fce viditelna z COMM urcena k odstartovani prenosu pokud jsou data v bufferu*/
 //void USART1_IRQHandler(void);
 
