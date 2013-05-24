@@ -21,6 +21,10 @@
 #include "stm32f30x_gpio.h"
 #include "stm32f30x_usart.h"
 
+#include "hw_config.h"
+#include "stm32_it.h"
+#include "usb_lib.h"
+#include "usb_istr.h"
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/ 
@@ -157,6 +161,7 @@ void USART3_IRQHandler(void)
   	if (0 != (StatusValue & USART_ISR_TXE))
 	{
 		send_next();
+		//USART_To_USB_Send_Data();
   	}
 };
 
