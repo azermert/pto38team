@@ -107,13 +107,12 @@ void Set_System(void)
   
   /*Set PA11,12 as IN - USB_DM,DP*/
   RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOA, ENABLE);
-	//RCC->AHBENR |= 0x00020000;
   GPIO_InitStructure.GPIO_Pin = GPIO_Pin_11;
   GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
   GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;
   GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
   GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
-  GPIO_Init(GPIOA, &GPIO_InitStructure);
+  //GPIO_Init(GPIOA, &GPIO_InitStructure);
 	
 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_12;
   GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
@@ -131,7 +130,7 @@ void Set_System(void)
   EXTI_InitStructure.EXTI_Line = EXTI_Line18; 
   EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Rising;
   EXTI_InitStructure.EXTI_LineCmd = ENABLE;
-  //EXTI_Init(&EXTI_InitStructure);
+  EXTI_Init(&EXTI_InitStructure);
 }
 
 /*******************************************************************************

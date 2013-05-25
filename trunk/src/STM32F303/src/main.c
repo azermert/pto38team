@@ -89,16 +89,18 @@ int main(void) {
 	
 #if defined (USE_USB)	
 	//USB init	
-	GPIOE->BSRR |= GPIO_Pin_8;
+	//GPIOE->BSRR |= GPIO_Pin_8;
 	Set_System();
-	GPIOE->BSRR |= GPIO_Pin_9;
+	//GPIOE->BSRR |= GPIO_Pin_9;
   Set_USBClock();
-	GPIOE->BSRR |= GPIO_Pin_10;
+	//GPIOE->BSRR |= GPIO_Pin_10;
   USB_Interrupts_Config();
-	GPIOE->BSRR |= GPIO_Pin_11;
+	//GPIOE->BSRR |= GPIO_Pin_11;
   USB_Init();	
-	GPIOE->BSRR |= GPIO_Pin_12;
+	//GPIOE->BSRR |= GPIO_Pin_12;
 #endif
+
+	
 
 	//initialize();
 
