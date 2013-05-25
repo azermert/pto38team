@@ -65,7 +65,9 @@ USER_STANDARD_REQUESTS  *pUser_Standard_Requests;
 *******************************************************************************/
 void USB_Init(void)
 {
-  pInformation = &Device_Info;
+//  uint16_t wCNTR;
+	
+	pInformation = &Device_Info;
   pInformation->ControlState = 2;
   pProperty = &Device_Property;
   pUser_Standard_Requests = &User_Standard_Requests;

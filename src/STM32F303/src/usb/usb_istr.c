@@ -200,7 +200,11 @@ void USB_Istr(void)
         /*clear FRES*/
         wCNTR&=~CNTR_FRES;
         _SetCNTR(wCNTR);
-      
+				
+				/*disable ESOF interrupt*/
+				//wCNTR &= ~CNTR_ESOFM;
+				//_SetCNTR(wCNTR);
+				
         /*poll for RESET flag in ISTR*/
         while((_GetISTR()&ISTR_RESET) == 0);
   
@@ -227,6 +231,11 @@ void USB_Istr(void)
 #endif
   }
 #endif
+	
+	/*disable ESOF interrupt*/
+	wCNTR = _GetCNTR();
+	wCNTR &= ~CNTR_ESOFM;
+  _SetCNTR(wCNTR);
 } /* USB_Istr */
 
 
