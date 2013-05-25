@@ -100,6 +100,7 @@ int main(void) {
 	GPIOE->BSRR |= GPIO_Pin_12;
 #endif
 
+	//initialize();
 
 //	messageParser = &messageReadTick;	//default
 

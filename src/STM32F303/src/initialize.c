@@ -50,8 +50,8 @@ void serialCommInit(void){
 
 void initialize(void){
 	
-	GEN_InitTypeDef gGenSignal;
-	GEN_SIGNAL sig;
+	//GEN_InitTypeDef gGenSignal;
+	//GEN_SIGNAL sig;
 
 	init_SystemClock();	  	//RCC config
 

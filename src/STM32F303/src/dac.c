@@ -75,13 +75,13 @@ void DAC_initialize(pto_DAC_InitTypeDef * p_DAC_desc)
   /* TIM2 enable counter */
   TIM_Cmd(TIM2, ENABLE);
 	
-	/* DAC channel2 Configuration */
+	/* DAC channel1 Configuration */
 	DAC_DeInit(); 
 	DAC_InitStructure.DAC_Trigger = DAC_Trigger_T2_TRGO;
 	DAC_InitStructure.DAC_WaveGeneration = DAC_WaveGeneration_None;
 	DAC_InitStructure.DAC_LFSRUnmask_TriangleAmplitude = DAC_LFSRUnmask_Bits11_0;
 	DAC_InitStructure.DAC_OutputBuffer = DAC_OutputBuffer_Disable;
-	/* DAC Channel2 Init */
+	/* DAC Channel1 Init */
 	DAC_Init(DAC_Channel_1, &DAC_InitStructure);
 	
 	/* Enable DAC Channel2 */
@@ -119,7 +119,14 @@ void DAC_initialize(pto_DAC_InitTypeDef * p_DAC_desc)
   */
 void DAC_set_sample(uint16_t sample)
 {
-  //TODO
+    /* Enable DMA2 Channel3 */
+	DMA_Cmd(DMA2_Channel3, DISABLE);
+	
+	/* Enable DMA for DAC Channel2 */
+	DAC_DMACmd(DAC_Channel_1, DISABLE);
+	
+	DAC_SetChannel1Data(DAC_Align_12b_R, sample);
+	
 	dacState = DAC_RUN;
 }        
 

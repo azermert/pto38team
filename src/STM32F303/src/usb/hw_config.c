@@ -106,13 +106,21 @@ void Set_System(void)
   RCC_APB2PeriphClockCmd(RCC_APB2Periph_SYSCFG, ENABLE);
   
   /*Set PA11,12 as IN - USB_DM,DP*/
-  //RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOA, ENABLE);
-  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_11 | GPIO_Pin_12;
+  RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOA, ENABLE);
+	//RCC->AHBENR |= 0x00020000;
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_11;
   GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
   GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;
   GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
   GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
   GPIO_Init(GPIOA, &GPIO_InitStructure);
+	
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_12;
+  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;
+  GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
+  GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
+  //GPIO_Init(GPIOA, &GPIO_InitStructure);
   
   /*SET PA11,12 for USB: USB_DM,DP*/
   GPIO_PinAFConfig(GPIOA, GPIO_PinSource11, GPIO_AF_14);
@@ -123,7 +131,7 @@ void Set_System(void)
   EXTI_InitStructure.EXTI_Line = EXTI_Line18; 
   EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Rising;
   EXTI_InitStructure.EXTI_LineCmd = ENABLE;
-  EXTI_Init(&EXTI_InitStructure);
+  //EXTI_Init(&EXTI_InitStructure);
 }
 
 /*******************************************************************************
@@ -199,9 +207,9 @@ void USB_Interrupts_Config(void)
   NVIC_Init(&NVIC_InitStructure);
   
     /* Enable the USB Wake-up interrupt */
-  NVIC_InitStructure.NVIC_IRQChannel = USBWakeUp_IRQn;
-  NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;
-  NVIC_Init(&NVIC_InitStructure);
+  //NVIC_InitStructure.NVIC_IRQChannel = USBWakeUp_IRQn;
+  //NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;
+  //NVIC_Init(&NVIC_InitStructure);
 
 
   /* Enable USART Interrupt */
