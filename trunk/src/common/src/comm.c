@@ -72,7 +72,7 @@ void COMM_init(COMM_InitTypeDef * p_COMM_desc)
 	uart.p_outBuffer = &outBuffer;
 	uart.p_COMM_tick = &COMM_tick;
 	
-	UART_initialize(&uart);
+	UART_init(&uart);
 
 }        
 
