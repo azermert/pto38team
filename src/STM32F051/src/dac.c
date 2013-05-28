@@ -204,7 +204,8 @@ void DAC_DMA_start()
   */
 void DAC_DMA_stop()
 {
-//TODO
+		DAC_DMACmd(DAC_Channel_1, DISABLE);
+		dacState = DAC_IDLE;
 }  
 
 /**
