@@ -33,13 +33,13 @@ GEN_SIGNAL	gGenSignal = { GEN_SINE, 1000, 1500, 50, 1000 };
  */ 
 void GEN_init(GEN_InitTypeDef * p_GEN_desc)
 {
-	pto_DAC_InitTypeDef DAC_desc;
+	PTO_DAC_InitTypeDef DAC_desc;
 	
 	DAC_desc.DAC_samplingFrequency = p_GEN_desc->GEN_sampleRate;
-	DAC_desc.p_DAC_memory = (uint32_t *) lGenBuff;//p_GEN_desc->p_GEN_buffer->memory; z neznamych duvodu spolehlivejsi, bohuzel ztrata obecnosti
+	DAC_desc.p_DAC_memory = (uint16_t *) lGenBuff;//p_GEN_desc->p_GEN_buffer->memory; z neznamych duvodu spolehlivejsi, bohuzel ztrata obecnosti
 	DAC_desc.DAC_memorySize = p_GEN_desc->p_GEN_buffer->size;
 
-	DAC_initialize(&DAC_desc);
+	DAC_init(&DAC_desc);
 }
 
 /**
