@@ -45,7 +45,10 @@ uint16_t	lAdcConvValues[ADC_MEM_SIZE];
 uint16_t 	lBuffIndex;
 uint16_t 	lBuffSize;
 
-
+ADC_InitTypeDef 		ADC_InitStructure;
+ADC_CommonInitTypeDef ADC_CommonInitStructure;
+RCC_ClocksTypeDef		RCC_Clocks;
+NVIC_InitTypeDef 		NVIC_InitStructure;
 /* Private function prototypes -----------------------------------------------*/
 /* Private functions ---------------------------------------------------------*/
 
@@ -61,6 +64,7 @@ uint16_t ADC_meas_sample(void)
 {
   u16 i = 0;
   u32 sum = 0;
+	
   while(i < lBuffSize){
   	sum += lAdcConvValues[i];
 	i++;
@@ -75,8 +79,9 @@ uint16_t ADC_meas_sample(void)
   */
 void ADC_circle_meas_start(void)
 {
-  lAdcState = ADC_RUN_INF;
-  //TODO
+	
+	ADC_StartConversion(ADC);
+	lAdcState = ADC_RUN_INF;
 }
 
 /**
@@ -86,8 +91,8 @@ void ADC_circle_meas_start(void)
   */
 void ADC_circle_meas_stop(void)
 {
-  lAdcState = ADC_IDLE;
-  //TODO
+  ADC_StopConversion(ADC);
+	lAdcState = ADC_IDLE;
 }             
 
 /**
@@ -152,11 +157,11 @@ bool ADC_is_buffer_overflowed()
   * @param  None
   * @retval None
   */
-void ADC_IRQHandler(void)
+void ADC1_2_IRQHandler(void)
 {
 	static uint16_t tmp;
 	//u8	ISx;
-
+	
 	switch(lAdcState){
 		case ADC_RUN_INF:
 
@@ -181,9 +186,10 @@ void ADC_IRQHandler(void)
 	   		break;
 	}//switch
 
+	
 	//ADC_ClearITPendingBit(ADC, ADC_IT_EOC);
 	  	/* Clear the selected ADC interrupt pending bits */
-	ADC_ClearITPendingBit(ADC1, ADC_IT_EOC);
+	ADC_ClearITPendingBit(ADC, ADC_IT_EOC);
 	//NVIC_ClearPending(ADC_IRQn);
 	//	ISx = ADC_IRQn/32;	//=0	  ADC_Irqn = 18
 		NVIC->ICPR[0] |= (0x01 << (ADC_IRQn));
@@ -208,7 +214,7 @@ void Trigger_init(PTO_ADC_InitTypeDef * _desc){
 	s32 clk_div;
 	u16 prescaler;
 	u16 arr_reg;
-
+	
 	RCC_APB1PeriphClockCmd(TIMER_CLOCKS, ENABLE);
 	
 	TIM_DeInit(TRIGGER_TIMER);
@@ -281,8 +287,9 @@ void Trigger_init(PTO_ADC_InitTypeDef * _desc){
 
 void gpio_init(void){
 	GPIO_InitTypeDef			GPIO_InitStructure;
-
-	RCC_APB2PeriphClockCmd(ADC_CLOCKS, ENABLE);
+	
+	//RCC_APB2PeriphClockCmd(ADC_CLOCKS, ENABLE);
+	RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOC, ENABLE);
 	
 	GPIO_InitStructure.GPIO_Pin = ADC_Pin;
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AN;
@@ -297,10 +304,6 @@ void gpio_init(void){
   */
 void ADC_init(PTO_ADC_InitTypeDef * _desc)
 {
-
-  	ADC_InitTypeDef 		ADC_InitStructure;
-	ADC_CommonInitTypeDef ADC_CommonInitStructure;
-	RCC_ClocksTypeDef		RCC_Clocks;
  	s32 					clocksPerSample;
 	uint16_t i;
 
@@ -308,13 +311,25 @@ void ADC_init(PTO_ADC_InitTypeDef * _desc)
 	lBuffSize = ADC_MEM_SIZE;
 	lScopeTick = _desc->p_ADC_tick;
 
-	RCC_APB2PeriphClockCmd(ADC_CLOCKS, ENABLE);
+	gpio_init();
+	
+	//RCC_AHBPeriphClockCmd(ADC_CLOCKS, ENABLE);
+	RCC_AHBPeriphClockCmd(RCC_AHBPeriph_ADC12, ENABLE);
+	//RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOC, ENABLE);
 
 	RCC_GetClocksFreq(&RCC_Clocks);
 	clocksPerSample = RCC_Clocks.ADC12CLK_Frequency / _desc->ADC_samplingFrequency;
 	
 	ADC_DeInit(ADC);
 	ADC_StructInit(&ADC_InitStructure);
+
+	/* Enable the ADC gloabal Interrupt */
+  NVIC_InitStructure.NVIC_IRQChannel = ADC_IRQn;
+  NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;
+  NVIC_InitStructure.NVIC_IRQChannelSubPriority = 1;
+  NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
+  NVIC_Init(&NVIC_InitStructure);
+	NVIC_ClearPending(ADC_IRQn);
 	
 	/*kalibrace ADC*/
 	/* Calibration procedure */ 
@@ -324,20 +339,21 @@ void ADC_init(PTO_ADC_InitTypeDef * _desc)
   //Delay(10);
 	for(i = 0; i < 3000; i++)
 		__nop();
+		
+
   
   ADC_SelectCalibrationMode(ADC1, ADC_CalibrationMode_Single);
   ADC_StartCalibration(ADC1);
   
-  while(ADC_GetCalibrationStatus(ADC1) != RESET );
   //calibration_value = ADC_GetCalibrationValue(ADC1);
      
 	
 	ADC_CommonInitStructure.ADC_Mode = ADC_Mode_Independent;                                                                    
-  ADC_CommonInitStructure.ADC_Clock = ADC_Clock_AsynClkMode;                    
+  ADC_CommonInitStructure.ADC_Clock = ADC_Clock_SynClkModeDiv1;//ADC_Clock_AsynClkMode;                    
   ADC_CommonInitStructure.ADC_DMAAccessMode = ADC_DMAAccessMode_Disabled;             
   ADC_CommonInitStructure.ADC_DMAMode = ADC_DMAMode_OneShot;                  
   ADC_CommonInitStructure.ADC_TwoSamplingDelay = 0;          
-  ADC_CommonInit(ADC1, &ADC_CommonInitStructure);
+  ADC_CommonInit(ADC, &ADC_CommonInitStructure);
 
   ADC_InitStructure.ADC_ExternalTrigConvEvent = ADC_TRIGGER;
 	ADC_InitStructure.ADC_ContinuousConvMode = ADC_ContinuousConvMode_Enable;
@@ -347,9 +363,8 @@ void ADC_init(PTO_ADC_InitTypeDef * _desc)
   ADC_InitStructure.ADC_OverrunMode = ADC_OverrunMode_Disable;   
   ADC_InitStructure.ADC_AutoInjMode = ADC_AutoInjec_Disable;  
   ADC_InitStructure.ADC_NbrOfRegChannel = 1;
-  ADC_Init(ADC1, &ADC_InitStructure);
-
-  //ADC_ExternalTrigConvCmd(ADC, ENABLE);
+  ADC_Init(ADC, &ADC_InitStructure);
+	
 	ADC_ExternalTriggerConfig(ADC, ADC_TRIGGER ,ADC_ExternalTrigEventEdge_RisingEdge);
 
 	ADC_Cmd(ADC, ENABLE);	//wake up
@@ -378,8 +393,8 @@ void ADC_init(PTO_ADC_InitTypeDef * _desc)
 	ADC_ITConfig(ADC, ADC_IT_EOC, ENABLE);
 
 	Trigger_init(_desc);
-	gpio_init();
 	NVIC_IntEnable(ADC_IRQn, 4);
+	
 
 } 
 /************************ END OF FILE *****************************************/

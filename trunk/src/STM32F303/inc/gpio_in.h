@@ -13,6 +13,9 @@
 #ifndef __procesor_GPIO_IN_H
 #define __procesor_GPIO_IN_H
 
+#define TRIGGER_TIMER		TIM4
+#define TRIGGER_IRQn		TIM4_IRQn
+
 #define PORTS_CLOCKS RCC_AHBPeriph_GPIOD
 
 #define DATA0_PORT	GPIOD
@@ -36,14 +39,14 @@
 /* Includes ------------------------------------------------------------------*/
 /* Zadne includy zde nebudou!!!*/
 
-typedef void (*tick_gpio_out)(void);
+typedef void (*tick_gpio_in)(void);
 
 typedef struct
 {
   uint32_t GPIO_IN_samplingFrequency;        
   uint32_t * p_GPIO_IN_memory;            			/* Pointer na pamet kam muze GPIO zapisovat */ 
   uint32_t GPIO_IN_memorySize;            			/* Velikost pameti pro GPIO */ 
-  tick_gpio_out p_GPIO_IN_tick;                 /* Pointer na funkci LOG_GPIO_Request() */
+  tick_gpio_in p_GPIO_IN_tick;                 /* Pointer na funkci LOG_GPIO_Request() */
 }GPIO_IN_InitTypeDef;
 
 
@@ -60,6 +63,7 @@ GPIO_IN_STATE GPIO_IN_get_state(void);        /* Vrati stav prevodniku */
 uint8_t GPIO_get_word(void);                  /* Precteni slova na vstupu */
 uint16_t GPIO_get_pointer(void);              /* Vrati index do pole */
 bool GPIO_is_buffer_overflowed(void);         /* Kontrola preteceni bufferu */
+void GPIO_trigger_init(GPIO_IN_InitTypeDef * _desc); /* Inicializace triggeru */
 //void GPIO_LOG_IRQ_handler();              
 
 
