@@ -7,7 +7,7 @@
 #include "systemClock.h"
 #include "uart.h"
 #include "adc.h"
-//#include "scope.h"
+#include "scope.h"
 #include "generator.h"
 
 
@@ -73,7 +73,7 @@ void initialize(void){
 	gGenSignal.p_GEN_buffer 
 	*/
 	
-	/*
+	
 	gSCOPE.SCOPE_samplingFrequency = 10000;      
 	gSCOPE.SCOPE_triggerEdge = SCOPE_RISING;
 	gSCOPE.SCOPE_triggerMode = TRIG_AUTO;
@@ -83,7 +83,7 @@ void initialize(void){
 	SCOPE_init(&gSCOPE);
 	
 	SCOPE_setPreTrigger(256);	
-	*/
+	
 
 
 }

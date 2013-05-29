@@ -19,11 +19,11 @@
 #define ADC_IRQn		ADC1_2_IRQn
 #define ADC_Pin			GPIO_Pin_1
 #define ADC_Port		GPIOC
-#define ADC_CHANNEL		ADC_Channel_15
+#define ADC_CHANNEL		ADC_Channel_7
 #define TRIGGER_TIMER 	TIM4
 #define ADC_TRIGGER		ADC_ExternalTrigConvEvent_5/*TIM4 CC4*/  //ADC_ExternalTrigConv_T4_CC4		//timer4
 
-#define ADC_CLOCKS 			RCC_AHBPeriph_GPIOC|RCC_AHBPeriph_ADC12
+#define ADC_CLOCKS 			RCC_AHBPeriph_GPIOC | RCC_AHBPeriph_ADC12
 #define TIMER_CLOCKS 		RCC_APB1Periph_TIM4	
 
 //export

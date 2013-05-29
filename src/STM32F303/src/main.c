@@ -26,6 +26,7 @@
 #include "uart.h"
 #include "adc.h"
 #include "scope.h"
+#include "log_analyser.h"
 //#include "abc.h"
 #include "state_automat.h"
 
@@ -70,14 +71,22 @@ typedef enum
 void measure_Tick(void);
 //void messageReadTick(void);
 
+void foo(uint16_t i) {
+	i++;
+}
+
 
 /* Functions */
 int main(void) {	
+	LA_InitTypeDef td;
+	LA_Buffer buf;
+	uint16_t a,b;
+	
 	initialize();
 	
 	RCC_AHBPeriphClockCmd(RCC_AHBPeriph_GPIOE, ENABLE);
 
-	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_8 | GPIO_Pin_9 | GPIO_Pin_10 | GPIO_Pin_11 | GPIO_Pin_12 | GPIO_Pin_13;
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_8 | GPIO_Pin_9 | GPIO_Pin_10 | GPIO_Pin_11 | GPIO_Pin_12 | GPIO_Pin_13 | GPIO_Pin_14;
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;
 	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;	
@@ -89,20 +98,20 @@ int main(void) {
 	
 #if defined (USE_USB)	
 	//USB init	
-	//GPIOE->BSRR |= GPIO_Pin_8;
 	Set_System();
-	//GPIOE->BSRR |= GPIO_Pin_9;
   Set_USBClock();
-	//GPIOE->BSRR |= GPIO_Pin_10;
   USB_Interrupts_Config();
-	//GPIOE->BSRR |= GPIO_Pin_11;
   USB_Init();	
-	//GPIOE->BSRR |= GPIO_Pin_12;
 #endif
 
-	
+	buf.size = 1;
+	buf.repeatMemory = &b;
+	buf.sampleMemory = &a;
 
-	//initialize();
+	td.LA_samplingFrequency = 100;
+	td.p_LA_buffer = &buf;
+	
+	//LA_init(&td);
 
 //	messageParser = &messageReadTick;	//default
 
@@ -124,103 +133,8 @@ int main(void) {
 
 		STATE_tick_fast();
 	  UART_tick();
-		measure_Tick();
+		//measure_Tick();
 	}
 
 	}  //end while
 }  //end main()
-
-
-/*
-void discardMessage(void){
-	static bool msgEnd = FALSE;
-	char ch = COMM_view_char();
-
-	switch (ch){
-		case '\r':
-		case '\n':
-			COMM_read_char();
-			msgEnd = TRUE;
-			break;
-		case -1:
-			break;
-		default:
-			if(msgEnd){
-				messageParser = &messageReadTick;
-				msgEnd = FALSE;
-			}else{
-				COMM_read_char();
-			}
-	}
-}
-*/
-/*
-void oscpMsgParser(void){
-	WORD_ID cmd;
-	if( COMM_get_bytes_available() > 4){
-		if(COMM_read_char() != ':'){
-			messageParser = &discardMessage;
-			return;
-		}		
-		COMM_read((uint8_t*)&cmd, 4);
-
-		switch(cmd){
-			case WID_TRIG:				
-				break;
-			case WID_LEVL:
-				break;
-			case WID_EDGE:
-				break;
-			case WID_FREQ:
-				break;
-			case WID_DEPT:
-				break;
-			case WID_STRT:
-				break;
-			case WID_STOP:
-				break;
-
-			default:
-				break;	
-		}		
-	}
-}
-*/
-
-/*
-void messageReadTick(void){
-	WORD_ID word;
-	if( COMM_get_bytes_available() > 3){		
-		COMM_read((uint8_t*)&word, 4);
-
-		switch(word){
-			case WID_IDNQM:
-				COMM_print(ID_STRING);
-				break;
-			case WID_GENUS:
-				COMM_print("Generator unimplemented\n");
-				break;
-			case WID_GPIO:
-				COMM_print("Gpio unimplemented\n");
-				break;
-			case WID_OSCP:
-					messageParser = &oscpMsgParser;
-				break;
-			case WID_CONT:
-				COMM_send("cont\n",5);
-				break;
-			case WID_MEAS:
-				COMM_send("meas\n",5);
-				break;
-			case WID_VOLT:
-				COMM_send("volt\n",5);
-				break;
-			case WID_LOGUS:
-				COMM_send("Logic\n",5);
-				break;
-			default:
-				break;	
-		}		
-	}
-}*/
-

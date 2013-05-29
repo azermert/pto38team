@@ -108,7 +108,7 @@ BUFF_STATE store_byte(char chr)
 
 }
 
-void UART_initialize(PTO_UART_InitTypeDef * _desc)
+void UART_init(PTO_UART_InitTypeDef * _desc)
 {
 	USART_InitTypeDef USART_InitStruct;
 
@@ -156,7 +156,8 @@ void USART3_IRQHandler(void)
 	if (StatusValue & USART_ISR_RXNE)
 	{                  
 		store_byte(USART3->RDR);
-  	}
+		USART_ClearITPendingBit(USART3, USART_IT_RXNE);
+  }
 
   	if (0 != (StatusValue & USART_ISR_TXE))
 	{

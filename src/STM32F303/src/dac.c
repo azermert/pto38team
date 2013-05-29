@@ -23,7 +23,7 @@
 /* Private variables ---------------------------------------------------------*/
 bool DACunInitialized = TRUE;
 DAC_STATE dacState = DAC_ERR;
-pto_DAC_InitTypeDef DAC_desc;
+PTO_DAC_InitTypeDef DAC_desc;
 
 
 uint16_t DACbufferPointer = 0;  // Ukazuje do bufferu na vzorek, ktery byl naposled nastaven
@@ -36,7 +36,7 @@ uint16_t DACbufferPointer = 0;  // Ukazuje do bufferu na vzorek, ktery byl napos
   * @param  DAC deskriptor
   * @retval None
   */
-void DAC_initialize(pto_DAC_InitTypeDef * p_DAC_desc)
+void DAC_init(PTO_DAC_InitTypeDef * p_DAC_desc)
 {
   DAC_InitTypeDef            DAC_InitStructure;
   DMA_InitTypeDef            DMA_InitStructure;
@@ -62,8 +62,15 @@ void DAC_initialize(pto_DAC_InitTypeDef * p_DAC_desc)
   RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM2, ENABLE);
   
   /* Time base configuration */
-  TIM_TimeBaseStructInit(&TIM_TimeBaseStructure); 
-  TIM_TimeBaseStructure.TIM_Period = p_DAC_desc->DAC_samplingFrequency;//0x8C9;          
+  TIM_TimeBaseStructInit(&TIM_TimeBaseStructure);
+	
+	if(0xFFFFFFFF/(20*p_DAC_desc->DAC_samplingFrequency) < 1) {
+		TIM_TimeBaseStructure.TIM_Period = 1;          
+	} else if(0xFFFFFFFF/(20*p_DAC_desc->DAC_samplingFrequency) > 0xFFFFFFFF) {
+		TIM_TimeBaseStructure.TIM_Period = 0xFFFFFFFF;
+	} else {
+		TIM_TimeBaseStructure.TIM_Period = (uint32_t) 0xFFFFFFFF/(20*p_DAC_desc->DAC_samplingFrequency);//0x8C9;          
+	}
   TIM_TimeBaseStructure.TIM_Prescaler = 0x00;       
   TIM_TimeBaseStructure.TIM_ClockDivision = 0x0;    
   TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;  
@@ -80,7 +87,7 @@ void DAC_initialize(pto_DAC_InitTypeDef * p_DAC_desc)
 	DAC_InitStructure.DAC_Trigger = DAC_Trigger_T2_TRGO;
 	DAC_InitStructure.DAC_WaveGeneration = DAC_WaveGeneration_None;
 	DAC_InitStructure.DAC_LFSRUnmask_TriangleAmplitude = DAC_LFSRUnmask_Bits11_0;
-	DAC_InitStructure.DAC_OutputBuffer = DAC_OutputBuffer_Disable;
+	DAC_InitStructure.DAC_OutputBuffer = DAC_OutputBuffer_Enable;
 	/* DAC Channel1 Init */
 	DAC_Init(DAC_Channel_1, &DAC_InitStructure);
 	

@@ -47,7 +47,7 @@ typedef struct
 
 
 /* UART_Exported_Functions */
-void UART_initialize(PTO_UART_InitTypeDef * p_UART_desc);        /* Inicializace pomoci decsriptoru */
+void UART_init(PTO_UART_InitTypeDef * p_UART_desc);        /* Inicializace pomoci decsriptoru */
 void UART_tick(void);                         /* Fce viditelna z COMM urcena k odstartovani prenosu pokud jsou data v bufferu*/
 //void USART1_IRQHandler(void);
 
