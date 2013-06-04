@@ -86,14 +86,17 @@ namespace PTO_PC_APP
                     }
                     else if (sigType == SignalType.TRIANGLE)
                     {
+
+                        
                         if (i > buffLenght * duty / 100)
                         {
-                            this.signal[i] = (offset + amplitude - amplitude/(buffLenght - (duty / 100 * buffLenght)) * (i - (buffLenght * duty / 100))) / 1000;
+                            this.signal[i] = (offset-amplitude + amplitude*2 - amplitude*2/(buffLenght - (duty / 100 * buffLenght)) * (i - (buffLenght * duty / 100))) / 1000;
                         }
                         else
                         {
-                            this.signal[i] = (offset + amplitude/(duty/100*buffLenght)*i) / 1000;
+                            this.signal[i] = (offset-amplitude + amplitude*2/(duty/100*buffLenght)*i) / 1000;
                         }
+                        
                     }
                 }
 
