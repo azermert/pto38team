@@ -83,6 +83,7 @@ namespace PTO_PC_APP
                     scope.new_data(sc.get_scope_data());
                     if (scope.trig == Scope_thread.TriggerType.NORMAL)
                     {
+                       // Thread.Sleep(4000);
                         sc.scope_start();
                         scope.trigShow = true;
                         scopeWatchDog = 0;
@@ -793,7 +794,7 @@ namespace PTO_PC_APP
             {
                 scope.set_trigger(Scope_thread.TriggerType.NORMAL);
                 sc.set_scope_trigger_type(Defines.SCOPE_TRIG_SINGLE);
-                sc.scope_start();
+                if(this.checkBox_scope_enable.Checked){sc.scope_start();}
             }
         }
         private void radioButton_trig_auto_CheckedChanged(object sender, EventArgs e)
@@ -802,7 +803,7 @@ namespace PTO_PC_APP
             {
                 scope.set_trigger(Scope_thread.TriggerType.AUTO);
                 sc.set_scope_trigger_type(Defines.SCOPE_TRIG_AUTO);
-                sc.scope_start();
+                if (this.checkBox_scope_enable.Checked) { sc.scope_start(); }
             }
         }
         private void radioButton_trig_single_Click(object sender, EventArgs e)
@@ -811,7 +812,7 @@ namespace PTO_PC_APP
             {
                 scope.set_trigger(Scope_thread.TriggerType.SINGLE);
                 sc.set_scope_trigger_type(Defines.SCOPE_TRIG_SINGLE);
-                sc.scope_start();
+                if (this.checkBox_scope_enable.Checked) { sc.scope_start(); }
             }
         }
 

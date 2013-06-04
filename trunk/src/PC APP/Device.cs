@@ -142,9 +142,9 @@ namespace PTO_PC_APP
             {
                 port.Write(s);
 
-                if (!s.Equals("OSCP:SRAT")) {
+             //   if (!s.Equals("OSCP:SRAT")) {
                     logUart(s);
-                }
+               // }
                 Console.WriteLine(s);
             }
             catch (Exception ex) {
