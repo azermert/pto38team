@@ -40,7 +40,7 @@ void init_Discovery(void){
 void serialCommInit(void){
 	COMM_InitTypeDef commInit;
 
-	commInit.speed = COMM_NORMAL;	
+	commInit.speed = COMM_NORMAL ;	
 	COMM_init(&commInit);
 }
 

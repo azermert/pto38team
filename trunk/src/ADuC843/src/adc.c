@@ -34,7 +34,7 @@ bool lAdcOverflowed = FALSE;
 uint16_t lAdcBufferPointer = 0;  
 uint16_t lAdcBufferLastRead = 0;	// Ukazuje do bufferu na vzorek, ktery byl naposled precten					
 
-
+sbit LED=P3^4;
 
 tick_adc lScopeTick = NULL;
 ADC_STATE lAdcState = ADC_IDLE;
@@ -159,17 +159,21 @@ void ADC_IRQ_handler() interrupt 6
 	
 	switch(lAdcState){
 		case ADC_RUN_INF:
-
+			LED=0;
+			if(lAdcState==ADC_RUN_INF){
+				
 			ad_res=((ADCDATAH<<8)|ADCDATAL)&(0x0FFF);
-
+			//COMM_put_char(lAdcState+48);
 			//if(lScopeTick != NULL){
 				lScopeTick(ad_res);
 			//	}
+				}
 			break;
 
 		case ADC_DMA_RUN:
 		case ADC_DMA_DONE:
 	  case ADC_IDLE:
+			LED=1;
 	  case ADC_ERR:
 	  default:
 	break;
@@ -389,17 +393,16 @@ void ADC_init(PTO_ADC_InitTypeDef * _desc)
 	
 	 PLLCON=0x00;			//frequency MCU 16.777216MHz
 	 //Setting of ADC
-	 ADCCON1=0xBE;		 //10111110
+	 ADCCON1=0xB2;		 //10110110
 	 ADCCON2=0x00;		 
 
 	 //Internal XRAM
-	 //CFG842=0x01;
 
 	 //Setting of timer 2 for circle measure
 	 trValue=0xFFFF-(16777216/(*_desc).ADC_samplingFrequency);	//Vypocet vzorkovaci frekvence
 	 RCAP2L=trValue&0x00FF;
 	 RCAP2H=(trValue&0xFF00)>>8;
-		
+	
 	 
 	 EADC=1; 	//enable ADC interrupt (EADC bit from IE register)
 	 TR2=1;		//turn on timer2

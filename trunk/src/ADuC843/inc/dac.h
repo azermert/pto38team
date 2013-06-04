@@ -23,7 +23,7 @@ typedef struct
   uint32_t DAC_samplingFrequency;        
   uint32_t * p_DAC_memory;                /* Pointer na pamet, ze ktere DAC muze cist */ 
   uint32_t DAC_memorySize;                /* Velikost pameti pro DAC */ 
-}DAC_InitTypeDef;
+}PTO_DAC_InitTypeDef;
 
 
 typedef enum
@@ -34,9 +34,11 @@ typedef enum
 	DAC_ERR
 }DAC_STATE;
 
+#define DMA_RATE_MAX	1//2000000
+#define DAC_MAX_VALUE	0x01//0x0FFF
 
 /* ADC_Exported_Functions */
-void DAC_init(DAC_InitTypeDef * p_DAC_desc);          /* Inicializace pomoci decsriptoru */
+void DAC_init(PTO_DAC_InitTypeDef * p_DAC_desc);          /* Inicializace pomoci decsriptoru */
 void DAC_set_sample(uint16_t sample);     /* Nastavi hodnotu na vystup */
 void DAC_DMA_start(void);                     /* Odstartuje generovani vystupu pomoci DMA */
 DAC_STATE DAC_get_state(void);                /* Vrati stav prevodniku */

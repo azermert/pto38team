@@ -24,7 +24,7 @@
 /* Private variables ---------------------------------------------------------*/
 bool DACunInitialized = TRUE;
 DAC_STATE dacState = DAC_ERR;
-DAC_InitTypeDef DAC_desc;
+PTO_DAC_InitTypeDef DAC_desc;
 
 uint16_t DACbufferPointer = 0;  // Ukazuje do bufferu na vzorek, ktery byl naposled nastaven
 /* Private function prototypes -----------------------------------------------*/
@@ -36,7 +36,7 @@ uint16_t DACbufferPointer = 0;  // Ukazuje do bufferu na vzorek, ktery byl napos
   * @param  DAC deskriptor
   * @retval None
   */
-void DAC_init(DAC_InitTypeDef * p_DAC_desc)
+void DAC_init(PTO_DAC_InitTypeDef * p_DAC_desc)
 {
   //TODO
 }
