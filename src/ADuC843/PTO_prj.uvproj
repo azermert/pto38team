@@ -126,7 +126,7 @@
             <RestoreMemoryDisplay>1</RestoreMemoryDisplay>
             <RestoreFunctions>1</RestoreFunctions>
             <RestoreToolbox>1</RestoreToolbox>
-            <LimitSpeedToRealTime>0</LimitSpeedToRealTime>
+            <LimitSpeedToRealTime>1</LimitSpeedToRealTime>
           </Simulator>
           <Target>
             <UseTarget>0</UseTarget>
@@ -298,7 +298,7 @@
               <MiscControls></MiscControls>
               <Define></Define>
               <Undefine></Undefine>
-              <IncludePath>..\ADuC843\lib;.\inc;.\common\inc;.\common\src;.\src</IncludePath>
+              <IncludePath>..\ADuC843\lib;.\inc;.\src;..\common\inc;..\common\src;.\lib</IncludePath>
             </VariousControls>
           </C51>
           <Ax51>
@@ -347,96 +347,6 @@
         </Target51>
       </TargetOption>
       <Groups>
-        <Group>
-          <GroupName>inc</GroupName>
-          <Files>
-            <File>
-              <FileName>adc.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\inc\adc.h</FilePath>
-            </File>
-            <File>
-              <FileName>buttons.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\inc\buttons.h</FilePath>
-            </File>
-            <File>
-              <FileName>dac.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\inc\dac.h</FilePath>
-            </File>
-            <File>
-              <FileName>gpio_ext.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\inc\gpio_ext.h</FilePath>
-            </File>
-            <File>
-              <FileName>gpio_in.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\inc\gpio_in.h</FilePath>
-            </File>
-            <File>
-              <FileName>gpio_out.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\inc\gpio_out.h</FilePath>
-            </File>
-            <File>
-              <FileName>lcd.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\inc\lcd.h</FilePath>
-            </File>
-            <File>
-              <FileName>led.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\inc\led.h</FilePath>
-            </File>
-            <File>
-              <FileName>nmi_irq.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\inc\nmi_irq.h</FilePath>
-            </File>
-            <File>
-              <FileName>sys_ctl.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\inc\sys_ctl.h</FilePath>
-            </File>
-            <File>
-              <FileName>uart.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\inc\uart.h</FilePath>
-            </File>
-            <File>
-              <FileName>NVIC_Basic.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\inc\NVIC_Basic.h</FilePath>
-            </File>
-            <File>
-              <FileName>timeBase.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\inc\timeBase.h</FilePath>
-            </File>
-            <File>
-              <FileName>systemClock.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\inc\systemClock.h</FilePath>
-            </File>
-            <File>
-              <FileName>initialize.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\inc\initialize.h</FilePath>
-            </File>
-            <File>
-              <FileName>abc.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\common\inc\abc.h</FilePath>
-            </File>
-            <File>
-              <FileName>typedefs.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\inc\typedefs.h</FilePath>
-            </File>
-          </Files>
-        </Group>
         <Group>
           <GroupName>src</GroupName>
           <Files>
@@ -531,37 +441,37 @@
             <File>
               <FileName>comm.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\common\src\comm.c</FilePath>
+              <FilePath>..\common\src\comm.c</FilePath>
             </File>
             <File>
               <FileName>counter.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\common\src\counter.c</FilePath>
+              <FilePath>..\common\src\counter.c</FilePath>
             </File>
             <File>
               <FileName>generator.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\common\src\generator.c</FilePath>
+              <FilePath>..\common\src\generator.c</FilePath>
             </File>
             <File>
               <FileName>log_analyser.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\common\src\log_analyser.c</FilePath>
+              <FilePath>..\common\src\log_analyser.c</FilePath>
             </File>
             <File>
               <FileName>parse_cmd.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\common\src\parse_cmd.c</FilePath>
+              <FilePath>..\common\src\parse_cmd.c</FilePath>
             </File>
             <File>
               <FileName>scope.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\common\src\scope.c</FilePath>
+              <FilePath>..\common\src\scope.c</FilePath>
             </File>
             <File>
               <FileName>state_automat.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\common\src\state_automat.c</FilePath>
+              <FilePath>..\common\src\state_automat.c</FilePath>
             </File>
           </Files>
         </Group>

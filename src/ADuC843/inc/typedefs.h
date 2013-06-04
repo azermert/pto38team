@@ -14,9 +14,9 @@
 
 #include "ADuC843.h"
 #include "typedef.h"
-#define IDN_STRING "ADuC\n\r"
-#define ERR_STRING "ERR" //60chars
-#define OK_STRING  "OK"
+#define IDN_STRING "IDN_ADuC843 V0.1"
+#define ERR_STRING "ERRR" //60chars
+#define OK_STRING  "ACKN"
 
 #endif /*__TYPES_H */
 
