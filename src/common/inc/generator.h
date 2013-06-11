@@ -60,8 +60,10 @@ typedef struct
 	GEN_STATE GEN_state;											/* stav generatoru */
 } GEN_InitTypeDef;
 
+#ifndef ADUC843
 #define GEN_BUFF_LENGHT 500
 extern GEN_SIGNAL	gGenSignal;
+#endif
 
 /* GEN_Exported_Functions */
 void GEN_init(GEN_InitTypeDef * p_GEN_desc); /* Inicializace pomoci decsriptoru */
