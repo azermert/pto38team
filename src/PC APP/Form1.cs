@@ -330,8 +330,8 @@ namespace PTO_PC_APP
                 scope.update_time_base();
                 scope.signal = new double[scope.buffLenght];
 
-                sc.set_scope_pretrig(sc.get_dev_configuration().scopeBuffLenght * scope.pretrig / 100);
-                sc.set_scope_trigger_level(scope.trig_level);
+               // sc.set_scope_pretrig(sc.get_dev_configuration().scopeBuffLenght * scope.pretrig / 100);
+               // sc.set_scope_trigger_level(scope.trig_level);
                 sc.scope_start();
             }
             else
@@ -595,6 +595,20 @@ namespace PTO_PC_APP
             if (c.scopeMaxf < 2000)
             {
                 this.radioButton_2k.Enabled = false;
+            }
+
+            if (sc.get_dev_configuration().procType.Equals("ADuC843"))
+            {
+                this.trackBar_pretrig.Enabled = false;
+                this.trackBar_trig_level.Enabled = false;
+                this.maskedTextBox_pretrig.Enabled = false;
+                this.maskedTextBox_trig_level.Enabled = false;
+            }
+            else {
+                this.trackBar_pretrig.Enabled = true;
+                this.trackBar_trig_level.Enabled = true;
+                this.maskedTextBox_pretrig.Enabled = true;
+                this.maskedTextBox_trig_level.Enabled = true;
             }
         }
         //konec vykreslovaci meody

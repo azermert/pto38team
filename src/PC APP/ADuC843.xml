@@ -6,9 +6,9 @@
   <comm>UART</comm>
   <connect>TX - Px y, RX - Px y</connect>
   <scope>
-    <sc_maxf>100000</sc_maxf>
+    <sc_maxf>10000</sc_maxf>
     <sc_depth>12</sc_depth>
-    <sc_v_ref>3000</sc_v_ref>
+    <sc_v_ref>2500</sc_v_ref>
     <sc_buffsize>500</sc_buffsize>
     <sc_pin>PC 5</sc_pin>
   </scope>
