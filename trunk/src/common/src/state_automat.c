@@ -65,8 +65,12 @@ void STATE_tick_slow(){
 		break;
 		
 		case WID_GENUS:
+			#ifndef ADUC843
 			set_genus_param();
-			COMM_print(OK_STRING);	
+			COMM_print(OK_STRING);
+			#else
+			COMM_print(ERR_STRING);
+			#endif
 		break;
 		
 		case WID_LOGUS:
@@ -185,6 +189,7 @@ void set_scope_param(){
 
 
 void set_genus_param(){
+	#ifndef ADUC843
 	uint8_t prm=0;
 
 		while(p_cmd->PARAM_hash[prm] && prm<3){
@@ -232,6 +237,7 @@ void set_genus_param(){
 			}
 		prm++;		
 		}
+		#endif
 }
 
 /************************ END OF FILE *****************************************/

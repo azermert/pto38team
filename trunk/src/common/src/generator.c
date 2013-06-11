@@ -18,10 +18,11 @@
 /* Private define ------------------------------------------------------------*/ 
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
+#ifndef ADUC843
 uint16_t	lGenBuff[GEN_BUFF_LENGHT];
 GEN_SIGNAL  lSigDefault	= {	GEN_SINE, 1000,	1500, 50, 1000 };
 GEN_SIGNAL	gGenSignal = { GEN_SINE, 1000, 1500, 50, 1000 };
-
+#endif
 
 /* Private function prototypes -----------------------------------------------*/
 /* Private functions ---------------------------------------------------------*/
@@ -33,6 +34,7 @@ GEN_SIGNAL	gGenSignal = { GEN_SINE, 1000, 1500, 50, 1000 };
  */ 
 void GEN_init(GEN_InitTypeDef * p_GEN_desc)
 {
+	#ifndef ADUC843
 	PTO_DAC_InitTypeDef DAC_desc;
 	
 	DAC_desc.DAC_samplingFrequency = p_GEN_desc->GEN_sampleRate;
@@ -40,6 +42,7 @@ void GEN_init(GEN_InitTypeDef * p_GEN_desc)
 	DAC_desc.DAC_memorySize = p_GEN_desc->p_GEN_buffer->size;
 
 	DAC_init(&DAC_desc);
+	#endif
 }
 
 /**
@@ -50,6 +53,7 @@ void GEN_init(GEN_InitTypeDef * p_GEN_desc)
  */ 
 bool GEN_set_signal(GEN_SIGNAL* _sig)
 {
+	#ifndef ADUC843
 	GEN_InitTypeDef		gen_desc;
 	GEN_Buffer			genBuff;
 
@@ -173,6 +177,7 @@ bool GEN_set_signal(GEN_SIGNAL* _sig)
 	GEN_init(&gen_desc);
 
 	return TRUE;
+	#endif
 }
 
 /**
@@ -182,8 +187,10 @@ bool GEN_set_signal(GEN_SIGNAL* _sig)
  */ 
 void GEN_start()													
 {
+	#ifndef ADUC843
 	GEN_set_signal(&gGenSignal);
 	DAC_DMA_start();
+	#endif
 }
 
 /**
@@ -193,7 +200,9 @@ void GEN_start()
  */ 
 void GEN_stop()
 {
+	#ifndef ADUC843
 	DAC_DMA_stop();
+	#endif
 }
 
 /**
@@ -203,6 +212,7 @@ void GEN_stop()
  */ 
 GEN_STATE GEN_get_state()
 {
+	#ifndef ADUC843
 	switch (DAC_get_state())
 	{
 		case DAC_IDLE:
@@ -214,6 +224,7 @@ GEN_STATE GEN_get_state()
 		default:
 			return GEN_ERR;
 	};
+	#endif
 }
 
 
