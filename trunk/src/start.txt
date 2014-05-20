@@ -2,7 +2,7 @@ Ahoj toto je prvni soubor na vyzkouseni prace s verzovnacim softem.
 
 Plati zde svoboda slova takze se nebojte vyjadrit!!!!
 
-bleeeee
+bleeeee n,bmnvbmnb
 
 zkouska revertu zmen
 vytvoreni patche
